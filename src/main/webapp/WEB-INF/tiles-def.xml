@@ -9,10 +9,6 @@
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
 	</definition>
 	
-	<definition name=".detail" extends=".main">
-		<put-attribute name="main" value="/WEB-INF/views/detail.jsp"/>
-	</definition>
-	
 		<definition name="*" extends=".main">
 
 			<definition name=".*.*.*"  extends=".main">
