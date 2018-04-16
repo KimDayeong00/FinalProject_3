@@ -21,7 +21,7 @@
             <div class="row">
                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="section-title text-center">
-                        <h1>Find The Tours</h1>
+                        <h1>Find The Tour</h1>
                     </div>
                 </div>
             </div>
