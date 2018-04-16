@@ -61,7 +61,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                        <a href="index.html"><img src="images/logo.png" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                        <a href="index.html"><img src="resources/images/logo.png" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">
@@ -121,7 +121,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="service-block">
                         <div class="service-img">
-                            <a href="#"><img src="images/service-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                            <a href="#"><img src="resources/images/service-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
                         </div>
                         <div class="service-content">
                             <h3><a href="#" class="title">Group Tour</a></h3>
@@ -136,7 +136,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="service-block">
                         <div class="service-img">
-                            <a href="#"><img src="images/service-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                            <a href="#"><img src="resources/images/service-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
                         </div>
                         <div class="service-content">
                             <h3><a href="#" class="title">Couple Tour</a></h3>
@@ -151,7 +151,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="service-block">
                         <div class="service-img">
-                            <a href="#"><img src="images/service-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                            <a href="#"><img src="resources/images/service-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
                         </div>
                         <div class="service-content">
                             <h3><a href="#" class="title">Off Season Tour</a></h3>
@@ -224,7 +224,7 @@
                 <!-- destination-one-start -->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="destination-img">
-                        <a href="#" class="imghover"><img src="images/destination-1.jpg" alt "Tour and Travel Agency - Responsive Website Template" class="img-responsive"></a>
+                        <a href="#" class="imghover"><img src="resources/images/destination-1.jpg" alt "Tour and Travel Agency - Responsive Website Template" class="img-responsive"></a>
                     </div>
                     <div class="destination-content">
                         <h3><a href="#" class="destination-title">Singapore</a></h3>
@@ -234,7 +234,7 @@
                 <!-- destination-two-start -->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="destination-img imghover">
-                        <a href="#" class="imghover"><img src="images/destination-2.jpg" alt "Tour and Travel Agency - Responsive Website Template" class="img-responsive"></a>
+                        <a href="#" class="imghover"><img src="resources/images/destination-2.jpg" alt "Tour and Travel Agency - Responsive Website Template" class="img-responsive"></a>
                     </div>
                     <div class="destination-content">
                         <h3><a href="#" class="destination-title">Greece</a></h3>
@@ -244,7 +244,7 @@
                 <!-- destination-three-start -->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="destination-img imghover">
-                        <a href="#"><img src="images/destination-3.jpg" alt "Tour and Travel Agency - Responsive Website Template" class="img-responsive"></a>
+                        <a href="#"><img src="resources/images/destination-3.jpg" alt "Tour and Travel Agency - Responsive Website Template" class="img-responsive"></a>
                     </div>
                     <div class="destination-content">
                         <h3><a href="#" class="destination-title">Thailand</a></h3>
@@ -269,8 +269,8 @@
                 <!-- Testimonials-one-start -->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="testimonial-block">
-                        <div class="testimonial-img"><img src="images/testimonial-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
-                        <div class="testimonial-user-img"><img src="images/testimonial-user-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
+                        <div class="testimonial-img"><img src="resources/images/testimonial-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
+                        <div class="testimonial-user-img"><img src="resources/images/testimonial-user-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
                         <div class="testimonial-content">
                             <h4>Paul Hasburg</h4>
                             <span class="location">Kerala</span>
@@ -285,8 +285,8 @@
                 <!-- Testimonials-two-start -->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="testimonial-block">
-                        <div class="testimonial-img"><img src="images/testimonial-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
-                        <div class="testimonial-user-img"><img src="images/testimonial-user-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
+                        <div class="testimonial-img"><img src="resources/images/testimonial-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
+                        <div class="testimonial-user-img"><img src="resources/images/testimonial-user-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
                         <div class="testimonial-content">
                             <h4>Plisa Moody</h4>
                             <span class="location">Kullu-manali</span>
@@ -301,8 +301,8 @@
                 <!-- Testimonials-three-start -->
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="testimonial-block">
-                        <div class="testimonial-img"><img src="images/testimonial-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
-                        <div class="testimonial-user-img"><img src="images/testimonial-user-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
+                        <div class="testimonial-img"><img src="resources/images/testimonial-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template"></div>
+                        <div class="testimonial-user-img"><img src="resources/images/testimonial-user-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template" class="img-circle"></div>
                         <div class="testimonial-content">
                             <h4>Christine Smith</h4>
                             <span class="location">Turkey</span>
