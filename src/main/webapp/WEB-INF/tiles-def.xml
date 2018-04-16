@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions 
+  PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition name=".main" template="/WEB-INF/views/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+	</definition>
+	<definition name=".login" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/login.jsp"/>
+	</definition>
+	<definition name=".item" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/item.jsp"/>
+	</definition>
+	<!-- .admin.notice -->
+	<!-- <definition name=".admin.notice" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/admin/notice.jsp"/>
+	</definition> -->
+	<!-- 
+		뷰이름이 .admin.notice 라면
+		{1}의 위치에 admin
+		{2}의 위치에 notice가 설정되어서 보여지는 jsp페이지는
+			"/WEB-INF/views/admin/notice.jsp"가 됨
+	 -->
+	<definition name=".*.*.*" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".*.*" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<!-- *이 많은게 위로 올라가야한다 -->
+	<definition name=".*" extends=".main">
+		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
+	</definition>
+</tiles-definitions>
