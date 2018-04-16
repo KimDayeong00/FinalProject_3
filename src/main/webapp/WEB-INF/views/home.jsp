@@ -12,13 +12,13 @@
     <meta name="keywords" content="travel, tour, tourism, honeymoon pacakage, summer trip, exotic vacation, destination, international, domestic website template, holiday, travel agecny responsive website template">
     <title>Tour and Travel Agency - Responsive Website Template</title>
     <!-- Bootstrap -->
-    <link href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet">
     <!-- Style CSS -->
-    <link href="${pageContext.request.contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <!-- FontAwesome CSS -->
-    <link href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -387,12 +387,12 @@
     </div>
     <!-- footer close -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<c:url value="/resources/js/jquery.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/menumaker.js"/>" type="text/javascript"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/sticky-header.js"/>"></script>
+    <script src="<c:url value='/resources/js/bootstrap.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
 </body>
 
 </html>
