@@ -25,6 +25,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
 </head>
 
 <body>
@@ -61,7 +62,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                        <a href="index.html"><img src="resources/images/logo.png" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                    <c:url value=''/>
+                        <a href="<c:url value='/'/>"><img src="<c:url value='/resources/images/logo.png'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">
@@ -76,7 +78,7 @@
                                         </ul>
                                     </li> -->
                                     <li><a href="contact-us.html" title="Contact Us">예약하기</a> </li>
-                                    <li><a href="testimonials.html" title="Testimonials">쇼핑몰</a>
+                                    <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a>
                                     <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
                                     <li class="has-sub"><a href="#" title="Tours">고객지원</a>
                                         <ul>
