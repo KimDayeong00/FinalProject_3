@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,8 @@
 </head>
 
 <body>
+=======
+>>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
     <!-- header-section start -->
     <div class="top-bar">
         <div class="container">
@@ -78,10 +81,10 @@
                                             <li><a href="blog-single.html" title="Blog Single ">Blog Single</a></li>
                                         </ul>
                                     </li> -->
-                                    <li><a href="contact-us.html" title="Contact Us">예약하기</a> </li>
-                                    <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a>
+									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
+                                    <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
                                     <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
-                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a>
+                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a></li>
                                         <ul>
                                             <li><a href="domestic-tour.html" title="Group Tours">Domestic Tours</a></li>
                                             <li><a href="international-tour.html" title="Couple Tours">International Tours</a></li>
