@@ -10,7 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeConrtoller {
 	
 	@RequestMapping("/")
-	public String home() {
+	public String main() {
 		return ".main";
+	}
+	@RequestMapping("/shop/home")
+	public String home() {
+		return ".shop.home";
 	}
 }
