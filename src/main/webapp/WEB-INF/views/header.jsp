@@ -40,7 +40,7 @@
                 <div class="col-md-8 hidden-sm hidden-xs">
                     <div class="social">
                         <ul>
-                        	<li><a href="#">로그인</a></li>
+                        	<li><a href="<c:url value="/login" />">로그인</a></li>
                         	<li><a href="#">회원가입</a></li>
                         	<li><a href="#">펫시터 등록</a></li>
                         	<!-- 
