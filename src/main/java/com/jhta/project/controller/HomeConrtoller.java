@@ -16,6 +16,6 @@ public class HomeConrtoller {
 	
 	@RequestMapping("/login")
 	public String login() {
-		return ".login";
+		return "/members/login";
 	}
 }
