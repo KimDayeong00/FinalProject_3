@@ -13,9 +13,5 @@ public class HomeConrtoller {
 	public String home() {
 		return ".main";
 	}
-	
-	@RequestMapping("/login")
-	public String login() {
-		return "/members/login";
-	}
+
 }

@@ -41,7 +41,7 @@
                     <div class="social">
                         <ul>
                         	<li><a href="<c:url value="/login" />">로그인</a></li>
-                        	<li><a href="#">회원가입</a></li>
+                        	<li><a href="<c:url value="/register" />">회원가입</a></li>
                         	<li><a href="#">펫시터 등록</a></li>
                         	<!-- 
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -61,7 +61,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                        <a href="index.html"><img src="resources/images/logo.png" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                        <a href="<c:url value="/" />"><img src="resources/images/logo.png" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">
