@@ -13,8 +13,5 @@ public class HomeConrtoller {
 	public String main() {
 		return ".main";
 	}
-	@RequestMapping("/shop/home")
-	public String home() {
-		return ".shop.home";
-	}
+
 }

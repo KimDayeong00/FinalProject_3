@@ -3,9 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <typeAliases>
+  	<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo"/>
+  </typeAliases>
   
   <mappers>
   <!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
     <mapper resource="com/jhta/mybatis/ProjectMapper.xml"/>
+     <mapper resource="com/jhta/mybatis/ShopMapper.xml"/>
   </mappers>
 </configuration>
