@@ -9,4 +9,8 @@ public class BookingController {
 	public String list() {
 		return ".booking.list";
 	}
+	@RequestMapping("/booking/test")
+	public String llist() {
+		return ".booking.test";
+	}
 }

@@ -6,6 +6,6 @@
   
   <mappers>
   <!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
-    <mapper resource="com/jhta/mybatis/ProjectMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/PetSitterMapper.xml"/>
   </mappers>
 </configuration>
