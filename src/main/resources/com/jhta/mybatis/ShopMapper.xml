@@ -3,8 +3,27 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.ShopMapper">
+
 <select id="classlist"  resultType="shopclassvo">
 	select * from class
 </select>
+
+<select id="fieldlist"  parameterType="int" resultType="shopfieldvo">
+select * from field where classnum=#{classnum}
+</select>
+
+<select id="itemlist" parameterType="int" resultType="shopitemvo">
+select * from item where fieldnum in(select fieldnum from field where classnum in(select classnum from class where classnum=#{classnum} ))
+</select>
+
+<select id="filtertype" parameterType="Integer"  resultType="shopfiltertypevo">
+select * from filtertype where ft_num in(select ft_num from filtercontent where fc_num in(select fc_num from itemfilter where p_num in(select p_num from item where fieldnum in(select fieldnum from field where fieldnum=#{fieldnum}))))
+</select>
+
+<select id="filtercontent" parameterType="Integer" resultType="shopfiltercontentvo">
+select * from filtercontent where ft_num in(select ft_num from filtertype where ft_num=#{ft_num})
+</select>
+
+
 </mapper>
 

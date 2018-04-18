@@ -14,7 +14,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <c:forEach var="classvo" items="${classvo}">
-			 <li><a href="<c:url value='/item/itemlist'/>">${classvo.name }</a></li>
+			 <li><a href="<c:url value='/item/itemlist?classnum=${classvo.classnum }'/>">${classvo.name }</a></li>
  	 	</c:forEach>    
           </ul>
         </li>

@@ -14,4 +14,10 @@ public class HomeConrtoller {
 		return ".main";
 	}
 
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "/members/login";
+	}
+
 }
