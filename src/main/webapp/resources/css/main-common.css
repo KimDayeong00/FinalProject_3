@@ -1,0 +1,30 @@
+@charset "UTF-8";
+#content {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
+.imgSlide {width:610px;height:400px;float:left;}
+.slider div{height:350px;}
+.book {width:380px;height:400px;float:left;margin-left:10px;border: 1px solid gray;text-align: center;}
+.book p{font-size: 13px;}
+.book input {float:left;}
+.calendar {display: inline-block;}
+.book_box2 {width:300px;display: inline-block;border-top:1px solid gray;font-size: 14px;}
+.book_box2 div{width:200px;float:left;text-align: left;}
+.book_box2 .price{width:100px;text-align: right;}
+#bookBtn {width:300px;height:100px;background-color: #f0efe8; border:none;cursor: pointer;border-radius: 10px;line-height: normal;
+			outline: 0;}
+#bookBtn:hover {
+	color:gray;
+}
+#bookBtn label {cursor:pointer;}
+.petsitterInfo {width:1000px;border:1px solid gray;float:left;margin-top:10px;display: inline-block;overflow: hidden;}
+.petsitterProfile {width:1000px;overflow: hidden;}
+.petsitterImg {width:150px;height:150px;border:1px solid gray;float:left;margin-left:20px;margin-top:20px;}
+.profile {margin-top:20px;margin-left:10px;float:left;}
+.petsitterOption {width:1000px;display:inline-block;margin-top:20px;text-align: center;}
+.petsitterOption .petSize {width:500px;float:left;display: inline-block;}
+.petsitterOption .time {width:500px;float:left;display: inline-block;text-align: center;}
+.time div {width:200px;display: inline-block;}
+.petsitterOption span {text-align: left;}
+.homeStateWrap{width:1000px;overflow: hidden;}
+.homeState{text-align: center;}
+.homeState span{text-align: left;}
+.homeState div{float:left;width:400px;display: inline-block;}

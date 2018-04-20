@@ -20,6 +20,10 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <!-- FontAwesome CSS -->
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="<c:url value='/resources/css/main-common.css'/>">
+ 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,7 +31,19 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
-<title>Insert title here</title>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+	<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!--<script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<c:url value='/resources/js/bootstrap.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
 </head>
 <body>
 <div id="wrap">

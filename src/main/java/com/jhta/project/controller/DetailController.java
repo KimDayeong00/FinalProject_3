@@ -1,13 +1,25 @@
 package com.jhta.project.controller;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.jhta.project.service.PetsitterOptionService;
+import com.jhta.project.vo.PetsitterOptionVo;
 
 @Controller
 public class DetailController {
+	@Autowired private PetsitterOptionService service;
 	
 	@RequestMapping("/detail")
-	public String detail() {
-		return ".detail";
+	public ModelAndView detail(String ps_email) {
+		ModelAndView mv=new ModelAndView(".detail");
+		PetsitterOptionVo vo = service.getOption("A@A.COM");
+		//System.out.println(vo.getPo_space());
+		mv.addObject("vo",vo);
+		return mv;
 	}
+	
 }
