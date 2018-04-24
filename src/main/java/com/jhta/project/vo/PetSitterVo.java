@@ -2,7 +2,7 @@ package com.jhta.project.vo;
 
 import java.util.Date;
 
-public class petsitterVO {
+public class PetSitterVo {
 	private String ps_email;
 	private String ps_pwd;
 	private String ps_phone;

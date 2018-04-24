@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- 
-  <script type="text/JavaScript"  src="resources/js/jquery-3.3.1.min.js"></script>
-
       <link rel="stylesheet" href="resources/css/jForm.css">
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8">
+</script>      
 <script>
   function goPopup(){
 	// 주소검색을 수행할 팝업 페이지를 호출합니다.
@@ -18,10 +18,21 @@
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-		document.getElementById("ps_addr1").value = 	roadAddrPart1;
-		
+		document.getElementById("ps_addr1").value =roadAddrPart1;
+		var address = document.getElementById("ps_addr1").value =roadAddrPart1;
+		console.log(address);
+		codeAddress(address);
 		document.getElementById("ps_addr2").value = addrDetail;
 		
+		
+}
+function codeAddress(address) {
+	var geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        /* console.log("lat : "+results[0].geometry.location.lat(),"lng : "+results[0].geometry.location.lng()) */
+    	$("#ps_lat").val(results[0].geometry.location.lat());
+    	$("#ps_lng").val(results[0].geometry.location.lng());
+    });
 }
 </script>
 <script>
@@ -133,7 +144,8 @@ $(function(){
    <div class='field-group'>
       <input class='signup-form' name='ps_content' id="ps_content"  placeholder='자기소개'  type='text' required="required">
     </div>
-    
+    	<input type="hidden" id="ps_lat" name="ps_lat" />
+    	<input type="hidden" id="ps_lng" name="ps_lng" />
     <input class='signup-button' type='submit' value='가입하기'>
   </div>
   </form>
