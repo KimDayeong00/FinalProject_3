@@ -1,5 +1,6 @@
 package com.jhta.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class ShopService {
 		return dao.fieldlist(classnum);
 	}
 	
-	public List<ShopItemVo> itemlist(int classnum) {
-		return dao.itemlist(classnum);
+	public List<ShopItemVo> itemlist(HashMap<Object, Object> map2) {
+		return dao.itemlist(map2);
 	}
 	
 	public List<ShopFilterTypeVo> filtertype(int fieldnum) {
@@ -34,5 +35,23 @@ public class ShopService {
 	
 	public List<ShopFilterContentVo> filtercontent(int ft_num) {
 		return dao.filtercontent(ft_num);
+	}
+	
+	public List<ShopItemVo> classitemlist(HashMap<String, Object> map) {
+		return dao.classitemlist(map);
+	}
+	
+	public List<ShopItemVo> fielditemlist(HashMap<Object,Object> map) {
+		return dao.fielditemlist(map);
+	}
+	
+	public int classcnt(int classnum) {
+		return dao.classcnt(classnum);
+	}
+	public int fieldcnt(int fieldnum) {
+		return dao.fieldcnt(fieldnum);
+	}
+	public int itemcnt(HashMap<Object, Object> map2) {
+		return dao.itemcnt(map2);
 	}
 }

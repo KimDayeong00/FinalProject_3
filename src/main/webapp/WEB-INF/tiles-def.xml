@@ -25,12 +25,25 @@
 	<definition name=".*.*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
+	
 	<definition name=".*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
 	<!-- *이 많은게 위로 올라가야한다 -->
 	<definition name=".*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
+	</definition>
+	
+	
+
+	<definition name=".*.*.*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".*.*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/{1}{2}.jsp"/>
+	</definition>
+	<definition name=".*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/{1}.jsp"/>
 	</definition>
 
 </tiles-definitions>
