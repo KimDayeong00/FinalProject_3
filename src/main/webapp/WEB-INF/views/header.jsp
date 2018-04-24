@@ -41,8 +41,8 @@
                     <div class="social">
                         <ul>
                         	<li><a href="<c:url value="/login" />">로그인</a></li>
-                        	<li><a href="<c:url value="/register" />">회원가입</a></li>
-                        	<li><a href="#">펫시터 등록</a></li>
+                        	<li><a href="<c:url value="/register1" />">회원가입</a></li>
+                        	<li><a href="<c:url value="/register1" />">펫시터 등록</a></li>
                         	<!-- 
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>

@@ -1,24 +1,193 @@
 package com.jhta.project.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONObject;
+import org.json.XML;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.jhta.project.service.memberService;
+import com.jhta.project.utils.Utils;
+import com.jhta.project.vo.memberVO;
 
 @Controller
 public class memberController {
+	private static final String mydomain = "http://localhost:8090/project/callback";
+
+	private static final String clientId = "MfMVXKoyjlrxFxb21n3w";
+
+	private static final String clientSecret = "4z1VMqC6I_";
+
+	private static final String requestUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId
+			+ "&response_type=code&redirect_uri=" + mydomain + "&state=";
+
+	private static final String userProfileUrl = "https://apis.naver.com/nidlogin/nid/getUserProfile.xml";
+
+	@Autowired
+	private memberService service;
 
 	@RequestMapping("/login")
 	public String login() {
+		// 테스트용으로 잠시 바꿈
 		return "/members/login";
 	}
-	
+
+	@RequestMapping("/register1")
+	public String register1() {
+		return ".members.join";
+	}
+
+	/*
+	 * type은 회원 유형(일반,펫시터) type1은 가입 유형(일반가입=1, 카카오=2, 구글=3, 네이버=4)
+	 */
 	@RequestMapping("/register")
-	public String register() {
+	public String register(int type, int type1, HttpSession session) {
+		System.out.println("타입은" + type);
+		System.out.println("타입1은" + type1);
+		session.setAttribute("type", type);
+		session.setAttribute("type1", type1);
 		return ".members.terms";
 	}
-	
+
 	@RequestMapping("/joinForm")
-	public String joinForm() {
-		return ".members.joinForm";
+	public String joinForm(HttpSession session) {
+		String result = "";
+		int a = (Integer) session.getAttribute("type");
+		if(a == 1) {
+			
+			result = ".members.joinForm";
+		}else if (a==2) {
+			result = ".members.joinForm2";
+		}
+		return result;
 	}
-	
+
+	@RequestMapping("/joinM")
+	public String join(memberVO vo, HttpSession session) {
+		System.out.println(vo.toString());
+		int a = (Integer) session.getAttribute("type");
+		int b = (Integer) session.getAttribute("type1");
+
+		vo.setM_gubun(b);
+		int row = service.insert(vo);
+		if (row > 0) {
+			System.out.println("우레카!");
+		}
+
+		return ".main";
+	}
+
+	@RequestMapping("/jusoPopup")
+	public String popup() {
+		System.out.println("주소 들어옴");
+		return "/members/jusoPopup";
+	}
+
+	@RequestMapping(value = "/callback")
+	public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request)
+			throws UnsupportedEncodingException {
+
+		String storedState = (String) request.getSession().getAttribute("state"); // 세션에 저장된 토큰을 받아옵니다.
+
+		if (!state.equals(storedState)) { // 세션에 저장된 토큰과 인증을 요청해서 받은 토큰이 일치하는지 검증합니다.
+
+			System.out.println("401 unauthorized"); // 인증이 실패했을 때의 처리 부분입니다.
+
+			return "redirect:/";
+
+		}
+		// AccessToken 요청 및 파싱할 부분
+		String data = Utils.getHtml(getAccessUrl(state, code), null); // AccessToken을 요청하고 그 값을 가져옵니다.
+
+		Map<String, String> map = Utils.JSONStringToMap(data); // JSON의 형태로 받아온 값을 Map으로 저장합니다.
+		System.out.println("준비");
+		String accessToken = map.get("access_token");
+		System.out.println(accessToken);
+		String tokenType = map.get("token_type");
+		System.out.println(tokenType);
+
+		String profileDataXml = Utils.getHtml(userProfileUrl, tokenType + " " + accessToken);
+
+		// tokentype 와 accessToken을 조합한 값을 해더의 Authorization에 넣어 전송합니다. 결과 값은 xml로
+		// 출력됩니다.
+
+		JSONObject jsonObject = XML.toJSONObject(profileDataXml); // xml을 json으로 파싱합니다.
+
+		JSONObject responseData = jsonObject.getJSONObject("data");
+
+		// json의 구조가 data 아래에 자식이 둘인 형태여서 map으로 파싱이 안됩니다. 따라서 자식 노드로 접근합니다.
+
+		Map<String, String> userMap = Utils.JSONStringToMap(responseData.get("response").toString());
+		System.out.println(userMap.get("email"));
+		// 사용자 정보 값은 자식노드 중에 response에 저장되어 있습니다. response로 접근하여 그 값들은 map으로 파싱합니다.
+
+		return "redirect:/";
+
+	}
+
+	@RequestMapping(value = "/personalInfo")
+	public void personalInfo(HttpServletRequest request) throws Exception {
+		String token = "AAAAOMXEXCTHSoBwSNqMs0QhpLgUD6iXl9tm2TWauM1/8wPe+X61+rXjtcTwmxB69FLFNIwOwLCfO6fiLdQRv7CYXkI=";// 네이버
+																														// 로그인
+																														// 접근
+																														// 토큰;
+																														// 여기에
+																														// 복사한
+																														// 토큰값을
+																														// 넣어줍니다.
+		String header = "Bearer " + token; // Bearer 다음에 공백 추가
+		try {
+			String apiURL = "https://openapi.naver.com/v1/nid/me";
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", header);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			System.out.println(response.toString());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	@RequestMapping(value = "/naverlogin")
+	public String naverLogin(HttpSession session) {
+		String state = Utils.generateState(); // 토큰을 생성합니다.
+		session.setAttribute("state", state); // 세션에 토큰을 저장합니다.
+		return "redirect:" + requestUrl + state; // 만들어진 URL로 인증을 요청합니다.
+
+	}
+
+	private String getAccessUrl(String state, String code) {
+
+		String accessUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
+				+ clientSecret
+
+				+ "&grant_type=authorization_code" + "&state=" + state + "&code=" + code;
+
+		return accessUrl;
+
+	}
 }
