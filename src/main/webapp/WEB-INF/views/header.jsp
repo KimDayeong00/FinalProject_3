@@ -13,7 +13,7 @@
                 <div class="col-md-8 hidden-sm hidden-xs">
                     <div class="social">
                         <ul>
-                        	<li><a href="<c:url value='/booking/test'/>">로그인</a></li>
+                        	<li><a href="#">로그인</a></li>
                         	<li><a href="#">회원가입</a></li>
                         	<li><a href="#">펫시터 등록</a></li>
                         	<!-- 
@@ -34,7 +34,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                    <c:url value=''/>
                         <a href="<c:url value='/'/>"><img src="<c:url value='/resources/images/logo.png'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
