@@ -12,6 +12,16 @@
     <meta name="description" content="Want to start your travel agency online and need website for your travel business? Start with travel agency responsive website template. Its absolutely free.">
     <meta name="keywords" content="travel, tour, tourism, honeymoon pacakage, summer trip, exotic vacation, destination, international, domestic website template, holiday, travel agecny responsive website template">
     <title>Tour and Travel Agency - Responsive Website Template</title>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<%--<script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script> --%> 
+   <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<c:url value='/resources/js/bootstrap.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/sojaeji.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
+    
     <!-- Bootstrap -->
     <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet">
     <!-- Style CSS -->
@@ -30,6 +40,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<<<<<<< HEAD
     <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -44,6 +55,9 @@
     <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
+=======
+<title>Insert title here</title>
+>>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 </head>
 <body>
 <div id="wrap">
