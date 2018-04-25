@@ -31,21 +31,27 @@ public class BookingController {
 	@Autowired private PetSitterImageService imageService;
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model) {
-		HashMap<String, String>map = new HashMap<>();
-		String lat="37.57286";
-		String lng="126.9915218";
-		map.put("lat", lat);
-		map.put("lng", lng);
-		List<PetSitterVo> list = psetsitterservice.list(map);
-		model.addAttribute("list", list);
+		List<PetSitterVo> alllist=psetsitterservice.alllist();
+		for(PetSitterVo x : alllist) {
+			System.out.println(x.getPs_email());
+		}
+		model.addAttribute("alllist", alllist);
 		return ".booking.test2";
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String jsonlist(String lat ,String lng) {
+	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng) {
 		HashMap<String, String>map = new HashMap<>();
 		map.put("lat", lat);
 		map.put("lng", lng);
+		map.put("leftlat", leftlat);
+		map.put("leftlng", leftlng);
+		map.put("rightlat", rightlat);
+		map.put("rightlng", rightlng);
+		System.out.println("leftlat"+ leftlat);
+		System.out.println("leftlng"+ leftlng);
+		System.out.println("rightlat"+ rightlat);
+		System.out.println("rightlng"+ rightlng);
 		List<PetSitterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {

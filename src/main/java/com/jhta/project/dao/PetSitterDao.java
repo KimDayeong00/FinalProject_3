@@ -16,4 +16,7 @@ public class PetSitterDao {
 	public List<PetSitterVo> list(HashMap<String, String> map){
 		return session.selectList(NAMESPACE+".list",map);
 	}
+	public List<PetSitterVo> alllist(){
+		return session.selectList(NAMESPACE+".alllist");
+	}
 }

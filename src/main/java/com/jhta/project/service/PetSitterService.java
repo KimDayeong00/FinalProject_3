@@ -7,4 +7,5 @@ import com.jhta.project.vo.PetSitterVo;
 
 public interface PetSitterService {
 	List<PetSitterVo> list(HashMap<String, String> map);
+	List<PetSitterVo> alllist();
 }

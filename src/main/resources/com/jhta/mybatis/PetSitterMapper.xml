@@ -7,11 +7,10 @@
     ps_addr3, ps_content, ps_regdate, ps_lat, ps_lng
   -->   
 <mapper namespace="com.jhta.mybatis.PetSitterMapper">
-	<!-- <select id="list" resultType="petsitter" parameterType="hashmap">
-		select ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2,
-		ps_content, ps_regdate, ps_lat, ps_lng from petsitter
-		where ps_lat between #{leftlat} and #{rightlat} and ps_lng between #{bottomlng} and #{toplng}
-	</select> -->
+	<select id="alllist" resultType="petsitter">
+		select ps_originalimg,ps_saveimage,ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2,
+		ps_content, ps_regdate, ps_lat, ps_lng,ps_careprice,ps_price from petsitter
+	</select>
 	<select id="list" resultType="petsitter" parameterType="hashmap">
 		select cc.ps_originalimg,cc.ps_saveimage,cc.ps_email, cc.ps_pwd, cc.ps_phone, cc.ps_name, cc.ps_addr1, cc.ps_addr2,
 		cc.ps_content, cc.ps_regdate, cc.ps_lat, cc.ps_lng,cc.latlng from

@@ -17,4 +17,9 @@ public class PetSitterServiceImpl implements PetSitterService{
 	public List<PetSitterVo> list(HashMap<String, String> map) {
 		return petsitterDao.list(map);
 	}
+
+	@Override
+	public List<PetSitterVo> alllist() {
+		return petsitterDao.alllist();
+	}
 }
