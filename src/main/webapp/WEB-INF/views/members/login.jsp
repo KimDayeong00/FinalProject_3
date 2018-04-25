@@ -47,18 +47,18 @@
 		<div class="login_wrapper">
 			<div class="animate form login_form">
 				<section class="login_content">
-					<form>
+					<form action="<c:url value="/n_login" />"  method="post" id="myForm">
 						<h1>로그인하기</h1>
 						<div>
-							<input type="text" class="form-control" placeholder="이메일"
+							<input type="text" class="form-control" placeholder="이메일" name="email"
 								required="" />
 						</div>
 						<div>
-							<input type="password" class="form-control" placeholder="비밀번호"
+							<input type="password" class="form-control" placeholder="비밀번호" name="pwd"
 								required="" />
 						</div>
 						<div>
-							<a class="btn btn-default submit" href="index.html">로그인</a> <a
+							<a class="btn btn-default submit" href="#" onclick="document.getElementById('myForm').submit()">로그인</a> <a
 								class="reset_pass" href="#">비밀번호 찾기</a>
 
 						</div>
@@ -75,7 +75,7 @@
 
 							<br>
 						
-							<a href="<c:url value="/naverlogin" />" ><img style="float: left; margin-left: 50px; width: 222px; height: 50px;"
+							<a href="<c:url value="/sociallogin?type1=4" />" ><img style="float: left; margin-left: 50px; width: 222px; height: 50px;"
 								src="resources/images/naver.PNG" /></a>
 
 				
@@ -159,7 +159,10 @@
 			Kakao.API.request({
 				url : '/v1/user/me',
 				success : function(res) {
-					alert(JSON.stringify(res));
+					var emailM = JSON.stringify(res.kaccount_email);
+					var emailLength = emailM.length;
+					var newEmail = emailM.substr(1,(emailLength-2));
+					location.href="<c:url value='/sociallogin?type1=2&email="+newEmail+"' />";
 				},
 				fail : function(error) {
 					alert(JSON.stringify(error));
@@ -220,8 +223,7 @@ $("#login-button").on('click', function() {
 					console.log(success);
 					var user_info = JSON.parse(success.body);
 					console.log(user_info);
-					alert(user_info.emails[0].value);
-
+					location.href="<c:url value='/sociallogin?type1=3&email="+user_info.emails[0].value+"' />";
 				},
 				// On error
 				function(error) {

@@ -111,7 +111,13 @@ $(function(){
 
 </script>
 
+<%
 
+String email = "";
+email = (String)session.getAttribute("email");
+
+
+%>
 
 
 	<div class="wrap1" style='background:url("<c:url value="resources/images/dogback.jpg" />") no-repeat;'>
@@ -122,7 +128,7 @@ $(function(){
   	<form name="f" method="post" onsubmit="return sendIt();" action="<c:url value="/joinP" />">
   <div class='content'>
     <div class='field-group'>
-      <input class='signup-form' name='ps_email' id="ps_email" placeholder='이메일' type='email' required="required">
+      <input class='signup-form' name='ps_email' id="ps_email" placeholder='이메일' type='email' required="required" value="<%=email  %>">
     </div>
     <div class='field-group'>
       <input class='signup-form' name='ps_pwd' id="ps_pwd"  placeholder='비밀번호' type='password' required="required">

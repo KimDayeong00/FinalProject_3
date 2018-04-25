@@ -50,7 +50,7 @@
 
 							<br>
 						
-							<a href="<c:url value="/naverlogin" />" ><img style="float: left; margin-left: 50px; width: 222px; height: 50px;"
+							<a href="<c:url value="/naverlogin?type=2&type1=4" />" ><img style="float: left; margin-left: 50px; width: 222px; height: 50px;"
 								src="resources/images/naver.PNG" /></a>
   
   
@@ -74,7 +74,10 @@
 			Kakao.API.request({
 				url : '/v1/user/me',
 				success : function(res) {
-					alert(JSON.stringify(res.kaccount_email));
+					var emailM = JSON.stringify(res.kaccount_email);
+					var emailLength = emailM.length;
+					var newEmail = emailM.substr(1,(emailLength-2));
+					location.href="<c:url value='/socialJ?type=2&type1=2&email="+newEmail+"' />";
 				},
 				fail : function(error) {
 					alert(JSON.stringify(error));
@@ -135,7 +138,7 @@ $("#login-button").on('click', function() {
 					console.log(success);
 					var user_info = JSON.parse(success.body);
 					console.log(user_info);
-					alert(user_info.emails[0].value);
+					location.href="<c:url value='/socialJ?type=2&type1=3&email="+user_info.emails[0].value+"' />";
 
 				},
 				// On error

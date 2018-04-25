@@ -9,7 +9,6 @@ public class PetSitterVo {
 	private String ps_name;
 	private String ps_addr1;
 	private String ps_addr2;
-	private String ps_addr3;
 	private String ps_content;
 	private Date ps_regdate;
 	private double ps_lat;
@@ -21,7 +20,7 @@ public class PetSitterVo {
 	public PetSitterVo() {}
 
 	public PetSitterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
-			String ps_addr2, String ps_addr3, String ps_content, Date ps_regdate, double ps_lat, double ps_lng,
+			String ps_addr2, String ps_content, Date ps_regdate, double ps_lat, double ps_lng,
 			String ps_originalimg, String ps_saveimage, int ps_gubun) {
 		super();
 		this.ps_email = ps_email;
@@ -30,7 +29,6 @@ public class PetSitterVo {
 		this.ps_name = ps_name;
 		this.ps_addr1 = ps_addr1;
 		this.ps_addr2 = ps_addr2;
-		this.ps_addr3 = ps_addr3;
 		this.ps_content = ps_content;
 		this.ps_regdate = ps_regdate;
 		this.ps_lat = ps_lat;
@@ -88,13 +86,6 @@ public class PetSitterVo {
 		this.ps_addr2 = ps_addr2;
 	}
 
-	public String getPs_addr3() {
-		return ps_addr3;
-	}
-
-	public void setPs_addr3(String ps_addr3) {
-		this.ps_addr3 = ps_addr3;
-	}
 
 	public String getPs_content() {
 		return ps_content;
@@ -155,8 +146,7 @@ public class PetSitterVo {
 	@Override
 	public String toString() {
 		return "PetSitterVo [ps_email=" + ps_email + ", ps_pwd=" + ps_pwd + ", ps_phone=" + ps_phone + ", ps_name="
-				+ ps_name + ", ps_addr1=" + ps_addr1 + ", ps_addr2=" + ps_addr2 + ", ps_addr3=" + ps_addr3
-				+ ", ps_content=" + ps_content + ", ps_regdate=" + ps_regdate + ", ps_lat=" + ps_lat + ", ps_lng="
+				+ ps_name + ", ps_addr1=" + ps_addr1 + ", ps_addr2=" + ps_addr2 +  ", ps_content=" + ps_content + ", ps_regdate=" + ps_regdate + ", ps_lat=" + ps_lat + ", ps_lng="
 				+ ps_lng + ", ps_originalimg=" + ps_originalimg + ", ps_saveimage=" + ps_saveimage + ", ps_gubun="
 				+ ps_gubun + "]";
 	}
