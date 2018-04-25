@@ -16,9 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.memberService;
 import com.jhta.project.utils.Utils;
+import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.memberVO;
 
 @Controller
@@ -47,6 +50,10 @@ public class memberController {
 	public String register1() {
 		return ".members.join";
 	}
+	@RequestMapping("/register2")
+	public String register2() {
+		return ".members.join2";
+	}
 
 	/*
 	 * type은 회원 유형(일반,펫시터) type1은 가입 유형(일반가입=1, 카카오=2, 구글=3, 네이버=4)
@@ -55,8 +62,21 @@ public class memberController {
 	public String register(int type, int type1, HttpSession session) {
 		System.out.println("타입은" + type);
 		System.out.println("타입1은" + type1);
+		session.setAttribute("email", "");
 		session.setAttribute("type", type);
 		session.setAttribute("type1", type1);
+		return ".members.terms";
+	}
+	
+	
+	@RequestMapping("/socialJ")
+	public String register(int type, int type1,String email, HttpSession session) {
+		System.out.println("타입은" + type);
+		System.out.println("타입1은" + type1);
+		System.out.println("이메일 : "+email);
+		session.setAttribute("type", type);
+		session.setAttribute("type1", type1);
+		session.setAttribute("email", email);
 		return ".members.terms";
 	}
 
@@ -64,10 +84,10 @@ public class memberController {
 	public String joinForm(HttpSession session) {
 		String result = "";
 		int a = (Integer) session.getAttribute("type");
-		if(a == 1) {
-			
+		if (a == 1) {
+
 			result = ".members.joinForm";
-		}else if (a==2) {
+		} else if (a == 2) {
 			result = ".members.joinForm2";
 		}
 		return result;
@@ -80,7 +100,22 @@ public class memberController {
 		int b = (Integer) session.getAttribute("type1");
 
 		vo.setM_gubun(b);
-		int row = service.insert(vo);
+		int row = service.insertM(vo);
+		if (row > 0) {
+			System.out.println("우레카!");
+		}
+
+		return ".main";
+	}
+
+	@RequestMapping("/joinP")
+	public String join(PetSitterVo vo, HttpSession session) {
+		int a = (Integer) session.getAttribute("type");
+		int b = (Integer) session.getAttribute("type1");
+
+		vo.setPs_gubun(b);
+		System.out.println(vo.toString());
+		int row = service.insertP(vo);
 		if (row > 0) {
 			System.out.println("우레카!");
 		}
@@ -95,7 +130,7 @@ public class memberController {
 	}
 
 	@RequestMapping(value = "/callback")
-	public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request)
+	public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,HttpSession session)
 			throws UnsupportedEncodingException {
 
 		String storedState = (String) request.getSession().getAttribute("state"); // 세션에 저장된 토큰을 받아옵니다.
@@ -130,9 +165,10 @@ public class memberController {
 
 		Map<String, String> userMap = Utils.JSONStringToMap(responseData.get("response").toString());
 		System.out.println(userMap.get("email"));
+		session.setAttribute("email", userMap.get("email"));
 		// 사용자 정보 값은 자식노드 중에 response에 저장되어 있습니다. response로 접근하여 그 값들은 map으로 파싱합니다.
 
-		return "redirect:/";
+		return ".members.terms";
 
 	}
 
@@ -173,8 +209,12 @@ public class memberController {
 	}
 
 	@RequestMapping(value = "/naverlogin")
-	public String naverLogin(HttpSession session) {
+	public String naverLogin(int type, int type1,HttpSession session) {
 		String state = Utils.generateState(); // 토큰을 생성합니다.
+		System.out.println("타입은"+type);
+		System.out.println("타입1은"+type1);
+		session.setAttribute("type", type);
+		session.setAttribute("type1", type1);
 		session.setAttribute("state", state); // 세션에 토큰을 저장합니다.
 		return "redirect:" + requestUrl + state; // 만들어진 URL로 인증을 요청합니다.
 
@@ -190,4 +230,20 @@ public class memberController {
 		return accessUrl;
 
 	}
+
+	@RequestMapping(value = "/emailC")
+	@ResponseBody
+	public String emailC(String email) {
+		int row = service.emailc(email);
+		JSONObject ob = new JSONObject();
+
+		if (row > 0) {
+			ob.put("result", false);
+
+		} else {
+			ob.put("result", true);
+		}
+		return ob.toString();
+	}
+
 }

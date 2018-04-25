@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+ 
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
@@ -25,13 +25,16 @@
   <div class="out">
 <div class="in">
 	<img alt="로고" src="resources/images/logo1.png" style="width: 70%; height: 70%;"><br>
-  <a href="<c:url value="/register?type=1&type1=1" />">
-  <div class="button-fill grey">
-    <div class="button-text">일반회원 가입하기</div>
+  
+  <a href="<c:url value="/register?type=2&type1=1" />">
+  <div class="button-fill orange">
+    <div class="button-text">펫시터 가입하기</div>
     <div class="button-inside">
-      <div class="inside-text">일반회원</div>
+      <div class="inside-text">펫시터</div>
     </div>
   </div></a>
+  
+  
   
   <br><br>
   <div style="margin-left: 40px; margin-bottom: 200px;" >
@@ -47,7 +50,7 @@
 
 							<br>
 						
-							<a href="<c:url value="/naverlogin?type=1&type1=4" />" ><img style="float: left; margin-left: 50px; width: 222px; height: 50px;"
+							<a href="<c:url value="/naverlogin" />" ><img style="float: left; margin-left: 50px; width: 222px; height: 50px;"
 								src="resources/images/naver.PNG" /></a>
   
   
@@ -71,11 +74,7 @@
 			Kakao.API.request({
 				url : '/v1/user/me',
 				success : function(res) {
-					var emailM = JSON.stringify(res.kaccount_email);
-					var emailLength = emailM.length;
-					var newEmail = emailM.substr(1,(emailLength-2));
-					location.href="<c:url value='/socialJ?type=1&type1=2&email="+newEmail+"' />";
-					
+					alert(JSON.stringify(res.kaccount_email));
 				},
 				fail : function(error) {
 					alert(JSON.stringify(error));
@@ -136,8 +135,7 @@ $("#login-button").on('click', function() {
 					console.log(success);
 					var user_info = JSON.parse(success.body);
 					console.log(user_info);
-					location.href="<c:url value='/socialJ?type=1&type1=3&email="+user_info.emails[0].value+"' />";
-					
+					alert(user_info.emails[0].value);
 
 				},
 				// On error
