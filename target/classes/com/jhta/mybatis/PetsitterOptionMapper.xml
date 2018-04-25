@@ -9,5 +9,8 @@
 		to_char(po_startcheckout,'hh24:mi') po_startcheckout,to_char(po_endcheckout,'hh24:mi') po_endcheckout,
 		po_space,po_subway,po_yard,po_child,po_family from petsitteroption where ps_email=#{value}
 	</select>
+	<select id="getImg" parameterType="string" resultType="string">
+		select pimg_savefilename from petsitterimage where ps_email=#{value}
+	</select>
 </mapper>
 

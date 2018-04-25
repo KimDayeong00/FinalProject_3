@@ -22,7 +22,7 @@
 			defaultHour : "6",
 			minDate : "today",
 			minTime : startcheckin,
-			maxTime : endcheckin,
+			maxTime : "23:00",
 			minuteIncrement : "30",
 			onValueUpdate : function() { 
 				//1분 단위 없애기
@@ -40,13 +40,22 @@
 					//시간 설정 오류 처리
 					if(startDate>=endDate){
 						alert("시간 설정이 올바르지 않습니다.");
-						this.clear();
-						console.log(startDate);
+						$("#selector").prop("value", "");
+						this.selectedDates[0]=null;
 					}
+					var overtime = endDate-startDate;
+					//if(overtime<)
 					
+					
+					if(overtime<86400000){
+						$("#day > span").html("1day");
+					}else{
+						$("#day > span").html("1박");
+					}
 				}
 			}
 		});
+				
 		//달력 플러그인2 (끝나는 날짜)
 		flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
 		flatpickr("#selector2");
@@ -74,18 +83,18 @@
 					//시간 설정 오류 처리
 					if(startDate>=endDate){
 						alert("시간 설정이 올바르지 않습니다.");
-						this.clear();
-						//this.set(hourIncrement,"2");
+						$("#selector2").prop("value", "");
+						this.selectedDates[0]=null;
 					}
 					
 					var overtime = endDate-startDate;
 					//if(overtime<)
 					
 					
-					if(overtime>28800000){
-						$("#day > span").html("1days");
-						
-						//this.clear();
+					if(overtime<86400000){
+						$("#day > span").html("1day");
+					}else{
+						$("#day > span").html("1박");
 					}
 				}
 			}
@@ -95,9 +104,9 @@
 <div id="content">
 	<div class="imgSlide">
 		<div class="slider">
-			<div>I am a slide.</div>
-			<div>I am another slide.</div>
-	
+			<c:forEach var="img" items="${imgList }">
+				<div><img src="<c:url value='/resources/images/${img}'/>"></div>
+			</c:forEach>
 		</div>
 	</div>
 	<form method="post" action="#">
@@ -164,19 +173,77 @@
 			</div>
 		</div>
 		<div class="homeStateWrap">
-		<span>돌봄 환경</span><br>
+			<p>돌봄 환경</p>
 			<div class="homeState">
 				<div class="left">
-					<span>돌봄 공간</span><span>${vo.po_space }</span><br>
-					<span>인근 지하철 역</span><span>${vo.po_subway }</span><br>
-					<span>마당 유무</span><span>${vo.po_yard }</span><br>
+					<span>돌봄 공간</span>
+					<span>${vo.po_space }</span><br>
+					<span>인근 지하철 역</span>
+					<span>${vo.po_subway }</span><br>
+					<span>마당 유무</span>
+					<c:choose>
+						<c:when test="${vo.po_yard eq 0}">
+							<span>없습니다.</span>									
+						</c:when>
+						<c:otherwise>
+							<span>있습니다.</span>
+						</c:otherwise>
+					</c:choose>
+					<br>				
 				</div>
 				<div class="right">
-					<span>14세 미만 아동</span>${vo.po_child }<span></span><br>
-					<span>가족 동거 유무</span>${vo.po_family }<span></span><br>
-					<span>다른 동물 유무</span><span></span><br>
+					<span>14세 미만 아동</span>
+					<c:choose>
+						<c:when test="${vo.po_child eq 0}">
+							<span>없습니다.</span><br>										
+						</c:when>
+						<c:otherwise>
+							<span>${vo.po_child }명 있습니다.</span>
+						</c:otherwise>
+					</c:choose>		
+					<br>
+					<span>가족 동거 유무</span>
+					<c:choose>
+						<c:when test="${vo.po_family eq 0}">
+							<span>혼자 살고 있어요.</span><br>										
+						</c:when>
+						<c:otherwise>
+							<span>${vo.po_family }명과 같이 살아요.</span>
+						</c:otherwise>
+					</c:choose>		
+					<br>
+					<span>다른 동물 유무</span>
+					<c:choose>
+						<c:when test="${vo.po_otherpet eq 0}">
+							<span>혼자 살고 있어요.</span><br>										
+						</c:when>
+						<c:otherwise>
+							<span>${vo.po_otherpet }마리와 같이 살아요.</span>
+						</c:otherwise>
+					</c:choose>		
+					<br>
 				</div>
 			</div>
+		</div>
+		<div class="introduction">
+			<p>돌보미 소개</p>
+			<div>
+				<span></span><br>
+				<div class="petImg"><img></div><br>
+				<span class="petName"></span><br>
+				<span class="petInfo"></span><br>
+			</div>
+			<div class="selfIntroduction">
+				
+			</div>
+			<div class="hideIntroduction">
+			</div>
+		</div>
+		<div class="review">
+			<div><img></div>
+			<p>이름</p>
+			<div></div>
+		</div>
 	</div>
-	</div>
+	
 </div>

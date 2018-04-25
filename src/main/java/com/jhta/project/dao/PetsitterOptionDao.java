@@ -1,5 +1,7 @@
 package com.jhta.project.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,5 +16,9 @@ public class PetsitterOptionDao {
 	public PetsitterOptionVo getOption(String ps_email) {
 		PetsitterOptionVo vo= sqlSession.selectOne(NAMESPACE+".getOption",ps_email);
 		return vo;
+	}
+	
+	public List<String> getImg(String ps_email) {
+		 return sqlSession.selectList(NAMESPACE+".getImg",ps_email);
 	}
 }

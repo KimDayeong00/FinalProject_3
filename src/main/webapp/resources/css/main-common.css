@@ -28,3 +28,13 @@
 .homeState{text-align: center;}
 .homeState span{text-align: left;}
 .homeState div{float:left;width:400px;display: inline-block;}
+
+/*
+	펫시터 정보 부분
+*/
+.sitterPageContent {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
+.petsitterPageMenu {width:300px;overflow: hidden;border:1px solid gray;text-align: center;}
+.petsitterPageMenu .sitterImg {width:300px;height:270px;}
+.petsitterPageMenu div {width:300px;line-height:60px;border-top:1px solid gray;}
+.petsitterPageMenu span {vertical-align: middle;}
+.petImg {width:70px;height:70px;border:1px solid gray;}

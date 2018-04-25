@@ -25,11 +25,12 @@ public class PetsitterOptionVo {
 	private int po_yard;
 	private int po_child;
 	private int po_family;
+	private int po_otherpet;
 	
 	public PetsitterOptionVo() {}
 
 	public PetsitterOptionVo(String ps_email, String po_startcheckin, String po_endcheckin, String po_startcheckout,
-			String po_endcheckout, String po_space, String po_subway, int po_yard, int po_child, int po_family) {
+			String po_endcheckout, String po_space, String po_subway, int po_yard, int po_child, int po_family, int po_otherpet) {
 		super();
 		this.ps_email = ps_email;
 		this.po_startcheckin = po_startcheckin;
@@ -41,6 +42,7 @@ public class PetsitterOptionVo {
 		this.po_yard = po_yard;
 		this.po_child = po_child;
 		this.po_family = po_family;
+		this.po_otherpet = po_otherpet;
 	}
 
 	public String getPs_email() {
@@ -122,6 +124,15 @@ public class PetsitterOptionVo {
 	public void setPo_family(int po_family) {
 		this.po_family = po_family;
 	}
+
+	public int getPo_otherpet() {
+		return po_otherpet;
+	}
+
+	public void setPo_otherpet(int po_otherpet) {
+		this.po_otherpet = po_otherpet;
+	}
+	
 	
 	
 	

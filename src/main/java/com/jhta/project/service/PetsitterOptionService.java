@@ -1,5 +1,7 @@
 package com.jhta.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,10 @@ public class PetsitterOptionService {
 	
 	public PetsitterOptionVo getOption(String ps_email) {
 		return dao.getOption(ps_email);
+	}
+	
+	public List<String> getImg(String ps_email) {
+		return dao.getImg(ps_email);
 	}
 	
 }
