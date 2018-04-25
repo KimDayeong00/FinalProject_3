@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- 
-  <script type="text/JavaScript"  src="resources/js/jquery-3.3.1.min.js"></script>
 
-      <link rel="stylesheet" href="resources/css/jForm.css">
+<script type="text/JavaScript" src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<link rel="stylesheet" href="resources/css/jForm.css">
 <script>
   function goPopup(){
 	// 주소검색을 수행할 팝업 페이지를 호출합니다.
@@ -24,7 +24,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 <script>
 function sendIt() {
 	   if (document.f.m_pwd.value.length<4 || document.f.m_pwd.value.length>12) {
-           alert("비밀번호를 4~12자까지 입력해주세요.");
+		   document.getElementById("pwd").innerHTML = "비밀번호를 4~12자까지 입력해주세요.";	
            document.f.m_pwd.focus();
            document.f.m_pwd.select();
            return false;
@@ -32,7 +32,7 @@ function sendIt() {
 
        //비밀번호와 비밀번호 확인 일치여부 체크
        if (document.f.m_pwd.value != document.f.confirmpassword.value) {
-           alert("비밀번호가 일치하지 않습니다");
+    	   document.getElementById("pwd_ok").innerHTML = "비밀번호가 일치하지 않습니다.";	
            document.f.confirmpassword.value = "";
            document.f.confirmpassword.focus();
            return false;
@@ -75,79 +75,120 @@ $(function(){
                     // 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
                     trans_num = trans_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-z?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");                  
                     $(this).val(trans_num);
+                    document.getElementById("phone").innerHTML = "";	
                 }
                 else
                 {
-                    alert("유효하지 않은 전화번호 입니다.");
+                	document.getElementById("phone").innerHTML = "유효하지 않은 전화번호 입니다.";	
                     $(this).val("");
                     $(this).focus();
                 }
             }
             else 
             {
-                alert("유효하지 않은 전화번호 입니다.");
-                $(this).val("");
+            	document.getElementById("phone").innerHTML = "유효하지 않은 전화번호 입니다.";	
+                      $(this).val("");
                 $(this).focus();
             }
       }
   });  
+
+	/* 이메일 유효성 체크 */
+    $("#m_email").on("blur",function(){
+    	var inputed = $("#m_email").val();
+    	$.ajax({
+    		
+    		data:{email : inputed},
+    		url: "<c:url value='/emailC' />",
+    		type:"post",
+    		dataType:"json",
+    		success:function(data){
+    			if(data.result == true){
+    				$("#email").css("color","white");
+    				$("#email").html("사용 가능한 이메일 입니다.");
+    				
+    			}else{
+    				$("#email").css("color","red");
+    				$("#email").html("이미 사용중인 이메일 입니다.");
+    			}
+    		}
+    	});
+    });
+
+
+
 });
 
 
 </script>
 
+<%
+
+String email = "";
+email = (String)session.getAttribute("email");
+
+
+%>
+
+
+<div class="wrap1">
+	<div class='signup-modal'>
+		<div class='heading'>
+			<h3 style="color: white;">회원가입(일반회원용)</h3>
+		</div>
+		<form name="f" method="post" onsubmit="return sendIt();"
+			action="<c:url value="/joinM" />">
+			<div class='content'>
+				<div class='field-group'>
+					<input class='signup-form' name='m_email' id="m_email"
+						placeholder='이메일' type='email' required="required"  value="<%=email  %>">
+					<br> <span id="email"></span>
+				</div>
+				<div class='field-group'>
+					<input class='signup-form' name='m_pwd' id="m_pwd"
+						placeholder='비밀번호' type='password' required="required"><br>
+					<span id="pwd" style="color: red;"></span>
+				</div>
+				<div class='field-group'>
+					<input class='signup-form' name='confirmpassword'
+						id="confirmpassword" placeholder='비밀번호 확인' type='password'
+						required="required"><br> <span id="pwd_ok"
+						style="color: red;"></span>
+				</div>
+				<div class='field-group'>
+					<input class='signup-form' name='m_name' id="m_name"
+						placeholder='이름' type='text' required="required">
+				</div>
+				<div class='field-group'>
+					<input class='signup-form' name='m_phone' id="m_phone"
+						placeholder='핸드폰번호' type='phone' required="required"> <br>
+					<span id="phone" style="color: red;"></span>
+				</div>
+				<div class='field-group'>
+					<input class='signup-form' name='m_addr' id="m_addr"
+						placeholder='주소' onclick="goPopup();" type='text'
+						required="required">
+
+				</div>
 
 
 
-	<div class="wrap1">
-  <div class='signup-modal'>
-  <div class='heading'>
-    <h3 style="color: white;">회원가입(일반회원용)</h3>
-  </div>
-  	<form name="f" method="post" onsubmit="return sendIt();" action="<c:url value="/joinM" />">
-  <div class='content'>
-    <div class='field-group'>
-      <input class='signup-form' name='m_email' id="m_email" placeholder='이메일' type='email' required="required">
-    </div>
-    <div class='field-group'>
-      <input class='signup-form' name='m_pwd' id="m_pwd"  placeholder='비밀번호' type='password' required="required">
-    </div>
-    <div class='field-group'>
-      <input class='signup-form' name='confirmpassword' id="confirmpassword"  placeholder='비밀번호 확인' type='password' required="required">
-    </div>
-    <div class='field-group'>
-      <input class='signup-form' name='m_name' id="m_name"  placeholder='이름' type='text' required="required">
-    </div>
-    <div class='field-group'>
-      <input class='signup-form' name='m_phone' id="m_phone"  placeholder='핸드폰번호' type='phone' required="required">
-    </div>
-      <div class='field-group'>
-      <input class='signup-form' name='m_addr' id="m_addr"  placeholder='주소' onclick="goPopup();" type='text' required="required">
-      
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <input class='signup-button' type='submit' value='가입하기'>
-  </div>
-  </form>
-  <div class='content'>
-    <p>
-      이미 회원이신가요?
-      <span>
-        <a class='link' href='#'>
-          로그인하기
-        </a>
-      </span>
-    </p>
-  </div>
-</div>
-  
-  
+
+
+
+
+
+
+				<input class='signup-button' type='submit' value='가입하기'>
+			</div>
+		</form>
+		<div class='content'>
+			<p>
+				이미 회원이신가요? <span> <a class='link' href='#'> 로그인하기 </a>
+				</span>
+			</p>
+		</div>
+	</div>
+
+
 </div>

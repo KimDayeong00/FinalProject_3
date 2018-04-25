@@ -5,6 +5,7 @@
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8">
 </script>      
+ <script type="text/JavaScript"  src="resources/js/jquery-3.3.1.min.js"></script>
 <script>
   function goPopup(){
 	// 주소검색을 수행할 팝업 페이지를 호출합니다.
