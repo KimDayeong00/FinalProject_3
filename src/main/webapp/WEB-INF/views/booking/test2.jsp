@@ -26,7 +26,6 @@
 		<select class="addr" name="dong" id="dong"><option value="">-동-</option></select>
 		<script>sojaeji();</script> -->
     <div id="petsitterList"></div>
-    
     <div id="map"></div>
     <script type="text/javascript">
     var search;
@@ -187,9 +186,8 @@
 	    		var arr=new Array();
 	    		$("#petsitterList").html("");
 	        	for(var q=0; q<data.list.length; q++){
-	        		arr.push({lat:data.list[q].ps_lat,lng:data.list[q].ps_lng})
 	        		$("#petsitterList").append(
-	                        "<div class='tour-block' style='padding:0; margin:0;'>"+
+	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%; float:left;'>"+
 	        				"<a href='#'><img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
                         	"</div>"+
@@ -200,8 +198,8 @@
 	                                    "<p>Monasteries | Nubra Velly | Panmika Pangong Lake | Zoravar Fort | Alchi Khardung La | Sidhu Ghat </p>"+
 	                                "</div>"+
 	                                "<div class='tour-details'>"+
-	                                    "<div class='tour-details-text'><span>8 Days</span></div>"+
-	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>View Details</a></span> </div>"+
+	                                    "<div class='tour-details-text'><span style='display: block; text-align: right; color: gray; font-size: 20px; width:400px;'>day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"</span></div>"+
+	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
 	                    "</div>");  				
