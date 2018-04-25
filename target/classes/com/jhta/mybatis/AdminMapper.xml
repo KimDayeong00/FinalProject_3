@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.AdminMapper">
+	<select id = "classList" resultType="shopclassvo">
+		select * from class
+	</select>
+	<insert id = "classInsert" parameterType = "shopclassvo">
+		insert into class values(SEQ_CLASS_CLASSNUM.nextval,#{name})
+	</insert>
+	<select id="classGetinfo" parameterType="string" resultType="shopclassvo">
+		select * from class where name = #{name}
+	</select>
+	<delete id = "classDelete" parameterType="int">
+		delete from class where classnum = #{classnum}
+	</delete>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
