@@ -146,20 +146,21 @@
 			<input type="text" id="selector" style="width: 150px" placeholder="시작 날짜 선택하기"> 
 			<input type="text" id="selector2" style="width: 150px" placeholder="끝 날짜 선택하기">
 		</div><br>
-		<c:set var="ps_price" value="${vo2.ps_price }" />
-		<span class="basicprice"><fmt:formatNumber value= "${ps_price}"
-			 type="number" maxIntegerDigits="15"/>원</span>
-		<span>
+		<!--<c:set var="ps_price" value="${vo4.ps_price }" />
+			<fmt:formatNumber value= "${ps_price}" type="number" maxIntegerDigits="15"/>
+		-->
+		<div id="day"><span>1박</span></div><span class="basicprice">0원</span>
+		<!-- <span>
 			<select>
 				<option>15kg 미만</option>
 				<option>15kg 이상</option>
 		</select>
-		</span>
+		</span> -->
 		<div class="book_box1">
-			<span>반려견 추가 당 20,000원</span>
+			<span>대형견(15kg 이상) 추가 당 ${vo4.ps_overprice }원 </span>
 		</div>
 		<div class="book_box2" id="daybox">
-			<div id="day"><span>1박</span></div>
+			<!-- <div id="day"><span>1박</span></div> -->
 			
 			<div class="price"><span class="basicprice"><fmt:formatNumber value= "${ps_price}"
 			 type="number" maxIntegerDigits="15"/>원</span></div>

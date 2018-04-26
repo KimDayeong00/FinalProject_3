@@ -2,7 +2,6 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<<<<<<< HEAD
 <configuration>
   <typeAliases>
   	<typeAlias type="com.jhta.project.vo.PetsitterOptionVo" alias="petoption"/>
@@ -10,6 +9,14 @@
   	<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage"/>
   	<typeAlias alias="member" type="com.jhta.project.vo.memberVO"/>
   	<typeAlias type="com.jhta.project.vo.PetsitterPetVo" alias="ppetinfo"/>
+  	<typeAlias type="com.jhta.project.vo.PetsitterPriceVo" alias="petsitterprice"/>
+  	<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
+	<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
+	<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
+	<typeAlias type="com.jhta.project.vo.ShopFilterTypeVo"
+			alias="shopfiltertypevo" />
+	<typeAlias type="com.jhta.project.vo.ShopFilterContentVo"
+			alias="shopfiltercontentvo" />
   </typeAliases>
   <mappers>
   <!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
@@ -17,36 +24,9 @@
 	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
     <mapper resource="com/jhta/mybatis/PetSitterMapper.xml"/>
     <mapper resource="com/jhta/mybatis/PetSitterImageMapper.xml"/>
+    <mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
     <mapper resource="com/jhta/mybatis/memberMApper.xml"/>
-
+	<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
+	<mapper resource="com/jhta/mybatis/ShopMapper.xml" />
   </mappers>
-=======
-<configuration>
-
-	<typeAliases>
-		<typeAlias type="com.jhta.project.vo.PetSitterVo" alias="petsitter" />
-		<typeAlias type="com.jhta.project.vo.PetSitterImageVo"
-			alias="petsitterimage" />
-		<typeAlias alias="member" type="com.jhta.project.vo.memberVO" />
-		<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
-		<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
-		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
-		<typeAlias type="com.jhta.project.vo.ShopFilterTypeVo"
-			alias="shopfiltertypevo" />
-		<typeAlias type="com.jhta.project.vo.ShopFilterContentVo"
-			alias="shopfiltercontentvo" />
-
-	</typeAliases>
-	<mappers>
-		<!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
-		<mapper resource="com/jhta/mybatis/PetSitterMapper.xml" />
-		<mapper resource="com/jhta/mybatis/PetSitterImageMapper.xml" />
-		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
-		<!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
-		<mapper resource="com/jhta/mybatis/ProjectMapper.xml" />
-		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
-		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />
-	</mappers>
-
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 </configuration>

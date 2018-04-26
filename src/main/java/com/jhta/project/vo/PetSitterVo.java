@@ -15,26 +15,13 @@ public class PetSitterVo {
 	private double ps_lng;
 	private String ps_originalimg;
 	private String ps_saveimage;
-<<<<<<< HEAD
-	private int ps_careprice;
-	private int ps_price;
 	private int ps_gubun;
-	
-=======
-	private int ps_gubun;
-	private int ps_careprice;
-	private int ps_price;
 	private int ps_active;
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
+
 	public PetSitterVo() {}
 	public PetSitterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
-<<<<<<< HEAD
-			String ps_addr2, String ps_addr3, String ps_content, Date ps_regdate, double ps_lat, double ps_lng,
-			String ps_originalimg, String ps_saveimage, int ps_careprice, int ps_price, int ps_gubun) {
-=======
-			String ps_addr2, String ps_content, Date ps_regdate, double ps_lat, double ps_lng, String ps_originalimg,
-			String ps_saveimage, int ps_gubun, int ps_careprice, int ps_price, int ps_active) {
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
+			String ps_addr2, String ps_content, Date ps_regdate, double ps_lat, double ps_lng,
+			String ps_originalimg, String ps_saveimage, int ps_gubun, int ps_active) {
 		super();
 		this.ps_email = ps_email;
 		this.ps_pwd = ps_pwd;
@@ -49,12 +36,7 @@ public class PetSitterVo {
 		this.ps_originalimg = ps_originalimg;
 		this.ps_saveimage = ps_saveimage;
 		this.ps_gubun = ps_gubun;
-		this.ps_careprice = ps_careprice;
-		this.ps_price = ps_price;
-<<<<<<< HEAD
-=======
 		this.ps_active = ps_active;
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 	}
 	public String getPs_email() {
 		return ps_email;
@@ -128,8 +110,7 @@ public class PetSitterVo {
 	public void setPs_saveimage(String ps_saveimage) {
 		this.ps_saveimage = ps_saveimage;
 	}
-<<<<<<< HEAD
-	
+
 	public int getPs_gubun() {
 		return ps_gubun;
 	}
@@ -138,54 +119,18 @@ public class PetSitterVo {
 		this.ps_gubun = ps_gubun;
 	}
 
-	public int getPs_careprice() {
-		return ps_careprice;
-	}
-
-	public void setPs_careprice(int ps_careprice) {
-		this.ps_careprice = ps_careprice;
-	}
-
-	public int getPs_price() {
-		return ps_price;
-	}
-
-	public void setPs_price(int ps_price) {
-		this.ps_price = ps_price;
-	}
-
-=======
-	public int getPs_gubun() {
-		return ps_gubun;
-	}
-	public void setPs_gubun(int ps_gubun) {
-		this.ps_gubun = ps_gubun;
-	}
-	public int getPs_careprice() {
-		return ps_careprice;
-	}
-	public void setPs_careprice(int ps_careprice) {
-		this.ps_careprice = ps_careprice;
-	}
-	public int getPs_price() {
-		return ps_price;
-	}
-	public void setPs_price(int ps_price) {
-		this.ps_price = ps_price;
-	}
 	public int getPs_active() {
 		return ps_active;
 	}
 	public void setPs_active(int ps_active) {
 		this.ps_active = ps_active;
 	}
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 	@Override
 	public String toString() {
 		return "PetSitterVo [ps_email=" + ps_email + ", ps_pwd=" + ps_pwd + ", ps_phone=" + ps_phone + ", ps_name="
 				+ ps_name + ", ps_addr1=" + ps_addr1 + ", ps_addr2=" + ps_addr2 + ", ps_content=" + ps_content
 				+ ", ps_regdate=" + ps_regdate + ", ps_lat=" + ps_lat + ", ps_lng=" + ps_lng + ", ps_originalimg="
-				+ ps_originalimg + ", ps_saveimage=" + ps_saveimage + ", ps_gubun=" + ps_gubun + ", ps_careprice="
-				+ ps_careprice + ", ps_price=" + ps_price + ", ps_active=" + ps_active + "]";
+				+ ps_originalimg + ", ps_saveimage=" + ps_saveimage + ", ps_gubun=" + ps_gubun
+				+ ", ps_active=" + ps_active + "]";
 	}
 }

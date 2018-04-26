@@ -17,16 +17,13 @@ public class PetSitterServiceImpl implements PetSitterService{
 	public List<PetSitterVo> list(HashMap<String, String> map) {
 		return petsitterDao.list(map);
 	}
-<<<<<<< HEAD
 	
 	@Override
 	public PetSitterVo select(String ps_email) {
 		return petsitterDao.select(ps_email);
-=======
-
+	}
 	@Override
 	public List<PetSitterVo> alllist() {
 		return petsitterDao.alllist();
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 	}
 }
