@@ -45,16 +45,16 @@ public class memberController {
 		// 테스트용으로 잠시 바꿈
 		return "/members/login";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		// 테스트용으로 잠시 바꿈
 		System.out.println("로그아웃하기");
 		session.removeAttribute("login");
 		session.removeAttribute("login_type");
+
 		return ".main";
 	}
-	
 
 	@RequestMapping("/n_login")
 	public String n_login(String email, String pwd, HttpSession session) {
@@ -132,14 +132,15 @@ public class memberController {
 		System.out.println(vo.toString());
 		int a = (Integer) session.getAttribute("type");
 		int b = (Integer) session.getAttribute("type1");
-
+		String returnV = "";
 		vo.setM_gubun(b);
 		int row = service.insertM(vo);
 		if (row > 0) {
-			System.out.println("우레카!");
+			returnV = ".main";
+		} else {
+			returnV = "/error";
 		}
-
-		return ".main";
+		return returnV;
 	}
 
 	@RequestMapping("/joinP")
@@ -173,7 +174,7 @@ public class memberController {
 
 			System.out.println("401 unauthorized"); // 인증이 실패했을 때의 처리 부분입니다.
 
-			return "redirect:/";
+			return "/error";
 
 		}
 		// AccessToken 요청 및 파싱할 부분
