@@ -27,6 +27,9 @@
 			where aa.ps_email=bb.ps_email
 			order by latlng asc) cc
 		where <![CDATA[rownum <=10]]>
-	</select>    
+	</select>
+	<select id="select" parameterType="string" resultType="petsitter">
+		select * from petsitter where ps_email=#{value}
+	</select>
 </mapper>
 

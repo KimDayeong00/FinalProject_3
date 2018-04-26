@@ -10,11 +10,13 @@ public class PetsitterPetVo {
 	private String ps_email;
 	private String pi_savefilename;
 	private String pi_originalfilename;
+	private String pi_sex;
+	private int pi_gubun;
 	
 	public PetsitterPetVo() {}
 
 	public PetsitterPetVo(int pi_num, String pi_name, int pi_age, String pi_type, int pi_weight, String pi_content,
-			String ps_email, String pi_savefilename, String pi_originalfilename) {
+			String ps_email, String pi_savefilename, String pi_originalfilename, String pi_sex, int pi_gubun) {
 		super();
 		this.pi_num = pi_num;
 		this.pi_name = pi_name;
@@ -25,6 +27,8 @@ public class PetsitterPetVo {
 		this.ps_email = ps_email;
 		this.pi_savefilename = pi_savefilename;
 		this.pi_originalfilename = pi_originalfilename;
+		this.pi_sex = pi_sex;
+		this.pi_gubun = pi_gubun;
 	}
 
 	public int getPi_num() {
@@ -97,6 +101,22 @@ public class PetsitterPetVo {
 
 	public void setPi_originalfilename(String pi_originalfilename) {
 		this.pi_originalfilename = pi_originalfilename;
+	}
+
+	public String getPi_sex() {
+		return pi_sex;
+	}
+
+	public void setPi_sex(String pi_sex) {
+		this.pi_sex = pi_sex;
+	}
+
+	public int getPi_gubun() {
+		return pi_gubun;
+	}
+
+	public void setPi_gubun(int pi_gubun) {
+		this.pi_gubun = pi_gubun;
 	}
 	
 	

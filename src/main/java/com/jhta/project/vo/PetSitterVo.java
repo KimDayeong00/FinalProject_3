@@ -16,12 +16,15 @@ public class PetSitterVo {
 	private double ps_lng;
 	private String ps_originalimg;
 	private String ps_saveimage;
+	private int ps_careprice;
+	private int ps_price;
+	private int ps_gubun;
 	
 	public PetSitterVo() {}
 
 	public PetSitterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
 			String ps_addr2, String ps_addr3, String ps_content, Date ps_regdate, double ps_lat, double ps_lng,
-			String ps_originalimg, String ps_saveimage) {
+			String ps_originalimg, String ps_saveimage, int ps_careprice, int ps_price, int ps_gubun) {
 		super();
 		this.ps_email = ps_email;
 		this.ps_pwd = ps_pwd;
@@ -36,6 +39,9 @@ public class PetSitterVo {
 		this.ps_lng = ps_lng;
 		this.ps_originalimg = ps_originalimg;
 		this.ps_saveimage = ps_saveimage;
+		this.ps_gubun = ps_gubun;
+		this.ps_careprice = ps_careprice;
+		this.ps_price = ps_price;
 	}
 
 	public String getPs_email() {
@@ -141,6 +147,31 @@ public class PetSitterVo {
 	public void setPs_saveimage(String ps_saveimage) {
 		this.ps_saveimage = ps_saveimage;
 	}
+	
+	public int getPs_gubun() {
+		return ps_gubun;
+	}
+
+	public void setPs_gubun(int ps_gubun) {
+		this.ps_gubun = ps_gubun;
+	}
+
+	public int getPs_careprice() {
+		return ps_careprice;
+	}
+
+	public void setPs_careprice(int ps_careprice) {
+		this.ps_careprice = ps_careprice;
+	}
+
+	public int getPs_price() {
+		return ps_price;
+	}
+
+	public void setPs_price(int ps_price) {
+		this.ps_price = ps_price;
+	}
+
 	@Override
 	public String toString() {
 		return "petsitterVO [ps_email=" + ps_email + ", ps_pwd=" + ps_pwd + ", ps_phone=" + ps_phone + ", ps_name="

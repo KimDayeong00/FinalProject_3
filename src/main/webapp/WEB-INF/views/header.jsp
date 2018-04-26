@@ -34,10 +34,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-<<<<<<< HEAD
-                    
-=======
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
                         <a href="<c:url value='/'/>"><img src="<c:url value='/resources/images/logo.png'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
@@ -54,13 +50,8 @@
                                     </li> -->
 									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
                                     <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
-<<<<<<< HEAD
                                     <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
                                     <li class="has-sub"><a href="#" title="Tours">고객지원</a>
-=======
-                                    <li><a href="styleguide.html" title="Styleguide">이용방법</a></li>
-                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a></li>
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
                                         <ul>
                                             <li><a href="domestic-tour.html" title="Group Tours">Domestic Tours</a></li>
                                             <li><a href="international-tour.html" title="Couple Tours">International Tours</a></li>

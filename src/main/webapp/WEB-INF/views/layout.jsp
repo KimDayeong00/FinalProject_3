@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <link rel="stylesheet" href="<c:url value='/resources/css/main-common.css'/>">
  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+ 	<link href="<c:url value='/resources/css/jquery.nice-number.css'/>" rel="stylesheet">
+ 	
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,7 +42,6 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-<<<<<<< HEAD
     <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -55,9 +56,11 @@
     <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
-=======
+     <script type="text/javascript" src="<c:url value='/resources/js/jquery.nice-number.js'/>"></script>
+	
+    
+    
 <title>Insert title here</title>
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 </head>
 <body>
 <div id="wrap">
