@@ -7,25 +7,51 @@
     ps_addr3, ps_content, ps_regdate, ps_lat, ps_lng
   -->   
 <mapper namespace="com.jhta.mybatis.PetSitterMapper">
-	<select id="alllist" resultType="petsitter">
-		select ps_originalimg,ps_saveimage,ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2,
-		ps_content, ps_regdate, ps_lat, ps_lng,ps_careprice,ps_price,ps_active from petsitter where ps_active=1
+	<resultMap type="com.jhta.project.vo.PetSitterJoinFilterVo" id="petsitterjoinfilter">
+		<result property="ps_email" column="ps_email"/>
+		<result property="ps_pwd" column="ps_pwd"/>
+		<result property="ps_phone" column="ps_phone"/>
+		<result property="ps_name" column="ps_name"/>
+		<result property="ps_addr1" column="ps_addr1"/>
+		<result property="ps_addr2" column="ps_addr2"/>
+		<result property="ps_content" column="ps_content"/>
+		<result property="ps_regdate" column="ps_regdate"/>
+		<result property="ps_lat" column="ps_lat"/>
+		<result property="ps_lng" column="ps_lng"/>
+		<result property="ps_originalimg" column="ps_originalimg"/>
+		<result property="ps_saveimage" column="ps_saveimage"/>
+		<result property="ps_gubun" column="ps_gubun"/>
+		<result property="ps_careprice" column="ps_careprice"/>
+		<result property="ps_price" column="ps_price"/>
+		<result property="ps_overprice" column="overps_price"/>
+		<result property="ps_active" column="ps_active"/>
+		<collection property="list" ofType="com.jhta.project.vo.FilterVo">
+			<result property="f_num" column="f_num"/>
+			<result property="fl_name" column="fl_name"/>
+			<result property="f_type" column="f_type"/>
+		</collection>
+	</resultMap>
+	<select id="alllist" resultMap="petsitterjoinfilter">
+		select ps_originalimg,ps_saveimage,petsitter.ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2,
+		ps_content, ps_regdate, ps_lat, ps_lng,ps_overprice,ps_careprice,ps_price,ps_active from petsitter ,petsitterprice 
+		where petsitter.ps_email=petsitterprice.ps_email and ps_active=1
 	</select>
-	<select id="list" resultType="petsitter" parameterType="hashmap">
-		select cc.ps_careprice,cc.ps_price,cc.ps_originalimg,cc.ps_saveimage,cc.ps_email, cc.ps_pwd, cc.ps_phone, cc.ps_name, cc.ps_addr1, cc.ps_addr2,
-		cc.ps_content, cc.ps_regdate, cc.ps_lat, cc.ps_lng,cc.latlng from
-			(select aa.ps_active,aa.ps_careprice,aa.ps_price,aa.ps_originalimg,aa.ps_saveimage,aa.ps_email ps_email, aa.ps_pwd ps_pwd, aa.ps_phone ps_phone, aa.ps_name ps_name, aa.ps_addr1 ps_addr1, aa.ps_addr2 ps_addr2,
-			aa.ps_content ps_content, aa.ps_regdate ps_regdate, aa.ps_lat ps_lat, aa.ps_lng ps_lng,bb.latlng latlng from petsitter aa,
-	        (select ps_email, latlng from(        
-	            (select lat.ps_email ps_email ,(lat+lng) latlng from 
-	                (select ps_email, ABS(ps_lat-#{lat}) lat from petsitter) lat,  
-	                (select ps_email, ABS(ps_lng-#{lng}) lng from petsitter) lng
-	                where lat.ps_email = lng.ps_email
-	                )
-	        )) bb
-			where aa.ps_email=bb.ps_email and aa.ps_active=1
-			order by latlng asc) cc
-		where <![CDATA[rownum <=10]]>
+	<select id="list" resultMap="petsitterjoinfilter" parameterType="hashmap">
+		select f.f_num,f.f_type, f.fl_name, p.ps_careprice,p.ps_price,p.ps_overprice,cc.ps_originalimg,cc.ps_saveimage,cc.ps_email, cc.ps_pwd, cc.ps_phone, cc.ps_name, cc.ps_addr1, cc.ps_addr2, cc.ps_content, 
+		cc.ps_regdate from  
+		(select f_num,f.fl_name,ps_email,f_type from filter f, filtertypelist fl where f.fl_name = fl.fl_name) f,
+		petsitter cc,petsitterprice p
+		where cc.ps_email=f.ps_email and cc.ps_email=p.ps_email
+		and cc.ps_email in( 
+		(select cc.ps_email from 
+		(select aa.ps_email ps_email, bb.latlng latlng from petsitter aa, 
+		(select ps_email, latlng from( (select lat.ps_email ps_email ,(lat+lng) latlng from 
+		(select ps_email, ABS(ps_lat-#{lat}) lat from petsitter) lat, 
+		(select ps_email, ABS(ps_lng-#{lng}) lng from petsitter) lng where lat.ps_email = lng.ps_email ) )) bb 
+		where aa.ps_email=bb.ps_email and aa.ps_active=1 and aa.ps_lat between #{leftlat} and #{rightlat} and aa.ps_lng between #{leftlng} and #{rightlng} order by latlng asc) cc
+		where <![CDATA[rownum <=10]]>)) 
+		
 	</select>    
+	
 </mapper>
 

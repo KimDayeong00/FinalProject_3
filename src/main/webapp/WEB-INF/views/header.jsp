@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-=======
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +12,7 @@
     <meta name="description" content="Want to start your travel agency online and need website for your travel business? Start with travel agency responsive website template. Its absolutely free.">
     <meta name="keywords" content="travel, tour, tourism, honeymoon pacakage, summer trip, exotic vacation, destination, international, domestic website template, holiday, travel agecny responsive website template">
     <title>Tour and Travel Agency - Responsive Website Template</title>
-    <!-- Bootstrap -->
+   <%--  <!-- Bootstrap -->
     <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet">
     <!-- Style CSS -->
     <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet">
@@ -29,12 +28,11 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script> --%>
 </head>
 
 <body>
->>>>>>> branch 'jiho' of https://github.com/KimDayeong00/FinalProject_3.git
-    <!-- header-section start -->
+ <!-- header-section start -->
     <div class="top-bar">
         <div class="container">
             <div class="row">
