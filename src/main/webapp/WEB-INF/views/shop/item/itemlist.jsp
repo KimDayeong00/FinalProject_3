@@ -40,14 +40,45 @@
 	</c:forEach>
 </table>
 
-<div id="box1">
+<%-- <div id="content">
 	상품
 	<c:forEach var="itemvo" items="${itemvo}">
 		<a id="${itemvo.p_num }"
 			href="<c:url value='/item/itemlist?fieldnum=${itemvo.fieldnum }'/>">${itemvo.item_name }</a>
 	</c:forEach>
 
+</div> --%>
+
+<div id="content">
+<c:set var="i" value="0" />
+<c:set var="j" value="3" />
+
+<table border= "1">
+
+       <c:forEach var="itemvo" items="${itemvo}">
+            <c:if test="${i%j == 0 }">
+               <tr>
+            </c:if>
+                    <td>
+                    <img src="<c:url value='/resources/itemimage/${itemvo.item_savefilename }.jpg'/>"><br>
+                    <a id="${itemvo.p_num }"
+			href="<c:url value='/item/itemlist?fieldnum=${itemvo.fieldnum }'/>">${itemvo.item_name }</a>
+			</td>
+            <c:if test="${i%j == j-1 }">
+                </tr>
+            </c:if>
+            <c:set var="i" value="${i+1 }" />
+        </c:forEach>
+
+ 
+
+</table>
+
+
+
+
 </div>
+
 <div id="page">
 	<c:choose>
 
@@ -140,15 +171,15 @@
 		alert(fieldnum);
 		alert(sql);
 		var plus="";
-		var box=document.getElementById("box1");
+		var content=document.getElementById("content");
  		$.ajax({
  			url:"<c:url value='/item/itemlist?classnum="+classnum+"&fieldnum="+fieldnum+"&sql="+sql+"'/>",
  			dataType:"json",
  			success:function(data){
  				$("#page").html("");
- 					$("#box1").html("");
- 				for(var i=0;i<data.itemvo.length;i++){
- 					$("#box1").append("<a href='<c:url value='/item/detail?p_num="+data.itemvo[i].p_num+"'/>'>"+data.itemvo[i].item_name);
+ 					$("#content").html("");
+ 				for(var i=0;i<data.itemvo.length; i++){
+ 					$("#content").append("<a href='<c:url value='/item/detail?p_num="+data.itemvo[i].p_num+"'/>'>"+data.itemvo[i].item_name);
  					var str=data.itemvo[i].item_name;
  					alert(str);
  					plus+=str;

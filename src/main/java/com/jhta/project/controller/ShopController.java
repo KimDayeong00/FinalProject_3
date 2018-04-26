@@ -17,6 +17,7 @@ import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
+import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Controller
@@ -45,7 +46,8 @@ public class ShopController {
 		map.put("classnum",classnum);
 		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
 		List<ShopClassVo> classvo=service.classlist();
-		List<ShopItemVo> itemvo=service.classitemlist(map);
+		List<ShopItemJoinVo> itemvo=service.classitemlist(map);
+		
 		System.out.println(itemvo.toString());
 		
 		mv.addObject("pgchk","class");
