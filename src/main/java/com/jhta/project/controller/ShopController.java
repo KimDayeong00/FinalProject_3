@@ -25,22 +25,25 @@ public class ShopController {
 	@Autowired ShopService service;
 	@RequestMapping("/shop/home")
 	public ModelAndView home() {
+		System.out.println("맨처음 들어옴");
 		ModelAndView mv=new ModelAndView(".shop");
 		List<ShopClassVo> classvo=service.classlist();
+		System.out.println(classvo.toString());
 		mv.addObject("classvo",classvo);
 		return mv;
 	}
 	
 	@RequestMapping("/item/classitemlist")
 	public ModelAndView classitemlist(@RequestParam(value="pageNum",defaultValue="1")int pageNum,ShopClassVo vo,ShopFieldVo vo2) {
+		System.out.println("들어옴");
 		int classnum=vo.getClassnum();
-		System.out.println("페이지넘은???"+pageNum);
+		System.out.println("���댁�����???"+pageNum);
 		ModelAndView mv=new ModelAndView(".shop.item.itemlist");
 		HashMap<String, Object> map=new HashMap<String,Object>();
 		int totalRowCount=service.classcnt(classnum);
 		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
-		System.out.println("시작행"+pu.getStartRow());
-		System.out.println("끝행"+pu.getEndRow());
+		System.out.println("������"+pu.getStartRow());
+		System.out.println("����"+pu.getEndRow());
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
 		map.put("classnum",classnum);

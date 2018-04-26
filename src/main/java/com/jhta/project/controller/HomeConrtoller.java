@@ -13,11 +13,11 @@ public class HomeConrtoller {
 	public String main() {
 		return ".main";
 	}
-
 	
-	@RequestMapping("/login")
-	public String login() {
-		return "/members/login";
+	/*@RequestMapping("/shop/home")
+	public String home() {
+		return ".shop.home";
 	}
-
+*/
+	
 }
