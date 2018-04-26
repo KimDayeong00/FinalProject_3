@@ -26,7 +26,6 @@
 		<select class="addr" name="dong" id="dong"><option value="">-동-</option></select>
 		<script>sojaeji();</script> -->
     <div id="petsitterList"></div>
-    
     <div id="map"></div>
     <script type="text/javascript">
     var search;
@@ -34,7 +33,6 @@
     var zoomLevel;
     var map;
     var geocoder;
-    var contentString = '<div id="content">'+'</div>';
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var n=0;
 	function initMap() {
@@ -57,7 +55,18 @@
     		panControl : true	
         }
         	map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        	arraygetlist(37.566535,126.97796919999996)	
+	        <c:forEach items="${alllist}" var="data" varStatus="status">
+		        var lat = ${data.ps_lat};
+		        var lng = ${data.ps_lng};
+		      	var email = '${data.ps_email}';
+		      	var name = '${data.ps_name}';
+		      	var addr1 = '${data.ps_addr1}';
+		      	var content = '${data.ps_content}';
+		      	var img = '${data.ps_saveimage}';
+				address.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
+			</c:forEach>
+			list1(address);
+        	arraygetlist(37.566535,126.97796919999996,33.193668738614384, 124.82258606250002,38.53185554526987, 130.71125793750002)	
         function moveToLocation(lat, lng){
             var center = new google.maps.LatLng(lat, lng);
             map.panTo(center);
@@ -100,7 +109,7 @@
         $("#petsitterList").append("차이lng: " + (endLo.lng()-startLo.lng())+"<br>");
         $("#petsitterList").append("맵 중앙 lat: " + pos.lat()+"<br>");
         $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>");
-        arraygetlist(pos.lat(),pos.lng());
+        arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
 	}
 	/* function list(address){
    		n=0;
@@ -121,17 +130,45 @@
 	 				return new google.maps.Marker({
 	 				map: map,
 	 			    position: location,
+	 			   	email:locations[j].email,
+	 			   	name:locations[j].name,
+	 			   	addr1:locations[j].addr1,
+	 			   	content:locations[j].content,
+	 			   	img:locations[j].img,
 	 				label: labels[j % labels.length],
 	 				draggable: true
 	 				});
 	 		});
+			var infowindow = new google.maps.InfoWindow();
 		 		for(var k=0; k<markers.length; k++){
 		 			google.maps.event.addListener(markers[k],'click',function() {
-		 				console.log(this.position.lat());
-		 			  	console.log(this.position.lng());
-		 			  	console.log(this.content);
+		 			var contentString ="<div class='tour-block' style='padding:0; margin:0;'>"+
+    				"<div class='tour-img' style='width:20%; float:left;'>"+
+    				"<a href='#'><img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+this.img+"'/>'></a>"+
+                	"</div>"+
+                        "<div class='tour-content'>"+
+                            "<h2><a href='#' class='title'>"+this.email+"</a></h2>"+
+                            "<div class='tour-meta'> <span class='tour-meta-icon'><i class='fa fa-sun-o'></i></span><span class='tour-meta-text'>8 Days</span> <span class='tour-meta-text'>|</span> <span class='tour-meta-icon'><i class='fa fa-moon-o'></i></span><span class='tour-meta-text'>7 Nights </span> </div>"+
+                            "<div class='tour-text mb40'>"+
+                                "<p>Monasteries | Nubra Velly | Panmika Pangong Lake | Zoravar Fort | Alchi Khardung La | Sidhu Ghat </p>"+
+                            "</div>"+
+                            "<div class='tour-details'>"+
+                                "<div class='tour-details-text'><span>8 Days</span></div>"+
+                                "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>View Details</a></span> </div>"+
+                            "</div>"+
+                        "</div>"+
+                "</div>" 
+		 	        infowindow.setContent(contentString);
+					infowindow.open(map, this);
+		 				/* console.log(this.email);
+		 			  	console.log(this.name);
+		 			  	console.log(this.addr1);
+		 			  	console.log(this.content); */
+			 	  
 		 			});
 		 		}
+
+
 		 		//addMarkers(markers:Array.<google.maps.Marker>, opt_nodraw:boolean)
 		 		if(markerCluster==undefined){
 		 			markerCluster = new MarkerClusterer(map, markers,
@@ -144,32 +181,30 @@
 		 		}
 		}
 	}
-	function arraygetlist(lat,lng){
-		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng},function(data) {
+	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
+		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng},function(data) {
 	    		var arr=new Array();
 	    		$("#petsitterList").html("");
 	        	for(var q=0; q<data.list.length; q++){
-	        		arr.push({lat:data.list[q].ps_lat,lng:data.list[q].ps_lng})
 	        		$("#petsitterList").append(
-	                        "<div class='tour-block' style='padding:0; margin:0;'>"+
+	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%; float:left;'>"+
 	        				"<a href='#'><img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
-	                                "<h2><a href='#' class='title'>Leh-Ladakh</a></h2>"+
+	                                "<h2><a href='#' class='title'>"+data.list[q].ps_email+"</a></h2>"+
 	                                "<div class='tour-meta'> <span class='tour-meta-icon'><i class='fa fa-sun-o'></i></span><span class='tour-meta-text'>8 Days</span> <span class='tour-meta-text'>|</span> <span class='tour-meta-icon'><i class='fa fa-moon-o'></i></span><span class='tour-meta-text'>7 Nights </span> </div>"+
 	                                "<div class='tour-text mb40'>"+
 	                                    "<p>Monasteries | Nubra Velly | Panmika Pangong Lake | Zoravar Fort | Alchi Khardung La | Sidhu Ghat </p>"+
 	                                "</div>"+
 	                                "<div class='tour-details'>"+
-	                                    "<div class='tour-details-text'><span>8 Days</span></div>"+
-	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>View Details</a></span> </div>"+
+	                                    "<div class='tour-details-text'><span style='display: block; text-align: right; color: gray; font-size: 20px; width:400px;'>day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"</span></div>"+
+	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
 	                    "</div>");  				
 	        				
 	    		}
-	        	list1(arr);
 	    })
 	}
 </script>

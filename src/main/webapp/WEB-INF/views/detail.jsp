@@ -124,9 +124,7 @@
 						$("#overprice").remove();
 						$("#day > span").html("1박");
 						$(".basicprice").html(price+"원");
-					}
-					
-					
+					}		
 					
 				}
 			}

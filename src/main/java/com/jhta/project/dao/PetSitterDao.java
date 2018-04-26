@@ -16,8 +16,13 @@ public class PetSitterDao {
 	public List<PetSitterVo> list(HashMap<String, String> map){
 		return session.selectList(NAMESPACE+".list",map);
 	}
+<<<<<<< HEAD
 	
 	public PetSitterVo select(String ps_email) {
 		return session.selectOne(NAMESPACE+".select",ps_email);
+=======
+	public List<PetSitterVo> alllist(){
+		return session.selectList(NAMESPACE+".alllist");
+>>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
 	}
 }
