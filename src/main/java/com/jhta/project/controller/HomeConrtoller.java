@@ -12,6 +12,7 @@ public class HomeConrtoller {
 	@RequestMapping("/")
 	public String main() {
 		return ".main";
+
 	}
 	
 	/*@RequestMapping("/shop/home")
@@ -20,4 +21,8 @@ public class HomeConrtoller {
 	}
 */
 	
-}
+	}
+
+
+
+

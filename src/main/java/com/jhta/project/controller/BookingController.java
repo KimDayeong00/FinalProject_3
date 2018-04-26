@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterService;
 import com.jhta.project.vo.PetSitterImageVo;
-import com.jhta.project.vo.PetSitterVo;
+import com.jhta.project.vo.PetSitterJoinFilterVo;
 
 @Controller
 public class BookingController {
@@ -31,22 +31,24 @@ public class BookingController {
 	@Autowired private PetSitterImageService imageService;
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model) {
-		HashMap<String, String>map = new HashMap<>();
-		String lat="37.57286";
-		String lng="126.9915218";
-		map.put("lat", lat);
-		map.put("lng", lng);
-		List<PetSitterVo> list = psetsitterservice.list(map);
-		model.addAttribute("list", list);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist();
+		for(PetSitterJoinFilterVo x : alllist) {
+			System.out.println(x.getPs_email());
+		}
+		model.addAttribute("alllist", alllist);
 		return ".booking.test2";
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String jsonlist(String lat ,String lng) {
+	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng) {
 		HashMap<String, String>map = new HashMap<>();
 		map.put("lat", lat);
 		map.put("lng", lng);
-		List<PetSitterVo> list=psetsitterservice.list(map);
+		map.put("leftlat", leftlat);
+		map.put("leftlng", leftlng);
+		map.put("rightlat", rightlat);
+		map.put("rightlng", rightlng);
+		List<PetSitterJoinFilterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
 			obj.put("list",list);

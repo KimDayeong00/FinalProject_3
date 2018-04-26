@@ -1,8 +1,9 @@
 package com.jhta.project.vo;
 
 import java.util.Date;
+import java.util.List;
 
-public class PetSitterVo {
+public class PetSitterJoinFilterVo {
 	private String ps_email;
 	private String ps_pwd;
 	private String ps_phone;
@@ -17,10 +18,15 @@ public class PetSitterVo {
 	private String ps_saveimage;
 	private int ps_gubun;
 	private int ps_active;
-	public PetSitterVo() {}
-	public PetSitterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
+	private int ps_price;
+	private int ps_careprice;
+	private int ps_overprice;
+	private List<FilterVo> list;
+	public PetSitterJoinFilterVo() {}
+	public PetSitterJoinFilterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
 			String ps_addr2, String ps_content, Date ps_regdate, double ps_lat, double ps_lng, String ps_originalimg,
-			String ps_saveimage, int ps_gubun, int ps_active) {
+			String ps_saveimage, int ps_gubun, int ps_active, int ps_price, int ps_careprice, int ps_overprice,
+			List<FilterVo> list) {
 		super();
 		this.ps_email = ps_email;
 		this.ps_pwd = ps_pwd;
@@ -36,6 +42,10 @@ public class PetSitterVo {
 		this.ps_saveimage = ps_saveimage;
 		this.ps_gubun = ps_gubun;
 		this.ps_active = ps_active;
+		this.ps_price = ps_price;
+		this.ps_careprice = ps_careprice;
+		this.ps_overprice = ps_overprice;
+		this.list = list;
 	}
 	public String getPs_email() {
 		return ps_email;
@@ -120,5 +130,29 @@ public class PetSitterVo {
 	}
 	public void setPs_active(int ps_active) {
 		this.ps_active = ps_active;
+	}
+	public int getPs_price() {
+		return ps_price;
+	}
+	public void setPs_price(int ps_price) {
+		this.ps_price = ps_price;
+	}
+	public int getPs_careprice() {
+		return ps_careprice;
+	}
+	public void setPs_careprice(int ps_careprice) {
+		this.ps_careprice = ps_careprice;
+	}
+	public int getPs_overprice() {
+		return ps_overprice;
+	}
+	public void setPs_overprice(int ps_overprice) {
+		this.ps_overprice = ps_overprice;
+	}
+	public List<FilterVo> getList() {
+		return list;
+	}
+	public void setList(List<FilterVo> list) {
+		this.list = list;
 	}
 }
