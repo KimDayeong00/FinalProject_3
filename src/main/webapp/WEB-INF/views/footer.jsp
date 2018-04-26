@@ -70,12 +70,3 @@
         <!-- tiny-footer-start -->
     </div>
     <!-- footer close -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<c:url value='/resources/js/jquery.min.js'/>" type="text/javascript"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<c:url value='/resources/js/bootstrap.min.js'/>" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
-    <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
-</body>
-</html>
