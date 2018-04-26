@@ -18,7 +18,7 @@ public class AdminDao {
 	}
 	
 	public int classInsert(ShopClassVo vo) {
-		System.out.println(vo.getName());
+		//System.out.println(vo.getName());
 		return sqlsession.insert(NAMESPACE + ".classInsert", vo);
 	}
 	public ShopClassVo classGetinfo(String name) {
@@ -26,5 +26,8 @@ public class AdminDao {
 	}
 	public int classDelete(int classnum) {
 		return sqlsession.delete(NAMESPACE + ".classDelete", classnum);
+	}
+	public int classUpdateOk(ShopClassVo vo) {
+		return sqlsession.update(NAMESPACE + ".classUpdateOk", vo);
 	}
 }

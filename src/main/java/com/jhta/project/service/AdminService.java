@@ -27,4 +27,8 @@ public class AdminService {
 	public int classDelete(int classnum) {
 		return dao.classDelete(classnum);
 	}
+	
+	public int classUpdateOk(ShopClassVo vo) {
+		return dao.classUpdateOk(vo);
+	}
 }

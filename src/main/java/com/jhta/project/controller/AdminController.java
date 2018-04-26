@@ -77,6 +77,25 @@ public class AdminController {
 				arr.put(ob);
 			}	
 		}
+		return arr.toString();	
+	}
+	
+	@RequestMapping(value = "/admin/classUpdateOk", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String classUpdateOk(int classnum, String name) {
+		ShopClassVo vo = new ShopClassVo(classnum, name);
+		int n = service.classUpdateOk(vo);
+		JSONArray arr = new JSONArray();
+		if(n>0) {
+			List<ShopClassVo> classvo=service.classList();
+			
+			for(ShopClassVo vvo:classvo) {
+				JSONObject ob = new JSONObject();
+				ob.put("classnum", vvo.getClassnum());
+				ob.put("name", vvo.getName());
+				arr.put(ob);
+			}	
+		}
 		System.out.println(arr);
 		return arr.toString();	
 	}

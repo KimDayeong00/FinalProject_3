@@ -39,7 +39,7 @@
 					//var td = document.createElement("td");
 					/* var str = "<tr><td>" + classnum + "</td><td>" + name + "</td></tr>";
 					$("classList").append(str); */
-					var str = "<td>" + classnum + "</td><td>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					var str = "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
 					$("#classListBody").append(str);
 				}
 			});
@@ -47,11 +47,29 @@
 	});
 	function classUpdate(classnum){
 		var name = $("#" + classnum + "").text();
-		$("#" + classnum + "").html("<input type='text' id = 'name"+classnum+"' value='" + name + "'><input type='button' id='classUpdateOk' value='수정'  onclick = 'classUpdateOk(\"name"+classnum+"\")'>");
+		$("#" + classnum + "").html("<input type='text' id = 'name"+classnum+"' value='" + name + "'><input type='button' id='classUpdateOk' value='수정'  onclick = 'classUpdateOk("+classnum+")'>");
 	}
-	function classUpdateOk(id){
-		console.log($("#" + id + "").val());
-		
+	function classUpdateOk(classnum){
+		var name = $("#name" + classnum + "").val();
+		$.ajax({
+			url : "<c:url value = '/admin/classUpdateOk'/>",
+			data : {classnum : classnum, name : name},
+			dataType : "json",
+			success : function(data){
+				$("#classListBody").html("");
+				//console.log(data);
+				for(var i=0;i<data.length;i++){
+				var str = "<tr>";
+					var classnum = data[i].classnum;
+					var name = data[i].name;
+					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					str += "</tr>";
+				$("#classListBody").append(str);
+				}
+			}, error : function(){
+				alert("업데이트 에러");
+			}
+		});
 	}
 	function classDelete(classnum){
 		//console.log(classnum);
@@ -66,7 +84,7 @@
 				var str = "<tr>";
 					var classnum = data[i].classnum;
 					var name = data[i].name;
-					str += "<td>" + classnum + "</td><td>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
 					str += "</tr>";
 				$("#classListBody").append(str);
 				}
@@ -90,13 +108,30 @@
 				<th>수정</th>
 			</tr>
 			<tbody id="classListBody">
-			
 			</tbody>
 		</table>
 		<br>
 		<form action = "" method = "post">
 			대분류 이름<input type = "text" id = "name">
 			<input type = "button" id = "classInsert" value = "추가">
+		</form>
+		
+	<h2>중분류(Field)</h2>	
+		<table border = "1" width = "500" id = "fieldList">
+			<tr>
+				<th>Field_Num</th>
+				<th>Class_Num</th>
+				<th>NAME</th>
+				<th>삭제</th>
+				<th>수정</th>
+			</tr>
+			<tbody id="fieldListBody">
+			</tbody>
+		</table>
+		<br>
+		<form action = "" method = "post">
+			중분류 이름<input type = "text" id = "fieldname">
+			<input type = "button" id = "fieldInsert" value = "추가">
 		</form>
 </body>
 </html>

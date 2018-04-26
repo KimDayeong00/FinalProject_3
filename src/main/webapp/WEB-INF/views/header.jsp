@@ -19,6 +19,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <!-- FontAwesome CSS -->
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet">
+    <!-- 지호 체크박스 CSS  -->
+     <link href="<c:url value='/resources/css/checobox.css'/>" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

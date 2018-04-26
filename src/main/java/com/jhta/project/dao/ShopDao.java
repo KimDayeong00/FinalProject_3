@@ -1,5 +1,6 @@
 package com.jhta.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,8 +26,8 @@ public class ShopDao {
 		return sqlSession.selectList(NAMESPACE+".fieldlist",classnum);
 	}
 	
-	public List<ShopItemVo> itemlist(int classnum){
-		return sqlSession.selectList(NAMESPACE+".itemlist",classnum);
+	public List<ShopItemVo> itemlist(HashMap<Object, Object> map2){
+		return sqlSession.selectList(NAMESPACE+".itemlist",map2);
 	}
 	
 	public List<ShopFilterTypeVo> filtertype(int fieldnum){
@@ -35,5 +36,26 @@ public class ShopDao {
 	public List<ShopFilterContentVo> filtercontent(int ft_num){
 		return sqlSession.selectList(NAMESPACE+".filtercontent",ft_num);
 	}
+	
+	public List<ShopItemVo> classitemlist(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE+".classitemlist",map);
+	}
+	
+	public List<ShopItemVo> fielditemlist(HashMap<Object,Object> map){
+		return sqlSession.selectList(NAMESPACE+".fielditemlist",map);
+	}
+	
+	public int classcnt(int classnum) {
+		return sqlSession.selectOne(NAMESPACE+".classcnt",classnum);
+	}
+	
+	public int fieldcnt(int fieldnum) {
+		return sqlSession.selectOne(NAMESPACE+".fieldcnt",fieldnum);
+	}
+	
+	public int itemcnt(HashMap<Object, Object> map2){
+		return sqlSession.selectOne(NAMESPACE+".itemcnt",map2);
+	}
+	
 	
 }

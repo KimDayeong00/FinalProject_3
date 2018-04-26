@@ -16,15 +16,19 @@
 		<put-attribute name="footer1" value="/WEB-INF/views/footer.jsp"/>
 	</definition>
 	
+	<definition name=".shop.*.*.*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/shop/{1}/{2}/{3}.jsp"/>
+	</definition>
 
-
-<definition name=".*.*.*.*" extends=".main">
-		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
+	<definition name=".shop.*.*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/shop/{1}/{2}.jsp"/>
 	</definition>
 
 	<definition name=".*.*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
+	
+
 	<definition name=".*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
@@ -32,5 +36,7 @@
 	<definition name=".*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
 	</definition>
+	
+
 
 </tiles-definitions>
