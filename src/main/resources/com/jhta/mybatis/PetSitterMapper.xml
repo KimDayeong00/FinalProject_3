@@ -23,7 +23,7 @@
 		<result property="ps_gubun" column="ps_gubun"/>
 		<result property="ps_careprice" column="ps_careprice"/>
 		<result property="ps_price" column="ps_price"/>
-		<result property="ps_overprice" column="overps_price"/>
+		<result property="ps_overprice" column="ps_overprice"/>
 		<result property="ps_active" column="ps_active"/>
 		<collection property="list" ofType="com.jhta.project.vo.FilterVo">
 			<result property="f_num" column="f_num"/>

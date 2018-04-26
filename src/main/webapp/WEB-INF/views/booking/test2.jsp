@@ -191,14 +191,16 @@
 	                            "<div class='tour-content'>"+
 	                                "<h2><a href='#' class='title'>"+data.list[q].ps_email+"</a></h2>"+
 	                                "<div class='tour-meta'> <span class='tour-meta-icon'><i class='fa fa-sun-o'></i></span><span class='tour-meta-text'>8 Days</span> <span class='tour-meta-text'>|</span> <span class='tour-meta-icon'><i class='fa fa-moon-o'></i></span><span class='tour-meta-text'>7 Nights </span> </div>"+
-	                                "<div class='tour-text mb40' style='text-align: center;'>";
-	                                for(var w=0; w<data.list[q].list.length; w++){
-	                                	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
-	                                }
-	                                petsitterList+=
-	                                "</div>"+
+	                               
 	                                "<div class='tour-details'>"+
-	                                    "<div class='tour-details-text'><span style='display: block; text-align: right; color: gray; font-size: 20px; width:400px;'>day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"</span></div>"+
+	                                "<div class='tour-text mb40' style='text-align: center; height:115px; background-color:orange; margin:0px;'>";
+					                    for(var w=0; w<data.list[q].list.length; w++){
+					                    	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
+					                    }
+					                    console.log(data.list[q].ps_overprice);
+					                    petsitterList+=
+					                    "</div>"+
+	                                    "<div class='tour-details-text' style=''><span style='display: inline-block; color: gray; font-size: 20px; width:100%; background-color:pink; margin:0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"&nbsp;&nbsp;&nbsp;&nbsp; 대형견 추가금/"+data.list[q].ps_overprice+"</span></div>"+
 	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
