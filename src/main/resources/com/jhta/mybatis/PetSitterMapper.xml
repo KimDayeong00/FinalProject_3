@@ -2,10 +2,6 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <!--     
-   ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2, 
-    ps_addr3, ps_content, ps_regdate, ps_lat, ps_lng
-  -->   
 <mapper namespace="com.jhta.mybatis.PetSitterMapper">
 	<resultMap type="com.jhta.project.vo.PetSitterJoinFilterVo" id="petsitterjoinfilter">
 		<result property="ps_email" column="ps_email"/>

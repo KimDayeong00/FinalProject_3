@@ -26,8 +26,14 @@
 		<select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select>
 		<script>sojaeji();</script><br />
 	</div>
-    <div id="petsitterList">
-    </div>
+	<div class="btn-group" data-toggle="buttons">
+		<c:forEach items="${filterlist }" var="filter">
+			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
+		    	<input type="checkbox" autocomplete="off" value="${filter.f_type}">${filter.f_type}
+			</label>
+		</c:forEach>
+	</div>
+    <div id="petsitterList"></div>
     <div id="map"></div>
     <script type="text/javascript">
     var search;
@@ -37,6 +43,12 @@
     var geocoder;
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var n=0;
+    $(".addr").on("change",function(){
+    	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
+    	console.log(addres);
+    	addreslist(addres);
+    })
+    
 	function initMap() {
     	geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(37.566535, 126.97796919999996);
@@ -113,17 +125,15 @@
         $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
         arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
 	}
-	/* function list(address){
+	function addreslist(address){
    		n=0;
    		var locations=new Array();
-   	    for(var i=0;i<address.length ; i++){
-   	  		geocoder.geocode( { 'address': address[i]}, function(results, status) {
+   	  		geocoder.geocode( { 'address': address}, function(results, status) {
 		   		locations.push({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()});
 		   		map.setCenter(results[0].geometry.location);
    	  		});
-   		}
    	 	list1(locations)
-	} */
+	}
 		var markerCluster;
 	function list1(locations){
 		var markers;

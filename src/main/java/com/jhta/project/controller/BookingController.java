@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jhta.project.service.FilterTypeListService;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterService;
+import com.jhta.project.vo.FilterTypeListVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
 
@@ -29,13 +31,17 @@ public class BookingController {
 	
 	@Autowired private PetSitterService psetsitterservice;
 	@Autowired private PetSitterImageService imageService;
+	@Autowired private FilterTypeListService filterTypeListService;
+	
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model) {
 		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist();
+		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		for(PetSitterJoinFilterVo x : alllist) {
 			System.out.println(x.getPs_email());
 		}
 		model.addAttribute("alllist", alllist);
+		model.addAttribute("filterlist", filterlist);
 		return ".booking.test2";
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
@@ -48,6 +54,7 @@ public class BookingController {
 		map.put("leftlng", leftlng);
 		map.put("rightlat", rightlat);
 		map.put("rightlng", rightlng);
+		
 		List<PetSitterJoinFilterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
