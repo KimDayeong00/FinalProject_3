@@ -21,10 +21,10 @@ public class HomeConrtoller {
 	}
 
 	
-	@RequestMapping("/login")
-	public String login() {
-		return "/members/login";
-	}
+//	@RequestMapping("/login")
+//	public String login() {
+//		return "/members/login";
+//	}
 	
 	@RequestMapping("/admin/class")
 	public String adminclass() {

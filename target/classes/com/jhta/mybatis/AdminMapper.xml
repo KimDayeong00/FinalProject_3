@@ -19,6 +19,15 @@
 		update class set name = #{name} where classnum = #{classnum}
 	</update>
 	
+	
+	
+	<select id = "fieldList" resultType = "shopclassfieldvo">
+		select fieldnum, f.name name_1 from class c, field f where c.classnum = f.classnum
+	</select>
+	<select id = "fieldInfo" parameterType = "int" resultType = "shopclassfieldvo">
+		select fieldnum, f.name name_1 from class c, field f where c.classnum = f.classnum and c.classnum = #{classnum}
+	</select>
+	
 
 
 

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.AdminService;
+import com.jhta.project.vo.ShopClassFieldVo;
 import com.jhta.project.vo.ShopClassVo;
+import com.jhta.project.vo.ShopFieldVo;
 
 @Controller
 public class AdminController {
@@ -22,12 +24,8 @@ public class AdminController {
 	@RequestMapping(value = "/admin/classList",produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String home() {
-
 		JSONArray arr = new JSONArray();
 		List<ShopClassVo> classvo=service.classList();
-		
-		System.out.println(classvo);
-		
 		for(ShopClassVo vo:classvo) {
 			JSONObject ob = new JSONObject();
 			ob.put("classnum", vo.getClassnum());
@@ -36,7 +34,6 @@ public class AdminController {
 		}	
 		return arr.toString();
 	}
-	
 	@RequestMapping(value = "/admin/classInsert/{name}", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String classInsert(@PathVariable("name")String name) {
@@ -50,7 +47,6 @@ public class AdminController {
 		}
 		return ob.toString();
 	}
-	
 	@RequestMapping(value = "/admin/classGetinfo", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public ShopClassVo classGetinfo(String name) {
@@ -60,16 +56,13 @@ public class AdminController {
 //		ob.put("name", vo.getName());
 		return vo;
 	}
-		
 	@RequestMapping(value = "/admin/classDelete", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String classDelete(int classnum) {
 		int n = service.classDelete(classnum);
-		System.out.println("delete : " + n);
 		JSONArray arr = new JSONArray();
 		if(n>0) {
-			List<ShopClassVo> classvo=service.classList();
-			
+			List<ShopClassVo> classvo=service.classList();	
 			for(ShopClassVo vo:classvo) {
 				JSONObject ob = new JSONObject();
 				ob.put("classnum", vo.getClassnum());
@@ -79,7 +72,6 @@ public class AdminController {
 		}
 		return arr.toString();	
 	}
-	
 	@RequestMapping(value = "/admin/classUpdateOk", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String classUpdateOk(int classnum, String name) {
@@ -88,7 +80,6 @@ public class AdminController {
 		JSONArray arr = new JSONArray();
 		if(n>0) {
 			List<ShopClassVo> classvo=service.classList();
-			
 			for(ShopClassVo vvo:classvo) {
 				JSONObject ob = new JSONObject();
 				ob.put("classnum", vvo.getClassnum());
@@ -98,5 +89,40 @@ public class AdminController {
 		}
 		System.out.println(arr);
 		return arr.toString();	
+	}
+	
+	
+	// 중분류
+	@RequestMapping(value = "/admin/fieldList",produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String fieldList() {
+		JSONArray arr = new JSONArray();
+		List<ShopClassFieldVo> fieldvo = service.fieldList();
+		System.out.println(fieldvo.toString());
+		for(ShopClassFieldVo vo:fieldvo) {
+			JSONObject ob = new JSONObject();
+			ob.put("fieldnum", vo.getFieldnum());
+			ob.put("classnum", vo.getClassnum());
+			ob.put("name_1", vo.getName_1());
+		
+			arr.put(ob);
+		}
+		return arr.toString();
+	}
+	@RequestMapping(value = "/admin/fieldInfo", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String fieldInfo(int classnum) {
+		System.out.println("중분류번호받아오니"+classnum);
+		JSONArray arr = new JSONArray();
+		List<ShopClassFieldVo> fieldvo = service.fieldInfo(classnum);
+		for(ShopClassFieldVo vo:fieldvo) {
+			JSONObject ob = new JSONObject();
+			ob.put("fieldnum", vo.getFieldnum());
+			ob.put("classnum", vo.getClassnum());
+			ob.put("name_1", vo.getName_1());
+			arr.put(ob);
+		}
+		System.out.println(arr);
+		return arr.toString();
 	}
 }

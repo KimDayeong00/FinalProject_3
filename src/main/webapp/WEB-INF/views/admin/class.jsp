@@ -9,6 +9,7 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		/* 대분류 리스트 */
 		var name = $("#name").val();
 		$.ajax({
 			url : "<c:url value = '/admin/classList'/>",
@@ -18,13 +19,15 @@
 				for(var i=0;i<data.length;i++){
 					var classnum = data[i].classnum;
 					var name = data[i].name;
-					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</a></td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:fieldInfo(" + classnum + ")'>" + name + "</a></td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
 					str += "</tr>";
 				}
 				//console.log(classnum);
 				$("#classListBody").append(str);
 			}
 		});
+		
+		/* 대분류 추가 */
 		$("#classInsert").click(function(){
 			//alert("ok?");
 			var name = $("#name").val();
@@ -39,12 +42,32 @@
 					//var td = document.createElement("td");
 					/* var str = "<tr><td>" + classnum + "</td><td>" + name + "</td></tr>";
 					$("classList").append(str); */
-					var str = "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					var str = "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:fieldInfo(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
 					$("#classListBody").append(str);
 				}
 			});
 		});
+		
+		/* 중분류 리스트 */
+		$.ajax({
+			url : "<c:url value = '/admin/fieldList'/>",
+			dataType : "json",
+			success : function(data){
+				console.log(data);
+				for(var i=0;i<data.length;i++){
+					var fieldnum = data[i].fieldnum;
+					var name = data[i].name_1;
+					var str = "<tr>";
+					str += "<td>" + fieldnum + "</td><td>" + name + "</td><td>삭제</td><td>수정</td>";
+					str += "</tr>";
+				$("#fieldListBody").append(str);
+				}
+				//console.log(classnum);
+			}
+		});
 	});
+	
+	/* 대분류 업데이트 */
 	function classUpdate(classnum){
 		var name = $("#" + classnum + "").text();
 		$("#" + classnum + "").html("<input type='text' id = 'name"+classnum+"' value='" + name + "'><input type='button' id='classUpdateOk' value='수정'  onclick = 'classUpdateOk("+classnum+")'>");
@@ -62,7 +85,7 @@
 				var str = "<tr>";
 					var classnum = data[i].classnum;
 					var name = data[i].name;
-					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:fieldInfo(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
 					str += "</tr>";
 				$("#classListBody").append(str);
 				}
@@ -71,6 +94,7 @@
 			}
 		});
 	}
+	/* 대분류 삭제 */
 	function classDelete(classnum){
 		//console.log(classnum);
 		$.ajax({
@@ -81,10 +105,10 @@
 				$("#classListBody").html("");
 				//console.log(data);
 				for(var i=0;i<data.length;i++){
-				var str = "<tr>";
+					var str = "<tr>";
 					var classnum = data[i].classnum;
 					var name = data[i].name;
-					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:filedList(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
+					str += "<td>" + classnum + "</td><td id='"+classnum+"'><a href='javascript:fieldInfo(" + classnum + ")'>" + name + "</td><td><a href='javascript:classDelete(" + classnum + ")'>삭제</a></td><td><a href='javascript:classUpdate(" + classnum + ")'>수정</a></td>";
 					str += "</tr>";
 				$("#classListBody").append(str);
 				}
@@ -93,8 +117,28 @@
 			}
 		});
 	};
-	function fieldList(classnum){
+	
+	
+	/* 중분류 인포 */
+	function fieldInfo(classnum){
 		console.log(classnum);
+		$.ajax({
+			url : "<c:url value = '/admin/fieldInfo'/>",
+			data : {classnum : classnum},
+			dataType : "json",
+			success : function(data){
+				console.log(data);
+				$("#fieldListBody").html("");
+				for(var i = 0;i<data.length;i++){
+					var str = "<tr>";
+					var fieldnum = data[i].fieldnum;
+					var name = data[i].name_1;
+					str += "<td>" + fieldnum + "</td><td>" + name + "</td><td>삭제</td><td>수정</td>";
+					str += "</tr>";
+					$("#fieldListBody").append(str);
+				}
+			}
+		});
 	};
 </script>
 </head>
@@ -115,12 +159,13 @@
 			대분류 이름<input type = "text" id = "name">
 			<input type = "button" id = "classInsert" value = "추가">
 		</form>
+		<br>
+		<br>
 		
 	<h2>중분류(Field)</h2>	
 		<table border = "1" width = "500" id = "fieldList">
 			<tr>
 				<th>Field_Num</th>
-				<th>Class_Num</th>
 				<th>NAME</th>
 				<th>삭제</th>
 				<th>수정</th>

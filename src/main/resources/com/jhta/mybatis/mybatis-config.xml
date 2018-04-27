@@ -16,6 +16,7 @@
 			alias="shopfiltertypevo" />
 		<typeAlias type="com.jhta.project.vo.ShopFilterContentVo"
 			alias="shopfiltercontentvo" />
+		<typeAlias type="com.jhta.project.vo.ShopClassFieldVo" alias="shopclassfieldvo" />
 
 	</typeAliases>
 	<mappers>
@@ -24,7 +25,6 @@
 		<mapper resource="com/jhta/mybatis/PetSitterImageMapper.xml" />
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		<!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
-		<mapper resource="com/jhta/mybatis/ProjectMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />
 		<mapper resource="com/jhta/mybatis/AdminMapper.xml" />
