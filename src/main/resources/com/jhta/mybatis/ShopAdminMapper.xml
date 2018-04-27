@@ -12,5 +12,16 @@
 select * from field where classnum=#{classnum}
 </select>
 
+<select id="maxpnum"  resultType="int">
+select max(p_num) from item
+</select>
+<insert id="itemadd" parameterType="shopitemvo">
+insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum})
+</insert>
+
+<insert id="imageadd" parameterType="shopitemimagevo">
+insert into itemimage values(seq_itemimage_item_num.nextval,#{item_savefilename},#{p_num})
+</insert>
+
 </mapper>
 

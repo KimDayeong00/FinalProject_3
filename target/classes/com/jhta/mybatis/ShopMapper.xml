@@ -16,8 +16,8 @@ select * from field where classnum=#{classnum}
 select NVL(count(*),0) from field where classnum=#{classnum}
 </select>
 
-<select id="classitemlist" parameterType="hashmap" resultType="shopitemvo">
-select * from (select aa.*,rownum rnum from (select * from item where fieldnum in(select fieldnum from field where classnum in(select classnum from class where classnum=#{classnum} )))aa) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+<select id="classitemlist" parameterType="hashmap" resultType="shopitemjoinvo">
+select bb.*,itemimage.item_savefilename from itemimage,(select aa.*,rownum rnum from (select * from item where fieldnum in(select fieldnum from field where classnum in(select classnum from class where classnum=#{classnum} )))aa)bb <![CDATA[where itemimage.p_num=bb.p_num and rnum >=#{startRow} and rnum <=#{endRow}]]>
  			
 </select>
 
@@ -25,8 +25,8 @@ select * from (select aa.*,rownum rnum from (select * from item where fieldnum i
 select NVL(count(*),0) from item where fieldnum in(select fieldnum from field where classnum in(select classnum from class where classnum=#{classnum} ))
 </select>
 
-<select id="fielditemlist" parameterType="hashmap" resultType="shopitemvo">
-select * from (select aa.*,rownum rnum from (select * from item where  fieldnum = #{fieldnum})aa) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+<select id="fielditemlist" parameterType="hashmap" resultType="shopitemjoinvo">
+select bb.*,itemimage.item_savefilename from itemimage, (select * from (select aa.*,rownum rnum from (select * from item where  fieldnum = #{fieldnum})aa))bb <![CDATA[where bb.p_num=itemimage.p_num and rnum >=#{startRow} and rnum <=#{endRow}]]>
 </select>
 
 <select id="itemlist" parameterType="hashmap" resultType="shopitemvo">
