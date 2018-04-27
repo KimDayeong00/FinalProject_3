@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.project.dao.PetSitterDao;
+import com.jhta.project.vo.PetSitterJoinFilterVo;
 import com.jhta.project.vo.PetSitterVo;
 
 @Service
@@ -14,7 +15,7 @@ public class PetSitterServiceImpl implements PetSitterService{
 	@Autowired private PetSitterDao petsitterDao;
 	
 	@Override
-	public List<PetSitterVo> list(HashMap<String, String> map) {
+	public List<PetSitterJoinFilterVo> list(HashMap<String, String> map) {
 		return petsitterDao.list(map);
 	}
 	
@@ -23,7 +24,8 @@ public class PetSitterServiceImpl implements PetSitterService{
 		return petsitterDao.select(ps_email);
 	}
 	@Override
-	public List<PetSitterVo> alllist() {
+	public List<PetSitterJoinFilterVo> alllist() {
 		return petsitterDao.alllist();
+
 	}
 }

@@ -2,12 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <script>
 	var startcheckin = '<c:out value="${vo.po_startcheckin}"/>';
 	var endcheckin = '<c:out value="${vo.po_endcheckin}"/>';
-	var careprice = '<c:out value="${vo2.ps_careprice}"/>';
-	var price = '<c:out value="${vo2.ps_price}"/>';
+	var careprice = '<c:out value="${vo4.ps_careprice}"/>';
+	var price = '<c:out value="${vo4.ps_price}"/>';
 	
 	
 	$(document).ready(function() {
@@ -60,7 +59,7 @@
 						$(".basicprice").html(careprice+"원");
 						if(overtime>43200000){
 							$("#overprice").remove();
-							$("#daybox").after("<div class='book_box2' id='overprice'><div><span>초과금액</span></div>"
+							$("#petPlus").before("<div class='book_box2' id='overprice'><div><span>초과금액</span></div>"
 							+"<div class='price'><span>10000원</span></div></div>");
 						}else if(overtime<43200000){
 							$("#overprice").remove();	
@@ -115,7 +114,7 @@
 						$(".basicprice").html(careprice+"원");
 						if(overtime>43200000){
 							$("#overprice").remove();
-							$("#daybox").after("<div class='book_box2' id='overprice'><div><span>초과금액</span></div>"
+							$("#petPlus").before("<div class='book_box2' id='overprice'><div><span>초과금액</span></div>"
 									+"<div class='price'><span>10000원</span></div></div>");
 						}else if(overtime<43200000){
 							$("#overprice").remove();	
@@ -149,7 +148,7 @@
 		<!--<c:set var="ps_price" value="${vo4.ps_price }" />
 			<fmt:formatNumber value= "${ps_price}" type="number" maxIntegerDigits="15"/>
 		-->
-		<div id="day"><span>1박</span></div><span class="basicprice">0원</span>
+		<div id="day"><span>1박</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="basicprice">${vo4.ps_price }원</span></div>
 		<!-- <span>
 			<select>
 				<option>15kg 미만</option>
@@ -159,41 +158,29 @@
 		<div class="book_box1">
 			<span>대형견(15kg 이상) 추가 당 ${vo4.ps_overprice }원 </span>
 		</div>
-		<div class="book_box2" id="daybox">
-			<!-- <div id="day"><span>1박</span></div> -->
+		<!-- <div class="book_box2" id="daybox">
+			<div id="day"><span>1박</span></div>
 			
 			<div class="price"><span class="basicprice"><fmt:formatNumber value= "${ps_price}"
 			 type="number" maxIntegerDigits="15"/>원</span></div>
-		</div>
-		<div class="book_box3">
+		</div> -->
+		<div class="book_box3" id="petPlus">
 			<div class="petspinner">
 				<span>반려견 추가</span>
-				<div class="nice-number">
-				  
-				  <input type="number" value="0" style="width: 4ch;" min="0" readonly="readonly">
-				 
+				<div class="nice-number">			  
+				  <input type="number" value="0" style="width: 4ch;" min="0" readonly="readonly">	 
 				</div>
-				
-				<!--
-				 <div id="increment">
-					<button id="plus"><label>+</label></button>
-					<input type="text" id="petNumber" value="0">
-					<button id="minus"><label>-</label></button>
-				</div>
-				 -->
 			</div>
 			<div class="price"><span id="plusprice">0원</span></div>
 		</div>
 		<div class="book_box2">
-			<c:set var="tax" value="${vo2.ps_price*0.1 }" />
 			<div><span>부가세</span></div>
-			<div class="price"><span class="tax"><fmt:formatNumber value= "${tax }" type="number" maxIntegerDigits="15"/>원</span></div>
+			<div class="price"><span class="tax">0원</span></div>
 		</div>
 		<div class="book_box2" style="border-bottom:1px solid gray;height:30px;">
 			
 			<div><span>총 합계</span></div>
-			<c:set var="totalprice" value="${vo2.ps_price*1.1 }" />
-			<div class="price"><span class="totalprice"><fmt:formatNumber value= "${totalprice }" type="number" maxIntegerDigits="15"/>원</span></div>
+			<div class="price"><span class="totalprice">0원</span></div>
 		</div><br>
 		<button id="bookBtn" type="submit">
 			<label>예약하기</label>
@@ -282,12 +269,14 @@
 		<div class="introduction">
 			<p>돌보미 소개</p>
 			<div>
-				<c:if test="${vo3.pi_gubun eq 0 }">
+				<!--<c:if test="${vo3.pi_gubun eq 0 }">
 					<span>${vo2.ps_name } 돌보미는 강아지를 키운 적이 있으며, 현재는 키우고 있지 않습니다.</span><br>
-				</c:if>
-				<div class="petImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div><br>
-				<span class="petName">${vo3.pi_name }</span><br>
-				<span class="petInfo">(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
+				</c:if>--> 
+				<c:forEach var="vo3" items="${petList }">
+					<div class="petImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div><br>
+					<span class="petName">${vo3.pi_name }</span><br>
+					<span class="petInfo">(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
+				</c:forEach>
 			</div>
 			<div class="selfIntroduction">
 				${vo2.ps_content }

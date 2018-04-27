@@ -48,7 +48,7 @@
       
       // 추가 금액
       var total = 0;
-      var plusprice = 20000;
+      var plusprice = 0;
       // Generate buttons
       var $minusButton = $('<button/>')
         .attr('type', 'button')

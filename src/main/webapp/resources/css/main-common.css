@@ -2,7 +2,7 @@
 #content {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
 .imgSlide {width:610px;height:400px;float:left;}
 .slider div{height:350px;}
-.book {width:380px;height:400px;float:left;margin-left:10px;border: 1px solid gray;text-align: center;}
+.book {width:380px;overflow:hidden;float:left;margin-left:10px;border: 1px solid gray;text-align: center;}
 .book p{font-size: 13px;}
 .caledar input {float:left;}
 .calendar {display: inline-block;}
@@ -15,7 +15,7 @@
 .book_box2 .price{width:100px;text-align: right;}
 .book_box3 .price{width:100px;text-align: right;overflow: hidden;}
 #bookBtn {width:300px;height:100px;background-color: #f0efe8; border:none;cursor: pointer;border-radius: 10px;line-height: normal;
-			outline: 0;}
+			outline: 0;margin-bottom: 15px;}
 #bookBtn:hover {
 	color:gray;
 }

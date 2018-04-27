@@ -6,18 +6,18 @@
   <typeAliases>
   	<typeAlias type="com.jhta.project.vo.PetsitterOptionVo" alias="petoption"/>
   	<typeAlias type="com.jhta.project.vo.PetSitterVo" alias="petsitter"/>
+  	<typeAlias type="com.jhta.project.vo.PetSitterJoinFilterVo" alias="petsitterjoinfilter" />
   	<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage"/>
   	<typeAlias alias="member" type="com.jhta.project.vo.memberVO"/>
   	<typeAlias type="com.jhta.project.vo.PetsitterPetVo" alias="ppetinfo"/>
-  	<typeAlias type="com.jhta.project.vo.PetsitterPriceVo" alias="petsitterprice"/>
+  	<typeAlias type="com.jhta.project.vo.PetSitterPriceVo" alias="petsitterprice"/>
   	<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
 	<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
 	<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
-	<typeAlias type="com.jhta.project.vo.ShopFilterTypeVo"
-			alias="shopfiltertypevo" />
-	<typeAlias type="com.jhta.project.vo.ShopFilterContentVo"
-			alias="shopfiltercontentvo" />
-  </typeAliases>
+	<typeAlias type="com.jhta.project.vo.ShopFilterTypeVo" alias="shopfiltertypevo" />
+	<typeAlias type="com.jhta.project.vo.ShopFilterContentVo" alias="shopfiltercontentvo" />
+ </typeAliases>
+
   <mappers>
   <!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
     <mapper resource="com/jhta/mybatis/PetsitterOptionMapper.xml"/>

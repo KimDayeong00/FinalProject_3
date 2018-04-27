@@ -1,5 +1,7 @@
 package com.jhta.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import com.jhta.project.vo.PetsitterPetVo;
 public class PpetInfoService {
 	@Autowired private PpetInfoDao dao;
 	
-	public PetsitterPetVo select(String ps_email) {
+	public List<PetsitterPetVo> select(String ps_email) {
 		return dao.select(ps_email);
 	}
 }

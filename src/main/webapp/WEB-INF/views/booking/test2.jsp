@@ -6,7 +6,6 @@
       #petsitterList {
       	width : 50%;
         height: 600px;
-        background-color: pink;
         position:relative;
       	float:left;
       	overflow:scroll;
@@ -21,11 +20,14 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8&callback=initMap">
     </script>
-<!--     	<select class="addr" name="sido" id="sido"><option value="">-시도-</option></select>
-		<select class="addr" name="gugun" id="gugun"><option value="">-구군-</option></select>
-		<select class="addr" name="dong" id="dong"><option value="">-동-</option></select>
-		<script>sojaeji();</script> -->
-    <div id="petsitterList"></div>
+	<div style="width: 100%; background-color: pink">
+		<select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;시도</option></select>
+		<select style="width: 100px;" class="addr" name="gugun" id="gugun"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구군</option></select>
+		<select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select>
+		<script>sojaeji();</script><br />
+	</div>
+    <div id="petsitterList">
+    </div>
     <div id="map"></div>
     <script type="text/javascript">
     var search;
@@ -100,7 +102,7 @@
         var endLo = bounds.getNorthEast();
         var startLo = bounds.getSouthWest();
         var pos=map.getCenter();
-        console.log("Zoom: " + zoomLevel);
+        /* console.log("Zoom: " + zoomLevel);
         $("#petsitterList").append("Zoom: " + zoomLevel+"<br>");
         $("#petsitterList").append("bounds: " + bounds+"<br>");
         $("#petsitterList").append("좌측하단: " + startLo+"<br>");
@@ -108,7 +110,7 @@
         $("#petsitterList").append("차이lat: " + (endLo.lat()-startLo.lat())+"<br>");
         $("#petsitterList").append("차이lng: " + (endLo.lng()-startLo.lng())+"<br>");
         $("#petsitterList").append("맵 중앙 lat: " + pos.lat()+"<br>");
-        $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>");
+        $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
         arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
 	}
 	/* function list(address){
@@ -160,11 +162,6 @@
                 "</div>" 
 		 	        infowindow.setContent(contentString);
 					infowindow.open(map, this);
-		 				/* console.log(this.email);
-		 			  	console.log(this.name);
-		 			  	console.log(this.addr1);
-		 			  	console.log(this.content); */
-			 	  
 		 			});
 		 		}
 
@@ -186,23 +183,27 @@
 	    		var arr=new Array();
 	    		$("#petsitterList").html("");
 	        	for(var q=0; q<data.list.length; q++){
-	        		$("#petsitterList").append(
+	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
-	        				"<div class='tour-img' style='width:20%; float:left;'>"+
-	        				"<a href='#'><img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
+	        				"<div class='tour-img' style='width:20%;'>"+
+	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
 	                                "<h2><a href='#' class='title'>"+data.list[q].ps_email+"</a></h2>"+
 	                                "<div class='tour-meta'> <span class='tour-meta-icon'><i class='fa fa-sun-o'></i></span><span class='tour-meta-text'>8 Days</span> <span class='tour-meta-text'>|</span> <span class='tour-meta-icon'><i class='fa fa-moon-o'></i></span><span class='tour-meta-text'>7 Nights </span> </div>"+
-	                                "<div class='tour-text mb40'>"+
-	                                    "<p>Monasteries | Nubra Velly | Panmika Pangong Lake | Zoravar Fort | Alchi Khardung La | Sidhu Ghat </p>"+
+	                                "<div class='tour-text mb40' style='text-align: center;'>";
+	                                for(var w=0; w<data.list[q].list.length; w++){
+	                                	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
+	                                }
+	                                petsitterList+=
 	                                "</div>"+
 	                                "<div class='tour-details'>"+
 	                                    "<div class='tour-details-text'><span style='display: block; text-align: right; color: gray; font-size: 20px; width:400px;'>day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"</span></div>"+
 	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
-	                    "</div>");  				
+	                    "</div>";
+	                    $("#petsitterList").append(petsitterList); 				
 	        				
 	    		}
 	    })
