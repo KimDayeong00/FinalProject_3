@@ -36,10 +36,8 @@
 String email = (String)session.getAttribute("login");
 %>
 
-
 <body>
 
-    <!-- header-section start -->
 
 
     <div class="top-bar">
@@ -100,8 +98,8 @@ String email = (String)session.getAttribute("login");
                                     </li> -->
 									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
                                     <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
-                                    <li><a href="styleguide.html" title="Styleguide">이용방법</a></li>
-                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a></li>
+                                    <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
+                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a>
                                         <ul>
                                             <li><a href="domestic-tour.html" title="Group Tours">Domestic Tours</a></li>
                                             <li><a href="international-tour.html" title="Couple Tours">International Tours</a></li>

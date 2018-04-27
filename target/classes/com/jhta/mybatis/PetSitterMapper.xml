@@ -50,8 +50,9 @@
 		(select ps_email, ABS(ps_lng-#{lng}) lng from petsitter) lng where lat.ps_email = lng.ps_email ) )) bb 
 		where aa.ps_email=bb.ps_email and aa.ps_active=1 and aa.ps_lat between #{leftlat} and #{rightlat} and aa.ps_lng between #{leftlng} and #{rightlng} order by latlng asc) cc
 		where <![CDATA[rownum <=10]]>)) 
-		
-	</select>    
-	
+	</select> 
+	<select id="select" parameterType="string" resultType="petsitter">
+		select * from petsitter where ps_email=#{value}
+	</select>
 </mapper>
 

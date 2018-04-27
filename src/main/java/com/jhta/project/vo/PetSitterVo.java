@@ -17,6 +17,7 @@ public class PetSitterVo {
 	private String ps_saveimage;
 	private int ps_gubun;
 	private int ps_active;
+
 	public PetSitterVo() {}
 	public PetSitterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
 			String ps_addr2, String ps_content, Date ps_regdate, double ps_lat, double ps_lng, String ps_originalimg,
@@ -109,9 +110,11 @@ public class PetSitterVo {
 	public void setPs_saveimage(String ps_saveimage) {
 		this.ps_saveimage = ps_saveimage;
 	}
+
 	public int getPs_gubun() {
 		return ps_gubun;
 	}
+
 	public void setPs_gubun(int ps_gubun) {
 		this.ps_gubun = ps_gubun;
 	}
@@ -120,5 +123,13 @@ public class PetSitterVo {
 	}
 	public void setPs_active(int ps_active) {
 		this.ps_active = ps_active;
+	}
+	@Override
+	public String toString() {
+		return "PetSitterVo [ps_email=" + ps_email + ", ps_pwd=" + ps_pwd + ", ps_phone=" + ps_phone + ", ps_name="
+				+ ps_name + ", ps_addr1=" + ps_addr1 + ", ps_addr2=" + ps_addr2 + ", ps_content=" + ps_content
+				+ ", ps_regdate=" + ps_regdate + ", ps_lat=" + ps_lat + ", ps_lng=" + ps_lng + ", ps_originalimg="
+				+ ps_originalimg + ", ps_saveimage=" + ps_saveimage + ", ps_gubun=" + ps_gubun
+				+ ", ps_active=" + ps_active + "]";
 	}
 }

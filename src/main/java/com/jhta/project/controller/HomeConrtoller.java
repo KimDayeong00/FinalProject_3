@@ -15,14 +15,11 @@ public class HomeConrtoller {
 
 	}
 	
-	/*@RequestMapping("/shop/home")
-	public String home() {
-		return ".shop.home";
-	}
-*/
-	
+	@RequestMapping("/petsitterPage")
+	public String petsitterPage() {
+		return ".mypage.petsitter_info";
+
 	}
 
-
-
+}
 
