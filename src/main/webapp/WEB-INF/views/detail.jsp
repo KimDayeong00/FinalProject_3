@@ -7,17 +7,75 @@
 	var endcheckin = '<c:out value="${vo.po_endcheckin}"/>';
 	var careprice = '<c:out value="${vo4.ps_careprice}"/>';
 	var price = '<c:out value="${vo4.ps_price}"/>';
-	
+	var over = '<c:out value="${vo4.ps_overprice}"/>';
+	var totalover = 0;
 	
 	$(document).ready(function() {
 		var startDate = null;
 		var endDate = null;
-		
 		//반려견 추가 +- 플러그인
 		$(function(){
 
-		  $('input[type="number"]').niceNumber();
+		  //$('input[type="number"]').niceNumber();
+			$('#spinner1').niceNumber({
+				autoSize:false
+			});
+		});
 		
+		//대형견 추가 +- 코드
+		$("#plusBtn2").click(function(){
+			//number 증가
+			var interval = parseInt($("#spinner2").val());
+			interval++;
+			$("#spinner2").prop('value',interval);
+			//span에 금액 표시
+			var over2 = parseInt(over);
+			totalover += over2;
+			$("#plusprice2").html(totalover);
+			
+			//부가세 계산
+            var overprice = 0;
+          	  if($("#overpriceSpan").text()!=""){
+          		  overprice = parseInt($("#overpriceSpan").text());
+          	  }
+            var plusprice1 = parseInt($("#plusprice").text());
+            var plusprice2 = parseInt($("#plusprice2").text());
+            var allprice = parseInt(overprice+plusprice1+plusprice2);
+            var tax = parseInt(allprice*0.1);
+            $(".tax").text(tax);
+            
+            //총합계 계산
+            var finalprice = allprice+tax;
+            $(".totalprice").text(finalprice);
+            
+		});
+		$("#minusBtn2").click(function(){
+			//number 감소
+			var interval = parseInt($("#spinner2").val());
+			interval--;
+			if(interval<=0) interval=0;
+			$("#spinner2").prop('value',interval);
+			
+			//span에 표시
+			var over2 = parseInt(over);
+			totalover -= over2;
+			if(totalover<=0) totalover=0;
+			$("#plusprice2").html(totalover);
+			
+			//부가세 계산
+            var overprice = 0;
+          	  if($("#overpriceSpan").text()!=""){
+          		  overprice = parseInt($("#overpriceSpan").text());
+          	  }
+            var plusprice1 = parseInt($("#plusprice").text());
+            var plusprice2 = parseInt($("#plusprice2").text());
+            var allprice = parseInt(overprice+plusprice1+plusprice2);
+            var tax = parseInt(allprice*0.1);
+            $(".tax").text(tax);
+            
+            //총합계 계산
+            var finalprice = allprice+tax;
+            $(".totalprice").text(finalprice);
 		});
 
 		//이미지 슬라이드 플러그인
@@ -55,21 +113,33 @@
 					var overtime = endDate-startDate;					
 					
 					if(overtime<86400000){
+						totalover = 0;
 						$("#day > span").html("1day");
-						$(".basicprice").html(careprice+"원");
+						$(".basicprice").html(careprice);
+						$("#plusprice").html("0");
+						$("#plusprice2").html("0");
+						$(".tax").html("0");
+						$(".totalprice").html("0");
+						$("#spinner1").prop('value',0);
+						$("#spinner2").prop('value',0);
 						if(overtime>43200000){
 							$("#overprice").remove();
 							$("#petPlus").before("<div class='book_box2' id='overprice'><div><span>초과금액</span></div>"
-							+"<div class='price'><span>10000원</span></div></div>");
+							+"<div class='price'><span id='overpriceSpan'>10000</span>원</div></div>");
 						}else if(overtime<43200000){
 							$("#overprice").remove();	
 						}
 					}else if(overtime>=86400000){
+						totalover = 0;
 						$("#day > span").html("1박");
-						$(".basicprice").html(price+"원");
+						$(".basicprice").html(price);
+						$("#plusprice").html("0");
+						$("#plusprice2").html("0");
+						$(".tax").html("0");
+						$(".totalprice").html("0");
+						$("#spinner1").prop('value',0);
+						$("#spinner2").prop('value',0);
 					}
-					
-					
 				}
 			}
 		});
@@ -110,19 +180,33 @@
 					
 					
 					if(overtime<86400000){
+						totalover = 0;
 						$("#day > span").html("1day");
-						$(".basicprice").html(careprice+"원");
+						$(".basicprice").html(careprice);
+						$("#plusprice").html("0");
+						$("#plusprice2").html("0");
+						$(".tax").html("0");
+						$(".totalprice").html("0");
+						$("#spinner1").prop('value',0);
+						$("#spinner2").prop('value',0);
 						if(overtime>43200000){
 							$("#overprice").remove();
 							$("#petPlus").before("<div class='book_box2' id='overprice'><div><span>초과금액</span></div>"
-									+"<div class='price'><span>10000원</span></div></div>");
+									+"<div class='price'><span id='overpriceSpan'>10000</span>원</div></div>");
 						}else if(overtime<43200000){
 							$("#overprice").remove();	
 						}
 					}else if(overtime>=86400000){
+						totalover = 0;
 						$("#overprice").remove();
 						$("#day > span").html("1박");
-						$(".basicprice").html(price+"원");
+						$(".basicprice").html(price);
+						$("#plusprice").html("0");
+						$("#plusprice2").html("0");
+						$(".tax").html("0");
+						$(".totalprice").html("0");
+						$("#spinner1").prop('value',0);
+						$("#spinner2").prop('value',0);
 					}		
 					
 				}
@@ -148,7 +232,7 @@
 		<!--<c:set var="ps_price" value="${vo4.ps_price }" />
 			<fmt:formatNumber value= "${ps_price}" type="number" maxIntegerDigits="15"/>
 		-->
-		<div id="day"><span>1박</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="basicprice">${vo4.ps_price }원</span></div>
+		<div id="day"><span>1박</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="basicprice">${vo4.ps_price }</span>원</div>
 		<!-- <span>
 			<select>
 				<option>15kg 미만</option>
@@ -166,21 +250,32 @@
 		</div> -->
 		<div class="book_box3" id="petPlus">
 			<div class="petspinner">
-				<span>반려견 추가</span>
+				<span>일반견 추가</span>
 				<div class="nice-number">			  
-				  <input type="number" value="0" style="width: 4ch;" min="0" readonly="readonly">	 
+				  <input type="number" value="0" style="width: 4ch;" min="0" readonly="readonly" id="spinner1">	 
 				</div>
 			</div>
-			<div class="price"><span id="plusprice">0원</span></div>
+			<div class="price"><span id="plusprice">0</span>원</div>
+		</div>
+		<div class="book_box3" id="petPlus">
+			<div class="petspinner">
+				<span>대형견 추가</span>
+				<div class="nice-number2">
+				  <button id="minusBtn2" type="button">-</button>
+				  <input type="number" value="0" style="width: 4ch;" id="spinner2" min="0" readonly="readonly">
+				  <button id="plusBtn2" type="button">+</button>
+				</div>
+			</div>
+			<div class="price"><span id="plusprice2">0</span>원</div>
 		</div>
 		<div class="book_box2">
 			<div><span>부가세</span></div>
-			<div class="price"><span class="tax">0원</span></div>
+			<div class="price"><span class="tax">0</span>원</div>
 		</div>
 		<div class="book_box2" style="border-bottom:1px solid gray;height:30px;">
 			
 			<div><span>총 합계</span></div>
-			<div class="price"><span class="totalprice">0원</span></div>
+			<div class="price"><span class="totalprice">0</span>원</div>
 		</div><br>
 		<button id="bookBtn" type="submit">
 			<label>예약하기</label>

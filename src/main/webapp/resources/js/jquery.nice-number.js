@@ -12,7 +12,8 @@
       var currentInput = this,
           $currentInput = $(currentInput),
           attrMax = null,
-          attrMin = null;
+          attrMin = null,
+          plusprice = price;
 
       // Handle max and min values
       if (
@@ -61,12 +62,30 @@
               attrMin == null
               || attrMin < parseFloat(currentInput.value)
             ) {
-              currentInput.value--;
+              currentInput.value--;//input number 증가
+              // 일반견 감소될 때 금액 계산
+              total = parseInt($("#plusprice").text());
+              plusprice = parseInt($(".basicprice").text());
               total -= plusprice; 
               if(total<0){
             	  total=0;
               }
-              $("#plusprice").text(total+"원");
+              $("#plusprice").text(total);
+              
+            //부가세 계산
+              var overprice = 0;
+            	  if($("#overpriceSpan").text()!=""){
+            		  overprice = parseInt($("#overpriceSpan").text());
+            	  }
+              var plusprice1 = parseInt($("#plusprice").text());
+              var plusprice2 = parseInt($("#plusprice2").text());
+              var allprice = parseInt(overprice+plusprice1+plusprice2);
+              var tax = parseInt(allprice*0.1);
+              $(".tax").text(tax);
+              
+              //총합계 계산
+              var finalprice = allprice+tax;
+              $(".totalprice").text(finalprice);
             }
           });
 
@@ -90,9 +109,27 @@
               attrMax == null
               || attrMax > parseFloat(currentInput.value)
             ) {
-              currentInput.value++;
+              currentInput.value++; //input number 증가
+              // 일반견 추가될 때 추가 금액 계산
+              total = parseInt($("#plusprice").text());
+              plusprice = parseInt($(".basicprice").text());
               total += plusprice; 
-              $("#plusprice").text(total+"원");
+              $("#plusprice").text(total);
+              
+              //부가세 계산
+              var overprice = 0;
+            	  if($("#overpriceSpan").text()!=""){
+            		  overprice = parseInt($("#overpriceSpan").text());
+            	  }
+              var plusprice1 = parseInt($("#plusprice").text());
+              var plusprice2 = parseInt($("#plusprice2").text());
+              var allprice = parseInt(overprice+plusprice1+plusprice2);
+              var tax = parseInt(allprice*0.1);
+              $(".tax").text(tax);
+              
+              //총합계 계산
+              var finalprice = allprice+tax;
+              $(".totalprice").text(finalprice);
             }
           });
 

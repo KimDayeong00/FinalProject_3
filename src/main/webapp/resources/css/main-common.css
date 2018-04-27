@@ -51,8 +51,29 @@
 .petspinner {line-height:25px;overflow: hidden;}
 #minusBtn {background-color: #f0efe8; border:none;}
 
+/*
+	spinner2
+*/
+.nice-number2 {
+  display: inline-flex;
+  justify-content: stretch;
+  line-height:20px;
+}
 
-#petNumber {width:30px;height:30px;}
-#increment {height:30px;vertical-align: middle;}
-#increment button {height:30px;}
-#increment label {vertical-align: middle;}
+.nice-number2 input {
+  vertical-align: middle;
+  -moz-appearance: textfield;
+  box-sizing: content-box;
+  margin: 0;
+  text-align: center;
+}
+
+.nice-number2 input::-webkit-inner-spin-button,
+.nice-number2 input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.nice-number2 input{border-color: #f0efe8;}
+.petspinner {line-height:25px;overflow: hidden;}
+#minusBtn2 {background-color:#f0efe8; border:none; width:23px; outline:0;border:none;}
+#plusBtn2 {background-color:#f0efe8; border:none; width:23px; outline:0;border:none;}
