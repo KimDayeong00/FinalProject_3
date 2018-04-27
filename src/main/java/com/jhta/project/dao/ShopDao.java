@@ -42,7 +42,7 @@ public class ShopDao {
 		return sqlSession.selectList(NAMESPACE+".classitemlist",map);
 	}
 	
-	public List<ShopItemVo> fielditemlist(HashMap<Object,Object> map){
+	public List<ShopItemJoinVo> fielditemlist(HashMap<Object,Object> map){
 		return sqlSession.selectList(NAMESPACE+".fielditemlist",map);
 	}
 	

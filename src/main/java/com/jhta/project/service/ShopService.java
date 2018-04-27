@@ -42,7 +42,7 @@ public class ShopService {
 		return dao.classitemlist(map);
 	}
 	
-	public List<ShopItemVo> fielditemlist(HashMap<Object,Object> map) {
+	public List<ShopItemJoinVo> fielditemlist(HashMap<Object,Object> map) {
 		return dao.fielditemlist(map);
 	}
 	

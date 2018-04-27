@@ -2,18 +2,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link href="<c:url value='/resources/css/checkbox.css'/>"
-	rel="stylesheet">
+
+<style>
+.filtertype{width: 100px;height:40px;background-color:#525f78; margin:2px;padding: 10px;text-align:center;border: #336600 1px solid;border-radius:10px;font-size: 15px;}
+</style>
+
 <table class="table table-hover">
 
 	<tr>
 		<td>분류</td>
 		<c:forEach var="fieldvo" items="${fieldvo}">
-			<td><a
+			<td style="color: red"><a
 				href="<c:url value='/item/fielditemlist?fieldnum=${fieldvo.fieldnum }&classnum=${fieldvo.classnum }'/>">${fieldvo.name }</a></td>
-
 		</c:forEach>
-
 	</tr>
 </table>
 
@@ -21,7 +22,11 @@
 <table class="table table-hover" border="1">
 	<c:forEach var="filtertypevo" items="${filtertypevo }">
 		<tr>
-			<td>${filtertypevo.ft_name }</td>
+			<td style="color: white">
+			
+			<div class="filtertype">${filtertypevo.ft_name }</div>
+			
+			</td>
 			<c:forEach var="map" items="${map }">
 
 				<c:forEach var="filtercontent" items="${map.value }">
