@@ -29,7 +29,7 @@
 	<div class="btn-group" data-toggle="buttons">
 		<c:forEach items="${filterlist }" var="filter">
 			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
-		    	<input type="checkbox" autocomplete="off" value="${filter.f_type}">${filter.f_type}
+		    	<input type="checkbox" name="chk" value="${filter.f_type}">${filter.f_type}
 			</label>
 		</c:forEach>
 	</div>
@@ -43,6 +43,10 @@
     var geocoder;
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var n=0;
+    $("name").on("click",function(){
+    	console.log("안녕")
+    })
+    
     $(".addr").on("change",function(){
     	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
     	console.log(addres);
