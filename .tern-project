@@ -6,12 +6,15 @@
     },
     "outline": {
       
+<<<<<<< HEAD
+=======
     },
     "browser-extension": {
       
     },
     "jquery-extension": {
       
+>>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
     }
   },
   "libs": [

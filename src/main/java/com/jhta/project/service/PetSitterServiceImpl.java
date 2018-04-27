@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.project.dao.PetSitterDao;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
+import com.jhta.project.vo.PetSitterVo;
 
 @Service
 public class PetSitterServiceImpl implements PetSitterService{
@@ -17,9 +18,14 @@ public class PetSitterServiceImpl implements PetSitterService{
 	public List<PetSitterJoinFilterVo> list(HashMap<String, String> map) {
 		return petsitterDao.list(map);
 	}
-
+	
+	@Override
+	public PetSitterVo select(String ps_email) {
+		return petsitterDao.select(ps_email);
+	}
 	@Override
 	public List<PetSitterJoinFilterVo> alllist() {
 		return petsitterDao.alllist();
+
 	}
 }

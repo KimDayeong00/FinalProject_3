@@ -7,4 +7,7 @@
     	update petsitter set PS_SAVEIMAGE=#{pimg_savefilename},PS_ORIGINALIMG=#{pimg_orgfilename} 
     	where ps_email='A@M.COM'
     </update>
+    <select id="getImg" parameterType="string" resultType="string">
+		select pimg_savefilename from petsitterimage where ps_email=#{value}
+	</select>
 </mapper>

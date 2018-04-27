@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhta.mybatis.PetsitterOptionMapper">
+	<select id="getOption" parameterType="string" resultType="petoption">
+		select ps_email,to_char(po_startcheckin,'hh24:mi') po_startcheckin,to_char(po_endcheckin,'hh24:mi') po_endcheckin,
+		to_char(po_startcheckout,'hh24:mi') po_startcheckout,to_char(po_endcheckout,'hh24:mi') po_endcheckout,
+		po_space,po_subway,po_yard,po_child,po_family from petsitteroption where ps_email=#{value}
+	</select>
+	<select id="getImg" parameterType="string" resultType="string">
+		select pimg_savefilename from petsitterimage where ps_email=#{value}
+	</select>
+</mapper>
+

@@ -13,7 +13,19 @@ public class HomeConrtoller {
 	public String main() {
 		return ".main";
 	}
-
-
+//	@RequestMapping("/shop/home")
+//	public String home() {
+//		return ".shop.home";
+//	}
+	
+	@RequestMapping("/petsitterPage")
+	public String petsitterPage() {
+		return ".mypage.petsitter_info";
+	}
+	
+//	@RequestMapping("/login")
+//	public String login() {
+//		return "/members/login";
+//	}
 
 }

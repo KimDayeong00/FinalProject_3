@@ -51,6 +51,5 @@
 		order by rnum asc) r
 		where cc.ps_email=f.ps_email and cc.ps_email=p.ps_email and cc.ps_email=r.ps_email order by r.rnum asc
 	</select>    
-	
 </mapper>
 
