@@ -44,7 +44,13 @@
 		(select ps_email, ABS(ps_lat-#{lat}) lat from petsitter) lat, 
 		(select ps_email, ABS(ps_lng-#{lng}) lng from petsitter) lng 
 		where lat.ps_email = lng.ps_email ) )) bb 
-		where aa.ps_email=bb.ps_email and aa.ps_active=1 and aa.ps_lat between #{leftlat} and #{rightlat} and aa.ps_lng between #{leftlng} and #{rightlng} order by latlng asc) cc 
+		where aa.ps_email=bb.ps_email and aa.ps_active=1
+		<if test="bk_startdate!=null and bk_enddate !=null">
+		and aa.ps_email not in(select ps_email from PETSITTERBOOK where 
+		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)
+		</if> 
+		and aa.ps_lat between #{leftlat} and #{rightlat} 
+		and aa.ps_lng between #{leftlng} and #{rightlng} order by latlng asc) cc 
 		where <![CDATA[rownum <=10]]>)d, ppetinfo pi
 		where d.ps_email = pi.ps_email
 		group by d.ps_email,rnum

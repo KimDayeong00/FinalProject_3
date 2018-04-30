@@ -56,8 +56,9 @@
     var geocoder;
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var n=0;
-    var bk_startdate = null;
-	var bk_enddate = null;
+    var bk_startdate;
+	var bk_enddate;
+	var listener;
     $("name").on("click",function(){
     	console.log("안녕")
     })
@@ -109,7 +110,7 @@
             var center = new google.maps.LatLng(lat, lng);
             map.panTo(center);
         }
-        google.maps.event.addListener(map, 'dragend', function(){    // 드래그시 이벤트 추가
+        	google.maps.event.addListener(map, 'dragend', function(){    // 드래그시 이벤트 추가
         	showMapPos();
             showMapAddr();
             getlist()
@@ -128,7 +129,8 @@
 	            }
             });
         }
-       google.maps.event.addListener(map, 'zoom_changed', function() {
+        listener = google.maps.event.addListener(map, 'zoom_changed', function() {
+    	   console.log("왔다감")
 	    	getlist();
 		}); 
 	}
@@ -222,15 +224,16 @@
 	
 	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
 		console.log("arraygetlist()")
+		var ddd=$("#selector").val().split('to ');
+		console.log("어어1"+bk_startdate)
+		console.log("어어1"+bk_enddate)
 		console.log(lat,lng,leftlat,leftlng,rightlat,rightlng)
-		var n=0;
 	
-		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng},function(data) {
+		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
 	    		$("#petsitterList").html("");
-	    		  google.maps.event.clearListeners(map, 'zoom_changed');
-	    		console.log("랭스 : "+data.list.length);
+	    		google.maps.event.removeListener(listener);
+	    		console.log("랭스 : "+data.list.length)
 	        	for(var q=0; q<data.list.length; q++){
-	        		console.log(n++)
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
@@ -255,22 +258,23 @@
 	                    $("#petsitterList").append(petsitterList); 				
 	    		}
 	    })
-	     google.maps.event.addListener(map, 'zoom_changed', function() {
-		    	getlist();
-		 }); 
+		    google.maps.event.addListener(map, 'zoom_changed', function() {
+		    	console.log("!#!#!#")
+			    getlist();
+			});
 	}
 	flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
 	flatpickr("#selector");
 	var selector = $("#selector").flatpickr({
 		mode:"range",
-		dateFormat : "Y-m-d",
+		dateFormat : "Y/m/d",
 		minDate : "today",
 		onValueUpdate : function(){
 			var ddd=$("#selector").val().split('to ');
 			bk_startdate = ddd[0];
 			bk_enddate = ddd[1];
 			if(bk_startdate!=undefined && bk_enddate!=undefined){
-
+				getlist()
 			}
 		}
 	});

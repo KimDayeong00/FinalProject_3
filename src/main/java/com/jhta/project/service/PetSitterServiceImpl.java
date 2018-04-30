@@ -15,7 +15,7 @@ public class PetSitterServiceImpl implements PetSitterService{
 	@Autowired private PetSitterDao petsitterDao;
 	
 	@Override
-	public List<PetSitterJoinFilterVo> list(HashMap<String, String> map) {
+	public List<PetSitterJoinFilterVo> list(HashMap<String, Object> map) {
 		return petsitterDao.list(map);
 	}
 	

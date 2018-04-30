@@ -3,6 +3,7 @@ package com.jhta.project.controller;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -37,23 +38,24 @@ public class BookingController {
 	public String list(Model model) {
 		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist();
 		List<FilterTypeListVo>filterlist = filterTypeListService.list();
-		for(PetSitterJoinFilterVo x : alllist) {
-			System.out.println(x.getPs_email());
-		}
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);
 		return ".booking.test2";
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng) {
-		HashMap<String, String>map = new HashMap<>();
+	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng,Date bk_startdate,Date bk_enddate) {
+		System.out.println("bk_startdate:"+bk_startdate);
+		System.out.println("bk_enddate:"+bk_enddate);
+		HashMap<String, Object>map = new HashMap<>();
 		map.put("lat", lat);
 		map.put("lng", lng);
 		map.put("leftlat", leftlat);
 		map.put("leftlng", leftlng);
 		map.put("rightlat", rightlat);
 		map.put("rightlng", rightlng);
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
 		List<PetSitterJoinFilterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
@@ -61,7 +63,6 @@ public class BookingController {
 		}else {
 			System.out.println("없는값");
 		}
-		System.out.println("컨트롤러");
 		return obj.toString();
 	}
 	@RequestMapping("/booking/test")

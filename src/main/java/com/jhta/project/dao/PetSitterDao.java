@@ -14,7 +14,7 @@ import com.jhta.project.vo.PetSitterVo;
 public class PetSitterDao {
 	@Autowired private SqlSession session;
 	private final String NAMESPACE="com.jhta.mybatis.PetSitterMapper";
-	public List<PetSitterJoinFilterVo> list(HashMap<String, String> map){
+	public List<PetSitterJoinFilterVo> list(HashMap<String, Object> map){
 		return session.selectList(NAMESPACE+".list",map);
 	}
 	public PetSitterVo select(String ps_email) {
