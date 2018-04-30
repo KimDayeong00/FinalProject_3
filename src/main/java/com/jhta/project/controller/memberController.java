@@ -61,22 +61,26 @@ public class memberController {
 		System.out.println(email);
 		System.out.println(pwd);
 		String returnV = "";
-		int mc = service.emailc_m(email);
-		int pc = service.emailc_p(email);
-		if (mc == 0 && pc == 0) {
-			returnV = "/members/login";
-		} else if (mc != 0) {
-			System.out.println("맴버로그인");
-			session.setAttribute("login", email);
-			session.setAttribute("login_type", 1);
-			returnV = ".main";
-		} else if (pc != 0) {
-			System.out.println("펫시터로그인");
-			session.setAttribute("login", email);
-			session.setAttribute("login_type", 2);
-			returnV = ".main";
-		}
+		if (email.equals("admin") && pwd.equals("admin")) {
+			returnV = ".admin";
+		} else {
 
+			int mc = service.emailc_m(email);
+			int pc = service.emailc_p(email);
+			if (mc == 0 && pc == 0) {
+				returnV = "/members/login";
+			} else if (mc != 0) {
+				System.out.println("맴버로그인");
+				session.setAttribute("login", email);
+				session.setAttribute("login_type", 1);
+				returnV = ".main";
+			} else if (pc != 0) {
+				System.out.println("펫시터로그인");
+				session.setAttribute("login", email);
+				session.setAttribute("login_type", 2);
+				returnV = ".main";
+			}
+		}
 		return returnV;
 	}
 
