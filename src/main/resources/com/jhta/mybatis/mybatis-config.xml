@@ -25,6 +25,7 @@
 		<typeAlias type="com.jhta.project.vo.ShopItemImageVo" alias="shopitemimagevo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemJoinVo" alias="shopitemjoinvo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
+		<typeAlias type="com.jhta.project.vo.ShopItemReviewVo" alias="shopitemreviewvo" />
 	</typeAliases>
 	
 	<mappers>

@@ -18,6 +18,7 @@ import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
 import com.jhta.project.vo.ShopItemJoinVo;
+import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Controller
@@ -131,6 +132,20 @@ public class ShopController {
 	
 		return map;
 	
+	}
+	
+	@RequestMapping("/item/detail")
+	public ModelAndView detail(ShopItemJoinVo vo) {
+		int p_num=vo.getP_num();
+		ShopItemJoinVo iteminfo=service.iteminfo(p_num);
+		List<ShopItemReviewVo> itemreview=service.itemreview(p_num);
+		System.out.println(iteminfo.toString());
+	
+		ModelAndView mv=new ModelAndView(".shop.item.itemdetail");
+		mv.addObject("iteminfo",iteminfo);
+		mv.addObject("itemreview",itemreview);
+		
+		return mv;
 	}
 	
 }

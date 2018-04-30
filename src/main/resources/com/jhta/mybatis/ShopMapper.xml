@@ -44,12 +44,12 @@ fieldnum in #{fieldnum} and p_num in (select p_num from itemfilter where fc_num 
 </select>
 
 <select id="itemcnt" parameterType="hashmap" resultType="int">
-select NVL(count(*),0) cnt from item 
+select NVL(count(*),0) cnt from item 	
 <where>
 <if test="fc_num=='0'">
 fieldnum = #{fieldnum}
 </if>
-
+			
 <if test="fc_num!=null and fc_num!='0'"> 
 fieldnum in #{fieldnum} and p_num in (select p_num from itemfilter where fc_num in(select fc_num from filtercontent where ${sql}))
 </if>
@@ -66,6 +66,12 @@ select * from filtertype where ft_num in(select ft_num from filtercontent where 
 select * from filtercontent where ft_num in(select ft_num from filtertype where ft_num=#{ft_num})
 </select>
 
+<select id="iteminfo" parameterType="Integer" resultType="shopitemjoinvo">
+select * from item,itemimage where item.p_num=itemimage.p_num and item.p_num=#{p_num}
+</select>
 
+<select id="itemreview" parameterType="Integer" resultType="shopitemreviewvo">
+select * from itemreview where p_num=#{p_num}
+</select>
 </mapper>
 

@@ -12,6 +12,7 @@ import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
 import com.jhta.project.vo.ShopItemJoinVo;
+import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Service
@@ -54,5 +55,12 @@ public class ShopService {
 	}
 	public int itemcnt(HashMap<Object, Object> map2) {
 		return dao.itemcnt(map2);
+	}
+	
+	public ShopItemJoinVo iteminfo(int p_num) {
+		return dao.iteminfo(p_num);
+	}
+	public List<ShopItemReviewVo> itemreview(int p_num) {
+		return dao.itemreview(p_num);
 	}
 }

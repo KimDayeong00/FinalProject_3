@@ -16,7 +16,7 @@ select * from field where classnum=#{classnum}
 select max(p_num) from item
 </select>
 <insert id="itemadd" parameterType="shopitemvo">
-insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum})
+insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum},#{content})
 </insert>
 
 <insert id="imageadd" parameterType="shopitemimagevo">
