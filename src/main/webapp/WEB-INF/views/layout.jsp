@@ -31,8 +31,6 @@
     <!-- FontAwesome CSS -->
     <link href="<c:url value='/resources/css/font-awesome.min.css'/>" rel="stylesheet">
     
-    <!-- 지호 체크박스 CSS  -->
-     <link href="<c:url value='/resources/css/checobox.css'/>" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <link rel="stylesheet" href="<c:url value='/resources/css/main-common.css'/>">
  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -59,7 +57,7 @@
     <script src="<c:url value='/resources/js/menumaker.js'/>" type="text/javascript"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/jquery.sticky.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/sticky-header.js'/>"></script>
-     <script type="text/javascript" src="<c:url value='/resources/js/jquery.nice-number.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/jquery.nice-number.js'/>"></script>
 	
     
     

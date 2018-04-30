@@ -54,7 +54,6 @@ public class BookingController {
 		map.put("leftlng", leftlng);
 		map.put("rightlat", rightlat);
 		map.put("rightlng", rightlng);
-		
 		List<PetSitterJoinFilterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
@@ -62,6 +61,7 @@ public class BookingController {
 		}else {
 			System.out.println("없는값");
 		}
+		System.out.println("컨트롤러");
 		return obj.toString();
 	}
 	@RequestMapping("/booking/test")
