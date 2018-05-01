@@ -1,5 +1,6 @@
 package com.jhta.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,5 +35,9 @@ public class ShopAdminDao {
 	
 	public int imageadd(ShopItemImageVo vo) {
 		return sqlSession.insert(NAMESPACE+".imageadd",vo);
+	}
+	
+	public int itemimage(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+".itemimage",map);
 	}
 }

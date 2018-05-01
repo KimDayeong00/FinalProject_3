@@ -13,7 +13,7 @@
 <div id="wrap" class="container">
 
 <div id="bunryu">
-<table>
+<table border="1">
 	<tr>
 		<td>분류</td>
 		<c:forEach var="fieldvo" items="${fieldvo}">
@@ -63,10 +63,9 @@
                <tr>
             </c:if>
                     <td style="size: 220px;" id="item">
-                    <img src="<c:url value='/resources/itemimage/${itemvo.item_savefilename }'/>"><br>
+                    <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"><br>
                     <a id="${itemvo.p_num }" 
 			href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">${itemvo.item_name }</a>
-			${itemvo.p_num }
 			</td>
             <c:if test="${i%j == j-1 }">
                 </tr>

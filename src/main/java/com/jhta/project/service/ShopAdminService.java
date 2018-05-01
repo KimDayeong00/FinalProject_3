@@ -1,5 +1,6 @@
 package com.jhta.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,9 @@ public int maxpnum() {
 
 public int imageadd(ShopItemImageVo vo) {
 	return dao.imageadd(vo);
+}
+
+public int itemimage(HashMap<String, Object> map) {
+	return dao.itemimage(map);
 }
 }

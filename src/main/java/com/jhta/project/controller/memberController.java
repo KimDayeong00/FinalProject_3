@@ -54,6 +54,35 @@ public class memberController {
    public String register2() {
       return ".members.join2";
    }
+   
+   @RequestMapping("/n_login")
+   public String n_login(String email, String pwd, HttpSession session) {
+      System.out.println(email);
+      System.out.println(pwd);
+      String returnV = "";
+      if (email.equals("admin") && pwd.equals("admin")) {
+         session.setAttribute("login", "admin");
+         returnV = ".admin";
+      } else {
+
+         int mc = service.emailc_m(email);
+         int pc = service.emailc_p(email);
+         if (mc == 0 && pc == 0) {
+            returnV = "/members/login";
+         } else if (mc != 0) {
+            System.out.println("맴버로그인");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 1);
+            returnV = ".main";
+         } else if (pc != 0) {
+            System.out.println("펫시터로그인");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 2);
+            returnV = ".main";
+         }
+      }
+      return returnV;
+   }
 
    /*
     * type은 회원 유형(일반,펫시터) type1은 가입 유형(일반가입=1, 카카오=2, 구글=3, 네이버=4)

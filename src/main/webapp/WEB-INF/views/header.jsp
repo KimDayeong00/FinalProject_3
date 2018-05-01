@@ -54,6 +54,7 @@ String email = (String)session.getAttribute("login");
                         <%
                         if(email != null ){
                         %>
+                        <li><a href="<c:url value='/mypage'/>">마이페이지</a>
                         <li><a href="<c:url value="/logout" />">로그아웃</a></li>
                         <%
                         }else if (email == null || email.equals("")){

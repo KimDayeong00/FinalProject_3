@@ -89,10 +89,11 @@ public class ItemController {
 			fos.close();
 			is.close();
 			System.out.println(uploadPath +"\\"+ savefilename +" [파일업로드성공!]");
+			HashMap<String, Object> map=new HashMap<>();
+			map.put("savefilename", savefilename);
+			map.put("p_num",p_num);
 			///////////////////////DB저장/////////////////////////////////////
-			ShopItemImageVo imagevo=new ShopItemImageVo(0, savefilename, p_num);
-			System.out.println(imagevo.toString());
-			service.imageadd(imagevo);
+			service.itemimage(map);
 			return mv;
 		}catch(IOException ie) {
 			System.out.println(ie.getMessage());

@@ -17,6 +17,7 @@ import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
+import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
@@ -49,7 +50,7 @@ public class ShopController {
 		map.put("classnum",classnum);
 		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
 		List<ShopClassVo> classvo=service.classlist();
-		List<ShopItemJoinVo> itemvo=service.classitemlist(map);
+		List<ShopItemVo> itemvo=service.classitemlist(map);
 		
 		System.out.println(itemvo.toString());
 		
@@ -75,7 +76,7 @@ public class ShopController {
 		map2.put("fieldnum",fieldnum);
 		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
 		List<ShopClassVo> classvo=service.classlist();
-		List<ShopItemJoinVo> itemvo=service.fielditemlist(map2);
+		List<ShopItemVo> itemvo=service.fielditemlist(map2);
 		List<ShopFilterTypeVo> filtertypevo=service.filtertype(fieldnum);
 		HashMap<Object, Object> map=new HashMap<>();
 		for(ShopFilterTypeVo filter:filtertypevo) {
@@ -137,13 +138,18 @@ public class ShopController {
 	@RequestMapping("/item/detail")
 	public ModelAndView detail(ShopItemJoinVo vo) {
 		int p_num=vo.getP_num();
-		ShopItemJoinVo iteminfo=service.iteminfo(p_num);
+		ShopItemVo iteminfo=service.iteminfo(p_num);
 		List<ShopItemReviewVo> itemreview=service.itemreview(p_num);
+		List<ShopClassVo> classvo=service.classlist();
+		List<ShopItemImageVo> imglist=service.imglist(p_num);
 		System.out.println(iteminfo.toString());
+		System.out.println(classvo.toString());
 	
 		ModelAndView mv=new ModelAndView(".shop.item.itemdetail");
+		mv.addObject("classvo",classvo);
 		mv.addObject("iteminfo",iteminfo);
 		mv.addObject("itemreview",itemreview);
+		mv.addObject("imglist",imglist);
 		
 		return mv;
 	}
