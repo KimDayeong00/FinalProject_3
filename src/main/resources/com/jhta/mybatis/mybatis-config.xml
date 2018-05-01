@@ -28,5 +28,6 @@
     <mapper resource="com/jhta/mybatis/memberMApper.xml"/>
 	<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 	<mapper resource="com/jhta/mybatis/ShopMapper.xml" />
+	<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
   </mappers>
 </configuration>

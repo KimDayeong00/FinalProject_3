@@ -8,10 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class PetsitterPageController {
 	
 	@RequestMapping("/mypetsitter")
-	public ModelAndView pageMove(String page) {
-		ModelAndView mv=new ModelAndView(".mypage.petsitter_info");
+	public ModelAndView pageMove(String page, String dtld) {
+		ModelAndView mv=new ModelAndView(".petsitter_mypage.mypetsitter.petsitter_info");
 		
 		mv.addObject("page",page);
+		mv.addObject("dtld",dtld);
 		return mv;
 	}
 }

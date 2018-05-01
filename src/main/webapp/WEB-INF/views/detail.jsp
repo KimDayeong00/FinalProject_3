@@ -9,6 +9,12 @@
 	var price = '<c:out value="${vo4.ps_price}"/>';
 	var over = '<c:out value="${vo4.ps_overprice}"/>';
 	var totalover = 0;
+	var disdayList = new Array();
+	var disdateList = new Array();
+	<c:forEach items="${disableList}" var="list">
+		disdayList.push("${list.disday}");
+		disdateList.push("${list.disDate}")
+	</c:forEach>
 	
 	$(document).ready(function() {
 		var startDate = null;
@@ -30,6 +36,10 @@
 			$("#spinner2").prop('value',interval);
 			//span에 금액 표시
 			var over2 = parseInt(over);
+			if(interval==1){
+				console.log("?");
+				over2 = parseInt($(".basicprice").text())+over2; 	
+						}
 			totalover += over2;
 			$("#plusprice2").html(totalover);
 			
@@ -59,7 +69,7 @@
 			//span에 표시
 			var over2 = parseInt(over);
 			totalover -= over2;
-			if(totalover<=0) totalover=0;
+			if(totalover<=0 || interval == 0) totalover=0;
 			$("#plusprice2").html(totalover);
 			
 			//부가세 계산
@@ -88,9 +98,41 @@
 			dateFormat : "Y-m-d H:i",
 			defaultHour : "6",
 			minDate : "today",
+			maxDate : new Date().fp_incr(90),
 			minTime : startcheckin,
 			maxTime : "23:00",
 			minuteIncrement : "30",
+			disable : ["2018-05-06"],
+			"disable": [
+		        function(date) {
+		        	var checkTrue = false;
+		        	//var checkDateTrue = false;
+		             //return true to disable
+		             // 요일
+		            for(var k=0;k<disdayList.length;k++){
+		            	var disday = disdayList[k].split(",");
+		            	for(var z=0;z<disday.length;z++){	
+		            		if(date.getDay() === parseInt(disday[z])){
+		            			checkTrue=true;	
+		            		}
+		            	}
+		            }
+		            // 날짜
+		            for(var a=0;a<disdateList.length;a++){
+		            	var dd = disdateList[a].split(",");
+		            	for(var b=0;b<dd.length;b++){
+		            		var disdate = dd[b].split("-");
+		            		console.log(disdate[2]);
+		            		var da = new Date(parseInt(disdate[0]),parseInt(disdate[1]),parseInt(disdate[2]));
+		            		if(date.getDate() === da.getDate() && date.getMonth() != da.getMonth()){
+		            			checkTrue = true;
+		            		}
+		            	}
+		            }
+		            return checkTrue;
+		            //return checkDateTrue;
+		        }
+		    ],
 			onValueUpdate : function() { 
 				//1분 단위 없애기
 				var data = $("#selector").val();
@@ -152,9 +194,40 @@
 			dateFormat : "Y-m-d H:i",
 			defaultHour : "23",
 			minDate : "today",
+			maxDate : new Date().fp_incr(90),
 			minTime : "6:00",
 			maxTime : "23:00",
 			minuteIncrement : "30",
+			"disable": [
+		        function(date) {
+		        	var checkTrue = false;
+		        	//var checkDateTrue = false;
+		             //return true to disable
+		             // 요일
+		            for(var k=0;k<disdayList.length;k++){
+		            	var disday = disdayList[k].split(",");
+		            	for(var z=0;z<disday.length;z++){	
+		            		if(date.getDay() === parseInt(disday[z])){
+		            			checkTrue=true;	
+		            		}
+		            	}
+		            }
+		            // 날짜
+		            for(var a=0;a<disdateList.length;a++){
+		            	var dd = disdateList[a].split(",");
+		            	for(var b=0;b<dd.length;b++){
+		            		var disdate = dd[b].split("-");
+		            		console.log(disdate[2]);
+		            		var da = new Date(parseInt(disdate[0]),parseInt(disdate[1]),parseInt(disdate[2]));
+		            		if(date.getDate() === da.getDate() && date.getMonth() != da.getMonth()){
+		            			checkTrue = true;
+		            		}
+		            	}
+		            }
+		            return checkTrue;
+		            //return checkDateTrue;
+		        }
+		    ],
 			onValueUpdate : function() {
 				//1분 단위 없애기
 				var data = $("#selector2").val();
@@ -214,6 +287,9 @@
 		});
 	});
 </script>
+<c:forEach var="j" items="${disday }" begin="0" end="${disday.length }">
+	${j }
+</c:forEach>
 <div id="content">
 	<div class="imgSlide">
 		<div class="slider">
@@ -289,8 +365,11 @@
 			</div>
 			<div class="profile">
 				<span class="petsitterName">${vo2.ps_name }</span><span class="addr">주소</span>
-				<div class="filter">
-					<span>필터1</span><span>필터2</span><span>필터3</span>
+				<div class="filterList">
+					<c:forEach var="filter" items="${filterList }">
+						<div class="filter"><span>${filter.f_type}</span></div>
+					</c:forEach>
+					<!-- <span>필터1</span><span>필터2</span><span>필터3</span> -->
 				</div>
 			</div>
 		</div>

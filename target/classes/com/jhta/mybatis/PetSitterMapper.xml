@@ -54,5 +54,7 @@
 	<select id="select" parameterType="string" resultType="petsitter">
 		select * from petsitter where ps_email=#{value}
 	</select>
+	<select id="getFilter" resultType="com.jhta.project.vo.PetSitterFilterVo" parameterType="string">
+		select t.f_type from filtertypelist t,filter f where t.fl_name in(select fl_name from filter) and f.ps_email=#{value} and t.fl_name = f.fl_name
+	</select>
 </mapper>
-
