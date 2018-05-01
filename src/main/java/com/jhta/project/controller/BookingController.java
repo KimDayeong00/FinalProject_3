@@ -43,7 +43,7 @@ public class BookingController {
 		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);
-		return ".booking.test2";
+		return ".booking.list";
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -68,9 +68,26 @@ public class BookingController {
 		}
 		return obj.toString();
 	}
+	@RequestMapping(value="/booking/map",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String jsonmap(Date bk_startdate,Date bk_enddate) {
+		System.out.println("bk_startdate:"+bk_startdate);
+		System.out.println("bk_enddate:"+bk_enddate);
+		HashMap<String, Object>map = new HashMap<>();
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
+		JSONObject obj=new JSONObject();
+		if(alllist!=null) {
+			obj.put("alllist",alllist);
+		}else {
+			System.out.println("¾ø´Â°ª");
+		}
+		return obj.toString();
+	}
 	@RequestMapping("/booking/test")
 	public String llist() {
-		return ".booking.list";
+		return ".booking.test";
 	}
 	@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
 	public String upload(MultipartFile file1,HttpSession session) {

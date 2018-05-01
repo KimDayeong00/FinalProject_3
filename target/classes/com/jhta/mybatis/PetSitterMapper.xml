@@ -33,7 +33,7 @@
 		ps_content, ps_regdate, ps_lat, ps_lng,ps_overprice,ps_careprice,ps_price,ps_active from petsitter ,petsitterprice 
 		where petsitter.ps_email=petsitterprice.ps_email and ps_active=1
 		<if test="bk_startdate!=null and bk_enddate !=null">
-		and aa.ps_email not in(select ps_email from PETSITTERBOOK where 
+		and petsitter.ps_email not in(select ps_email from PETSITTERBOOK where 
 		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)
 		</if> 
 	</select>

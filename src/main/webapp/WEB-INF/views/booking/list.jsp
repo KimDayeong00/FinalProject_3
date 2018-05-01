@@ -105,6 +105,7 @@
 		      	var img = '${data.ps_saveimage}';
 				address.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
 			</c:forEach>
+			list1(address);
         	arraygetlist(37.566535,126.97796919999996,33.193668738614384, 124.82258606250002,38.53185554526987, 130.71125793750002)	
         function moveToLocation(lat, lng){
             var center = new google.maps.LatLng(lat, lng);
@@ -130,7 +131,6 @@
             });
         }
        google.maps.event.addListener(map, 'zoom_changed', function() {
-    	   console.log("왔다감")
 	    	getlist();
 		}); 
 	}
@@ -149,7 +149,6 @@
         $("#petsitterList").append("차이lng: " + (endLo.lng()-startLo.lng())+"<br>");
         $("#petsitterList").append("맵 중앙 lat: " + pos.lat()+"<br>");
         $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
-        console.log("getlist()"+pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
         arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
        
 	}
@@ -163,14 +162,13 @@
 		        var endLo = bounds.getNorthEast();
 		        var startLo = bounds.getSouthWest();
 		        var pos=map.getCenter();
-		        console.log("1:"+pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng())
    	 			getlist()
    	  		});
 	}
 	var markerCluster;
 	function list1(locations){
+		console.log("list1()");
  		var markers = locations.map(function(location, j) {
-					console.log(locations[j].email)
 	 				return new google.maps.Marker({
 	 			    position: location,
 	 			   	email:locations[j].email,
@@ -216,19 +214,9 @@
 	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
 		console.log("arraygetlist()")
 		var ddd=$("#selector").val().split('to ');
-		var arr = new Array();
 		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
 	    		$("#petsitterList").html("");
-	    		console.log("랭스 : "+data.list.length)
 	        	for(var q=0; q<data.list.length; q++){
-			      	var email = data.list[q].ps_email;
-	    	        var lat = data.list[q].ps_lat;
-			        var lng = data.list[q].ps_lng;
-			      	var name = data.list[q].ps_name;
-			      	var addr1 = data.list[q].ps_addr1;
-			      	var content = data.list[q].ps_content;
-			      	var img = data.list[q].ps_saveimage;
-			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
@@ -252,12 +240,6 @@
 	                    "</div>";
 	                    $("#petsitterList").append(petsitterList); 				
 	    		}
-	    		if(ref==0){
-	    			ref++;
-	    			list1(address);
-	    		}else{
-	    			list1(arr)
-	     		}
 	    })
 	}
 	flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
@@ -271,8 +253,25 @@
 			bk_startdate = ddd[0];
 			bk_enddate = ddd[1];
 			if(bk_startdate!=undefined && bk_enddate!=undefined){
-				getlist()
+				changeMap()
 			}
 		}
 	});
+	function changeMap(){
+		console.log("changeMap()");
+		var arr = new Array();
+		 $.getJSON("<c:url value='/booking/map'/>",{bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
+	        	for(var q=0; q<data.alllist.length; q++){
+			      	var email = data.alllist[q].ps_email;
+	    	        var lat = data.alllist[q].ps_lat;
+			        var lng = data.alllist[q].ps_lng;
+			      	var name = data.alllist[q].ps_name;
+			      	var addr1 = data.alllist[q].ps_addr1;
+			      	var content = data.alllist[q].ps_content;
+			      	var img = data.alllist[q].ps_saveimage;
+			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
+		    		list1(arr)
+	        	}
+	    })
+	}
 </script>
