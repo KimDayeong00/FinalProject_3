@@ -24,8 +24,8 @@ public class PetSitterServiceImpl implements PetSitterService{
 		return petsitterDao.select(ps_email);
 	}
 	@Override
-	public List<PetSitterJoinFilterVo> alllist() {
-		return petsitterDao.alllist();
+	public List<PetSitterJoinFilterVo> alllist(HashMap<String, Object> map) {
+		return petsitterDao.alllist(map);
 
 	}
 }

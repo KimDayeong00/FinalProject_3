@@ -8,21 +8,21 @@
                 <!-- footer-about-start -->
                 <div class=" col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="footer-widget">
-                        <h3 class="footer-title ">About us</h3>
-                        <p>Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more in our travel agency !</p>
-                        <a href="#" class="footer-link">More about us</a></div>
+                        <h3 class="footer-title ">PET CARE</h3>
+                        <p>현재 선진국은 애완관련 서비스와 애완용품등이 상행중이고 우리나라 역시 그 시장규모가 점차 커지고 있는 추세이지만 아직 제대로 기업체가 갖추어져 있지 않다는 생각에 구현해 보기로 결정 하였습니다.</p>
+                    </div>
                 </div>
                 <!-- footer-about-close -->
                 <!-- footer-location-start -->
                 <div class=" col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="footer-widget">
-                        <h3 class="footer-title">Our Locations</h3>
+                        <h3 class="footer-title">조원</h3>
                         <ul class="arrow arrow-chevron-circle-right">
-                            <li><a href="#">Ahmedabad</a></li>
-                            <li><a href="#">Mumbai</a></li>
-                            <li><a href="#">Surat</a></li>
-                            <li><a href="#">Jamnagar</a></li>
-                            <li><a href="#">Bhuj</a></li>
+                            <li><a href="#">서정규</a></li>
+                            <li><a href="#">김다영</a></li>
+                            <li><a href="#">한송희</a></li>
+                            <li><a href="#">박윤수</a></li>
+                            <li><a href="#">한지호</a></li>
                         </ul>
                     </div>
                 </div>
@@ -30,12 +30,13 @@
                 <!-- footer-contact-start -->
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 ">
                     <div class="footer-widget">
-                        <h3 class="footer-title">Contact Info</h3>
+                        <h3 class="footer-title">개발환경</h3>
                         <div class="contact-info">
                             <ul>
-                                <li>2867 University Street Ahmedabad, WA 98052</li>
-                                <li>252-386-7004 </li>
-                                <li>info@yourwebsitedomian.com</li>
+                                <li>WINDOW10</li>
+                                <li>SPRING</li>
+                                <li>AWS(ORACLE)</li>
+                                <li>TOMCAT8.5</li>
                             </ul>
                         </div>
                     </div>
@@ -44,14 +45,15 @@
                 <!-- footer-social-start -->
                 <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
                     <div class="footer-widget">
-                        <h3 class="footer-title">Follow us on</h3>
+                        <h3 class="footer-title">개발 언어 및 사용 툴</h3>
                         <div class="footer-social">
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li>JAVA</li>
+                                <li>JAVASCRIPT</li>
+                                <li>BOOTSTRAP</li>
+                                <li>JQUERY</li>
+                                <li>MVC2</li>
+                                <li>MYBATIS</li>
                             </ul>
                         </div>
                     </div>
@@ -70,7 +72,3 @@
         <!-- tiny-footer-start -->
     </div>
     <!-- footer close -->
-<<<<<<< HEAD
-   
-=======
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git

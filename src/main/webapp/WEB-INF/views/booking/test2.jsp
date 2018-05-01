@@ -50,7 +50,6 @@
     <div id="petsitterList"></div>
     <div id="map"></div>
     <script type="text/javascript">
-    var search;
     var address = new Array();
     var map;
     var geocoder;
@@ -58,21 +57,23 @@
     var n=0;
     var bk_startdate;
 	var bk_enddate;
-	var listener;
+	var ref=0;
     $("name").on("click",function(){
     	console.log("안녕")
     })
     
     $(".addr").on("change",function(){
     	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
-    	if($("#dong").val()!=""){
-    		map.setZoom(17)
-    	}else if($("#gugun").val()!=""){
-    		map.setZoom(15)
-    	}else if($("#sido").val()!=""){
-    		map.setZoom(10)
-    	}
     	addreslist(addres);
+    	setTimeout(function(){
+    	 if($("#dong").val()!=""){
+     		map.setZoom(17)
+     	}else if($("#gugun").val()!=""){
+     		map.setZoom(15)
+     	}else if($("#sido").val()!=""){
+     		map.setZoom(10)
+     	} 
+    	},100);
     })
 	function initMap() {
     	geocoder = new google.maps.Geocoder();
@@ -104,13 +105,12 @@
 		      	var img = '${data.ps_saveimage}';
 				address.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
 			</c:forEach>
-			list1(address);
         	arraygetlist(37.566535,126.97796919999996,33.193668738614384, 124.82258606250002,38.53185554526987, 130.71125793750002)	
         function moveToLocation(lat, lng){
             var center = new google.maps.LatLng(lat, lng);
             map.panTo(center);
         }
-        	google.maps.event.addListener(map, 'dragend', function(){    // 드래그시 이벤트 추가
+        google.maps.event.addListener(map, 'dragend', function(){    // 드래그시 이벤트 추가
         	showMapPos();
             showMapAddr();
             getlist()
@@ -129,7 +129,7 @@
 	            }
             });
         }
-        listener = google.maps.event.addListener(map, 'zoom_changed', function() {
+       google.maps.event.addListener(map, 'zoom_changed', function() {
     	   console.log("왔다감")
 	    	getlist();
 		}); 
@@ -151,6 +151,7 @@
         $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
         console.log("getlist()"+pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
         arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
+       
 	}
 	function addreslist(address){
    		n=0;
@@ -165,23 +166,19 @@
 		        console.log("1:"+pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng())
    	 			getlist()
    	  		});
-   	 	list1(locations)
 	}
-		var markerCluster;
+	var markerCluster;
 	function list1(locations){
-		var markers;
-		for(var i=0;i<locations.length ; i++){
-			markers = locations.map(function(location, j) {
+ 		var markers = locations.map(function(location, j) {
+					console.log(locations[j].email)
 	 				return new google.maps.Marker({
-	 				map: map,
 	 			    position: location,
 	 			   	email:locations[j].email,
 	 			   	name:locations[j].name,
 	 			   	addr1:locations[j].addr1,
 	 			   	content:locations[j].content,
 	 			   	img:locations[j].img,
-	 				label: labels[j % labels.length],
-	 				draggable: true
+	 				label: labels[j % labels.length]
 	 				});
 	 		});
 			var infowindow = new google.maps.InfoWindow();
@@ -207,33 +204,31 @@
 					infowindow.open(map, this);
 		 			});
 		 		}
-
-
-		 		//addMarkers(markers:Array.<google.maps.Marker>, opt_nodraw:boolean)
-		 		if(markerCluster==undefined){
+		 		 if(markerCluster==undefined){
 		 			markerCluster = new MarkerClusterer(map, markers,
 		 			{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-		 		}else{
-		 			markerCluster.clearMarkers();
-		 			markerCluster.resetViewport();
-		 			markerCluster.addMarkers(markers,false);
-		 			
-		 		}
-		}
+		  		}else{
+		 			 markerCluster.clearMarkers();
+			    	 markerCluster.addMarkers(markers);
+		  		}
 	}
 	
 	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
 		console.log("arraygetlist()")
 		var ddd=$("#selector").val().split('to ');
-		console.log("어어1"+bk_startdate)
-		console.log("어어1"+bk_enddate)
-		console.log(lat,lng,leftlat,leftlng,rightlat,rightlng)
-	
+		var arr = new Array();
 		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
 	    		$("#petsitterList").html("");
-	    		google.maps.event.removeListener(listener);
 	    		console.log("랭스 : "+data.list.length)
 	        	for(var q=0; q<data.list.length; q++){
+			      	var email = data.list[q].ps_email;
+	    	        var lat = data.list[q].ps_lat;
+			        var lng = data.list[q].ps_lng;
+			      	var name = data.list[q].ps_name;
+			      	var addr1 = data.list[q].ps_addr1;
+			      	var content = data.list[q].ps_content;
+			      	var img = data.list[q].ps_saveimage;
+			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
@@ -257,11 +252,13 @@
 	                    "</div>";
 	                    $("#petsitterList").append(petsitterList); 				
 	    		}
+	    		if(ref==0){
+	    			ref++;
+	    			list1(address);
+	    		}else{
+	    			list1(arr)
+	     		}
 	    })
-		    google.maps.event.addListener(map, 'zoom_changed', function() {
-		    	console.log("!#!#!#")
-			    getlist();
-			});
 	}
 	flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
 	flatpickr("#selector");

@@ -58,7 +58,7 @@ String email = (String)session.getAttribute("login");
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                        <a href="<c:url value='/'/>"><img src="<c:url value='/resources/images/logo.png'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                        <a href="<c:url value='/'/>"><img style="height: 50px;" src="<c:url value='/resources/images/logo.JPG'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">

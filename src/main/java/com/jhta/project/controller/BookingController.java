@@ -35,8 +35,11 @@ public class BookingController {
 	@Autowired private FilterTypeListService filterTypeListService;
 	
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
-	public String list(Model model) {
-		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist();
+	public String list(Model model,Date bk_startdate,Date bk_enddate) {
+		HashMap<String, Object>map = new HashMap<>();
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
 		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);
@@ -67,7 +70,7 @@ public class BookingController {
 	}
 	@RequestMapping("/booking/test")
 	public String llist() {
-		return ".booking.test";
+		return ".booking.list";
 	}
 	@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
 	public String upload(MultipartFile file1,HttpSession session) {

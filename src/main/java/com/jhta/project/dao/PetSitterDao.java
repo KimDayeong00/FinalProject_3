@@ -21,7 +21,7 @@ public class PetSitterDao {
 		return session.selectOne(NAMESPACE+".select",ps_email);
 	}
 
-	public List<PetSitterJoinFilterVo> alllist(){
-		return session.selectList(NAMESPACE+".alllist");
+	public List<PetSitterJoinFilterVo> alllist(HashMap<String, Object> map){
+		return session.selectList(NAMESPACE+".alllist",map);
 	}
 }
