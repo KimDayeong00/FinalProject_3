@@ -184,7 +184,7 @@ email = (String)session.getAttribute("email");
 		</form>
 		<div class='content'>
 			<p>
-				이미 회원이신가요? <span> <a class='link' href='#'> 로그인하기 </a>
+				이미 회원이신가요? <span> <a class='link' href='<c:url value="/login" />'> 로그인하기 </a>
 				</span>
 			</p>
 		</div>
