@@ -26,7 +26,7 @@ select NVL(count(*),0) from item where fieldnum in(select fieldnum from field wh
 </select>
 
 <select id="fielditemlist" parameterType="hashmap" resultType="shopitemvo">
-select * from (select aa.*,rownum rnum from (select * from item where  fieldnum = #{fieldnum})aa) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+select * from (select * from (select aa.*,rownum rnum from (select * from item where  fieldnum = #{fieldnum})aa)) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
 </select>
 
 <select id="itemlist" parameterType="hashmap" resultType="shopitemvo">
@@ -44,12 +44,12 @@ fieldnum in #{fieldnum} and p_num in (select p_num from itemfilter where fc_num 
 </select>
 
 <select id="itemcnt" parameterType="hashmap" resultType="int">
-select NVL(count(*),0) cnt from item 
+select NVL(count(*),0) cnt from item 	
 <where>
 <if test="fc_num=='0'">
 fieldnum = #{fieldnum}
 </if>
-
+			
 <if test="fc_num!=null and fc_num!='0'"> 
 fieldnum in #{fieldnum} and p_num in (select p_num from itemfilter where fc_num in(select fc_num from filtercontent where ${sql}))
 </if>
@@ -66,6 +66,16 @@ select * from filtertype where ft_num in(select ft_num from filtercontent where 
 select * from filtercontent where ft_num in(select ft_num from filtertype where ft_num=#{ft_num})
 </select>
 
+<select id="iteminfo" parameterType="Integer" resultType="shopitemvo">
+select * from item where p_num=#{p_num}
+</select>
 
+<select id="itemreview" parameterType="Integer" resultType="shopitemreviewvo">
+select * from itemreview where p_num=#{p_num}
+</select>
+
+<select id="imglist"  parameterType="Integer" resultType="shopitemimagevo">
+select * from itemimage where p_num=#{p_num}
+</select>
 </mapper>
 

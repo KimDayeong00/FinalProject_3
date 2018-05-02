@@ -10,13 +10,23 @@
 	
 	
 	<insert id="insertP" parameterType="petsitter">
-		insert into petsitter values(#{ps_email},#{ps_pwd},#{ps_phone},#{ps_name},#{ps_addr1},#{ps_addr2}
-		,#{ps_content},sysdate,#{ps_lat},#{ps_lng},null,null,#{ps_gubun})
+		insert into petsitter(PS_EMAIL,PS_PWD,PS_PHONE,PS_NAME,PS_ADDR1,PS_ADDR2,PS_CONTENT,PS_REGDATE,PS_LAT,
+PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN) values(#{ps_email},#{ps_pwd},#{ps_phone},#{ps_name},#{ps_addr1},#{ps_addr2}
+		,#{ps_content},sysdate,#{ps_lat},#{ps_lng},null,null,#{ps_gubun},0)
 	</insert>
 	
 	
 	<select id="emailc" parameterType="string" resultType="int">
 		select COUNT(*) from  memberlist m , petsitter p where m.m_email = #{value} or p.ps_email = #{value}
+	</select>
+	
+	<select id="emailc_m" parameterType="string" resultType="int">
+		select count(*) from memberlist where m_email = #{value}	
+	</select>
+	
+	
+	<select id="emailc_p" parameterType="string" resultType="int">
+		select count(*) from petsitter where ps_email = #{value}	
 	</select>
 	
 </mapper>

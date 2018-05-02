@@ -2,12 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<script type="text/javascript">
+
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+<script>
+
+$(document).ready(function() {
+	  $('#summernote').summernote();
+	});
+
+
+
+
 
 function select(){
 	var classsel = document.getElementById("classsel");
 	var val = classsel.options[classsel.selectedIndex].value;
-	alert(val);
+
 	
 		$.ajax({
  			url:"<c:url value='/itemadd/fieldlist?classnum="+val+"'/>",
@@ -91,6 +103,11 @@ function handleFileSelect()
 			<tr>
 				<td>입고수량</td>
 				<td><input type="text" name="stock"></td>
+			</tr>
+			
+			<tr>
+				<td>내용입력2</td>
+				<td><textarea id="summernote" name="content"></textarea></td>
 			</tr>
 			<tr>
 				<td>상품등록</td>

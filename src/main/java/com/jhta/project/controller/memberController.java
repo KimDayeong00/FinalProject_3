@@ -26,224 +26,253 @@ import com.jhta.project.vo.memberVO;
 
 @Controller
 public class memberController {
-	private static final String mydomain = "http://localhost:8090/project/callback";
+   private static final String mydomain = "http://localhost:8090/project/callback";
 
-	private static final String clientId = "MfMVXKoyjlrxFxb21n3w";
+   private static final String clientId = "MfMVXKoyjlrxFxb21n3w";
 
-	private static final String clientSecret = "4z1VMqC6I_";
+   private static final String clientSecret = "4z1VMqC6I_";
 
-	private static final String requestUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId
-			+ "&response_type=code&redirect_uri=" + mydomain + "&state=";
+   private static final String requestUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId
+         + "&response_type=code&redirect_uri=" + mydomain + "&state=";
 
-	private static final String userProfileUrl = "https://apis.naver.com/nidlogin/nid/getUserProfile.xml";
+   private static final String userProfileUrl = "https://apis.naver.com/nidlogin/nid/getUserProfile.xml";
 
-	@Autowired
-	private memberService service;
+   @Autowired
+   private memberService service;
 
-	@RequestMapping("/login")
-	public String login() {
-		// Å×½ºÆ®¿ëÀ¸·Î Àá½Ã ¹Ù²Ş
-		return "/members/login";
-	}
+   @RequestMapping("/login")
+   public String login() {
+      // í…ŒìŠ¤íŠ¸ìš©ìœ¼ë¡œ ì ì‹œ ë°”ê¿ˆ
+      return "/members/login";
+   }
 
-	@RequestMapping("/register1")
-	public String register1() {
-		return ".members.join";
-	}
-	@RequestMapping("/register2")
-	public String register2() {
-		return ".members.join2";
-	}
+   @RequestMapping("/register1")
+   public String register1() {
+      return ".members.join";
+   }
+   @RequestMapping("/register2")
+   public String register2() {
+      return ".members.join2";
+   }
+   
+   @RequestMapping("/n_login")
+   public String n_login(String email, String pwd, HttpSession session) {
+      System.out.println(email);
+      System.out.println(pwd);
+      String returnV = "";
+      if (email.equals("admin") && pwd.equals("admin")) {
+         session.setAttribute("login", "admin");
+         returnV = ".admin";
+      } else {
 
-	/*
-	 * typeÀº È¸¿ø À¯Çü(ÀÏ¹İ,Æê½ÃÅÍ) type1Àº °¡ÀÔ À¯Çü(ÀÏ¹İ°¡ÀÔ=1, Ä«Ä«¿À=2, ±¸±Û=3, ³×ÀÌ¹ö=4)
-	 */
-	@RequestMapping("/register")
-	public String register(int type, int type1, HttpSession session) {
-		System.out.println("Å¸ÀÔÀº" + type);
-		System.out.println("Å¸ÀÔ1Àº" + type1);
-		session.setAttribute("email", "");
-		session.setAttribute("type", type);
-		session.setAttribute("type1", type1);
-		return ".members.terms";
-	}
-	
-	
-	@RequestMapping("/socialJ")
-	public String register(int type, int type1,String email, HttpSession session) {
-		System.out.println("Å¸ÀÔÀº" + type);
-		System.out.println("Å¸ÀÔ1Àº" + type1);
-		System.out.println("ÀÌ¸ŞÀÏ : "+email);
-		session.setAttribute("type", type);
-		session.setAttribute("type1", type1);
-		session.setAttribute("email", email);
-		return ".members.terms";
-	}
+         int mc = service.emailc_m(email);
+         int pc = service.emailc_p(email);
+         if (mc == 0 && pc == 0) {
+            returnV = "/members/login";
+         } else if (mc != 0) {
+            System.out.println("ë§´ë²„ë¡œê·¸ì¸");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 1);
+            returnV = ".main";
+         } else if (pc != 0) {
+            System.out.println("í«ì‹œí„°ë¡œê·¸ì¸");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 2);
+            returnV = ".main";
+         }
+      }
+      return returnV;
+   }
 
-	@RequestMapping("/joinForm")
-	public String joinForm(HttpSession session) {
-		String result = "";
-		int a = (Integer) session.getAttribute("type");
-		if (a == 1) {
+   /*
+    * typeì€ íšŒì› ìœ í˜•(ì¼ë°˜,í«ì‹œí„°) type1ì€ ê°€ì… ìœ í˜•(ì¼ë°˜ê°€ì…=1, ì¹´ì¹´ì˜¤=2, êµ¬ê¸€=3, ë„¤ì´ë²„=4)
+    */
+   @RequestMapping("/register")
+   public String register(int type, int type1, HttpSession session) {
+      System.out.println("íƒ€ì…ì€" + type);
+      System.out.println("íƒ€ì…1ì€" + type1);
+      session.setAttribute("email", "");
+      session.setAttribute("type", type);
+      session.setAttribute("type1", type1);
+      return ".members.terms";
+   }
+   
+   
+   @RequestMapping("/socialJ")
+   public String register(int type, int type1,String email, HttpSession session) {
+      System.out.println("íƒ€ì…ì€" + type);
+      System.out.println("íƒ€ì…1ì€" + type1);
+      System.out.println("ì´ë©”ì¼ : "+email);
+      session.setAttribute("type", type);
+      session.setAttribute("type1", type1);
+      session.setAttribute("email", email);
+      return ".members.terms";
+   }
 
-			result = ".members.joinForm";
-		} else if (a == 2) {
-			result = ".members.joinForm2";
-		}
-		return result;
-	}
+   @RequestMapping("/joinForm")
+   public String joinForm(HttpSession session) {
+      String result = "";
+      int a = (Integer) session.getAttribute("type");
+      if (a == 1) {
 
-	@RequestMapping("/joinM")
-	public String join(memberVO vo, HttpSession session) {
-		System.out.println(vo.toString());
-		int a = (Integer) session.getAttribute("type");
-		int b = (Integer) session.getAttribute("type1");
+         result = ".members.joinForm";
+      } else if (a == 2) {
+         result = ".members.joinForm2";
+      }
+      return result;
+   }
 
-		vo.setM_gubun(b);
-		int row = service.insertM(vo);
-		if (row > 0) {
-			System.out.println("¿ì·¹Ä«!");
-		}
+   @RequestMapping("/joinM")
+   public String join(memberVO vo, HttpSession session) {
+      System.out.println(vo.toString());
+      int a = (Integer) session.getAttribute("type");
+      int b = (Integer) session.getAttribute("type1");
 
-		return ".main";
-	}
+      vo.setM_gubun(b);
+      int row = service.insertM(vo);
+      if (row > 0) {
+         System.out.println("ìš°ë ˆì¹´!");
+      }
 
-	@RequestMapping("/joinP")
-	public String join(PetSitterVo vo, HttpSession session) {
-		int a = (Integer) session.getAttribute("type");
-		int b = (Integer) session.getAttribute("type1");
+      return ".main";
+   }
 
-		vo.setPs_gubun(b);
-		System.out.println(vo.toString());
-		int row = service.insertP(vo);
-		if (row > 0) {
-			System.out.println("¿ì·¹Ä«!");
-		}
+   @RequestMapping("/joinP")
+   public String join(PetSitterVo vo, HttpSession session) {
+      int a = (Integer) session.getAttribute("type");
+      int b = (Integer) session.getAttribute("type1");
 
-		return ".main";
-	}
+      vo.setPs_gubun(b);
+      System.out.println(vo.toString());
+      int row = service.insertP(vo);
+      if (row > 0) {
+         System.out.println("ìš°ë ˆì¹´!");
+      }
 
-	@RequestMapping("/jusoPopup")
-	public String popup() {
-		System.out.println("ÁÖ¼Ò µé¾î¿È");
-		return "/members/jusoPopup";
-	}
+      return ".main";
+   }
 
-	@RequestMapping(value = "/callback")
-	public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,HttpSession session)
-			throws UnsupportedEncodingException {
+   @RequestMapping("/jusoPopup")
+   public String popup() {
+      System.out.println("ì£¼ì†Œ ë“¤ì–´ì˜´");
+      return "/members/jusoPopup";
+   }
 
-		String storedState = (String) request.getSession().getAttribute("state"); // ¼¼¼Ç¿¡ ÀúÀåµÈ ÅäÅ«À» ¹Ş¾Æ¿É´Ï´Ù.
+   @RequestMapping(value = "/callback")
+   public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,HttpSession session)
+         throws UnsupportedEncodingException {
 
-		if (!state.equals(storedState)) { // ¼¼¼Ç¿¡ ÀúÀåµÈ ÅäÅ«°ú ÀÎÁõÀ» ¿äÃ»ÇØ¼­ ¹ŞÀº ÅäÅ«ÀÌ ÀÏÄ¡ÇÏ´ÂÁö °ËÁõÇÕ´Ï´Ù.
+      String storedState = (String) request.getSession().getAttribute("state"); // ì„¸ì…˜ì— ì €ì¥ëœ í† í°ì„ ë°›ì•„ì˜µë‹ˆë‹¤.
 
-			System.out.println("401 unauthorized"); // ÀÎÁõÀÌ ½ÇÆĞÇßÀ» ¶§ÀÇ Ã³¸® ºÎºĞÀÔ´Ï´Ù.
+      if (!state.equals(storedState)) { // ì„¸ì…˜ì— ì €ì¥ëœ í† í°ê³¼ ì¸ì¦ì„ ìš”ì²­í•´ì„œ ë°›ì€ í† í°ì´ ì¼ì¹˜í•˜ëŠ”ì§€ ê²€ì¦í•©ë‹ˆë‹¤.
 
-			return "redirect:/";
+         System.out.println("401 unauthorized"); // ì¸ì¦ì´ ì‹¤íŒ¨í–ˆì„ ë•Œì˜ ì²˜ë¦¬ ë¶€ë¶„ì…ë‹ˆë‹¤.
 
-		}
-		// AccessToken ¿äÃ» ¹× ÆÄ½ÌÇÒ ºÎºĞ
-		String data = Utils.getHtml(getAccessUrl(state, code), null); // AccessTokenÀ» ¿äÃ»ÇÏ°í ±× °ªÀ» °¡Á®¿É´Ï´Ù.
+         return "redirect:/";
 
-		Map<String, String> map = Utils.JSONStringToMap(data); // JSONÀÇ ÇüÅÂ·Î ¹Ş¾Æ¿Â °ªÀ» MapÀ¸·Î ÀúÀåÇÕ´Ï´Ù.
-		System.out.println("ÁØºñ");
-		String accessToken = map.get("access_token");
-		System.out.println(accessToken);
-		String tokenType = map.get("token_type");
-		System.out.println(tokenType);
+      }
+      // AccessToken ìš”ì²­ ë° íŒŒì‹±í•  ë¶€ë¶„
+      String data = Utils.getHtml(getAccessUrl(state, code), null); // AccessTokenì„ ìš”ì²­í•˜ê³  ê·¸ ê°’ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 
-		String profileDataXml = Utils.getHtml(userProfileUrl, tokenType + " " + accessToken);
+      Map<String, String> map = Utils.JSONStringToMap(data); // JSONì˜ í˜•íƒœë¡œ ë°›ì•„ì˜¨ ê°’ì„ Mapìœ¼ë¡œ ì €ì¥í•©ë‹ˆë‹¤.
+      System.out.println("ì¤€ë¹„");
+      String accessToken = map.get("access_token");
+      System.out.println(accessToken);
+      String tokenType = map.get("token_type");
+      System.out.println(tokenType);
 
-		// tokentype ¿Í accessTokenÀ» Á¶ÇÕÇÑ °ªÀ» ÇØ´õÀÇ Authorization¿¡ ³Ö¾î Àü¼ÛÇÕ´Ï´Ù. °á°ú °ªÀº xml·Î
-		// Ãâ·ÂµË´Ï´Ù.
+      String profileDataXml = Utils.getHtml(userProfileUrl, tokenType + " " + accessToken);
 
-		JSONObject jsonObject = XML.toJSONObject(profileDataXml); // xmlÀ» jsonÀ¸·Î ÆÄ½ÌÇÕ´Ï´Ù.
+      // tokentype ì™€ accessTokenì„ ì¡°í•©í•œ ê°’ì„ í•´ë”ì˜ Authorizationì— ë„£ì–´ ì „ì†¡í•©ë‹ˆë‹¤. ê²°ê³¼ ê°’ì€ xmlë¡œ
+      // ì¶œë ¥ë©ë‹ˆë‹¤.
 
-		JSONObject responseData = jsonObject.getJSONObject("data");
+      JSONObject jsonObject = XML.toJSONObject(profileDataXml); // xmlì„ jsonìœ¼ë¡œ íŒŒì‹±í•©ë‹ˆë‹¤.
 
-		// jsonÀÇ ±¸Á¶°¡ data ¾Æ·¡¿¡ ÀÚ½ÄÀÌ µÑÀÎ ÇüÅÂ¿©¼­ mapÀ¸·Î ÆÄ½ÌÀÌ ¾ÈµË´Ï´Ù. µû¶ó¼­ ÀÚ½Ä ³ëµå·Î Á¢±ÙÇÕ´Ï´Ù.
+      JSONObject responseData = jsonObject.getJSONObject("data");
 
-		Map<String, String> userMap = Utils.JSONStringToMap(responseData.get("response").toString());
-		System.out.println(userMap.get("email"));
-		session.setAttribute("email", userMap.get("email"));
-		// »ç¿ëÀÚ Á¤º¸ °ªÀº ÀÚ½Ä³ëµå Áß¿¡ response¿¡ ÀúÀåµÇ¾î ÀÖ½À´Ï´Ù. response·Î Á¢±ÙÇÏ¿© ±× °ªµéÀº mapÀ¸·Î ÆÄ½ÌÇÕ´Ï´Ù.
+      // jsonì˜ êµ¬ì¡°ê°€ data ì•„ë˜ì— ìì‹ì´ ë‘˜ì¸ í˜•íƒœì—¬ì„œ mapìœ¼ë¡œ íŒŒì‹±ì´ ì•ˆë©ë‹ˆë‹¤. ë”°ë¼ì„œ ìì‹ ë…¸ë“œë¡œ ì ‘ê·¼í•©ë‹ˆë‹¤.
 
-		return ".members.terms";
+      Map<String, String> userMap = Utils.JSONStringToMap(responseData.get("response").toString());
+      System.out.println(userMap.get("email"));
+      session.setAttribute("email", userMap.get("email"));
+      // ì‚¬ìš©ì ì •ë³´ ê°’ì€ ìì‹ë…¸ë“œ ì¤‘ì— responseì— ì €ì¥ë˜ì–´ ìˆìŠµë‹ˆë‹¤. responseë¡œ ì ‘ê·¼í•˜ì—¬ ê·¸ ê°’ë“¤ì€ mapìœ¼ë¡œ íŒŒì‹±í•©ë‹ˆë‹¤.
 
-	}
+      return ".members.terms";
 
-	@RequestMapping(value = "/personalInfo")
-	public void personalInfo(HttpServletRequest request) throws Exception {
-		String token = "AAAAOMXEXCTHSoBwSNqMs0QhpLgUD6iXl9tm2TWauM1/8wPe+X61+rXjtcTwmxB69FLFNIwOwLCfO6fiLdQRv7CYXkI=";// ³×ÀÌ¹ö
-																														// ·Î±×ÀÎ
-																														// Á¢±Ù
-																														// ÅäÅ«;
-																														// ¿©±â¿¡
-																														// º¹»çÇÑ
-																														// ÅäÅ«°ªÀ»
-																														// ³Ö¾îÁİ´Ï´Ù.
-		String header = "Bearer " + token; // Bearer ´ÙÀ½¿¡ °ø¹é Ãß°¡
-		try {
-			String apiURL = "https://openapi.naver.com/v1/nid/me";
-			URL url = new URL(apiURL);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("Authorization", header);
-			int responseCode = con.getResponseCode();
-			BufferedReader br;
-			if (responseCode == 200) { // Á¤»ó È£Ãâ
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else { // ¿¡·¯ ¹ß»ı
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = br.readLine()) != null) {
-				response.append(inputLine);
-			}
-			br.close();
-			System.out.println(response.toString());
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
+   }
 
-	@RequestMapping(value = "/naverlogin")
-	public String naverLogin(int type, int type1,HttpSession session) {
-		String state = Utils.generateState(); // ÅäÅ«À» »ı¼ºÇÕ´Ï´Ù.
-		System.out.println("Å¸ÀÔÀº"+type);
-		System.out.println("Å¸ÀÔ1Àº"+type1);
-		session.setAttribute("type", type);
-		session.setAttribute("type1", type1);
-		session.setAttribute("state", state); // ¼¼¼Ç¿¡ ÅäÅ«À» ÀúÀåÇÕ´Ï´Ù.
-		return "redirect:" + requestUrl + state; // ¸¸µé¾îÁø URL·Î ÀÎÁõÀ» ¿äÃ»ÇÕ´Ï´Ù.
+   @RequestMapping(value = "/personalInfo")
+   public void personalInfo(HttpServletRequest request) throws Exception {
+      String token = "AAAAOMXEXCTHSoBwSNqMs0QhpLgUD6iXl9tm2TWauM1/8wPe+X61+rXjtcTwmxB69FLFNIwOwLCfO6fiLdQRv7CYXkI=";// ë„¤ì´ë²„
+                                                                                          // ë¡œê·¸ì¸
+                                                                                          // ì ‘ê·¼
+                                                                                          // í† í°;
+                                                                                          // ì—¬ê¸°ì—
+                                                                                          // ë³µì‚¬í•œ
+                                                                                          // í† í°ê°’ì„
+                                                                                          // ë„£ì–´ì¤ë‹ˆë‹¤.
+      String header = "Bearer " + token; // Bearer ë‹¤ìŒì— ê³µë°± ì¶”ê°€
+      try {
+         String apiURL = "https://openapi.naver.com/v1/nid/me";
+         URL url = new URL(apiURL);
+         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+         con.setRequestMethod("GET");
+         con.setRequestProperty("Authorization", header);
+         int responseCode = con.getResponseCode();
+         BufferedReader br;
+         if (responseCode == 200) { // ì •ìƒ í˜¸ì¶œ
+            br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+         } else { // ì—ëŸ¬ ë°œìƒ
+            br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+         }
+         String inputLine;
+         StringBuffer response = new StringBuffer();
+         while ((inputLine = br.readLine()) != null) {
+            response.append(inputLine);
+         }
+         br.close();
+         System.out.println(response.toString());
+      } catch (Exception e) {
+         System.out.println(e);
+      }
+   }
 
-	}
+   @RequestMapping(value = "/naverlogin")
+   public String naverLogin(int type, int type1,HttpSession session) {
+      String state = Utils.generateState(); // í† í°ì„ ìƒì„±í•©ë‹ˆë‹¤.
+      System.out.println("íƒ€ì…ì€"+type);
+      System.out.println("íƒ€ì…1ì€"+type1);
+      session.setAttribute("type", type);
+      session.setAttribute("type1", type1);
+      session.setAttribute("state", state); // ì„¸ì…˜ì— í† í°ì„ ì €ì¥í•©ë‹ˆë‹¤.
+      return "redirect:" + requestUrl + state; // ë§Œë“¤ì–´ì§„ URLë¡œ ì¸ì¦ì„ ìš”ì²­í•©ë‹ˆë‹¤.
 
-	private String getAccessUrl(String state, String code) {
+   }
 
-		String accessUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
-				+ clientSecret
+   private String getAccessUrl(String state, String code) {
 
-				+ "&grant_type=authorization_code" + "&state=" + state + "&code=" + code;
+      String accessUrl = "https://nid.naver.com/oauth2.0/token?client_id=" + clientId + "&client_secret="
+            + clientSecret
 
-		return accessUrl;
+            + "&grant_type=authorization_code" + "&state=" + state + "&code=" + code;
 
-	}
+      return accessUrl;
 
-	@RequestMapping(value = "/emailC")
-	@ResponseBody
-	public String emailC(String email) {
-		int row = service.emailc(email);
-		JSONObject ob = new JSONObject();
+   }
 
-		if (row > 0) {
-			ob.put("result", false);
+   @RequestMapping(value = "/emailC")
+   @ResponseBody
+   public String emailC(String email) {
+      int row = service.emailc(email);
+      JSONObject ob = new JSONObject();
 
-		} else {
-			ob.put("result", true);
-		}
-		return ob.toString();
-	}
+      if (row > 0) {
+         ob.put("result", false);
+
+      } else {
+         ob.put("result", true);
+      }
+      return ob.toString();
+   }
 
 }

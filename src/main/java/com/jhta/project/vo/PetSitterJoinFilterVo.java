@@ -21,12 +21,13 @@ public class PetSitterJoinFilterVo {
 	private int ps_price;
 	private int ps_careprice;
 	private int ps_overprice;
+	private int petcnt;
 	private List<FilterVo> list;
 	public PetSitterJoinFilterVo() {}
 	public PetSitterJoinFilterVo(String ps_email, String ps_pwd, String ps_phone, String ps_name, String ps_addr1,
 			String ps_addr2, String ps_content, Date ps_regdate, double ps_lat, double ps_lng, String ps_originalimg,
 			String ps_saveimage, int ps_gubun, int ps_active, int ps_price, int ps_careprice, int ps_overprice,
-			List<FilterVo> list) {
+			int petcnt, List<FilterVo> list) {
 		super();
 		this.ps_email = ps_email;
 		this.ps_pwd = ps_pwd;
@@ -45,6 +46,7 @@ public class PetSitterJoinFilterVo {
 		this.ps_price = ps_price;
 		this.ps_careprice = ps_careprice;
 		this.ps_overprice = ps_overprice;
+		this.petcnt = petcnt;
 		this.list = list;
 	}
 	public String getPs_email() {
@@ -148,6 +150,12 @@ public class PetSitterJoinFilterVo {
 	}
 	public void setPs_overprice(int ps_overprice) {
 		this.ps_overprice = ps_overprice;
+	}
+	public int getPetcnt() {
+		return petcnt;
+	}
+	public void setPetcnt(int petcnt) {
+		this.petcnt = petcnt;
 	}
 	public List<FilterVo> getList() {
 		return list;

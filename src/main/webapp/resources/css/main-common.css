@@ -50,10 +50,15 @@
 .menubarDiv:hover {
 	background-color:#f0efe8;
 }
-
 .menubarDiv span{vertical-align: middle;}
 .mypetsitterContent {width:720px;float:left;margin-left:20px;overflow: hidden;}
 .reservationInfo {width:720px;float:left;overflow:hidden;margin-top:10px;border:1px solid #ADA6A4;}
+.modifyBtn {width:300px;height:100px;background-color: #f0efe8; border:none;cursor: pointer;border-radius: 10px;line-height: normal;
+			outline: 0;margin-bottom: 15px;}
+.modifyBtn:hover{
+	color:gray;
+}
+.modifyBtn label{cursor: pointer;}
 
 /*
 	spinner

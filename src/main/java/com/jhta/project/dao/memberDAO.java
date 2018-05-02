@@ -26,4 +26,13 @@ public class memberDAO {
 	public int emailc(String email) {
 		return session.selectOne(NAMESPACE+".emailc", email);
 	}
+	
+	public int emailc_m(String email) {
+		return session.selectOne(NAMESPACE+".emailc_m",email);
+	}
+
+	public int emailc_p(String email) {
+		return session.selectOne(NAMESPACE+".emailc_p",email);
+	}
+	
 }

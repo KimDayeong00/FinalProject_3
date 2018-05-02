@@ -26,8 +26,14 @@
 		<select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select>
 		<script>sojaeji();</script><br />
 	</div>
-    <div id="petsitterList">
-    </div>
+	<div class="btn-group" data-toggle="buttons">
+		<c:forEach items="${filterlist }" var="filter">
+			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
+		    	<input type="checkbox" autocomplete="off" value="${filter.f_type}">${filter.f_type}
+			</label>
+		</c:forEach>
+	</div>
+    <div id="petsitterList"></div>
     <div id="map"></div>
     <script type="text/javascript">
     var search;
@@ -37,6 +43,12 @@
     var geocoder;
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var n=0;
+    $(".addr").on("change",function(){
+    	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
+    	console.log(addres);
+    	addreslist(addres);
+    })
+    
 	function initMap() {
     	geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(37.566535, 126.97796919999996);
@@ -113,17 +125,15 @@
         $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
         arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
 	}
-	/* function list(address){
+	function addreslist(address){
    		n=0;
    		var locations=new Array();
-   	    for(var i=0;i<address.length ; i++){
-   	  		geocoder.geocode( { 'address': address[i]}, function(results, status) {
+   	  		geocoder.geocode( { 'address': address}, function(results, status) {
 		   		locations.push({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()});
 		   		map.setCenter(results[0].geometry.location);
    	  		});
-   		}
    	 	list1(locations)
-	} */
+	}
 		var markerCluster;
 	function list1(locations){
 		var markers;
@@ -189,17 +199,19 @@
 	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
-	                                "<h2><a href='#' class='title'>"+data.list[q].ps_email+"</a></h2>"+
-	                                "<div class='tour-meta'> <span class='tour-meta-icon'><i class='fa fa-sun-o'></i></span><span class='tour-meta-text'>8 Days</span> <span class='tour-meta-text'>|</span> <span class='tour-meta-icon'><i class='fa fa-moon-o'></i></span><span class='tour-meta-text'>7 Nights </span> </div>"+
-	                                "<div class='tour-text mb40' style='text-align: center;'>";
-	                                for(var w=0; w<data.list[q].list.length; w++){
-	                                	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
-	                                }
-	                                petsitterList+=
-	                                "</div>"+
-	                                "<div class='tour-details'>"+
-	                                    "<div class='tour-details-text'><span style='display: block; text-align: right; color: gray; font-size: 20px; width:400px;'>day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"</span></div>"+
-	                                    "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
+	                                "<h2>"+data.list[q].ps_content+"</h2>"+
+	                                "<div class='tour-meta'>이름 : "+data.list[q].ps_name+"&nbsp;&nbsp; | &nbsp; 반려견 :"+data.list[q].petcnt +"마리</div>"+
+	                               
+	                                "<div class='tour-details' style=''>"+
+	                                "<div class='tour-text mb40' style='text-align: center; height:115px; margin:0px; padding:0px;'>";
+					                    for(var w=0; w<data.list[q].list.length; w++){
+					                    	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
+					                    }
+					                    console.log(data.list[q].ps_overprice);
+					                    petsitterList+=
+					                    "</div>"+
+	                                    "<div class='tour-details-text' style='margin:0px; padding:0px;'><span style='display: inline-block; color: gray; font-size: 20px; width:100%; margin:0px; padding:0px; margin-top:-5px; '>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"&nbsp;&nbsp;&nbsp;&nbsp; 대형견 추가금/"+data.list[q].ps_overprice+"</span></div>"+
+	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
 	                    "</div>";
