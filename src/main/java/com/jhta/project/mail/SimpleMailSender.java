@@ -1,10 +1,8 @@
 package com.jhta.project.mail;
 
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 
 public class SimpleMailSender {
-	private MailSender ms;
+/*	private MailSender ms;
 
 	public void setMs(MailSender ms) {
 		this.ms = ms;
@@ -23,6 +21,6 @@ public class SimpleMailSender {
 			e.printStackTrace();
 			return false;
 		}
-	}
+	}*/
 
 }
