@@ -22,4 +22,11 @@ public class memberService {
 	public int emailc(String email) {
 		return dao.emailc(email);
 	}
+	
+	public int emailc_m(String email) {
+		return dao.emailc_m(email);
+	}
+	public int emailc_p(String email) {
+		return dao.emailc_p(email);
+	}
 }

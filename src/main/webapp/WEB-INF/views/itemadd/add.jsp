@@ -7,7 +7,7 @@
 function select(){
 	var classsel = document.getElementById("classsel");
 	var val = classsel.options[classsel.selectedIndex].value;
-	alert(val);
+
 	
 		$.ajax({
  			url:"<c:url value='/itemadd/fieldlist?classnum="+val+"'/>",

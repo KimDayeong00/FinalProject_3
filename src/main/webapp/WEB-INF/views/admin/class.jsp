@@ -5,12 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<%-- <title>Insert title here</title>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>
+
+<script type="text/JavaScript" src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script> --%>
 <script type="text/javascript">
 	$(document).ready(function(){
 		/* 대분류 리스트 */
-		var name = $("#name").val();
+		//var name = $("#name").val();
 		$.ajax({
 			url : "<c:url value = '/admin/classList'/>",
 			dataType : "json",

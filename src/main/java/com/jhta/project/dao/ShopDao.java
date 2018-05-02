@@ -11,6 +11,7 @@ import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
+import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Repository
@@ -37,7 +38,7 @@ public class ShopDao {
 		return sqlSession.selectList(NAMESPACE+".filtercontent",ft_num);
 	}
 	
-	public List<ShopItemVo> classitemlist(HashMap<String, Object> map){
+	public List<ShopItemJoinVo> classitemlist(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE+".classitemlist",map);
 	}
 	

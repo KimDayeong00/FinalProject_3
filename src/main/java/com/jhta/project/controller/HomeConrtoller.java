@@ -14,10 +14,19 @@ import com.jhta.project.service.ShopService;
 import com.jhta.project.vo.ShopClassVo;
 @Controller
 public class HomeConrtoller {
+
 	@Autowired ShopService service;
+
 	@RequestMapping("/")
+
 	public String main() {
 		return ".main";
+	}
+	
+	@RequestMapping("/petsitterPage")
+	public String petsitterPage() {
+		return ".mypage.petsitter_info";
+
 	}
 
 	
@@ -30,4 +39,5 @@ public class HomeConrtoller {
 	public String adminclass() {
 		return ".admin.class";
 	}
+
 }
