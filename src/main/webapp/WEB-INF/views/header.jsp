@@ -17,14 +17,8 @@ String email = (String)session.getAttribute("login");
 
 
     <div class="top-bar">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 hidden-sm col-sm-12">
-                    <div class="call-info">
-                        <p class="call-text">Any Question? Call Us:<strong>252-386-7004</strong></p>
-                    </div>
-                </div>
-                <div class="col-md-8 hidden-sm hidden-xs">
+            <div class="row" >
+                <div class="col-md-10 hidden-sm hidden-xs">
                     <div class="social">
                         <ul>
                         <%
@@ -51,16 +45,14 @@ String email = (String)session.getAttribute("login");
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <div class="header-wrapper">
-        <div class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-2 col-sm-12 col-xs-12">
-                        <a href="<c:url value='/'/>"><img style="height: 50px;" src="<c:url value='/resources/images/logo.JPG'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
+        <div class="header" >
+                    <div class="col-lg-5 col-md-2 col-sm-12 col-xs-12">
+                        <a href="<c:url value='/'/>" style="margin-left: 100px;"><img style="height: 50px;" src="<c:url value='/resources/images/logo.JPG'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
-                    <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <div class="row" >
+                    <div class="col-lg-5 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">
                             <div id="navigation">
                                 <ul>
@@ -85,7 +77,6 @@ String email = (String)session.getAttribute("login");
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

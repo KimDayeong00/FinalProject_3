@@ -47,7 +47,7 @@ public class BookingController {
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng,Date bk_startdate,Date bk_enddate) {
+	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng,Date bk_startdate,Date bk_enddate,String[] filterchk,int chklength) {
 		System.out.println("bk_startdate:"+bk_startdate);
 		System.out.println("bk_enddate:"+bk_enddate);
 		HashMap<String, Object>map = new HashMap<>();
@@ -59,6 +59,13 @@ public class BookingController {
 		map.put("rightlng", rightlng);
 		map.put("bk_startdate", bk_startdate);
 		map.put("bk_enddate", bk_enddate);
+		for(int i=0; i<filterchk.length; i++) {
+			filterchk[i]=filterchk[i].replaceAll("[\"\\[\\]]", "");
+			System.out.println("filterchk[i] : "+filterchk[i]);
+		}
+		map.put("filterchk", filterchk);
+		System.out.println("chklength : "+ chklength);
+		map.put("chklength", chklength);
 		List<PetSitterJoinFilterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
@@ -70,12 +77,17 @@ public class BookingController {
 	}
 	@RequestMapping(value="/booking/map",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String jsonmap(Date bk_startdate,Date bk_enddate) {
+	public String jsonmap(Date bk_startdate,Date bk_enddate,String[] filterchk,int chklength) {
 		System.out.println("bk_startdate:"+bk_startdate);
 		System.out.println("bk_enddate:"+bk_enddate);
 		HashMap<String, Object>map = new HashMap<>();
 		map.put("bk_startdate", bk_startdate);
 		map.put("bk_enddate", bk_enddate);
+		for(int i=0; i<filterchk.length; i++) {
+			filterchk[i]=filterchk[i].replaceAll("[\"\\[\\]]", "");
+		}
+		map.put("filterchk", filterchk);
+		map.put("chklength", chklength);
 		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
 		JSONObject obj=new JSONObject();
 		if(alllist!=null) {

@@ -28,14 +28,41 @@
 			<result property="f_type" column="f_type"/>
 		</collection>
 	</resultMap>
+			<!-- <if test="YOUNGAGE!=null">(select f_num,ps_email,fl_name from filter where fl_name='YOUNGAGE') </if>
+			<if test="OLDAGE!=null">(select f_num,ps_email,fl_name from filter where fl_name='OLDAGE') </if>
+			<if test="SMALLSIZE!=null">(select f_num,ps_email,fl_name from filter where fl_name='SMALLSIZE') </if>
+			<if test="MIDDLESIZE!=null">(select f_num,ps_email,fl_name from filter where fl_name='MIDDLESIZE') </if>
+			<if test="BIGSIZE!=null">(select f_num,ps_email,fl_name from filter where fl_name='BIGSIZE') </if>
+			<if test="APART!=null">(select f_num,ps_email,fl_name from filter where fl_name='APART') </if>
+			<if test="YARD!=null">(select f_num,ps_email,fl_name from filter where fl_name='YARD') </if>
+			<if test="THESICK!=null">(select f_num,ps_email,fl_name from filter where fl_name='THESICK') </if>
+			<if test="LICENSE!=null">(select f_num,ps_email,fl_name from filter where fl_name='LICENSE') </if>
+			<if test="STROLL!=null">(select f_num,ps_email,fl_name from filter where fl_name='STROLL') </if>
+			<if test="PICKUP!=null">(select f_num,ps_email,fl_name from filter where fl_name='PICKUP') </if>
+			<if test="COOKIE!=null">(select f_num,ps_email,fl_name from filter where fl_name='COOKIE') </if>
+			<if test="OTHERPET!=null">(select f_num,ps_email,fl_name from filter where fl_name='OTHERPET') </if>
+			<if test="FIRSTAID!=null">(select f_num,ps_email,fl_name from filter where fl_name='FIRSTAID') </if>
+			<if test="DOSE!=null">select f_num,ps_email,fl_name from filter where fl_name='DOSE') </if> -->
 	<select id="alllist" resultMap="petsitterjoinfilter" parameterType="hashmap">
 		select ps_originalimg,ps_saveimage,petsitter.ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2,
-		ps_content, ps_regdate, ps_lat, ps_lng,ps_overprice,ps_careprice,ps_price,ps_active from petsitter ,petsitterprice 
+		ps_content, ps_regdate, ps_lat, ps_lng,ps_overprice,ps_careprice,ps_price,ps_active from petsitter ,petsitterprice
 		where petsitter.ps_email=petsitterprice.ps_email and ps_active=1
+		<if test="chklength>0">
+		 and petsitter.ps_email in(select ps_email from filter 
+		  where fl_name in
+		  <foreach item="item" index="index" collection="filterchk"
+		      open="(" separator="," close=")">
+		        #{item}
+		  </foreach>
+		  group by ps_email
+		  having count(ps_email) = #{chklength})
+		</if>
 		<if test="bk_startdate!=null and bk_enddate !=null">
 		and petsitter.ps_email not in(select ps_email from PETSITTERBOOK where 
 		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)
 		</if> 
+		
+		  
 	</select>
 	<select id="list" resultMap="petsitterjoinfilter" parameterType="hashmap">
 		select r.rnum,r.cnt petcnt,f.f_num,f.f_type, f.fl_name, p.ps_careprice,p.ps_price,p.ps_overprice,cc.ps_originalimg,cc.ps_lat,cc.ps_lng,cc.ps_saveimage,cc.ps_email, cc.ps_pwd, cc.ps_phone, cc.ps_name, cc.ps_addr1, cc.ps_addr2, cc.ps_content, cc.ps_regdate from 
@@ -49,6 +76,16 @@
 		(select ps_email, ABS(ps_lng-#{lng}) lng from petsitter) lng 
 		where lat.ps_email = lng.ps_email ) )) bb 
 		where aa.ps_email=bb.ps_email and aa.ps_active=1
+		<if test="chklength>0">
+		 and aa.ps_email in(select ps_email from filter 
+		  where fl_name in
+		  <foreach item="item" index="index" collection="filterchk"
+		      open="(" separator="," close=")">
+		        #{item}
+		  </foreach>
+		  group by ps_email
+		  having count(ps_email) = #{chklength})
+		</if>
 		<if test="bk_startdate!=null and bk_enddate !=null">
 		and aa.ps_email not in(select ps_email from PETSITTERBOOK where 
 		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)

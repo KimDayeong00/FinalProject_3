@@ -15,12 +15,6 @@
         height: 600px;
       }
     </style>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8&callback=initMap">
-    </script>
-    
 	<div style="width: 100%; margin-top: 5px; padding: 10px; ">
 		<table style="border: 1px solid black; margin-top: 5px; padding: 10px;">
 			<tr>
@@ -38,6 +32,9 @@
 				</td>
 			</tr>
 		</table>
+		<c:forEach var="vo" items="${filterlist }">
+			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
+		</c:forEach>
 		<script>sojaeji();</script>
 	</div>
 	<%-- <div class="btn-group" data-toggle="buttons">
@@ -58,8 +55,16 @@
     var bk_startdate;
 	var bk_enddate;
 	var ref=0;
-    $("name").on("click",function(){
-    	console.log("안녕")
+	var filterchk=[];
+    $(".filterName").on("click",function(){
+    	filterchk=[]
+    	 $('input:checkbox[name="filterName"]').each(function() {
+    	      if(this.checked){
+    	            filterchk.push(this.value)
+    	      }
+    	 });
+    	console.log(filterchk)
+    	changeMap()
     })
     
     $(".addr").on("change",function(){
@@ -212,9 +217,11 @@
 	}
 	
 	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
-		console.log("arraygetlist()")
+		console.log("arraygetlist()"+filterchk)
+		var chklength = $(".filterName:checked").length;
+		console.log("arraygetlist()"+chklength)
 		var ddd=$("#selector").val().split('to ');
-		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
+		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate,filterchk:JSON.stringify(filterchk),chklength:chklength},function(data) {
 	    		$("#petsitterList").html("");
 	        	for(var q=0; q<data.list.length; q++){
 	        		var petsitterList=
@@ -259,8 +266,10 @@
 	});
 	function changeMap(){
 		console.log("changeMap()");
+		var chklength = $(".filterName:checked").length;
 		var arr = new Array();
-		 $.getJSON("<c:url value='/booking/map'/>",{bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
+		console.log("changeMap()"+filterchk)
+		 $.getJSON("<c:url value='/booking/map'/>",{bk_startdate:bk_startdate,bk_enddate:bk_enddate,filterchk:JSON.stringify(filterchk),chklength:chklength},function(data) {
 	        	for(var q=0; q<data.alllist.length; q++){
 			      	var email = data.alllist[q].ps_email;
 	    	        var lat = data.alllist[q].ps_lat;
@@ -270,8 +279,14 @@
 			      	var content = data.alllist[q].ps_content;
 			      	var img = data.alllist[q].ps_saveimage;
 			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
-		    		list1(arr)
 	        	}
+		    		list1(arr)
+		    		getlist()
 	    })
 	}
 </script>
+ <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8&callback=initMap">
+    </script>
