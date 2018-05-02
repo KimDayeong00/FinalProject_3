@@ -12,12 +12,14 @@ public class HomeConrtoller {
 	@RequestMapping("/")
 	public String main() {
 		return ".main";
+
 	}
 	
-	/*@RequestMapping("/shop/home")
-	public String home() {
-		return ".shop.home";
+	@RequestMapping("/petsitterPage")
+	public String petsitterPage() {
+		return ".mypage.petsitter_info";
+
 	}
-*/
-	
+
 }
+

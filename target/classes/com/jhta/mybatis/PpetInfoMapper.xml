@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhta.mybatis.PpetInfoMapper">
+	<select id="select" parameterType="string" resultType="ppetinfo">
+		select pi_num,pi_name,to_char(trunc((sysdate-pi_age)/365.254)) pi_age,pi_type,pi_weight,
+		pi_content,ps_email,pi_savefilename,pi_originalfilename,pi_sex,pi_gubun from ppetinfo where ps_email=#{value}
+	</select>
+</mapper>

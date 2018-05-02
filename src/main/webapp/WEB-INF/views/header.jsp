@@ -11,7 +11,7 @@
     <meta name="description" content="Want to start your travel agency online and need website for your travel business? Start with travel agency responsive website template. Its absolutely free.">
     <meta name="keywords" content="travel, tour, tourism, honeymoon pacakage, summer trip, exotic vacation, destination, international, domestic website template, holiday, travel agecny responsive website template">
     <title>Tour and Travel Agency - Responsive Website Template</title>
-    <!-- Bootstrap -->
+   <%--  <!-- Bootstrap -->
     <link href="<c:url value='/resources/css/bootstrap.min.css'/>" rel="stylesheet">
     <!-- Style CSS -->
     <link href="<c:url value='/resources/css/style.css'/>" rel="stylesheet">
@@ -27,7 +27,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script>
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"> </script> --%>
 </head>
 <!-- 
 로그인체크하기 로그인 session에 값이 존재 할 경우 헤더의 로그인 회원가입 펫시터등록 부분을 로그아웃으로 바꿔준더
@@ -36,9 +36,10 @@
 String email = (String)session.getAttribute("login");
 %>
 
-
 <body>
-    <!-- header-section start -->
+
+
+
     <div class="top-bar">
         <div class="container">
             <div class="row">
@@ -97,8 +98,8 @@ String email = (String)session.getAttribute("login");
                                     </li> -->
 									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
                                     <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
-                                    <li><a href="styleguide.html" title="Styleguide">이용방법</a></li>
-                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a></li>
+                                    <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
+                                    <li class="has-sub"><a href="#" title="Tours">고객지원</a>
                                         <ul>
                                             <li><a href="domestic-tour.html" title="Group Tours">Domestic Tours</a></li>
                                             <li><a href="international-tour.html" title="Couple Tours">International Tours</a></li>

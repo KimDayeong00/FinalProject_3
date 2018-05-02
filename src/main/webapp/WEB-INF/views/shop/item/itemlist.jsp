@@ -2,34 +2,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link href="<c:url value='/resources/css/checkbox.css'/>"
-	rel="stylesheet">
-<table class="table table-hover">
 
+<style>
+
+.filtertype{width: 100px;height:40px;background-color:#525f78; margin:2px;padding: 10px;text-align:center;border: #336600 1px solid;border-radius:10px;font-size: 15px;}
+.container{width:1000px;}
+#item{word-wrap:break-word; width:220px;}
+#bunryu{width:1000px;}
+</style>
+<div id="wrap" class="container">
+
+<div id="bunryu">
+<table>
 	<tr>
 		<td>분류</td>
 		<c:forEach var="fieldvo" items="${fieldvo}">
-			<td><a
-				href="<c:url value='/item/fielditemlist?fieldnum=${fieldvo.fieldnum }&classnum=${fieldvo.classnum }'/>">${fieldvo.name }</a></td>
-
+			<td style="color: red"><a href="<c:url value='/item/fielditemlist?fieldnum=${fieldvo.fieldnum }&classnum=${fieldvo.classnum }'/>">${fieldvo.name }</a></td>
 		</c:forEach>
-
 	</tr>
 </table>
+	</div>
 
-
-<table class="table table-hover" border="1">
+<div id="cont">
+<table class="table table-hover" border="1"> 
 	<c:forEach var="filtertypevo" items="${filtertypevo }">
 		<tr>
-			<td>${filtertypevo.ft_name }</td>
+			<td style="color: white">
+			
+			<div class="filtertype">${filtertypevo.ft_name }</div>
+			
+			</td>
 			<c:forEach var="map" items="${map }">
 
 				<c:forEach var="filtercontent" items="${map.value }">
 					<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
 						<td><input id="${filtercontent.fc_num }" type="checkbox"
 							name="check" value="${filtercontent.fc_num }"
-							onclick="getchk(${classnum},${fieldnum })"> <a
-							onclick="abc(${filtercontent.fc_num},${fieldnum},${classnum })">${filtercontent.fc_name }</a>
+							onclick="getchk(${classnum},${fieldnum })"> <a href="">${filtercontent.fc_name }</a>
 
 						</td>
 					</c:if>
@@ -40,14 +49,40 @@
 	</c:forEach>
 </table>
 
-<div id="box1">
-	상품
-	<c:forEach var="itemvo" items="${itemvo}">
-		<a id="${itemvo.p_num }"
-			href="<c:url value='/item/itemlist?fieldnum=${itemvo.fieldnum }'/>">${itemvo.item_name }</a>
-	</c:forEach>
+
+
+
+<div id="content" >
+<c:set var="i" value="0" />
+<c:set var="j" value="3" />
+
+<table >
+
+       <c:forEach var="itemvo" items="${itemvo}">
+            <c:if test="${i%j == 0 }">
+               <tr>
+            </c:if>
+                    <td style="size: 220px;" id="item">
+                    <img src="<c:url value='/resources/itemimage/${itemvo.item_savefilename }'/>"><br>
+                    <a id="${itemvo.p_num }" 
+			href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">${itemvo.item_name }</a>
+			${itemvo.p_num }
+			</td>
+            <c:if test="${i%j == j-1 }">
+                </tr>
+            </c:if>
+            <c:set var="i" value="${i+1 }" />
+        </c:forEach>
+
+ 
+
+</table>
+
+
+
 
 </div>
+
 <div id="page">
 	<c:choose>
 
@@ -131,6 +166,8 @@
 	</c:choose>
 
 </div>
+</div>
+</div>
 <script>
 		
 	
@@ -140,15 +177,15 @@
 		alert(fieldnum);
 		alert(sql);
 		var plus="";
-		var box=document.getElementById("box1");
+		var content=document.getElementById("content");
  		$.ajax({
  			url:"<c:url value='/item/itemlist?classnum="+classnum+"&fieldnum="+fieldnum+"&sql="+sql+"'/>",
  			dataType:"json",
  			success:function(data){
  				$("#page").html("");
- 					$("#box1").html("");
- 				for(var i=0;i<data.itemvo.length;i++){
- 					$("#box1").append("<a href='<c:url value='/item/detail?p_num="+data.itemvo[i].p_num+"'/>'>"+data.itemvo[i].item_name);
+ 					$("#content").html("");
+ 				for(var i=0;i<data.itemvo.length; i++){
+ 					$("#content").append("<a href='<c:url value='/item/detail?p_num="+data.itemvo[i].p_num+"'/>'>"+data.itemvo[i].item_name);
  					var str=data.itemvo[i].item_name;
  					alert(str);
  					plus+=str;

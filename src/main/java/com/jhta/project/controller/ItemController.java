@@ -43,6 +43,12 @@ public class ItemController {
 		return mv;
 	}
 	
+	@RequestMapping("/test")
+	public String test() {
+	
+		return ".shop.item.test";
+	}
+	
 	@RequestMapping("/itemadd/fieldlist")
 	@ResponseBody
 	public HashMap<String, Object> fieldlist(ShopClassVo vo) {
@@ -64,9 +70,11 @@ public class ItemController {
 	public ModelAndView itemadd(ShopItemVo vo,MultipartFile file1,HttpSession session) {
 		ModelAndView mv=new ModelAndView(".main");
 		System.out.println(vo.toString());
-	
-	
-
+		service.itemadd(vo);
+		int p_num=service.maxpnum();
+		System.out.println(p_num);
+		
+		
 //전송된 파일명 얻어오기
 		String orgfilename=file1.getOriginalFilename();
 		//저장할 파일명 만들기(중복되지 않도록)
@@ -82,9 +90,9 @@ public class ItemController {
 			is.close();
 			System.out.println(uploadPath +"\\"+ savefilename +" [파일업로드성공!]");
 			///////////////////////DB저장/////////////////////////////////////
-			ShopItemImageVo imagevo=new ShopItemImageVo(0, savefilename, vo.getP_num());
+			ShopItemImageVo imagevo=new ShopItemImageVo(0, savefilename, p_num);
 			System.out.println(imagevo.toString());
-			
+			service.imageadd(imagevo);
 			return mv;
 		}catch(IOException ie) {
 			System.out.println(ie.getMessage());

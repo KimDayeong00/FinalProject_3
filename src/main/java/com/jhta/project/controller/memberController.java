@@ -62,6 +62,7 @@ public class memberController {
 		System.out.println(pwd);
 		String returnV = "";
 		if (email.equals("admin") && pwd.equals("admin")) {
+			session.setAttribute("login", "admin");
 			returnV = ".admin";
 		} else {
 

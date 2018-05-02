@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	
+	
+	
+	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
@@ -31,6 +34,18 @@
     <link href="<c:url value="/resources/admin/build/css/custom.min.css" />" rel="stylesheet">
 
 </head>
+
+<%
+
+String login = (String)session.getAttribute("login");
+if(login == null)login="";
+System.out.println("넘어온 세션로그인값 :"+login);
+
+if(login.equals("admin")){
+
+%>
+
+
 <body class="nav-md">
  <div class="container body">
       <div class="main_container">
@@ -77,21 +92,72 @@
     <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.time.js" />"></script>
     <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.stack.js" />"></script>
     <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.resize.js" />"></script>
-    Flot plugins
-    <script src="<c:url value="/resources/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/flot-spline/js/jquery.flot.spline.min.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/flot.curvedlines/curvedLines.js" />"></script>
+ 
     DateJS
     <script src="<c:url value="/resources/admin/vendors/DateJS/build/date.js" />"></script> 
 
 </body>
 	
+<%}else { %>
+
+
+
+      <link rel="stylesheet" href="<c:url value="/resources/admin/error/css/style.css" />">
+
+
+
+<body>
+
+  <a href="https://codepen.io/ZonFire99/full/njdls/" class="viewFull" target="_parent">View in full it looks way better :)</a>
+
+<div class="error">
+
+<div class="wrap">
+  <div class="404">
+	 <span class="green">&lt;!</span><span>DOCTYPE html</span><span class="green">&gt;</span>
+<span class="orange">&lt;html&gt;</span>
+    <span class="orange">&lt;style&gt;</span>
+   * {
+		        <span class="green">everything</span>:<span class="blue">awesome</span>;
+}
+     <span class="orange">&lt;/style&gt;</span>
+ <span class="orange">&lt;body&gt;</span> 
+              잘못된 접근입니다!
+				<span class="comment">&lt;!--The file you are looking for, 
+					is not where you think it is.--&gt;
+		</span>
+ <span class="orange"></span> 
+			  
+
+
+</div>
+<br />
+<span class="info">
+<br />
+
+<span class="orange">&nbsp;&lt;/body&gt;</span>
+
+<br/>
+      <span class="orange">&lt;/html&gt;</span>
+  </div>
+</div>
+
+
+</span>
+  
+  
+
+    <script  src="<c:url value="/resources/admin/error/js/index.js" />"></script>
 
 
 
 
+</body>
 
 
+
+
+<%} %>
 
 
 </html>

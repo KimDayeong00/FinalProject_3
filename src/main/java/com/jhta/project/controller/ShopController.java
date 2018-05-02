@@ -17,6 +17,8 @@ import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
+import com.jhta.project.vo.ShopItemJoinVo;
+import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Controller
@@ -36,19 +38,19 @@ public class ShopController {
 	public ModelAndView classitemlist(@RequestParam(value="pageNum",defaultValue="1")int pageNum,ShopClassVo vo,ShopFieldVo vo2) {
 		System.out.println("들어옴");
 		int classnum=vo.getClassnum();
-		System.out.println("���댁�����???"+pageNum);
+
 		ModelAndView mv=new ModelAndView(".shop.item.itemlist");
 		HashMap<String, Object> map=new HashMap<String,Object>();
 		int totalRowCount=service.classcnt(classnum);
 		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
-		System.out.println("������"+pu.getStartRow());
-		System.out.println("����"+pu.getEndRow());
+
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
 		map.put("classnum",classnum);
 		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
 		List<ShopClassVo> classvo=service.classlist();
-		List<ShopItemVo> itemvo=service.classitemlist(map);
+		List<ShopItemJoinVo> itemvo=service.classitemlist(map);
+		
 		System.out.println(itemvo.toString());
 		
 		mv.addObject("pgchk","class");
@@ -73,7 +75,7 @@ public class ShopController {
 		map2.put("fieldnum",fieldnum);
 		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
 		List<ShopClassVo> classvo=service.classlist();
-		List<ShopItemVo> itemvo=service.fielditemlist(map2);
+		List<ShopItemJoinVo> itemvo=service.fielditemlist(map2);
 		List<ShopFilterTypeVo> filtertypevo=service.filtertype(fieldnum);
 		HashMap<Object, Object> map=new HashMap<>();
 		for(ShopFilterTypeVo filter:filtertypevo) {
@@ -132,22 +134,18 @@ public class ShopController {
 	
 	}
 	
-	@RequestMapping("/item/itemlist1")
-	@ResponseBody
-	public HashMap<Object, Object> list1(@RequestParam(value="fc_name",defaultValue="abc")String fc_name) {
-		int classnum=1;
-		int fieldnum=1;
+	@RequestMapping("/item/detail")
+	public ModelAndView detail(ShopItemJoinVo vo) {
+		int p_num=vo.getP_num();
+		ShopItemJoinVo iteminfo=service.iteminfo(p_num);
+		List<ShopItemReviewVo> itemreview=service.itemreview(p_num);
+		System.out.println(iteminfo.toString());
 	
-		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
-		List<ShopFilterTypeVo> filtertypevo=service.filtertype(fieldnum);
-		HashMap<Object, Object> map=new HashMap<>();
-		HashMap<String,Object> map2=new HashMap<>();
+		ModelAndView mv=new ModelAndView(".shop.item.itemdetail");
+		mv.addObject("iteminfo",iteminfo);
+		mv.addObject("itemreview",itemreview);
 		
-		map.put("classnum", classnum);
-		map.put("fieldnum", fieldnum);
-		map.put("fieldvo",fieldvo);
-	
-		return map;
-	
+		return mv;
 	}
+	
 }

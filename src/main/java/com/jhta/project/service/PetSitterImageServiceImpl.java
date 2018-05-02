@@ -1,5 +1,7 @@
 package com.jhta.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,9 @@ public class PetSitterImageServiceImpl implements PetSitterImageService{
 		
 		return dao.insert(vo);
 	}
-
+	
+	@Override
+	public List<PetSitterImageVo> getImg(String ps_email) {
+		return dao.getImg(ps_email);
+	}
 }
