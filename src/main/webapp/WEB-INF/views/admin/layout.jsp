@@ -69,7 +69,7 @@ if(login.equals("admin")){
 </div>
 <%-- <c:url value="/resources/admin/vendors/skycons/skycons.js" /> --%>
   <!-- jQuery -->
-    <script src="<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js" />"></script>
+    <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
     <!-- Bootstrap -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
     <!-- FastClick -->
@@ -77,7 +77,7 @@ if(login.equals("admin")){
     <!-- NProgress -->
     <script src="<c:url value="/resources/admin/vendors/nprogress/nprogress.js" />"></script>
     <!-- Chart.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="<c:url value="/resources/admin/vendors/gauge.js/dist/gauge.min.js" />"></script>
     <!-- bootstrap-progressbar -->

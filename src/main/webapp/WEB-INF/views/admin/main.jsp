@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!-- page content -->
+
+
+
 <div class="right_col" role="main">
 	<div class="">
 		<div class="page-title">
@@ -77,7 +80,7 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
-						<canvas id="mybarChart"></canvas>
+						<canvas id="mybarChart" width="800" height="450"></canvas>
 					</div>
 				</div>
 			</div>
@@ -131,7 +134,7 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
-						<canvas id="canvasDoughnut"></canvas>
+						<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
 					</div>
 				</div>
 			</div>
@@ -196,7 +199,99 @@
 <script>
 	function gogo() {
 
-		var data = {
+		new Chart(document.getElementById("lineChart"), {
+			  type: 'line',
+			  data: {
+			    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+			    datasets: [{ 
+			        data: [86,114,106,106,107,111,133,221,783,2478],
+			        label: "펫시터",
+			        borderColor: "#3e95cd",
+			        fill: false
+			      }, { 
+			        data: [282,350,411,502,635,809,947,1402,3700,5267],
+			        label: "쇼핑몰",
+			        borderColor: "#8e5ea2",
+			        fill: false
+			      }
+			    ]
+			  },
+			  options: {
+			    title: {
+			      display: true,
+			      text: '펫케어 수익'
+			    }
+			  }
+			});
+		
+		
+		new Chart(document.getElementById("mybarChart"), {
+		    type: 'pie',
+		    data: {
+		      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+		      datasets: [{
+		        label: "Population (millions)",
+		        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+		        data: [2478,5267,734,784,433]
+		      }]
+		    },
+		    options: {
+		      title: {
+		        display: true,
+		        text: 'Predicted world population (millions) in 2050'
+		      }
+		    }
+		});
+		
+		
+		
+		new Chart(document.getElementById("canvasRadar"), {
+		    type: 'horizontalBar',
+		    data: {
+		      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+		      datasets: [
+		        {
+		          label: "Population (millions)",
+		          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+		          data: [2478,5267,734,784,433]
+		        }
+		      ]
+		    },
+		    options: {
+		      legend: { display: false },
+		      title: {
+		        display: true,
+		        text: 'Predicted world population (millions) in 2050'
+		      }
+		    }
+		});
+		
+		
+		
+		new Chart(document.getElementById("bar-chart-grouped"), {
+		    type: 'bar',
+		    data: {
+		      labels: ["1900", "1950", "1999", "2050"],
+		      datasets: [
+		        {
+		          label: "Africa",
+		          backgroundColor: "#3e95cd",
+		          data: [133,221,783,2478]
+		        }, {
+		          label: "Europe",
+		          backgroundColor: "#8e5ea2",
+		          data: [408,547,675,734]
+		        }
+		      ]
+		    },
+		    options: {
+		      title: {
+		        display: true,
+		        text: 'Population growth (millions)'
+		      }
+		    }
+		});
+/* 		var data = {
 
 		        labels: ["월","화","수","목","금","토","일"],
 
@@ -250,7 +345,7 @@
 
 		    var options = { };
 
-		    var lineChart = new Chart(ctx).Line(data, options);
+		    var lineChart = new Chart(ctx).Line(data, options); */
 	
 	 
 	
@@ -301,5 +396,4 @@
 	
 	}
 </script>
-
-<script src="<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js" />"></script>
+<script src="<c:url value="/resources/js/jquery.min.js" />"></script>
