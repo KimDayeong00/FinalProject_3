@@ -24,6 +24,7 @@ import com.jhta.project.service.FilterTypeListService;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterService;
 import com.jhta.project.vo.FilterTypeListVo;
+import com.jhta.project.vo.FilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
 
@@ -40,6 +41,11 @@ public class BookingController {
 		map.put("bk_startdate", bk_startdate);
 		map.put("bk_enddate", bk_enddate);
 		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
+		for(PetSitterJoinFilterVo vo : alllist) {
+			for(FilterVo vo1 : vo.getList()) {
+				System.out.println(vo1.getFl_name());
+			}
+		}
 		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);

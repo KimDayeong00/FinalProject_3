@@ -56,6 +56,7 @@
 	var bk_enddate;
 	var ref=0;
 	var filterchk=[];
+	var infowindow;
     $(".filterName").on("click",function(){
     	filterchk=[]
     	 $('input:checkbox[name="filterName"]').each(function() {
@@ -63,7 +64,6 @@
     	            filterchk.push(this.value)
     	      }
     	 });
-    	console.log(filterchk)
     	changeMap()
     })
     
@@ -108,7 +108,15 @@
 		      	var addr1 = '${data.ps_addr1}';
 		      	var content = '${data.ps_content}';
 		      	var img = '${data.ps_saveimage}';
-				address.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
+		      	var careprice = ${data.ps_careprice};
+		      	var price = ${data.ps_price};
+		      	var overprice = ${data.ps_overprice};
+		      	/* var list = '${data.list}';
+		      	console.log("list : "+list)
+		      	for(var w=0; w<list.length; w++){
+		      		console.log(list[w].f_type);
+                } */
+				address.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img,price:price,careprice:careprice,overprice:overprice});
 			</c:forEach>
 			list1(address);
         	arraygetlist(37.566535,126.97796919999996,33.193668738614384, 124.82258606250002,38.53185554526987, 130.71125793750002)	
@@ -119,6 +127,9 @@
         google.maps.event.addListener(map, 'dragend', function(){    // 드래그시 이벤트 추가
         	showMapPos();
             showMapAddr();
+            if(infowindow){
+            	infowindow.close();
+            }
             getlist()
         });
        
@@ -136,6 +147,9 @@
             });
         }
        google.maps.event.addListener(map, 'zoom_changed', function() {
+    	   if(infowindow){
+           	infowindow.close();
+           }
 	    	getlist();
 		}); 
 	}
@@ -172,7 +186,6 @@
 	}
 	var markerCluster;
 	function list1(locations){
-		console.log("list1()");
  		var markers = locations.map(function(location, j) {
 	 				return new google.maps.Marker({
 	 			    position: location,
@@ -180,29 +193,33 @@
 	 			   	name:locations[j].name,
 	 			   	addr1:locations[j].addr1,
 	 			   	content:locations[j].content,
+	 			   	careprice:locations[j].careprice,
+	 			   	price:locations[j].price,
+	 			   	overprice:locations[j].overprice,
 	 			   	img:locations[j].img,
 	 				label: labels[j % labels.length]
 	 				});
 	 		});
-			var infowindow = new google.maps.InfoWindow();
+ 				infowindow = new google.maps.InfoWindow();
 		 		for(var k=0; k<markers.length; k++){
 		 			google.maps.event.addListener(markers[k],'click',function() {
-		 			var contentString ="<div class='tour-block' style='padding:0; margin:0;'>"+
-    				"<div class='tour-img' style='width:20%; float:left;'>"+
-    				"<a href='#'><img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+this.img+"'/>'></a>"+
-                	"</div>"+
-                        "<div class='tour-content'>"+
-                            "<h2><a href='#' class='title'>"+this.email+"</a></h2>"+
-                            "<div class='tour-meta'> <span class='tour-meta-icon'><i class='fa fa-sun-o'></i></span><span class='tour-meta-text'>8 Days</span> <span class='tour-meta-text'>|</span> <span class='tour-meta-icon'><i class='fa fa-moon-o'></i></span><span class='tour-meta-text'>7 Nights </span> </div>"+
-                            "<div class='tour-text mb40'>"+
-                                "<p>Monasteries | Nubra Velly | Panmika Pangong Lake | Zoravar Fort | Alchi Khardung La | Sidhu Ghat </p>"+
+		 				map.setZoom(17);
+		 		    	map.setCenter(this.getPosition());
+		 		    	setTimeout(function(){
+			 		    	getlist();
+		 		      	},100);
+		 			var contentString =
+		 				"<a href='<c:url value='/detail?ps_email="+this.email+"'/>'><div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
+        				"<div class='tour-img' style='width:200px;'>"+
+        				"<img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+this.img+"'/>'>"+
+                    	"</div>"+
+                            "<div class='tour-content' style='width:200px;'>"+
+                                "<h2>"+this.content+"</h2>"+
+                                "<div class='tour-meta'>이름 : "+this.name+"</div>"+
+                                "<span style='display: inline-block; color: gray; font-size: 20px; width:100%; margin:0px; padding:0px; margin-top:-5px; '>day care/"+this.careprice+"<br>1박/"+this.price+"<br>대형견 추가금/"+this.overprice+"</span>"+
+                                "</div>"+
                             "</div>"+
-                            "<div class='tour-details'>"+
-                                "<div class='tour-details-text'><span>8 Days</span></div>"+
-                                "<div class='tour-details-btn'> <span><a href='#' class='btn btn-primary'>View Details</a></span> </div>"+
-                            "</div>"+
-                        "</div>"+
-                "</div>" 
+                    "</div></a>";
 		 	        infowindow.setContent(contentString);
 					infowindow.open(map, this);
 		 			});
@@ -217,9 +234,7 @@
 	}
 	
 	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
-		console.log("arraygetlist()"+filterchk)
 		var chklength = $(".filterName:checked").length;
-		console.log("arraygetlist()"+chklength)
 		var ddd=$("#selector").val().split('to ');
 		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate,filterchk:JSON.stringify(filterchk),chklength:chklength},function(data) {
 	    		$("#petsitterList").html("");
@@ -265,10 +280,8 @@
 		}
 	});
 	function changeMap(){
-		console.log("changeMap()");
 		var chklength = $(".filterName:checked").length;
 		var arr = new Array();
-		console.log("changeMap()"+filterchk)
 		 $.getJSON("<c:url value='/booking/map'/>",{bk_startdate:bk_startdate,bk_enddate:bk_enddate,filterchk:JSON.stringify(filterchk),chklength:chklength},function(data) {
 	        	for(var q=0; q<data.alllist.length; q++){
 			      	var email = data.alllist[q].ps_email;
@@ -278,7 +291,11 @@
 			      	var addr1 = data.alllist[q].ps_addr1;
 			      	var content = data.alllist[q].ps_content;
 			      	var img = data.alllist[q].ps_saveimage;
-			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
+			      	var careprice = data.alllist[q].ps_careprice;
+			      	var price = data.alllist[q].ps_price;
+			      	var overprice = data.alllist[q].ps_overprice;
+
+			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img,price:price,careprice:careprice,overprice:overprice});
 	        	}
 		    		list1(arr)
 		    		getlist()
