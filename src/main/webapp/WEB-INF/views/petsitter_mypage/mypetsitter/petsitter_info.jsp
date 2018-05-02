@@ -127,6 +127,5 @@
 					</div>
 			</c:when>
 		</c:choose>
-		</c:if>
 	</div>
 </div>
