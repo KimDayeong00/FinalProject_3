@@ -25,7 +25,7 @@
 
 <div id="cont">
 <table class="table table-hover" border="1"> 
-	<c:forEach var="filtertypevo" items="${filtertypevo }">
+	<c:forEach var="filtertypevo" items="${filtertypevo }" >
 		<tr>
 			<td style="color: white">
 			
@@ -36,7 +36,7 @@
 
 				<c:forEach var="filtercontent" items="${map.value }">
 					<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
-						<td><input id="${filtercontent.fc_num }" type="checkbox"
+						<td><input id="${filtercontent.fc_num }"  type="checkbox"
 							name="check" value="${filtercontent.fc_num }"
 							onclick="getchk(${classnum},${fieldnum })"> <a href="">${filtercontent.fc_name }</a>
 
