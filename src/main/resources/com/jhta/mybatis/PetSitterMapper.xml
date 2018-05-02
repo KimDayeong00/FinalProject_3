@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.PetSitterMapper">
+	<resultMap type="com.jhta.project.vo.PetSitterJoinFilterVo" id="petsitterjoinfilter">
+		<result property="ps_email" column="ps_email"/>
+		<result property="ps_pwd" column="ps_pwd"/>
+		<result property="ps_phone" column="ps_phone"/>
+		<result property="ps_name" column="ps_name"/>
+		<result property="ps_addr1" column="ps_addr1"/>
+		<result property="ps_addr2" column="ps_addr2"/>
+		<result property="ps_content" column="ps_content"/>
+		<result property="ps_regdate" column="ps_regdate"/>
+		<result property="ps_lat" column="ps_lat"/>
+		<result property="ps_lng" column="ps_lng"/>
+		<result property="ps_originalimg" column="ps_originalimg"/>
+		<result property="ps_saveimage" column="ps_saveimage"/>
+		<result property="ps_gubun" column="ps_gubun"/>
+		<result property="ps_careprice" column="ps_careprice"/>
+		<result property="ps_price" column="ps_price"/>
+		<result property="ps_overprice" column="ps_overprice"/>
+		<result property="ps_active" column="ps_active"/>
+		<result property="petcnt" column="petcnt"/>
+		<collection property="list" ofType="com.jhta.project.vo.FilterVo">
+			<result property="f_num" column="f_num"/>
+			<result property="fl_name" column="fl_name"/>
+			<result property="f_type" column="f_type"/>
+		</collection>
+	</resultMap>
+	<select id="alllist" resultMap="petsitterjoinfilter" parameterType="hashmap">
+		select f.f_num,f.f_type, f.fl_name,ps_originalimg,ps_saveimage,petsitter.ps_email, ps_pwd, ps_phone, ps_name, ps_addr1, ps_addr2,
+		ps_content, ps_regdate, ps_lat, ps_lng,ps_overprice,ps_careprice,ps_price,ps_active from petsitter ,petsitterprice,
+		(select f_num,f.fl_name,ps_email,f_type from filter f, filtertypelist fl where f.fl_name = fl.fl_name) f
+		where petsitter.ps_email=petsitterprice.ps_email and ps_active=1 and petsitter.ps_email=f.ps_email
+		<if test="chklength>0">
+		 and petsitter.ps_email in(select ps_email from filter 
+		  where fl_name in
+		  <foreach item="item" index="index" collection="filterchk"
+		      open="(" separator="," close=")">
+		        #{item}
+		  </foreach>
+		  group by ps_email
+		  having count(ps_email) = #{chklength})
+		</if>
+		<if test="bk_startdate!=null and bk_enddate !=null">
+		and petsitter.ps_email not in(select ps_email from PETSITTERBOOK where 
+		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)
+		</if> 
+		
+		  
+	</select>
+	<select id="list" resultMap="petsitterjoinfilter" parameterType="hashmap">
+		select r.rnum,r.cnt petcnt,f.f_num,f.f_type, f.fl_name, p.ps_careprice,p.ps_price,p.ps_overprice,cc.ps_originalimg,cc.ps_lat,cc.ps_lng,cc.ps_saveimage,cc.ps_email, cc.ps_pwd, cc.ps_phone, cc.ps_name, cc.ps_addr1, cc.ps_addr2, cc.ps_content, cc.ps_regdate from 
+		(select f_num,f.fl_name,ps_email,f_type from filter f, filtertypelist fl where f.fl_name = fl.fl_name) f, petsitter cc,petsitterprice p,
+		(select d.ps_email, rnum,count(pi.ps_email) cnt from
+		(select cc.ps_email, rownum rnum from 
+		(select aa.ps_email ps_email, bb.latlng latlng from petsitter aa, 
+		(select ps_email, latlng from( 
+		(select lat.ps_email ps_email ,(lat+lng) latlng from 
+		(select ps_email, ABS(ps_lat-#{lat}) lat from petsitter) lat, 
+		(select ps_email, ABS(ps_lng-#{lng}) lng from petsitter) lng 
+		where lat.ps_email = lng.ps_email ) )) bb 
+		where aa.ps_email=bb.ps_email and aa.ps_active=1
+		<if test="chklength>0">
+		 and aa.ps_email in(select ps_email from filter 
+		  where fl_name in
+		  <foreach item="item" index="index" collection="filterchk"
+		      open="(" separator="," close=")">
+		        #{item}
+		  </foreach>
+		  group by ps_email
+		  having count(ps_email) = #{chklength})
+		</if>
+		<if test="bk_startdate!=null and bk_enddate !=null">
+		and aa.ps_email not in(select ps_email from PETSITTERBOOK where 
+		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)
+		</if> 
+		and aa.ps_lat between #{leftlat} and #{rightlat} 
+		and aa.ps_lng between #{leftlng} and #{rightlng} order by latlng asc) cc 
+		where <![CDATA[rownum <=10]]>)d, ppetinfo pi
+		where d.ps_email = pi.ps_email
+		group by d.ps_email,rnum
+		order by rnum asc) r
+		where cc.ps_email=f.ps_email and cc.ps_email=p.ps_email and cc.ps_email=r.ps_email order by r.rnum asc
+	</select>    
+</mapper>
+

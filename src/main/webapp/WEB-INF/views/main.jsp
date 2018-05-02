@@ -21,7 +21,7 @@
             <div class="row">
                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="section-title text-center">
-                        <h1>Find The Tours</h1>
+                        <h1>Find The Tour</h1>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="service-block">
                         <div class="service-img">
-                            <a href="#"><img src="resources/images/service-img-1.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                            <a href="#"><img src="<c:url value='/resources/images/service-img-1.jpg'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                         </div>
                         <div class="service-content">
                             <h3><a href="#" class="title">Group Tour</a></h3>
@@ -45,7 +45,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="service-block">
                         <div class="service-img">
-                            <a href="#"><img src="resources/images/service-img-2.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
+                        <c:url value=''/>
+                            <a href="#"><img src="  <c:url value='/resources/images/service-img-2.jpg'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                         </div>
                         <div class="service-content">
                             <h3><a href="#" class="title">Couple Tour</a></h3>

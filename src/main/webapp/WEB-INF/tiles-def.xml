@@ -8,12 +8,7 @@
 		<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
 	</definition>
-	<definition name=".login" extends=".main">
-		<put-attribute name="main" value="/WEB-INF/views/login.jsp"/>
-	</definition>
-	<definition name=".item" extends=".main">
-		<put-attribute name="main" value="/WEB-INF/views/item.jsp"/>
-	</definition>
+
 	<!-- .admin.notice -->
 	<!-- <definition name=".admin.notice" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/admin/notice.jsp"/>
@@ -24,9 +19,27 @@
 		{2}의 위치에 notice가 설정되어서 보여지는 jsp페이지는
 			"/WEB-INF/views/admin/notice.jsp"가 됨
 	 -->
+	
+		<definition name=".shop" template="/WEB-INF/views/layout2.jsp">
+		<put-attribute name="header1" value="/WEB-INF/views/header.jsp"/>
+		<put-attribute name="header2" value="/WEB-INF/views/shop/homeheader.jsp"/>
+		<put-attribute name="main1" value="/WEB-INF/views/shop/home.jsp"/>
+		<put-attribute name="footer1" value="/WEB-INF/views/footer.jsp"/>
+	</definition>
+
+	<definition name=".shop.*.*.*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/shop/{1}/{2}/{3}.jsp"/>
+	</definition>
+
+	<definition name=".shop.*.*" extends=".shop">
+		<put-attribute name="main1" value="/WEB-INF/views/shop/{1}/{2}.jsp"/>
+	</definition>
+
 	<definition name=".*.*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
+	
+
 	<definition name=".*.*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
@@ -34,4 +47,7 @@
 	<definition name=".*" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
 	</definition>
+	
+
+
 </tiles-definitions>

@@ -1,0 +1,58 @@
+@charset "UTF-8";
+#content {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
+.imgSlide {width:610px;height:400px;float:left;}
+.slider div{height:350px;}
+.book {width:380px;overflow:hidden;float:left;margin-left:10px;border: 1px solid gray;text-align: center;}
+.book p{font-size: 13px;}
+.caledar input {float:left;}
+.calendar {display: inline-block;}
+.book_box2 {width:300px;display: inline-block;border-top:1px solid gray;font-size: 14px;}
+.book_box3 {width:300px;display: inline-block;border-top:1px solid gray;font-size: 14px;}
+.book_box2 div{width:200px;float:left;text-align: left;}
+.book_box3 .petspinner{width:200px;float:left;text-align: left;}
+.book_box3 .petspinner span{text-align: left;}
+#increment {display: inline-block;}
+.book_box2 .price{width:100px;text-align: right;}
+.book_box3 .price{width:100px;text-align: right;overflow: hidden;}
+#bookBtn {width:300px;height:100px;background-color: #f0efe8; border:none;cursor: pointer;border-radius: 10px;line-height: normal;
+			outline: 0;margin-bottom: 15px;}
+#bookBtn:hover {
+	color:gray;
+}
+#bookBtn label {cursor:pointer;}
+.petsitterInfo {width:1000px;border:1px solid gray;float:left;margin-top:10px;display: inline-block;overflow: hidden;}
+.petsitterProfile {width:1000px;overflow: hidden;}
+.petsitterImg {width:150px;height:150px;border:1px solid gray;float:left;margin-left:20px;margin-top:20px;}
+.profile {margin-top:20px;margin-left:10px;float:left;}
+.petsitterOption {width:1000px;display:inline-block;margin-top:20px;text-align: center;}
+.petsitterOption .petSize {width:500px;float:left;display: inline-block;}
+.petsitterOption .time {width:500px;float:left;display: inline-block;text-align: center;}
+.time div {width:200px;display: inline-block;}
+.petsitterOption span {text-align: left;}
+.homeStateWrap{width:1000px;overflow: hidden;}
+.homeState{text-align: center;}
+.homeState span{text-align: left;}
+.homeState div{float:left;width:400px;display: inline-block;}
+
+/*
+	펫시터 정보 부분
+*/
+.sitterPageContent {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
+.petsitterPageMenu {width:300px;overflow: hidden;border:1px solid gray;text-align: center;}
+.petsitterPageMenu .sitterImg {width:300px;height:270px;}
+.petsitterPageMenu div {width:300px;line-height:60px;border-top:1px solid gray;}
+.petsitterPageMenu span {vertical-align: middle;}
+.petImg {width:70px;height:70px;border:1px solid gray;}
+
+/*
+	spinner
+*/
+.nice-number input{border-color: #f0efe8;}
+.petspinner {line-height:25px;overflow: hidden;}
+#minusBtn {background-color: #f0efe8; border:none;}
+
+
+#petNumber {width:30px;height:30px;}
+#increment {height:30px;vertical-align: middle;}
+#increment button {height:30px;}
+#increment label {vertical-align: middle;}

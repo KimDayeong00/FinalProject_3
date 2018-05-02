@@ -3,9 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  
-  <mappers>
-  <!-- 수행할 sql구문이 들어있는 SQL Mapper파일 포함하기 -->
-    <mapper resource="com/jhta/mybatis/ProjectMapper.xml"/>
-  </mappers>
+
+	<typeAliases>
+
+		<!-- Petsitter -->
+		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
+		<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage" />
+		<typeAlias type="com.jhta.project.vo.PetSitterJoinFilterVo" alias="petsitterjoinfilter" />
+		<typeAlias type="com.jhta.project.vo.PetsitterOptionVo" alias="petoption"/>
+  		<typeAlias type="com.jhta.project.vo.PetsitterPetVo" alias="ppetinfo"/>
+  		<typeAlias type="com.jhta.project.vo.PetSitterPriceVo" alias="petsitterprice"/>
+		<typeAlias type="com.jhta.project.vo.PetSitterVo" alias="petsitter" />
+  		
+		<!--  Member -->
+		<typeAlias alias="member" type="com.jhta.project.vo.memberVO" />
+		<!--  Shop -->
+		<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
+		<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
+		<typeAlias type="com.jhta.project.vo.ShopFilterContentVo" alias="shopfiltercontentvo" />
+		<typeAlias type="com.jhta.project.vo.ShopFilterTypeVo" alias="shopfiltertypevo" />
+		<typeAlias type="com.jhta.project.vo.ShopItemImageVo" alias="shopitemimagevo" />
+		<typeAlias type="com.jhta.project.vo.ShopItemJoinVo" alias="shopitemjoinvo" />
+		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
+	</typeAliases>
+	
+	<mappers>
+	<!--  Petsitter -->
+		<mapper resource="com/jhta/mybatis/PetSitterMapper.xml" />
+		<mapper resource="com/jhta/mybatis/FilterTypeListMapper.xml" />
+		<mapper resource="com/jhta/mybatis/PetSitterImageMapper.xml" />
+	 	<mapper resource="com/jhta/mybatis/PetsitterOptionMapper.xml"/>
+   		<mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
+	   <!-- Member -->
+		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
+		<!--  Shop -->
+		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
+		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	
+	</mappers>
+
 </configuration>
