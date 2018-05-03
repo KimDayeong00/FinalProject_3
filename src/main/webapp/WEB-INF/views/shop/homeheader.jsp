@@ -18,13 +18,14 @@
         </c:forEach>    
           </ul>
         </li>
-          <li><a href="#">장바구니 </a></li>
+          <li><a href="<c:url value='/shop/cartlist'/>">장바구니 </a></li>
             <li class="active"><a href="#">마이페이지</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" >
         </div>
+
         <button type="submit" class="btn btn-default">검색하기</button>
       </form>
     

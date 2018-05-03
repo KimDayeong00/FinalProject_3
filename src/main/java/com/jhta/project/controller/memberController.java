@@ -345,5 +345,12 @@ public class memberController {
       }
       return ob.toString();
    }
-
+   
+   @RequestMapping("/mypage/order")
+   public ModelAndView order() {
+   ModelAndView mv=new ModelAndView(".members.order");
+   return mv;
+   }
+   
+ 
 }

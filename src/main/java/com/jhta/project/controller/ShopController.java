@@ -1,8 +1,10 @@
 package com.jhta.project.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.ShopService;
 import com.jhta.project.util.PageUtil;
+import com.jhta.project.vo.ShopCartVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
@@ -152,6 +155,40 @@ public class ShopController {
 		mv.addObject("imglist",imglist);
 		
 		return mv;
+	}
+	
+	@RequestMapping("/shop/cart")
+	public ModelAndView cart(ShopCartVo vo,HttpSession session) {
+		System.out.println("아아아"+vo.toString());
+		ModelAndView mv=new ModelAndView(".shop.cartlist");
+		String url="localhost:8090"+vo.getUrl();
+		System.out.println(url);
+		List<HashMap> cartlist= null;
+		HashMap<String, Object> map=new HashMap<>();
+		if(session.getAttribute("cartlist")==null) {
+			cartlist= new ArrayList<>();
+			map.put("num", vo.getNum());
+			map.put("title",vo.getTitle());
+			map.put("price",vo.getPrice());
+			map.put("cnt",vo.getCnt());
+			map.put("url",url);
+			cartlist.add(map);
+		}else {
+			cartlist= (List<HashMap>)session.getAttribute("cartlist");
+			map.put("num", vo.getNum());
+			map.put("title",vo.getTitle());
+			map.put("price",vo.getPrice());
+			map.put("cnt",vo.getCnt());
+			map.put("url",url);
+			cartlist.add(map);
+		}
+		System.out.println(cartlist);
+		session.setAttribute("cartlist",cartlist);
+		return mv;
+	}
+	@RequestMapping("/shop/cartlist")
+	public String cartlist() {
+		return ".shop.cartlist";
 	}
 	
 }

@@ -26,6 +26,11 @@
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
 		</div>	
+		
+		<div class="order">
+			<span><a href="<c:url value='/mypage/order'/>">주문목록/배송조회</a></span>
+		</div>	
+		
 		<div class="petsitterInfoManage">
 			<span><a href="<c:url value='/mypetsitter?page=sitterInfo'/>">펫시터 정보 관리</a></span>
 		</div>
