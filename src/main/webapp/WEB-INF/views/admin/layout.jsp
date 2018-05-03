@@ -25,8 +25,6 @@
 	
     <!-- bootstrap-progressbar -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" />" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="<c:url value="/resources/admin/vendors/jqvmap/dist/jqvmap.min.css" />" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" />" rel="stylesheet">
 
@@ -67,9 +65,10 @@ if(login.equals("admin")){
 
 </div>
 </div>
-<%-- <c:url value="/resources/admin/vendors/skycons/skycons.js" /> --%>
+
+	
   <!-- jQuery -->
-    <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
+    <script src="<c:url value="/resources/vendors/jquery/dist/jquery.min.js" />"></script>
     <!-- Bootstrap -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
     <!-- FastClick -->
@@ -80,19 +79,12 @@ if(login.equals("admin")){
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="<c:url value="/resources/admin/vendors/gauge.js/dist/gauge.min.js" />"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="<c:url value="/resources/build/js/custom.min.js" />"></script>
     <!-- bootstrap-progressbar -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" />"></script>
-    <!-- iCheck -->
-    <script src="<c:url value="/resources/admin/vendors/iCheck/icheck.min.js" />"></script>
-    <!-- Skycons -->
-    <script src="<c:url value="/resources/admin/vendors/skycons/skycons.js" />"></script>
-    <!-- Flot -->
-     <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.pie.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.time.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.stack.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.resize.js" />"></script>
- 
+  
+   
     DateJS
     <script src="<c:url value="/resources/admin/vendors/DateJS/build/date.js" />"></script> 
 

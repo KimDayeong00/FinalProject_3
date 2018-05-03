@@ -34,20 +34,30 @@
 				<div class="x_panel">
 					<div class="select_mate" data-mate-select="active" >
 
-<select name="sdgsdg"   id="">
-<option value=""  >Seleciona una Opcion </option>
-<option value="1">Select option 1</option>
-<option value="2" >Select option 2</option>
-<option value="3">Select option 3</option>
+<select    id="year">
+<option value="">---</option>
+<option value="2015">2015</option>
+<option value="2016" >2016</option>
+<option value="2017">2017</option>
+<option value="2018">2018</option>
   </select>
-
-<select name="sdgsdg"  onchange="gogo();"  id="">
-<option value=""  >Seleciona una Opcion </option>
-<option value="1">Select option 1</option>
-<option value="2" >Select option 2</option>
-<option value="3">Select option 3</option>
+년
+<select   id="month">
+<option value=""  >---</option>
+<option value="01">01</option>
+<option value="02" >02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
   </select>
-
+월
   </div>				
 
 					<div class="x_content">
@@ -297,7 +307,7 @@
 
 
 <script>
-
+/* 
 $.ajax({
     url : "AJAX_POST_URL",
     type: "POST",
@@ -310,7 +320,7 @@ $.ajax({
     {
  
     }
-});
+}); */
 
 
 
@@ -320,4 +330,3 @@ $.ajax({
 
 
 
-<script src="<c:url value="/resources/js/jquery.min.js" />"></script>
