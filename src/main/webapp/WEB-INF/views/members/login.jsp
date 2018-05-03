@@ -176,6 +176,8 @@ function goPopup(){
 			Kakao.API.request({
 				url : '/v1/user/me',
 				success : function(res) {
+					alert( JSON.stringify(res));
+					
 					var emailM = JSON.stringify(res.kaccount_email);
 					var emailLength = emailM.length;
 					var newEmail = emailM.substr(1,(emailLength-2));
