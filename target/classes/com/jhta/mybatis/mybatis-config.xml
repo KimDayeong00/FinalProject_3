@@ -6,6 +6,9 @@
 
 	<typeAliases>
 
+		<!-- admin -->
+		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
+
 		<!-- Petsitter -->
 		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
 		<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage" />
@@ -36,6 +39,7 @@
 	 	<mapper resource="com/jhta/mybatis/PetsitterOptionMapper.xml"/>
    		<mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		<!--  Shop -->
