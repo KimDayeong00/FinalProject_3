@@ -10,10 +10,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	
-	
-	
-	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
