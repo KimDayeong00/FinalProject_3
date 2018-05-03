@@ -25,7 +25,7 @@
     <link href="<c:url value="/resources/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" />" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="<c:url value="/resources/admin/build/css/custom.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/build/css/custom.min.css" />" rel="stylesheet">
 
 </head>
 
@@ -64,7 +64,7 @@ if(login.equals("admin")){
 
 	
   <!-- jQuery -->
-    <script src="<c:url value="/resources/vendors/jquery/dist/jquery.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js" />"></script>
     <!-- Bootstrap -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
     <!-- FastClick -->
