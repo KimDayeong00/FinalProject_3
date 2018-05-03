@@ -37,6 +37,23 @@
 
 <!-- Custom Theme Style -->
 <link href="resources/build/css/custom.min.css" rel="stylesheet">
+
+
+<script>
+
+function goPopup(){
+	// 주소검색을 수행할 팝업 페이지를 호출합니다.
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+	var pop = window.open("<c:url value="/mail/mailForm" />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	
+}
+
+
+}
+</script>
+
+
+
 </head>
 
 <body class="login">
@@ -59,7 +76,7 @@
 						</div>
 						<div>
 							<a class="btn btn-default submit" href="#" onclick="document.getElementById('myForm').submit()">로그인</a> <a
-								class="reset_pass" href="#">비밀번호 찾기</a>
+								class="reset_pass" href="#" onclick="goPopup();">비밀번호 찾기</a>
 
 						</div>
 						<div class="login_wrapper" style="float: left;">

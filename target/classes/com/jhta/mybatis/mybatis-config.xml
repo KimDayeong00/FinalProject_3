@@ -6,6 +6,9 @@
 
 	<typeAliases>
 
+		<!-- admin -->
+		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
+
 		<!-- Petsitter -->
 		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
 		<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage" />
@@ -25,6 +28,7 @@
 		<typeAlias type="com.jhta.project.vo.ShopItemImageVo" alias="shopitemimagevo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemJoinVo" alias="shopitemjoinvo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
+		<typeAlias type="com.jhta.project.vo.ShopItemReviewVo" alias="shopitemreviewvo" />
 	</typeAliases>
 	
 	<mappers>
@@ -35,6 +39,7 @@
 	 	<mapper resource="com/jhta/mybatis/PetsitterOptionMapper.xml"/>
    		<mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		<!--  Shop -->
