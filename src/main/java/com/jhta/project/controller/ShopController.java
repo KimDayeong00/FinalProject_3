@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -162,33 +164,64 @@ public class ShopController {
 		System.out.println("아아아"+vo.toString());
 		ModelAndView mv=new ModelAndView(".shop.cartlist");
 		String url="localhost:8090"+vo.getUrl();
-		System.out.println(url);
+		ShopItemVo vo2=service.iteminfo(vo.getNum());
+		String img=vo2.getImage_name();
 		List<HashMap> cartlist= null;
 		HashMap<String, Object> map=new HashMap<>();
 		if(session.getAttribute("cartlist")==null) {
 			cartlist= new ArrayList<>();
+			map.put("vo", vo);
 			map.put("num", vo.getNum());
 			map.put("title",vo.getTitle());
 			map.put("price",vo.getPrice());
 			map.put("cnt",vo.getCnt());
 			map.put("url",url);
+			map.put("img", img);
 			cartlist.add(map);
 		}else {
 			cartlist= (List<HashMap>)session.getAttribute("cartlist");
+			map.put("vo", vo);
 			map.put("num", vo.getNum());
 			map.put("title",vo.getTitle());
 			map.put("price",vo.getPrice());
 			map.put("cnt",vo.getCnt());
 			map.put("url",url);
+			map.put("img", img);
 			cartlist.add(map);
+			
+	
 		}
 		System.out.println(cartlist);
 		session.setAttribute("cartlist",cartlist);
 		return mv;
 	}
+	@RequestMapping("/shop/del")
+	public String del(HttpServletRequest req,HttpSession session) {
+		int num=Integer.parseInt(req.getParameter("num"));
+		List<HashMap<String, Object>> list=(List<HashMap<String, Object>> )session.getAttribute("cartlist");
+		//session.removeAttribute("cartlist");
+		for(int i=0; i<list.size();i++) {
+			HashMap<String, Object> map=list.get(i);
+			if(num==(Integer)map.get("num")) {
+				list.remove(map);
+			}
+		}
+		
+		
+		return ".shop.cartlist";
+	}
+	
 	@RequestMapping("/shop/cartlist")
 	public String cartlist() {
+	
 		return ".shop.cartlist";
+	}
+	
+	@RequestMapping("/shop/order")
+	public ModelAndView order() {
+		ModelAndView mv=new ModelAndView(".shop.order");
+		return mv;
+		
 	}
 	
 }
