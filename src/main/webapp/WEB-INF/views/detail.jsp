@@ -90,6 +90,7 @@
 
 		//이미지 슬라이드 플러그인
 		$('.slider').bxSlider();
+		
 		//달력 플러그인 (맡기는 날짜)
 		flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
 		flatpickr("#selector");
@@ -294,7 +295,7 @@
 	<div class="imgSlide">
 		<div class="slider">
 			<c:forEach var="img" items="${imgList }">
-				<div><img src="<c:url value='/resources/images/${img}'/>"></div>
+				<div><img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>"></div>
 			</c:forEach>
 		</div>
 	</div>
@@ -364,7 +365,7 @@
 				<img>
 			</div>
 			<div class="profile">
-				<span class="petsitterName">${vo2.ps_name }</span><span class="addr">주소</span>
+				<span class="petsitterName">${vo2.ps_name }</span><span class="addr">${vo2.ps_addr1 }</span>
 				<div class="filterList">
 					<c:forEach var="filter" items="${filterList }">
 						<div class="filter"><span>${filter.f_type}</span></div>

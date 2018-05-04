@@ -38,6 +38,13 @@ public class PetSitterVo {
 		this.ps_gubun = ps_gubun;
 		this.ps_active = ps_active;
 	}
+	
+//	public PetSitterVo(String ps_name, String ps_addr1, String ps_content) {
+//		this.ps_name=ps_name;
+//		this.ps_addr1=ps_addr1;
+//		this.ps_content=ps_content;
+//	}
+	
 	public String getPs_email() {
 		return ps_email;
 	}

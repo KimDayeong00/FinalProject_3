@@ -13,8 +13,7 @@
 	var url = '${url}';
 	var page = '${page}';
 	var dtld =  '${dtld}';
-	
-	var returnUrl = url+"?page="+page+"&dtld="+dtld; 
+	var returnUrl = url+"?page="+page+"&dtld="+dtld;
 	alert(msg);
 	document.location.href= returnUrl;
 </script>

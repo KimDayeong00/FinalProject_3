@@ -35,7 +35,7 @@
 .homeState div{float:left;width:400px;display: inline-block;}
 
 /*
-	펫시터 정보 부분
+	펫시터 마이페이지 부분
 */
 .sitterPageContent {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
 .petsitterPageMenu {width:260px;overflow: hidden;border:1px solid #ADA6A4;text-align: center;float: left;}
@@ -59,6 +59,9 @@
 	color:gray;
 }
 .modifyBtn label{cursor: pointer;}
+.ps_image{width:720px;overflow: hidden;}
+.ps_image img{width:200px;height:200px;margin-bottom:5px;}
+.ps_image input{display: none;}
 
 /*
 	spinner
@@ -93,3 +96,13 @@
 .petspinner {line-height:25px;overflow: hidden;}
 #minusBtn2 {background-color:#f0efe8; border:none; width:23px; outline:0;border:none;}
 #plusBtn2 {background-color:#f0efe8; border:none; width:23px; outline:0;border:none;}
+
+/*
+	펫시터 마이페이지 - 펫시터 환경 설정 부분
+*/
+.checkTime {width:650px;overflow: hidden;margin:auto;}
+.checkTime .checkTimeBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
+.checkTimeBox input{width:140px;}
+.checkTimeBox label{width:150px;}
+.houseSet {width:650px;overflow: hidden;margin:auto;}
+.houseSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
