@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.project.dao.PetSitterDao;
+import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
 import com.jhta.project.vo.PetSitterVo;
 
@@ -26,6 +27,10 @@ public class PetSitterServiceImpl implements PetSitterService{
 	@Override
 	public List<PetSitterJoinFilterVo> alllist(HashMap<String, Object> map) {
 		return petsitterDao.alllist(map);
-
+	}
+	
+	@Override
+	public List<PetSitterFilterVo> getFilter(String ps_email) {
+		return petsitterDao.getFilter(ps_email);
 	}
 }

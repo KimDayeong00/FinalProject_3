@@ -6,17 +6,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.jhta.project.vo.ShopClassVo;
-import com.jhta.project.vo.ShopFieldVo;
-import com.jhta.project.vo.ShopItemImageVo;
-import com.jhta.project.vo.ShopItemVo;
+import com.jhta.project.vo.ShopClassJoinShopFieldVo;
 
 @Repository
 public class ShopAdminDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE="com.jhta.mybatis.ShopAdminMapper";
+	public List<ShopClassJoinShopFieldVo> list() {
+		return sqlSession.selectList(NAMESPACE+".list");
+	}
 	
-	public List<ShopClassVo> classlist() {
+/*	public List<ShopClassVo> classlist() {
 		return sqlSession.selectList(NAMESPACE+".classlist");
 	}
 	
@@ -35,4 +35,8 @@ public class ShopAdminDao {
 	public int imageadd(ShopItemImageVo vo) {
 		return sqlSession.insert(NAMESPACE+".imageadd",vo);
 	}
+	
+	public int itemimage(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+".itemimage",map);
+	}*/
 }

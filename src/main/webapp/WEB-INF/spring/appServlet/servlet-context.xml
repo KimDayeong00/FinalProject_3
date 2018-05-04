@@ -32,10 +32,11 @@
 		<beans:constructor-arg
 			value="C:\Users\JHTA\git\FinalProject_3\src\main\webapp\resources\itemimage"></beans:constructor-arg>
 	</beans:bean>
-	<websocket:handlers>
+	
+	<!-- <websocket:handlers>
 	      <websocket:mapping handler="socketHandler" path="/socketRequest"/>
 	</websocket:handlers>
-	<beans:bean id="socketHandler" class="com.jhta.project.websockethandle.WebSocketHandler" />
+	<beans:bean id="socketHandler" class="com.jhta.project.websockethandle.WebSocketHandler" /> -->
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->

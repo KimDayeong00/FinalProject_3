@@ -8,6 +8,7 @@
 
 		<!-- admin -->
 		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
+		<typeAlias type="com.jhta.project.vo.ShopClassJoinShopFieldVo" alias="shopclassjoinshopfield" />
 
 		<!-- Petsitter -->
 		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
@@ -40,11 +41,17 @@
    		<mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
+	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		<!--  Shop -->
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	
+		<!--  Date-->
+		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
 	</mappers>
+
+
+
 
 </configuration>

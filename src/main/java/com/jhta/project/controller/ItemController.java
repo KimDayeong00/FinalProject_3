@@ -1,4 +1,4 @@
-package com.jhta.project.controller;
+/*package com.jhta.project.controller;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jhta.project.service.ShopAdminService;
+import com.jhta.project.service.ShopAdminServiceImpl;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopItemImageVo;
@@ -31,7 +31,7 @@ public class ItemController {
 	@Resource(name="uploadPath")
     private String uploadPath;
 	
-@Autowired ShopAdminService service;
+@Autowired ShopAdminServiceImpl service;
 
 	@RequestMapping("/itemadd")
 	public ModelAndView main() {
@@ -52,7 +52,7 @@ public class ItemController {
 	@RequestMapping("/itemadd/fieldlist")
 	@ResponseBody
 	public HashMap<String, Object> fieldlist(ShopClassVo vo) {
-		System.out.println("여기까지옴");
+		System.out.println("�ш린源�吏���");
 		int classnum = vo.getClassnum();
 	//	JSONObject obj = new JSONObject();
 		HashMap<String, Object> map= new HashMap<>();
@@ -75,24 +75,25 @@ public class ItemController {
 		System.out.println(p_num);
 		
 		
-//전송된 파일명 얻어오기
+//���〓�� ���쇰� �살�댁�ㅺ린
 		String orgfilename=file1.getOriginalFilename();
-		//저장할 파일명 만들기(중복되지 않도록)
+		//���ν�� ���쇰� 留��ㅺ린(以�蹂듬��吏� ����濡�)
 		String savefilename=UUID.randomUUID()+"_"+orgfilename;
 		try {
-			//전송된 파일을 읽어오기 위한 스트림
+			//���〓�� ���쇱�� �쎌�댁�ㅺ린 ���� �ㅽ�몃┝
 			InputStream is=file1.getInputStream();
-			//서버에 저장하기 위한 파일 스트림객체 
+			//��踰��� ���ν��湲� ���� ���� �ㅽ�몃┝媛�泥� 
 			FileOutputStream fos=new FileOutputStream(uploadPath+"\\"+ savefilename);
-			//파일복사하기
+			//���쇰났�ы��湲�
 			FileCopyUtils.copy(is, fos);
 			fos.close();
 			is.close();
-			System.out.println(uploadPath +"\\"+ savefilename +" [파일업로드성공!]");
-			///////////////////////DB저장/////////////////////////////////////
-			ShopItemImageVo imagevo=new ShopItemImageVo(0, savefilename, p_num);
-			System.out.println(imagevo.toString());
-			service.imageadd(imagevo);
+			System.out.println(uploadPath +"\\"+ savefilename +" [���쇱��濡����깃났!]");
+			HashMap<String, Object> map=new HashMap<>();
+			map.put("savefilename", savefilename);
+			map.put("p_num",p_num);
+			///////////////////////DB����/////////////////////////////////////
+			service.itemimage(map);
 			return mv;
 		}catch(IOException ie) {
 			System.out.println(ie.getMessage());
@@ -104,3 +105,4 @@ public class ItemController {
 	}
 
 }
+*/

@@ -3,8 +3,30 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.ShopAdminMapper">
+<resultMap type="com.jhta.project.vo.ShopClassJoinShopFieldVo" id="shopclassjoinshopfield">
+		<result property="classnum" column="classnum"/>
+		<result property="name" column="name"/>
+		<collection property="list" ofType="com.jhta.project.vo.ShopFieldVo">
+			<result property="fieldnum" column="fieldnum"/>
+			<result property="classnum" column="classnum"/>
+			<result property="name" column="name"/>
+		</collection>
+</resultMap>
+	<select id="list" resultMap="shopclassjoinshopfield">
+		select c.classnum, c.name,f.fieldnum,f.name from class c, field f
+		where c.classnum=f.classnum
+	</select>
 
-<select id="classlist"  resultType="shopclassvo">
+
+
+
+
+
+
+
+
+
+<!-- <select id="classlist"  resultType="shopclassvo">
 	select * from class
 </select>
 
@@ -16,12 +38,15 @@ select * from field where classnum=#{classnum}
 select max(p_num) from item
 </select>
 <insert id="itemadd" parameterType="shopitemvo">
-insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum},#{content})
+insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum},#{content},null)
 </insert>
 
 <insert id="imageadd" parameterType="shopitemimagevo">
 insert into itemimage values(seq_itemimage_item_num.nextval,#{item_savefilename},#{p_num})
 </insert>
 
+<update id="itemimage"  parameterType="hashmap">
+update item set image_name='${savefilename}' where p_num=#{p_num}
+</update> -->
 </mapper>
 
