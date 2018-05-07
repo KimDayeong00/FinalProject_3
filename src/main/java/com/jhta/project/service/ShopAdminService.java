@@ -32,9 +32,11 @@ public int maxpnum() {
 	return dao.maxpnum();
 }
 
-public int imageadd(ShopItemImageVo vo) {
-	return dao.imageadd(vo);
+public int multifile(HashMap<String, Object> map) {
+	return dao.multifile(map);
 }
+
+
 
 public int itemimage(HashMap<String, Object> map) {
 	return dao.itemimage(map);

@@ -8,10 +8,11 @@
 
 <script>
 
-$(document).ready(function() {
+$(function(){
 	  $('#summernote').summernote();
+	  
+		
 	});
-
 
 
 
@@ -87,10 +88,14 @@ function handleFileSelect()
 				</td>
 			</tr>
 			<tr>
-				<td>상품이미지3</td>
+				<td>대표이미지</td>
 				<td><input type="file" name="file1" id="file1" onchange="handleFileSelect()">
 				<div id="list" style="size: 200px;"><img src=""  style="size:200px"></div>
 				</td>
+			</tr>
+			<tr>
+				<td>상세이미지</td>
+				<td><input multiple="multiple" type="file" name="multifile" /> </td>
 			</tr>
 			<tr>
 				<td>상품이름</td>
@@ -106,7 +111,7 @@ function handleFileSelect()
 			</tr>
 			
 			<tr>
-				<td>내용입력2</td>
+				<td>내용입력</td>
 				<td><textarea id="summernote" name="content"></textarea></td>
 			</tr>
 			<tr>

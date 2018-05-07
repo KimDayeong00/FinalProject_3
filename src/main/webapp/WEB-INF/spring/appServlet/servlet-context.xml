@@ -22,6 +22,8 @@
 		id="multipartResolver">
 		<!-- 최대업로드 사이즈 설정(바이트단위) -->
 		<beans:property name="maxUploadSize" value="52242880" />
+		<beans:property name="defaultEncoding" value="UTF-8"/>
+
 	</beans:bean>
 
 	<!-- /////////////// 파일다운로드 관련 ///////////// -->
@@ -34,7 +36,7 @@
 
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg
-			value="C:\Users\JHTA\git\FinalProject_3\src\main\webapp\resources\itemimage"></beans:constructor-arg>
+			value="C:\Users\JHTA\git\FinalProject_3\src\main\webapp\resources\itemimage\"></beans:constructor-arg>
 	</beans:bean>
 
 

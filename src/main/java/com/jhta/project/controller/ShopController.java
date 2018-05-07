@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -162,15 +163,18 @@ public class ShopController {
 	@RequestMapping("/shop/cart")
 	public ModelAndView cart(ShopCartVo vo,HttpSession session) {
 		System.out.println("아아아"+vo.toString());
-		ModelAndView mv=new ModelAndView(".shop.cartlist");
+		ModelAndView mv=new ModelAndView(".shop.cartlist");	
 		String url="localhost:8090"+vo.getUrl();
 		ShopItemVo vo2=service.iteminfo(vo.getNum());
 		String img=vo2.getImage_name();
 		List<HashMap> cartlist= null;
+		int val=vo.getCnt() * vo.getPrice();
+		System.out.println(val);
 		HashMap<String, Object> map=new HashMap<>();
 		if(session.getAttribute("cartlist")==null) {
 			cartlist= new ArrayList<>();
-			map.put("vo", vo);
+			map.put("val",val);
+			map.put("hash", vo.hashCode());
 			map.put("num", vo.getNum());
 			map.put("title",vo.getTitle());
 			map.put("price",vo.getPrice());
@@ -180,7 +184,8 @@ public class ShopController {
 			cartlist.add(map);
 		}else {
 			cartlist= (List<HashMap>)session.getAttribute("cartlist");
-			map.put("vo", vo);
+			map.put("val",val);
+			map.put("hash", vo.hashCode());
 			map.put("num", vo.getNum());
 			map.put("title",vo.getTitle());
 			map.put("price",vo.getPrice());
@@ -197,12 +202,12 @@ public class ShopController {
 	}
 	@RequestMapping("/shop/del")
 	public String del(HttpServletRequest req,HttpSession session) {
-		int num=Integer.parseInt(req.getParameter("num"));
+		int hash=Integer.parseInt(req.getParameter("hash"));
 		List<HashMap<String, Object>> list=(List<HashMap<String, Object>> )session.getAttribute("cartlist");
 		//session.removeAttribute("cartlist");
 		for(int i=0; i<list.size();i++) {
 			HashMap<String, Object> map=list.get(i);
-			if(num==(Integer)map.get("num")) {
+			if(hash==(Integer)map.get("hash")) {
 				list.remove(map);
 			}
 		}

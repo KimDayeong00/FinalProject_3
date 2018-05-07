@@ -1,7 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
+window.onload=function(){
+	var sum=0;
+	$(".price").each(function(){
+		sum+=$(this).text();
+		
+	});
+	alert(sum);
+	
+	
+
+	var cnt=document.getElementsByName("cnt");
+	/* alert(cnt.length); */
+	
+	
+}
+
+$(function(){
+
+
+		<c:forEach items="${sessionScope.cartlist}" var="data" begin="1" varStatus="a">
+		//	${data.hash }	
+	//		$("#"+${data.hash }).selected();
+	var select=document.getElementById("${data.hash }");
+	select.options[${data.cnt-1}].selected=true;
+		</c:forEach>
+
+});
+
+	
+	function Comma(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
+	function removeComma(n) {
+	      var txtNumber = '' + n;
+	      return txtNumber.replace(/(,)/g, "");
+	   }
+	
+function change(price,cnt,hash){
+
+	var name=document.getElementById(hash+"abc");
+	var val=price * cnt;
+	var price=Comma(val);
+	name.innerHTML=price+"원";
+	
+}
+
 function checkAll(){
 		var check=document.getElementsByName("chk");
 		var checkAll=document.getElementById("chkall");
@@ -47,7 +95,7 @@ function checkAll(){
 		</thead>
 		<tbody>
 
-<c:forEach items="${sessionScope.cartlist}" var="data" >
+<c:forEach items="${sessionScope.cartlist}" var="data" begin="1">
 	
   			<tr>
 								<td><input type="checkbox" name="chk"  id="${data.num}" value="${data.num }"></td>
@@ -59,11 +107,12 @@ function checkAll(){
 
 								</td>
 								<td>
-																<div >${data.price} </div>
+																<div><span class="price"><fmt:formatNumber value="${data.price}" pattern="#,###.##"/>원</span></div>
 								</td>
 								<td>
 									<div >
-										 <select name="cnt" id="cnt" >
+										 <select name="cnt" id="${data.hash }"  onchange="change(${data.price },this.value,${data.hash })">
+								
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -97,8 +146,8 @@ function checkAll(){
 									</select>
 									</div>
 								</td>
-								<td>${data.price }</td>
-								<td><a href="<c:url value='/shop/del?num=${data.num }'/>">삭제</a></td>
+								<td><span class="price2" id="${data.hash}abc"><fmt:formatNumber  value="${data.val}" pattern="#,###.##"/>원</span></td>
+								<td><a href="<c:url value='/shop/del?hash=${data.hash }'/>">삭제</a></td>
 								
   			
 							</tr>
@@ -118,7 +167,7 @@ function checkAll(){
 	
 	<div class="price" style="float: left;"><!-- 상품금액 -->
 	<img src="<c:url value='/resources/itemimage/cart_total_01.png'/>">
-			<br>32,940원
+			<br><span >상품금액</span>
 		</div>
 		
 		<div class="sign" style="float: left;">
