@@ -3,22 +3,28 @@
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-window.onload=function(){
+window.onload=getTotal;
+
+	
+function getTotal(){
 	var sum=0;
-	$(".price").each(function(){
-		sum+=$(this).text();
+		$(".price2").each(function(){
+			var text=parseInt(removeComma($(this).text()));
+			sum+=text;
+			
+		});
+		$("#gettot").text(Comma(sum)+"원");
+	
+	if(sum<50000){
+		console.log("5만이하이므로 배송비 붙음");
 		
-	});
-	alert(sum);
-	
-	
-
-	var cnt=document.getElementsByName("cnt");
-	/* alert(cnt.length); */
-	
-	
-}
-
+		$("#delivery").text(Comma(3000)+"원");
+	}else{
+		console.log("5만넘어서 배송공짜");
+		$("#delivery").text("0원");
+		
+	}
+	}
 $(function(){
 
 
@@ -47,6 +53,8 @@ function change(price,cnt,hash){
 	var val=price * cnt;
 	var price=Comma(val);
 	name.innerHTML=price+"원";
+	
+	getTotal();
 	
 }
 
@@ -167,7 +175,7 @@ function checkAll(){
 	
 	<div class="price" style="float: left;"><!-- 상품금액 -->
 	<img src="<c:url value='/resources/itemimage/cart_total_01.png'/>">
-			<br><span >상품금액</span>
+			<br><div id="gettot"></div>
 		</div>
 		
 		<div class="sign" style="float: left;">
@@ -177,7 +185,7 @@ function checkAll(){
 		
 		<div class="price" style="float: left;"><!-- 배송비 -->
 			<img src="<c:url value='/resources/itemimage/cart_total_02.png'/>">
-			<br>0원
+			<br><div id="delivery"></div>
 		</div>
 		
 		<div class="sign" style="float: left;">
