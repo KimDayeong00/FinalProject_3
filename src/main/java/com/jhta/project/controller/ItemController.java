@@ -1,4 +1,4 @@
-package com.jhta.project.controller;
+/*package com.jhta.project.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -123,4 +123,4 @@ public class ItemController {
 	
 	}
 
-}
+}*/
