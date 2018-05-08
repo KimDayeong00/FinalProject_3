@@ -23,11 +23,16 @@ public class HomeConrtoller {
 		return ".main";
 	}
 	
-	@RequestMapping("/petsitterPage")
-	public String petsitterPage() {
-		return ".mypage.petsitter_info";
-
+	
+	@RequestMapping("/mypage")
+	public ModelAndView pageMove(String page, String dtld) {
+		ModelAndView mv=new ModelAndView(".petsitter_mypage.mypetsitter.petsitter_info");
+		
+		mv.addObject("page",page);
+		mv.addObject("dtld",dtld);
+		return mv;
 	}
+	
 
 	
 //	@RequestMapping("/login")

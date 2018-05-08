@@ -10,10 +10,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	
-	
-	
-	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
@@ -25,13 +21,11 @@
 	
     <!-- bootstrap-progressbar -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" />" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="<c:url value="/resources/admin/vendors/jqvmap/dist/jqvmap.min.css" />" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" />" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="<c:url value="/resources/admin/build/css/custom.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/build/css/custom.min.css" />" rel="stylesheet">
 
 </head>
 
@@ -67,9 +61,11 @@ if(login.equals("admin")){
 
 </div>
 </div>
-<%-- <c:url value="/resources/admin/vendors/skycons/skycons.js" /> --%>
+
+	
   <!-- jQuery -->
-    <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
+    
+    <script src="<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js" />"></script>
     <!-- Bootstrap -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
     <!-- FastClick -->
@@ -84,16 +80,26 @@ if(login.equals("admin")){
     <script src="<c:url value="/resources/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" />"></script>
     <!-- iCheck -->
     <script src="<c:url value="/resources/admin/vendors/iCheck/icheck.min.js" />"></script>
-    <!-- Skycons -->
-    <script src="<c:url value="/resources/admin/vendors/skycons/skycons.js" />"></script>
-    <!-- Flot -->
-     <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.pie.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.time.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.stack.js" />"></script>
-    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.resize.js" />"></script>
- 
-    DateJS
+    <!-- Custom Theme Scripts -->
+    <script src="<c:url value="/resources/build/js/custom.min.js" />"></script>
+  	<!-- Datatables -->
+    <script src="<c:url value="/resources/admin/vendors/datatables.net/js/jquery.dataTables.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-buttons/js/buttons.print.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/jszip/dist/jszip.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/pdfmake/build/pdfmake.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/pdfmake/build/vfs_fonts.js" />"></script>
+   
+    <!-- DateJS -->
     <script src="<c:url value="/resources/admin/vendors/DateJS/build/date.js" />"></script> 
 
 </body>

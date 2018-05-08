@@ -8,7 +8,7 @@
 	<!-- 메일보내기 -->
 	<!-- 메일보내기 -->
 		<!-- 메일보내기 -->
-	<bean id="com.jhta.project.mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<!-- <bean id="com.jhta.project.mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="defaultEncoding" value="euc-kr" />
@@ -24,12 +24,12 @@
 	</bean>	
 
 	
-		<!-- simplemailsender 객체 생성 -->
+		simplemailsender 객체 생성
 		<bean class="com.jhta.project.mail.SimpleMailSender" >
 			<property name="ms" ref="com.jhta.project.mailSender" />
 		</bean>
 		
-		
+		 -->
 
 	<!-- 1.dataSource 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"

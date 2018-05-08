@@ -18,20 +18,6 @@
 
 	
 
-	<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-<dependency>
-    <groupId>javax.mail</groupId>
-    <artifactId>javax.mail-api</artifactId>
-    <version>1.5.6</version>
-</dependency>
-
-	
-	
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context-support</artifactId>
-    <version>4.2.5.RELEASE</version>
-</dependency> 
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
 		<dependency>
@@ -39,7 +25,12 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>4.2.5.RELEASE</version>
 		</dependency>
-
+		<!-- 웹소켓 사용하기 -->
+		<dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>4.2.5.RELEASE</version>
+      </dependency>
 
 
 		<!-- tiles -->

@@ -13,7 +13,7 @@
 <div id="wrap" class="container">
 
 <div id="bunryu">
-<table>
+<table border="1">
 	<tr>
 		<td>분류</td>
 		<c:forEach var="fieldvo" items="${fieldvo}">
@@ -25,7 +25,7 @@
 
 <div id="cont">
 <table class="table table-hover" border="1"> 
-	<c:forEach var="filtertypevo" items="${filtertypevo }">
+	<c:forEach var="filtertypevo" items="${filtertypevo }" >
 		<tr>
 			<td style="color: white">
 			
@@ -36,7 +36,7 @@
 
 				<c:forEach var="filtercontent" items="${map.value }">
 					<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
-						<td><input id="${filtercontent.fc_num }" type="checkbox"
+						<td><input id="${filtercontent.fc_num }"  type="checkbox"
 							name="check" value="${filtercontent.fc_num }"
 							onclick="getchk(${classnum},${fieldnum })"> <a href="">${filtercontent.fc_name }</a>
 
@@ -63,10 +63,9 @@
                <tr>
             </c:if>
                     <td style="size: 220px;" id="item">
-                    <img src="<c:url value='/resources/itemimage/${itemvo.item_savefilename }'/>"><br>
+                    <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"><br>
                     <a id="${itemvo.p_num }" 
 			href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">${itemvo.item_name }</a>
-			${itemvo.p_num }
 			</td>
             <c:if test="${i%j == j-1 }">
                 </tr>

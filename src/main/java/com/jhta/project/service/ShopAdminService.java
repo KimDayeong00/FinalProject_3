@@ -1,17 +1,16 @@
 package com.jhta.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.jhta.project.dao.ShopAdminDao;
-import com.jhta.project.vo.ShopClassVo;
-import com.jhta.project.vo.ShopFieldVo;
-import com.jhta.project.vo.ShopItemImageVo;
+import com.jhta.project.vo.ShopClassJoinShopFieldVo;
 import com.jhta.project.vo.ShopItemVo;
 
-@Service
+public interface ShopAdminService {
+	List<ShopClassJoinShopFieldVo> list();
+	List<ShopItemVo> itemlist(HashMap<Object, Object>map);
+	int delete(String p_num);
+/*@Service
 public class ShopAdminService {
 @Autowired ShopAdminDao dao;
 
@@ -31,7 +30,13 @@ public int maxpnum() {
 	return dao.maxpnum();
 }
 
-public int imageadd(ShopItemImageVo vo) {
-	return dao.imageadd(vo);
+public int multifile(HashMap<String, Object> map) {
+	return dao.multifile(map);
 }
+
+
+
+public int itemimage(HashMap<String, Object> map) {
+	return dao.itemimage(map);
+}*/
 }

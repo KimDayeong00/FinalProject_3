@@ -6,7 +6,7 @@
    <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Pet Care!</span></a>
+              <a href="<c:url value="/admin/home" />" class="site_title"><i class="fa fa-paw"></i> <span>Pet Care!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -29,7 +29,14 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="#"><i class="fa fa-home"></i> Home </a>
+                  <li><a href="<c:url value="/introduce/introduce" />">이용방법관리 </a>
+                  </li>
+                   <li><a>상품메뉴 <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<c:url value="/shopadmin/list" />">상품관리</a></li>
+                      <li><a href="<c:url value="/shopadmin/add" />">상품추가</a></li>
+                      <li><a href="index3.html">Dashboard3</a></li>
+                    </ul>
                   </li>
                   <li><a href="#"><i class="fa fa-edit"></i> Forms </a>
                   </li>
@@ -58,4 +65,5 @@
           
           </div>
         </div>
-        <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
+        
+        <script src="<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js" />"></script>

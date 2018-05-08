@@ -9,16 +9,24 @@
 	<!-- Petsitter -->
 		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
 		<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage" />
+
+		<!-- admin -->
+		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
+		<typeAlias type="com.jhta.project.vo.ShopClassJoinShopFieldVo" alias="shopclassjoinshopfield" />
+
+		<!-- Petsitter -->
+		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
+		<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage" />
 		<typeAlias type="com.jhta.project.vo.PetSitterJoinFilterVo" alias="petsitterjoinfilter" />
 		<typeAlias type="com.jhta.project.vo.PetsitterOptionVo" alias="petoption"/>
   		<typeAlias type="com.jhta.project.vo.PetsitterPetVo" alias="ppetinfo"/>
   		<typeAlias type="com.jhta.project.vo.PetSitterPriceVo" alias="petsitterprice"/>
 		<typeAlias type="com.jhta.project.vo.PetSitterVo" alias="petsitter" />
   		
-	<!--  Member -->
+		<!--  Member -->
 		<typeAlias alias="member" type="com.jhta.project.vo.memberVO" />
 		
-	<!--  Shop -->
+		<!--  Shop -->
 		<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
 		<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
 		<typeAlias type="com.jhta.project.vo.ShopFilterContentVo" alias="shopfiltercontentvo" />
@@ -44,14 +52,18 @@
 	 	<mapper resource="com/jhta/mybatis/PetsitterOptionMapper.xml"/>
    		<mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
+	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   	
-	<!-- Member -->
+	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		
 	<!--  Shop -->
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	
-
+		<!--  Date-->
+		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
+	</mappers>
         <mapper resource="com/jhta/mybatis/AdminMapper.xml" />
         <mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
         <mapper resource="com/jhta/mybatis/ShopMapper.xml" /> 
@@ -60,3 +72,6 @@
    </mappers>
 
 </configuration>
+
+
+

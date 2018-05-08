@@ -11,6 +11,7 @@ import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
+import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
@@ -39,11 +40,11 @@ public class ShopDao {
 		return sqlSession.selectList(NAMESPACE+".filtercontent",ft_num);
 	}
 	
-	public List<ShopItemJoinVo> classitemlist(HashMap<String, Object> map){
+	public List<ShopItemVo> classitemlist(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE+".classitemlist",map);
 	}
 	
-	public List<ShopItemJoinVo> fielditemlist(HashMap<Object,Object> map){
+	public List<ShopItemVo> fielditemlist(HashMap<Object,Object> map){
 		return sqlSession.selectList(NAMESPACE+".fielditemlist",map);
 	}
 	
@@ -59,12 +60,16 @@ public class ShopDao {
 		return sqlSession.selectOne(NAMESPACE+".itemcnt",map2);
 	}
 	
-	public ShopItemJoinVo iteminfo(int p_num) {
+	public ShopItemVo iteminfo(int p_num) {
 		return sqlSession.selectOne(NAMESPACE+".iteminfo",p_num);
 	}
 	
 	public List<ShopItemReviewVo> itemreview(int p_num) {
 		return sqlSession.selectList(NAMESPACE+".itemreview",p_num);
+	}
+	
+	public List<ShopItemImageVo> imglist(int p_num){
+		return sqlSession.selectList(NAMESPACE+".imglist",p_num);
 	}
 	
 }

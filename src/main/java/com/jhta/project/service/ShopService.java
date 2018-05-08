@@ -11,6 +11,7 @@ import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
 import com.jhta.project.vo.ShopFilterTypeVo;
+import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
@@ -39,11 +40,11 @@ public class ShopService {
 		return dao.filtercontent(ft_num);
 	}
 	
-	public List<ShopItemJoinVo> classitemlist(HashMap<String, Object> map) {
+	public List<ShopItemVo> classitemlist(HashMap<String, Object> map) {
 		return dao.classitemlist(map);
 	}
 	
-	public List<ShopItemJoinVo> fielditemlist(HashMap<Object,Object> map) {
+	public List<ShopItemVo> fielditemlist(HashMap<Object,Object> map) {
 		return dao.fielditemlist(map);
 	}
 	
@@ -57,10 +58,14 @@ public class ShopService {
 		return dao.itemcnt(map2);
 	}
 	
-	public ShopItemJoinVo iteminfo(int p_num) {
+	public ShopItemVo iteminfo(int p_num) {
 		return dao.iteminfo(p_num);
 	}
 	public List<ShopItemReviewVo> itemreview(int p_num) {
 		return dao.itemreview(p_num);
+	}
+	
+	public List<ShopItemImageVo> imglist(int p_num){
+		return dao.imglist(p_num);
 	}
 }

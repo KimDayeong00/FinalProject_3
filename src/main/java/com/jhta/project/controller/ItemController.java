@@ -1,5 +1,6 @@
 package com.jhta.project.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.ShopAdminService;
@@ -52,7 +54,7 @@ public class ItemController {
 	@RequestMapping("/itemadd/fieldlist")
 	@ResponseBody
 	public HashMap<String, Object> fieldlist(ShopClassVo vo) {
-		System.out.println("여기까지옴");
+		System.out.println("�ш린源�吏���");
 		int classnum = vo.getClassnum();
 	//	JSONObject obj = new JSONObject();
 		HashMap<String, Object> map= new HashMap<>();
@@ -67,32 +69,50 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/itemadd/insert")
-	public ModelAndView itemadd(ShopItemVo vo,MultipartFile file1,HttpSession session) {
+	public ModelAndView itemadd(ShopItemVo vo,MultipartFile file1,HttpSession session,MultipartHttpServletRequest filereq) {
 		ModelAndView mv=new ModelAndView(".main");
+		HashMap<String, Object> map=new HashMap<>();
 		System.out.println(vo.toString());
 		service.itemadd(vo);
 		int p_num=service.maxpnum();
-		System.out.println(p_num);
+		map.put("p_num",p_num);
+	
+		List<MultipartFile> filelist=filereq.getFiles("multifile");
+		
+		for(MultipartFile mf : filelist) {
+			String orgfilename=mf.getOriginalFilename();	
+			String filename=UUID.randomUUID()+"_"+orgfilename;
+			String savefilename=uploadPath+filename;
+
+			try {
+				mf.transferTo(new File(savefilename));
+				map.put("savefilename",filename);
+				service.multifile(map);
+			}catch(IllegalStateException ie) {
+				ie.printStackTrace();
+			}catch(IOException io) {
+				io.printStackTrace();
+			}
+		}
 		
 		
-//전송된 파일명 얻어오기
+//���〓�� ���쇰� �살�댁�ㅺ린
 		String orgfilename=file1.getOriginalFilename();
-		//저장할 파일명 만들기(중복되지 않도록)
+		//���ν�� ���쇰� 留��ㅺ린(以�蹂듬��吏� ����濡�)
 		String savefilename=UUID.randomUUID()+"_"+orgfilename;
 		try {
-			//전송된 파일을 읽어오기 위한 스트림
+			//���〓�� ���쇱�� �쎌�댁�ㅺ린 ���� �ㅽ�몃┝
 			InputStream is=file1.getInputStream();
-			//서버에 저장하기 위한 파일 스트림객체 
+			//��踰��� ���ν��湲� ���� ���� �ㅽ�몃┝媛�泥� 
 			FileOutputStream fos=new FileOutputStream(uploadPath+"\\"+ savefilename);
-			//파일복사하기
+			//���쇰났�ы��湲�
 			FileCopyUtils.copy(is, fos);
 			fos.close();
 			is.close();
-			System.out.println(uploadPath +"\\"+ savefilename +" [파일업로드성공!]");
-			///////////////////////DB저장/////////////////////////////////////
-			ShopItemImageVo imagevo=new ShopItemImageVo(0, savefilename, p_num);
-			System.out.println(imagevo.toString());
-			service.imageadd(imagevo);
+			System.out.println(uploadPath + savefilename +" [���쇱��濡����깃났!]");
+			map.put("savefilename", savefilename);
+			///////////////////////DB����/////////////////////////////////////
+			service.itemimage(map);
 			return mv;
 		}catch(IOException ie) {
 			System.out.println(ie.getMessage());
