@@ -1,45 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
-<style>
-	#qnaform {display: none;}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+	#insert {display: none;}
 </style>
-
-<script type="text/javascript">
-	
-		<%
-		String email = (String)session.getAttribute("login");
-		%>
-	function showform(){
-		$("#qnaform").css("display","block");
-	}
-</script>
 <title>1:1문의</title>
 </head>
 <body>
-	<h2>1:1문의</h2>
+	<h2>1:1문의내역</h2>
 	<table border = "1" width = "500" id = "qnalist">
 		<tr>
-			<th>글번호</th>
 			<th>제목</th>
 			<th>내용</th>
 			<th>문의날짜</th>
 			<th>답변상태</th>
 		</tr>
-		<c:forEach var = "vo" items = "${qnalist }">
-			<tr>
-				<td>${vo.qnum }</td>
-				<td>${vo.title }</td>
-				<td>${vo.content }</td>
-				<td>${vo.regdate }</td>
-				<td>답변상태</td>
-			</tr>
-		</c:forEach>
+		<tbody id = "insertbody">
+			<c:forEach var = "vo" items = "${qnalist }">
+				<tr>
+					<td>${vo.title }</td>
+					<td>${vo.content }</td>
+					<td>${vo.regdate }</td>
+					<td>답변상태</td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
 	<br>
-
-
 <!-- 페이징 -->
 <div>
 	<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
@@ -65,36 +56,23 @@
 		</form>
 	</div>
 </div>
-
-
 	<br>
-	<input type = "button" value = "1:1문의하기" onclick = "showform()">
-	<div id = "qnaform">
-		<form action = "/qna/qnainsert">
-			<div id = "type">
-				문의유형<input type = "radio" name = "qnatype" checked = "checked">배송관련
-				<input type = "radio" name = "qnatype">상품관련
-				<input type = "radio" name = "qnatype">취소/교환/반품
-			</div>
-			<div>
-				관련상품<select id = "item" size = "1">
-					<option value = "">선택하세요</option>
-					
-				</select>
-			</div>
-			<div id = "title">
-				제목<input type = "text" id = "qnatitle">
-			</div>
-			<div id = "content">
-				내용<textarea rows = "3" cols = "30" id = "qnacontent"></textarea>
-			</div>
+	<input type = "button" value = "1:1문의하기" id = "showform">
+	<div id = "insert">
+ 		<form action="" method="post">
+			관련상품<select name="orderiteminfo" size="1" id="p_num">
+				<option value="">선택하세요</option>
+				<c:forEach var="vo" items="${orderiteminfo }">
+					<option value="${vo.p_num }">${vo.item_name }</option>
+				</c:forEach>
+			</select>
+			제목<input type="text" id="title">
+			내용<textarea rows="3" cols = "30" id="content"></textarea>
 			<br><br>
-			<input type = "submit" value = "문의하기">
-			<input type = "reset" value = "취소">
+			<input type="button" value="문의하기" id="qnainsert">
+			<input type="reset" value="취소">
 		</form>
 	</div>
-
-
 
 <script type="text/javascript">
 	var select=document.getElementsByName("field")[0];
@@ -103,4 +81,46 @@
 			select.options[i].selected=true;
 		}
 	}
+	$("#showform").click(function(){
+		$("#insert").css("display","block");
+	});
+	$("#qnainsert").click(function(){
+ 		var p_num = $("#p_num").val();
+		var title = $("#title").val();
+		var content = $("#content").val();
+		$("#insert").css("display","none");
+		
+ 		$.ajax({
+			url : "<c:url value = '/qna/insert'/>",
+			data : {p_num : p_num, title : title, content : content},
+			dataType : "json",
+			success : function(data){
+				console.log(data);
+				$("#insertbody").html("");
+				for(var i=0;i<data.length;i++){
+				var str = "<tr>";
+				var title = data[i].title;
+				var content = data[i].content;
+				var regdate = data[i].regdate;
+					str += "<td>" + title + "</td><td>" + content + "</td><td>" + regdate + "</td><td>답변상태</td>" ;
+					str += "</tr>";
+					$("#insertbody").append(str);
+				}
+			}
+ 		});
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
+
+</body>
+</html>

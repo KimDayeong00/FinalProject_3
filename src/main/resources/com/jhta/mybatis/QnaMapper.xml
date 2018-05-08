@@ -7,11 +7,6 @@
 	<select id = "qnalist" resultType = "qnavo">
 		select * from qna
 	</select>
-	<insert id = "qnainsert" parameterType = "qnavo">
-		insert into qna values(SEQ_QNA_QNUM.NEXTVAL, #{title}, #{content}, sysdate, 0, 0, 0, 0, 0)
-	</insert>
-
-
 
 
 
@@ -25,7 +20,7 @@
 		select NVL(count(*),0) cnt from qna
 		<include refid="search"/>
 	</select>
-	<select id="list" parameterType="hashmap" resultType="qnavo">
+	<select id="adminlist" parameterType="hashmap" resultType="qnavo">
 	  select * from
 	  (
 		  select aa.*,rownum rnum from
@@ -33,6 +28,18 @@
 		    select * from qna 
 		    <include refid="search"/>
 		    order by qnum desc
+		  )aa
+	  )
+	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
+	</select>
+	<select id="list" parameterType="hashmap" resultType="qnavo">
+	  select * from
+	  (
+		  select aa.*,rownum rnum from
+		  (
+		    select * from qna 
+		    where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email}))
+		    order by REGDATE desc
 		  )aa
 	  )
 	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
@@ -53,8 +60,31 @@
 		)
 	   where rownum=1
 	</select>
-
-
-
-
+	
+	
+	
+	<select id="orderiteminfo" parameterType="String" resultType="shopitemvo">
+		select * from item where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
+	</select>
+	<insert id = "insert" parameterType = "qnavo">
+		insert into qna values(SEQ_QNA_QNUM.NEXTVAL, #{title}, #{content}, sysdate, 0, 0, 0, 0, #{p_num})
+	</insert>
+	<select id = "qnagetinfo" parameterType = "int" resultType = "qnavo">
+		select * from qna where p_num = #{p_num}
+	</select>
+	<select id="qnagetlist" parameterType="string" resultType="qnavo">
+		select * from qna where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
+	</select>
+	<delete id="qnadelete" parameterType="int">
+		delete from qna where qnum = #{qnum}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

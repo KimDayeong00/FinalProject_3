@@ -70,7 +70,4 @@
         <!-- tiny-footer-start -->
     </div>
     <!-- footer close -->
-<<<<<<< HEAD
-   
-=======
->>>>>>> branch 'jg' of https://github.com/KimDayeong00/FinalProject_3.git
+

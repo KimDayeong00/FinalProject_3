@@ -10,9 +10,9 @@
 	</definition>
 
 	<!-- .admin.notice -->
-	<!-- <definition name=".admin.notice" extends=".main">
+	<definition name=".admin.notice" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/admin/notice.jsp"/>
-	</definition> -->
+	</definition>
 	<!-- 
 		뷰이름이 .admin.notice 라면
 		{1}의 위치에 admin
@@ -26,8 +26,6 @@
 		<put-attribute name="main1" value="/WEB-INF/views/shop/home.jsp"/>
 		<put-attribute name="footer1" value="/WEB-INF/views/footer.jsp"/>
 	</definition>
-
-	
 
 
 
