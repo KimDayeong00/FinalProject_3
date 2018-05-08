@@ -71,8 +71,7 @@ if(login.equals("admin")){
     <script src="<c:url value="/resources/admin/vendors/fastclick/lib/fastclick.js" />"></script>
     <!-- NProgress -->
     <script src="<c:url value="/resources/admin/vendors/nprogress/nprogress.js" />"></script>
-    <!-- Chart.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'></script>
     <!-- gauge.js -->
     <script src="<c:url value="/resources/admin/vendors/gauge.js/dist/gauge.min.js" />"></script>
     <!-- Custom Theme Scripts -->

@@ -17,11 +17,8 @@ public class adminDAO {
 	
 	private final String NAMESPACE = "com.jhta.mybatis.petAdminMapper";
 	
-	public List<payVO> earn(String start,String end){
-		Map<String, String> map = new  HashMap<>();
-		map.put("start", start);
-		map.put("end", end);
-		List<payVO> pList = session.selectList(NAMESPACE+".earn", map);
+	public List<payVO> earn(String createday){
+		List<payVO> pList = session.selectList(NAMESPACE+".earn", createday);
 		return pList;
 	}
 	
