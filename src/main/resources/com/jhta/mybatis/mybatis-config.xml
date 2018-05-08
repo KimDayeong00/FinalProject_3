@@ -35,9 +35,10 @@
 	 	<mapper resource="com/jhta/mybatis/PetsitterOptionMapper.xml"/>
    		<mapper resource="com/jhta/mybatis/PetsitterPriceMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
-	   		<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/FilterMapper.xml"/>
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
+		<mapper resource="com/jhta/mybatis/MpetInfoMapper.xml"/>
 		<!--  Shop -->
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	

@@ -33,4 +33,14 @@ public class PetSitterServiceImpl implements PetSitterService{
 	public List<PetSitterFilterVo> getFilter(String ps_email) {
 		return petsitterDao.getFilter(ps_email);
 	}
+	
+	@Override
+	public int updateAccount(PetSitterVo vo) {
+		return petsitterDao.updateAccount(vo);
+	}
+	
+	@Override
+	public int updatePwd(PetSitterVo vo) {
+		return petsitterDao.updatePwd(vo);
+	}
 }

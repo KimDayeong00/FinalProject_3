@@ -8,4 +8,16 @@
 		select pi_num,pi_name,to_char(trunc((sysdate-pi_age)/365.254)) pi_age,pi_type,pi_weight,
 		pi_content,ps_email,pi_savefilename,pi_originalfilename,pi_sex,pi_gubun from ppetinfo where ps_email=#{value}
 	</select>
+	<insert id="insertPpet" parameterType="ppetinfo">
+		insert into ppetinfo values(seq_ppetinfo_pi_num.nextval,#{pi_name},to_date(#{pi_age},'yyyymm'),#{pi_type},#{pi_weight},#{pi_content},#{ps_email},
+		#{pi_savefilename},#{pi_originalfilename},#{pi_sex},#{pi_gubun})
+	</insert>
+	<update id="updatePpet" parameterType="ppetInfo">
+		update ppetinfo set pi_name=#{pi_name},pi_age=to_date(#{pi_age},'yyyymm'),pi_type=#{pi_type},pi_weight=#{pi_weight},pi_content=#{pi_content},
+		pi_sex=#{pi_sex},pi_gubun=#{pi_gubun} where pi_num=#{pi_num}
+	</update>
+	<select id="selectPetUpdate" parameterType="int" resultType="ppetinfo">
+		select pi_num,pi_name,to_char(pi_age,'yyyy-fmmm') pi_age,pi_type,pi_weight,
+		pi_content,ps_email,pi_savefilename,pi_originalfilename,pi_sex,pi_gubun from ppetinfo where pi_num=#{value}
+	</select>
 </mapper>
