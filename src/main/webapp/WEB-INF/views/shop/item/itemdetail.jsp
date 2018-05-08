@@ -73,6 +73,7 @@ function buy(){
 				<input type="hidden" name="title" value="${iteminfo.item_name }"> 
 				<input type="hidden" name="price" value="${iteminfo.price }"> 
 				<input type="hidden" name="url" value="${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}">
+
 				<fieldset>
 
 					<div class="hd">
@@ -102,18 +103,6 @@ function buy(){
 						</div>
 						
 			
-						<div class="option"
-							style="padding-top: 0; margin-bottom: 0px; margin-top: -7px;">
-							<dl>
-
-
-							</dl>
-						</div>
-
-
-
-
-
 						<div>
 							<dl>
 								<dt >수량:</dt>

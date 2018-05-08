@@ -40,11 +40,12 @@ public class ShopAdminDao {
 		return sqlSession.selectOne(NAMESPACE+".maxpnum");
 	}
 	
-	public int imageadd(ShopItemImageVo vo) {
-		return sqlSession.insert(NAMESPACE+".imageadd",vo);
-	}
+	
 	
 	public int itemimage(HashMap<String, Object> map) {
 		return sqlSession.update(NAMESPACE+".itemimage",map);
 	}*/
+	public int multifile(HashMap<String,Object> map) {
+		return sqlSession.insert(NAMESPACE+".multifile",map);
+	}
 }

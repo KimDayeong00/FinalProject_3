@@ -38,12 +38,13 @@ select max(p_num) from item
 insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum},#{content},null)
 </insert>
 
-<insert id="imageadd" parameterType="shopitemimagevo">
-insert into itemimage values(seq_itemimage_item_num.nextval,#{item_savefilename},#{p_num})
-</insert>
+
 
 <update id="itemimage"  parameterType="hashmap">
 update item set image_name='${savefilename}' where p_num=#{p_num}
 </update> -->
+<insert id="multifile" parameterType="hashmap">
+insert into itemimage values(seq_itemimage_item_num.nextval,'${savefilename}',${p_num})
+</insert>
 </mapper>
 
