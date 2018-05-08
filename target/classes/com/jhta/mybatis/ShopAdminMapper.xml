@@ -9,22 +9,19 @@
 		<collection property="list" ofType="com.jhta.project.vo.ShopFieldVo">
 			<result property="fieldnum" column="fieldnum"/>
 			<result property="classnum" column="classnum"/>
-			<result property="name" column="name"/>
+			<result property="name" column="fname"/>
 		</collection>
 </resultMap>
 	<select id="list" resultMap="shopclassjoinshopfield">
-		select c.classnum, c.name,f.fieldnum,f.name from class c, field f
+		select c.classnum, c.name,f.fieldnum,f.name fname from class c, field f
 		where c.classnum=f.classnum
 	</select>
-
-
-
-
-
-
-
-
-
+	<select id="itemlist" parameterType="hashmap" resultType="shopitemvo">
+	select * from item where fieldnum = #{fieldnum}
+	</select>
+	<delete id="remove" parameterType="String" >
+	delete from item where p_num=#{p_num}
+	</delete>
 
 <!-- <select id="classlist"  resultType="shopclassvo">
 	select * from class

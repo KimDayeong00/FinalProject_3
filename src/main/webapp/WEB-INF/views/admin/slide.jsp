@@ -29,12 +29,12 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="#"><i class="fa fa-home"></i> Home </a>
+                  <li><a href="<c:url value="/introduce/introduce" />">이용방법관리 </a>
                   </li>
-                   <li><a><i class="fa fa-home"></i> 상품메뉴 <span class="fa fa-chevron-down"></span></a>
+                   <li><a>상품메뉴 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">상품관리</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
+                      <li><a href="<c:url value="/shopadmin/list" />">상품관리</a></li>
+                      <li><a href="<c:url value="/shopadmin/add" />">상품추가</a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul>
                   </li>
