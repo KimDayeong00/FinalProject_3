@@ -58,7 +58,7 @@ String email = (String)session.getAttribute("login");
                             <div id="navigation">
                                 <ul>
                                     <!-- <li class="active"><a href="index.html" title="Home">홈</a></li> -->
-                                    <li><a href="about.html" title="About us">소개</a> </li>
+                                    <li><a href="<c:url value='/introduce/getinfo'/>" title="About us">소개</a> </li>
                                     <!-- <li class="has-sub"><a href="blog-default.html" title="Blog ">Blog</a>
                                         <ul>
                                             <li><a href="blog-default.html" title="Blog">Blog Default</a></li>

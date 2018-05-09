@@ -5,7 +5,10 @@
 <configuration>
 
 	<typeAliases>
-
+		<!-- ItemFilter -->
+		<typeAlias type="com.jhta.project.vo.ItemFilterVo" alias="itemFilter" />
+		<!-- Introduce -->
+		<typeAlias type="com.jhta.project.vo.IntroduceVo" alias="introduce" />
 		<!-- admin -->
 		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
 		<typeAlias type="com.jhta.project.vo.ShopClassJoinShopFieldVo" alias="shopclassjoinshopfield" />
@@ -33,6 +36,10 @@
 	</typeAliases>
 	
 	<mappers>
+	<!-- Introduce -->
+		<mapper resource="com/jhta/mybatis/IntroduceMapper.xml" />
+	<!-- ItemFilter -->
+		<mapper resource="com/jhta/mybatis/ItemFilterMapper.xml" />
 	<!--  Petsitter -->
 		<mapper resource="com/jhta/mybatis/PetSitterMapper.xml" />
 		<mapper resource="com/jhta/mybatis/FilterTypeListMapper.xml" />

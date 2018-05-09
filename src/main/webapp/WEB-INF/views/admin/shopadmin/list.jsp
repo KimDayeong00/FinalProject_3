@@ -85,7 +85,6 @@
                           <th>등록날짜</th>
                           <th>재고</th>
                           <th>중분류번호</th>
-                          <th>상품설명</th>
                           <th>수정</th>
                           <th>삭제</th>
                         </tr>
@@ -102,8 +101,7 @@
                           <td>${i.regdate }</td>
                           <td>${i.stock }</td>
                           <td>${i.fieldnum }</td>
-                          <td>${i.content }</td>
-                          <td><a href="<c:url value="/shopadmin/update?p_num=${i.p_num }" />">수정</a></td>
+                          <td><a href="<c:url value="/shopadmin/update?p_num=${i.p_num }&fieldnum=${i.fieldnum }" />">수정</a></td>
                           <td><a href="<c:url value="/shopadmin/delete?p_num=${i.p_num }&fieldnum=${i.fieldnum }" />">삭제</a></td>
                         </tr>
                       </c:forEach>

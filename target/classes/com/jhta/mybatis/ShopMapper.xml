@@ -63,7 +63,7 @@ select * from filtertype where ft_num in(select ft_num from filtercontent where 
 </select>
 
 <select id="filtercontent" parameterType="Integer" resultType="shopfiltercontentvo">
-select * from filtercontent where ft_num in(select ft_num from filtertype where ft_num=#{ft_num})
+select * from filtercontent where ft_num =#{ft_num}
 </select>
 
 <select id="iteminfo" parameterType="Integer" resultType="shopitemvo">
