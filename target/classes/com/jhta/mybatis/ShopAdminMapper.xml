@@ -31,6 +31,9 @@
 	<delete id="remove" parameterType="String" >
 	delete from item where p_num=#{p_num}
 	</delete>
+	<delete id="imgremove" parameterType="String">
+	delete from itemimage where p_num=#{p_num}
+	</delete>
 
 <select id="classlist"  resultType="shopclassvo">
 	select * from class
@@ -46,7 +49,9 @@ select max(p_num) from item
 <insert id="itemadd" parameterType="shopitemvo">
 insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum},#{content},null)
 </insert>
-
+<update id="itemupdate" parameterType="shopitemvo">
+update item set item_name=#{item_name},price=#{price},stock=#{stock},content=#{content} where p_num=#{p_num}
+</update>
 
 
 <update id="itemimage"  parameterType="hashmap">

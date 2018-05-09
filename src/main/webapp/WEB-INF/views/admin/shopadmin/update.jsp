@@ -6,23 +6,37 @@
 function handleFileSelect() 
 {
     var files = document.getElementById('file1').files[0]; //파일 객체
-
     var reader = new FileReader();
-
          
     reader.onload = (function(theFile) 
     {
         return function(e) 
         {
             var img_view = ['<img src=" ', e.target.result, ' " title=" ', escape(theFile.name), ' " style="width:210px;height:200px;"/>'].join('');                
-            document.getElementById('list').innerHTML = img_view;
+            document.getElementById('image_name').innerHTML = img_view;
         };
     })(files);
     reader.readAsDataURL(files);    
 }
-
+function asas(){
+	var files = $("#mulfile")[0].files;
+	document.getElementById('item_savefilename').innerHTML="";
+	for (var i = 0; i < files.length; i++){
+	var reader = new FileReader();	
+	reader.onload = (function(theFile) 
+			{
+				 return function(e) 
+				 {
+				      var img_view = ['<img src=" ', e.target.result, ' " title=" ', escape(theFile.name), ' " style="width:210px;height:200px;"/>'].join('');                
+				      document.getElementById('item_savefilename').innerHTML += img_view;
+				 };
+			})(files);
+			reader.readAsDataURL(files[i]);    
+	/* alert(files[i].name); */
+	}
+}
 </script>
-<form method="post" action="<c:url value='/shopadmin/insert'/>" enctype="multipart/form-data" name="frm" onsubmit="return aaa()">
+<form method="post" action="<c:url value='/shopadmin/updateOk'/>" enctype="multipart/form-data" name="frm" onsubmit="return aaa()">
 	<table class="table table-striped" style="float:left; margin-left:300px;">
 
 		<thead>
@@ -31,41 +45,46 @@ function handleFileSelect()
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="filtertypevo" items="${filtertypevo }" >
 		<tr>
-			<td style="color: white">
-			
-			<div class="filtertype">${filtertypevo.ft_name }</div>
-			
-			</td>
-			<c:forEach var="map" items="${map }">
-
-				<c:forEach var="filtercontent" items="${map.value }">
-					<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
-						<td><input id="${filtercontent.fc_num }"  type="checkbox"
-							name="check" value="${filtercontent.fc_num }"
-							onclick="getchk(${classnum},${fieldnum })"> <a href="">${filtercontent.fc_name }</a>
-
-						</td>
-					</c:if>
-				</c:forEach>
-
-			</c:forEach>
-		</tr>
-	</c:forEach>
-			<tr>
 				<td><div id="classnum">필터선택</div></td>
-				<td><div id="fieldnum"></div></td>
+				<td><div id="fieldnum">
+			<c:forEach var="filtertypevo" items="${filtertypevo }" >
+				<br />${filtertypevo.ft_name } <br />
+				<c:forEach var="map" items="${map }">
+					<c:forEach var="filtercontent" items="${map.value }">
+						<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
+							<c:choose>
+								<c:when test="${filtertypevo.ft_num==1}">
+									<input id="${filtercontent.fc_num }"  type="radio" class="filterchk"
+									name="filterchk" value="${filtercontent.fc_num }"> <a href="#">${filtercontent.fc_name }</a>
+								</c:when>
+								<c:otherwise>
+									<input id="${filtercontent.fc_num }"  type="checkbox" class="filterchk"
+									name="filterchk" value="${filtercontent.fc_num }"> <a href="#">${filtercontent.fc_name }</a>
+								
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+			</c:forEach>
+			</div></td>
 			</tr>
 			<tr>
 				<td>대표이미지</td>
 				<td><input type="file" name="file1" id="file1" onchange="handleFileSelect()">
-				<div id="list" style="size: 200px;"><img src=""  style="size:200px"></div>
+				<div id="image_name"><img style="width: 200px;height: 200px;" src="<c:url value="/resources/itemimage/${list.image_name }" />" alt="" /></div>
 				</td>
 			</tr>
 			<tr>
 				<td>상세이미지</td>
-				<td><input multiple="multiple" type="file" name="multifile" /> </td>
+				<td><input multiple="multiple" type="file" id="mulfile" class="mulfile" name="multifile" onchange="asas(this.value)" />
+				<div id="item_savefilename">
+				<c:forEach var="il" items="${ilist}">
+					<img style="width: 200px;height: 200px;" src="<c:url value="/resources/itemimage/${il.item_savefilename }" />" alt="" />
+				</c:forEach>
+				</div>
+				</td>
 			</tr>
 			<tr>
 				<td>상품이름</td>
@@ -153,7 +172,7 @@ function handleFileSelect()
                   </div>
 
                   <div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"></div>
-                  <textarea style="display:none;">${list.content }</textarea>
+                  <textarea style="display:none;"></textarea>
  
                 </div></td>
 			</tr>
@@ -164,6 +183,8 @@ function handleFileSelect()
 			</tr>
 		</tbody>
 	</table>
+	<input type="hidden" id="p_num" name="p_num" value="${list.p_num }" />
+	<input type="hidden" id="fieldnum" name="fieldnum" value="${list.fieldnum }" />
 	<input type="hidden" id="content" name="content" />
 </form>
 <script type="text/javascript">
@@ -171,6 +192,16 @@ function handleFileSelect()
 		$("#content").val($("#editor-one").html());
 		return true;
 	}
+	$(document).ready(function(){
+		<c:forEach var="fl" items="${flist }">
+			$(".filterchk").each(function(){
+				if('${fl.fc_num}'==$(this).val()){
+					$(this).prop("checked",true);
+				}
+			})
+		</c:forEach>
+		$("#editor-one").html('${list.content}');
+	})
 </script>
 <!-- include libraries(jQuery, bootstrap) -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 

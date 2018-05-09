@@ -18,20 +18,20 @@ String email = (String)session.getAttribute("login");
 
     <div class="top-bar">
             <div class="row" >
-                <div class="col-md-10 hidden-sm hidden-xs">
+                <div class="col-md-11 hidden-sm hidden-xs">
                     <div class="social">
                         <ul>
                         <%
                         if(email != null ){
                         %>
-                        <li><a href="<c:url value='/mypage'/>">마이페이지</a>
-                        <li><a href="<c:url value="/logout" />">로그아웃</a></li>
+                        <li><a href="<c:url value='/mypage'/>" style="font-size: 15px;">마이페이지</a>
+                        <li><a href="<c:url value="/logout" />" style="font-size: 15px;">로그아웃</a></li>
                         <%
                         }else if (email == null || email.equals("")){
                         %>
-                        	<li><a href="<c:url value="/login" />">로그인</a></li>
-                        	<li><a href="<c:url value="/register1" />">회원가입</a></li>
-                        	<li><a href="<c:url value="/register2" />">펫시터 등록</a></li>
+                        	<li><a href="<c:url value="/login" />" style="font-size: 15px;">로그인</a></li>
+                        	<li><a href="<c:url value="/register1" />" style="font-size: 15px;">회원가입</a></li>
+                        	<li><a href="<c:url value="/register2" />" style="font-size: 15px;">펫시터 등록</a></li>
                         
                         <%
                         }%>
@@ -53,7 +53,7 @@ String email = (String)session.getAttribute("login");
                         <a href="<c:url value='/'/>" style="margin-left: 100px;"><img style="height: 50px;" src="<c:url value='/resources/images/logo.JPG'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                 <div class="row" >
-                    <div class="col-lg-5 col-md-10 col-sm-12 col-xs-12">
+                    <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
                         <div class="navigation">
                             <div id="navigation">
                                 <ul>

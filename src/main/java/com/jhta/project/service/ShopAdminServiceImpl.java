@@ -40,6 +40,9 @@ public class ShopAdminServiceImpl{
 	public int delete(String p_num) {
 		return dao.delete(p_num);
 	}
+	public int imgdelete(String p_num) {
+		return dao.imgdelete(p_num);
+	}
 
 	public List<ShopClassVo> classlist() {
 		return dao.classlist();
@@ -52,6 +55,9 @@ public class ShopAdminServiceImpl{
 	
 	public int itemadd(ShopItemVo vo) {
 		return dao.itemadd(vo);
+	}
+	public int update(ShopItemVo vo) {
+		return dao.update(vo);
 	}
 	
 	public int maxpnum() {

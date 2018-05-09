@@ -7,6 +7,11 @@
 <insert id="insert" parameterType="String">
 	insert into itemfilter values(SEQ_ITEMFILTER_IF_NUM.nextval,seq_item_p_num.CURRVAL,#{fc_num})
 </insert>
-
+<insert id="uinsert" parameterType="String">
+	insert into itemfilter values(SEQ_ITEMFILTER_IF_NUM.nextval,#{p_num},#{fc_num})
+</insert>
+<delete id="delete" parameterType="String">
+	delete from itemfilter where p_num=#{p_num}
+</delete>
 </mapper>
 

@@ -36,6 +36,12 @@ public class ShopAdminDao {
 	public int delete(String p_num) {
 		return sqlSession.delete(NAMESPACE+".remove",p_num);
 	}
+	public int imgdelete(String p_num) {
+		return sqlSession.delete(NAMESPACE+".imgremove",p_num);
+	}
+	public int update(ShopItemVo vo) {
+		return sqlSession.update(NAMESPACE+".itemupdate",vo);
+	}
 	public List<ShopClassVo> classlist() {
 		return sqlSession.selectList(NAMESPACE+".classlist");
 	}

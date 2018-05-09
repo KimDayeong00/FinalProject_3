@@ -19,14 +19,12 @@
     <div class="item active">
       <img src="<c:url value='/resources/images/1.jpg'/>" style="width:100%">
       <div class="carousel-caption">
-     
       </div> 
     </div>
 
     <div class="item">
       <img src="<c:url value='/resources/images/2.jpg'/>"style="width:100%">
       <div class="carousel-caption">
- 
       </div> 
     </div>
 
@@ -41,5 +39,6 @@
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+</div>
 </div>
 <br>

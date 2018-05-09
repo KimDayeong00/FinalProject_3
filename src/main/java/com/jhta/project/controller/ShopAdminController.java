@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.ItemFilterServiceImpl;
 import com.jhta.project.service.ShopAdminServiceImpl;
@@ -43,6 +42,12 @@ public class ShopAdminController {
 	@Autowired private ShopService shopService;
 	@Autowired private ItemFilterServiceImpl itemfilterService;
 	
+	@RequestMapping("/shopadmin/itemadd")
+	public String itemadd(Model model) {
+		List<ShopClassVo> list = shopService.classlist();
+		model.addAttribute("classvo", list);
+		return ".admin.shopadmin.itemadd";
+	}
 	@RequestMapping("/shopadmin/list")
 	public String list(Model model,String fieldnum) {
 		List<ShopClassJoinShopFieldVo> list = shopAdminService.list();
@@ -60,6 +65,7 @@ public class ShopAdminController {
 	public String update(Model model,int p_num,int fieldnum) {
 		ShopItemVo list = shopAdminService.itemgetinfo(p_num);
 		List<ItemFilterVo> flist = shopAdminService.itemfiltergetinfo(p_num);
+			System.out.println("왜안나오냐!!!!!!!!!"+list.getImage_name());
 		List<ShopItemImageVo> ilist = shopAdminService.itemimggetinfo(p_num);
 		List<ShopFilterTypeVo> filtertypevo=shopService.filtertype(fieldnum);
 		HashMap<Object, Object> map=new HashMap<>();
@@ -89,10 +95,65 @@ public class ShopAdminController {
 		return map;
 		
 	}
+	@RequestMapping("/shopadmin/updateOk")
+	public String update(String p_num,String []filterchk,String filterrdo,ShopItemVo vo,MultipartFile file1,HttpSession session,MultipartHttpServletRequest filereq) {
+		for(int i=0; i<filterchk.length;i++) {
+			System.out.println("filterchk : "+filterchk[i]);
+		}
+		HashMap<String, Object> map=new HashMap<>();
+		shopAdminService.imgdelete(p_num);
+		itemfilterService.delete(p_num);
+		System.out.println(vo.toString());
+		shopAdminService.update(vo);
+		map.put("p_num",p_num);
+		List<MultipartFile> filelist=filereq.getFiles("multifile");
+		
+		for(MultipartFile mf : filelist) {
+			String orgfilename=mf.getOriginalFilename();	
+			String filename=UUID.randomUUID()+"_"+orgfilename;
+			String savefilename=uploadPath+filename;
+
+			try {
+				mf.transferTo(new File(savefilename));
+				map.put("savefilename",filename);
+				shopAdminService.multifile(map);
+			}catch(IllegalStateException ie) {
+				ie.printStackTrace();
+			}catch(IOException io) {
+				io.printStackTrace();
+			}
+		}
+		System.out.println("여기옴");
+		for(int i=0; i<filterchk.length;i++) {
+			HashMap<String, String> umap = new HashMap<>();
+			umap.put("p_num", p_num);
+			umap.put("fc_num", filterchk[i]);
+			itemfilterService.uinsert(umap);
+		}
+		String orgfilename=file1.getOriginalFilename();
 	
+		String savefilename=UUID.randomUUID()+"_"+orgfilename;
+		try {
+		
+			InputStream is=file1.getInputStream();
+		
+			FileOutputStream fos=new FileOutputStream(uploadPath+"\\"+ savefilename);
+		
+			FileCopyUtils.copy(is, fos);
+			fos.close();
+			is.close();
+
+			map.put("savefilename", savefilename);
+		
+			shopAdminService.itemimage(map);
+			return "redirect:/shopadmin/list";
+		}catch(IOException ie) {
+			System.out.println(ie.getMessage());
+			return "redirect:/shopadmin/list";
+		}
+	}
 	@RequestMapping("/shopadmin/insert")
-	public ModelAndView itemadd(String []filterchk,String filterrdo,ShopItemVo vo,MultipartFile file1,HttpSession session,MultipartHttpServletRequest filereq) {
-		ModelAndView mv=new ModelAndView(".admin.shopadmin.itemadd");
+	public String itemadd(String []filterchk,String filterrdo,ShopItemVo vo,MultipartFile file1,HttpSession session,MultipartHttpServletRequest filereq) {
 		HashMap<String, Object> map=new HashMap<>();
 		System.out.println(vo.toString());
 		shopAdminService.itemadd(vo);
@@ -136,10 +197,10 @@ public class ShopAdminController {
 			map.put("savefilename", savefilename);
 		
 			shopAdminService.itemimage(map);
-			return mv;
+			return "redirect:/shopadmin/list";
 		}catch(IOException ie) {
 			System.out.println(ie.getMessage());
-			return mv;
+			return "redirect:/shopadmin/list";
 		}
 	}
 	@RequestMapping("/shopadmin/delete")
