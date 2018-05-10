@@ -29,4 +29,7 @@ public class memberService {
 	public int emailc_p(String email) {
 		return dao.emailc_p(email);
 	}
+	public memberVO infoEmail(String email) {
+		return dao.infoEmail(email);
+	}
 }

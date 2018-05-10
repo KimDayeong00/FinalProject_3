@@ -29,5 +29,8 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN) values(#{ps_email},#{ps_pwd},#{ps_p
 		select count(*) from petsitter where ps_email = #{value}	
 	</select>
 	
+	<select id="infoEmail" parameterType="string" resultType="member">
+		select * from memberlist where m_email=#{value}
+	</select>
 </mapper>
 

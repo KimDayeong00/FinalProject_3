@@ -34,5 +34,7 @@ public class memberDAO {
 	public int emailc_p(String email) {
 		return session.selectOne(NAMESPACE+".emailc_p",email);
 	}
-	
+	public memberVO infoEmail(String email) {
+		return session.selectOne(NAMESPACE+".infoEmail",email);
+	}
 }

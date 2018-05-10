@@ -11,13 +11,17 @@ import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.ShopService;
+import com.jhta.project.service.memberService;
 import com.jhta.project.util.PageUtil;
+import com.jhta.project.vo.OrderItemListVo;
 import com.jhta.project.vo.ShopCartVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
@@ -27,10 +31,13 @@ import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
+import com.jhta.project.vo.ShopPayBoardVo;
+import com.jhta.project.vo.memberVO;
 
 @Controller
 public class ShopController {
 	@Autowired ShopService service;
+	@Autowired memberService memberService;
 	@RequestMapping("/shop/home")
 	public ModelAndView home() {
 		System.out.println("맨처음 들어옴");
@@ -170,6 +177,7 @@ public class ShopController {
 		List<HashMap> cartlist= null;
 		int val=vo.getCnt() * vo.getPrice();
 		System.out.println(val);
+		System.out.println("넘버는?"+vo.getNum());
 		HashMap<String, Object> map=new HashMap<>();
 		if(session.getAttribute("cartlist")==null) {
 			cartlist= new ArrayList<>();
@@ -211,8 +219,6 @@ public class ShopController {
 				list.remove(map);
 			}
 		}
-		
-		
 		return ".shop.cartlist";
 	}
 	
@@ -228,5 +234,53 @@ public class ShopController {
 		return mv;
 		
 	}
+
+	@RequestMapping(	value="/shop/buy",method=RequestMethod.POST)
+	public String buy(Model mv, int [] cnt,int []chk,int []num,String id,ShopCartVo vo) {
+		System.out.println("멤버여기까진오고");
+		memberVO member = memberService.infoEmail(id);
+		System.out.println("여기서막히는거");
+		List<ShopCartVo> list = new ArrayList<>();
+		if(chk.length>0) {
+			System.out.println("일로오냐");
+		for(int i=0;i<chk.length;i++) {
+			ShopItemVo iteminfo=service.iteminfo(num[chk[i]]);
+			ShopCartVo vo1 = new ShopCartVo(iteminfo.getP_num(),iteminfo.getItem_name(),iteminfo.getPrice(),cnt[chk[i]],iteminfo.getImage_name());
+			System.out.println(vo1.toString());
+			list.add(vo1);
+			}
+		}else{
+			System.out.println("아님열로");
+		}
+		mv.addAttribute("member", member);
+		mv.addAttribute("list",list);
+		return ".shop.buy";
+	}
+	
+	@RequestMapping("/shop/pay")
+	public String pay(ShopPayBoardVo vo,OrderItemListVo vo2,HttpServletRequest req,int []p_num,int [] cnt,String [] price) {
+		String juso1=req.getParameter("juso1");
+		String juso2=req.getParameter("juso2");
+		String addr=juso1+juso2;
+		String accprice=req.getParameter("accprice");
+		String m_email=req.getParameter("m_email");
+		String caddr1=req.getParameter("caddr1");
+		String caddr2=req.getParameter("caddr2");
+		String caddr3=req.getParameter("caddr3");
+		String caddr=caddr1+"-"+caddr2+"-"+caddr3;
+		
+		ShopPayBoardVo vo3=new ShopPayBoardVo(0, null, vo.getName(), addr, caddr, accprice, m_email);
+		System.out.println("값들을 출력하자"+vo3.toString());
+		service.payinsert(vo3);
+		
+		int buy_num=service.getbuynum();
+System.out.println("바이넘은몇일까"+buy_num);
+		for (int i=0; i<p_num.length; i++) {
+			OrderItemListVo vo4=new OrderItemListVo(0, cnt[i], price[i], p_num[i], buy_num);
+			service.orderinsert(vo4);
+		}
+		return ".shop.item.pay";
+	}
+	
 	
 }
