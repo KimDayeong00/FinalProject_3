@@ -39,6 +39,7 @@
                   </li>
                   <li><a href="<c:url value="/admin/mManage" />"><i class="fa fa-table"></i> 회원관리 </a></li>
                   <li><a href="<c:url value="/admin/calc" />"><i class="fa fa-bar-chart-o"></i> 정산 </a></li>
+                   <li><a href="<c:url value="/qna/adminqna" />"><i class="fa fa-bug"></i> 1:1문의</a></li>
                 </ul>
               </div>
           

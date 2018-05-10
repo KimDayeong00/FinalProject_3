@@ -70,8 +70,8 @@ String email = (String)session.getAttribute("login");
                                     <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
                                     <li class="has-sub"><a href="#" title="Tours">고객지원</a>
                                         <ul>
-                                            <li><a href="domestic-tour.html" title="Group Tours">Domestic Tours</a></li>
-                                            <li><a href="international-tour.html" title="Couple Tours">International Tours</a></li>
+                                            <li><a href="<c:url value='/qna/faq'/>" title="Group Tours">FAQ</a></li>
+                                            <li><a href="<c:url value='/qna/qna'/>" title="Couple Tours">1:1문의</a></li>
                                         </ul>
                                     </li>
                                 </ul>
