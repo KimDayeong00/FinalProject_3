@@ -28,34 +28,17 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="<c:url value="/introduce/introduce" />">이용방법관리 </a></li>
-                   <li><a>상품메뉴 <span class="fa fa-chevron-down"></span></a>
-                  <li><a href="#"><i class="fa fa-home"></i> Home </a>
+                  <li><a href="<c:url value="/introduce/introduce" />">이용방법관리 </a>
                   </li>
-                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                   <li><a>상품메뉴 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<c:url value="/shopadmin/list" />">상품관리</a></li>
                       <li><a href="<c:url value="/shopadmin/itemadd" />">상품추가</a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
                     </ul>
                   </li>
-                  <li><a href="#"><i class="fa fa-edit"></i> Forms </a>
-                  </li>
-                  <li><a href="#"><i class="fa fa-desktop"></i> UI Elements</a>
-                    
-                  </li>
-                  <li><a href="<c:url value="/admin/mManage" />"><i class="fa fa-table"></i> 회원관리 </a>
-                  
-                  </li>
-                  <li><a href="<c:url value="/admin/calc" />"><i class="fa fa-bar-chart-o"></i> 정산 </a>
-                 
-                  </li>
-                  <li><a href="#"> <i class="fa fa-clone"></i>Layouts</a>
-                    
-                  </li>
-                   <li><a href="#"><i class="fa fa-bug"></i> Additional Pages</a>
-                   
-                  </li>
+                  <li><a href="<c:url value="/admin/mManage" />"><i class="fa fa-table"></i> 회원관리 </a></li>
+                  <li><a href="<c:url value="/admin/calc" />"><i class="fa fa-bar-chart-o"></i> 정산 </a></li>
                 </ul>
               </div>
           

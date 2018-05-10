@@ -27,4 +27,44 @@ order by d_ymd
 </select>
 
 
+<select id="memlist" resultType="member">
+
+select m_email,m_name,m_phone,m_addr from memberlist where m_grade not in -1
+
+</select>
+
+
+<select id="petlist" resultType="petsitter">
+
+select ps_email,ps_phone,ps_name,ps_addr1|| ' ' || ps_addr2 ps_addr1 from petsitter where ps_grade not in -1
+
+</select>
+
+<update id="delete_m" parameterType="string">
+	update memberlist set m_grade = -1 where m_email = #{value}
+</update>
+
+<update id="delete_p" parameterType="string">
+	update petsitter set PS_GRADE = -1 where ps_email = #{value}
+</update>
+
+<select id="mem_update" resultType="member" parameterType="string">
+select * from memberlist where m_email = #{value}
+</select>
+
+<select id="pet_update" resultType="petsitter" parameterType="string">
+select * from petsitter where ps_email = #{value}
+</select>
+
+<update id="updateOK_m" parameterType="member">
+	update memberlist set m_email = #{m_email},m_name = #{m_name},m_phone=#{m_phone},m_addr=#{m_addr}
+	where m_email = #{m_email}
+</update>
+
+<update id="updateOK_p" parameterType="petsitter">
+	update petsitter set ps_email = #{ps_email},ps_name = #{ps_name},ps_phone=#{ps_phone},ps_addr1=#{ps_addr1},ps_addr2=#{ps_addr2}
+	where ps_email = #{ps_email}
+</update>
+
+
 </mapper>

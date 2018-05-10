@@ -4,6 +4,6 @@
 <!DOCTYPE html>
 <!-- page content -->
 <div class="right_col" role="main">
-		<h1>메인페이지 입니다!</h1>
+	<h1>메인입니다</h1>
 </div>
 <!-- page content -->
