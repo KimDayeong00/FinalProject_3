@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.PetsitterBookMapper">
+	<select id="selectMbookList" parameterType="string" resultType="com.jhta.project.vo.PetsitterBookVo">
+		<!-- select bk_num,to_char(bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,bk_situation, m_email, ps_email
+		from petsitterbook where m_email=#{m_email} -->
+		select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email,
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email
+	</select>
+	<select id="getBpet" parameterType="int" resultType="com.jhta.project.vo.MpetInfoVo">
+		select aa.* from mpetinfo aa,bookpetinfo bb where aa.pi_num in(bb.pi_num) and bb.bk_num=#{value}
+	</select>
+	<select id="getBpetCnt" parameterType="int" resultType="int">
+		select count(*) from(select aa.* from mpetinfo aa,bookpetinfo bb where aa.pi_num in(bb.pi_num) and bb.bk_num=#{value})
+	</select>
+</mapper>

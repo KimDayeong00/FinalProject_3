@@ -16,4 +16,16 @@ public class PpetInfoDao {
 	public List<PetsitterPetVo> select(String ps_email) {
 		return sqlSession.selectList(NAMESPACE+".select",ps_email);
 	}
+	
+	public int insertPpetInfo(PetsitterPetVo vo) {
+		return sqlSession.insert(NAMESPACE+".insertPpet", vo);
+	}
+	
+	public PetsitterPetVo selectPetUpdate(int pi_num) {
+		return sqlSession.selectOne(NAMESPACE+".selectPetUpdate",pi_num);
+	}
+	
+	public int petUpdate(PetsitterPetVo vo) {
+		return sqlSession.update(NAMESPACE+".updatePpet",vo);
+	}
 }

@@ -2,12 +2,13 @@
 #content {width:1000px;margin-left:auto;margin-right:auto;overflow: hidden;}
 .imgSlide {width:610px;height:400px;float:left;}
 .slider div{height:350px;}
-.book {width:380px;overflow:hidden;float:left;margin-left:10px;border: 1px solid gray;text-align: center;}
+.book {width:380px;overflow:hidden;float:left;margin-left:10px;border: 1px solid #BABABA;text-align: center;}
+.book-font {margin:10px;}
 .book p{font-size: 13px;}
-.caledar input {float:left;}
+.calendar input {text-align: center;}
 .calendar {display: inline-block;}
-.book_box2 {width:300px;display: inline-block;border-top:1px solid gray;font-size: 14px;}
-.book_box3 {width:300px;display: inline-block;border-top:1px solid gray;font-size: 14px;}
+.book_box2 {width:300px;display: inline-block;border-top:1px solid #BABABA;font-size: 14px;}
+.book_box3 {width:300px;display: inline-block;border-top:1px solid #BABABA;font-size: 14px;}
 .book_box2 div{width:200px;float:left;text-align: left;}
 .book_box3 .petspinner{width:200px;float:left;text-align: left;}
 .book_box3 .petspinner span{text-align: left;}
@@ -21,18 +22,30 @@
 }
 #bookBtn label {cursor:pointer;}
 .petsitterInfo {width:1000px;border:1px solid gray;float:left;margin-top:10px;display: inline-block;overflow: hidden;}
-.petsitterProfile {width:1000px;overflow: hidden;}
-.petsitterImg {width:150px;height:150px;border:1px solid gray;float:left;margin-left:20px;margin-top:20px;}
+.ps-content {width:800px;vertical-align: middle;overflow: hidden;margin: 0 auto;}
+.petsitterProfile {width:100%;overflow: hidden;}
+.petsitterImg {width:100px;height:100px;border:1px solid #f0efe8;float:left;margin-left:20px;margin-top:20px;}
+.petsitterName {font-size: 18px;}
+.addr{font-size: 14px;}
 .profile {margin-top:20px;margin-left:10px;float:left;}
-.petsitterOption {width:1000px;display:inline-block;margin-top:20px;text-align: center;}
-.petsitterOption .petSize {width:500px;float:left;display: inline-block;}
-.petsitterOption .time {width:500px;float:left;display: inline-block;text-align: center;}
+.petsitterOption {width:100%;display:inline-block;margin-top:20px;text-align: center;}
+.petsitterOption .petSize {width:145px;float:left;display: inline-block;}
+.petSize img {width:80px;height:80px;float:right;}
+.petsitterOption .time {width:50px;float:left;display: inline-block;text-align: center;}
 .time div {width:200px;display: inline-block;}
 .petsitterOption span {text-align: left;}
-.homeStateWrap{width:1000px;overflow: hidden;}
-.homeState{text-align: center;}
+.homeStateWrap{width:100%;overflow: hidden;}
+.homeState{overflow: hidden;margin-left:20px;}
+.homeState p{margin-bottom:2px; font-size: 18px;}
 .homeState span{text-align: left;}
-.homeState div{float:left;width:400px;display: inline-block;}
+.homeState div{float:left;width:50%;display: inline-block;}
+.homeState .left div{width: 98%;height:30px;}
+.homeState .left span{margin-left:10px;padding-right:10px;vertical-align: middle;}
+.homeState .right div{width: 98%;margin-left:5px;height:30px;}
+.homeState .right span{margin-left:10px;padding-right:10px; vertical-align: middle;}
+.right-span {float: right;}
+.introBox {margin-left:20px;}
+.introBox p {margin-bottom:2px;}
 
 /*
 	펫시터 마이페이지 부분
@@ -42,26 +55,55 @@
 .petsitterPageMenu .sitterImg {width:380px;height:240px;}
 .petsitterPageMenu div {width:260px;line-height:60px;border-top:1px solid #ADA6A4;}
 .petsitterPageMenu span {vertical-align: middle;}
-.petImg {width:70px;height:70px;border:1px solid gray;}
-.filterList .filter{line-height:30px;display: inline-block;border-radius: 10px;background-color:#f0efe8;border: 1px solid gray;overflow: hidden;}
-.filter span {vertical-align: middle;}
+.petImg {overflow: hidden;width:100%;margin-bottom:8px;}
+.petImg img {width:70px;height:70px;}
+.filterList .filter{line-height:30px;display: inline-block;border-radius: 10px;background-color:#f0efe8;border: 1px solid ;overflow: hidden;}
+.filter span {vertical-align: middle;margin:10px;}
 .mypageMenubar {width:720px;height:50px;background-color: white;float: left;}
 .menubarDiv {width:50%;line-height:50px;float:left;text-align: center;border: 1px solid #ADA6A4;margin-right:-1px;}
+.menubarDiv2 {width:100%;line-height:50px;float:left;text-align: center;border: 1px solid #ADA6A4;margin-right:-1px;}
 .menubarDiv:hover {
 	background-color:#f0efe8;
 }
+.menubarDivAcc {width:240px;line-height:50px;float:left;text-align: center;border: 1px solid #ADA6A4;margin-right:-1px;}
+.menubarDivAcc:hover {
+	background-color:#f0efe8;
+}
 .menubarDiv span{vertical-align: middle;}
+.menubarDivAcc span{vertical-align: middle;}
 .mypetsitterContent {width:720px;float:left;margin-left:20px;overflow: hidden;}
 .reservationInfo {width:720px;float:left;overflow:hidden;margin-top:10px;border:1px solid #ADA6A4;}
 .modifyBtn {width:300px;height:100px;background-color: #f0efe8; border:none;cursor: pointer;border-radius: 10px;line-height: normal;
 			outline: 0;margin-bottom: 15px;}
 .modifyBtn:hover{
-	color:gray;
+	color:;
 }
 .modifyBtn label{cursor: pointer;}
 .ps_image{width:720px;overflow: hidden;}
 .ps_image img{width:200px;height:200px;margin-bottom:5px;}
 .ps_image input{display: none;}
+
+.ppetInfo{border-bottom:1px solid ;margin-top:10px;margin-bottom:10px;padding-bottom:10px;overflow: hidden;}
+.ppetInfo div{display: inline;float:left;}
+.ppetInfo .ppetImg{overflow: hidden;}
+.ppetInfo img{width:90px;height:90px;}
+.ppetInfoName {overflow: hidden;margin-left:5px;}
+
+/*
+	반려견 추가 부분
+*/
+.queBox{overflow: hidden;border-bottom:1px solid gray;padding-bottom:20px;margin-top:20px;}
+.queBox div{width:100%;margin-bottom:10px;}
+.ppetImgBox{vertical-align: middle;margin: auto;width:180px;height:180px;}
+.ppetImgBox img{width:180px;height:180px;}
+.petInsert{border:1px solid gray;overflow: hidden;}
+.petInsertContent {vertical-align: middle;margin: auto;width:550px;}
+
+/*
+	펫시터 계정 관리 부분
+*/
+.accountContent {vertical-align: middle;margin: auto;width: 350px;}
+.accountContent div{width: 100%;margin-bottom:10px;}
 
 /*
 	spinner
@@ -97,6 +139,7 @@
 #minusBtn2 {background-color:#f0efe8; border:none; width:23px; outline:0;border:none;}
 #plusBtn2 {background-color:#f0efe8; border:none; width:23px; outline:0;border:none;}
 
+
 /*
 	펫시터 마이페이지 - 펫시터 환경 설정 부분
 */
@@ -106,3 +149,29 @@
 .checkTimeBox label{width:150px;}
 .houseSet {width:650px;overflow: hidden;margin:auto;}
 .houseSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
+
+/*
+	펫시터 마이페이지 - 펫시터 필터 설정 부분
+*/
+.checkFilter {width:650px;overflow: hidden;margin: auto;}
+
+
+/*
+	마이페이지 예약 부분
+*/
+.bookTable {width:100%;text-align: center;}
+.bookTable th{text-align: center;}
+
+
+/*
+	폰트 부분
+*/
+.book-font{}
+#day span{font-size: 21px;color:#363636; }
+
+
+
+
+
+
+
