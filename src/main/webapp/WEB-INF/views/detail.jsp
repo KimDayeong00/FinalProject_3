@@ -448,7 +448,7 @@
 		</div><br>
 		<div class="introduction">
 			<div class="introBox">
-				<div>
+				<div class="petIntro">
 				<p><strong>돌보미 소개</strong></p>
 					<c:set var="loop" value="0"/>
 					<c:forEach var="gubun" items="${petList }" varStatus="status">
@@ -467,16 +467,21 @@
 						</div>
 					</c:forEach>
 				</div>
+				<div class="introContent">
 				<div class="selfIntroduction">
 					${vo2.ps_content }
 				</div>
 				<div class="hideIntroduction">
 				</div>
+				</div>
 			</div>
-		<div class="review">
-			<div><img></div>
-			<p>이름</p>
-			<div></div>
+		<div class="ps-review">
+			<div><p><strong>후기 1개</strong></p></div>
+			<div><span><strong>이름</strong></span></div>
+			<div class="ps-rvContent">
+			몽이를 키우는 동안 모르는 사람에게 맡긴 적이 없어<br>
+			걱정이 많았는데 펫시터 분 첫인상부터 너무 좋으신 분이라 안심했어요. :) 
+			</div>
 		</div>
 	</div>
 	</div>

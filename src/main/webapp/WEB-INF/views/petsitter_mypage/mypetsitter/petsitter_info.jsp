@@ -427,7 +427,7 @@ $(function(){
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img>
+			<img src="<c:url value='resources/images/noprofile.png'/>">
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
@@ -516,7 +516,7 @@ $(function(){
 											<option value="3">단독주택</option>
 											<option value="4">기타</option>
 										</select>
-										<input type="hidden" id="houseType" style="width:140px" name="houseType">
+										<input type="hidden" id="houseType" style="width:100px" name="houseType">
 										</div>
 										<div class="houseSetBox">
 										<span>마당 유무</span>
@@ -531,7 +531,7 @@ $(function(){
 											<option value="0">없음</option>
 											<option value="1">있음</option>
 										</select>
-										<input type="hidden" id="familyNum" style="width:140px" name="familyNum">
+										<input type="hidden" id="familyNum" style="width:100px" name="familyNum">
 										</div>
 										<div class="houseSetBox">
 										<span>아동 유무</span>
@@ -539,7 +539,7 @@ $(function(){
 											<option value="0">없음</option>
 											<option value="1">있음</option>
 										</select>
-										<input type="hidden" id="childNum" style="width:140px" name="childNum">
+										<input type="hidden" id="childNum" style="width:100px" name="childNum">
 										</div>
 										<div class="houseSetBox">
 										<span>다른 동물 유무</span>
@@ -547,54 +547,75 @@ $(function(){
 											<option value="0">없음</option>
 											<option value="1">있음</option>
 										</select>
-										<input type="hidden" id="otherpetNum" style="width:140px" name="otherpetNum">
+										<input type="hidden" id="otherpetNum" style="width:100px" name="otherpetNum">
 										</div>
+	
 									</div>
 										<div class="subwaySet">
 											<label>인근 지하철역</label><br>
 											<input type="text" name="subway" value="${optionVo.po_subway }">
 										</div>
-									<button type="submit" class="modifyBtn">
+									<div class="modifyBtnBox">
+									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
+									</div>
 								</form>
 								<label>보여질 대표 이미지 설정</label>
-								
-								<div class="ps_image">
+								<div style="overflow: hidden;width: 100%;">
 									<c:forEach var="img" items="${ps_imgVo }">
+									<div class="ps_image">
 										<form method="post" enctype="multipart/form-data" class="ps_imgForm" action="<c:url value='/ps_imgTest'/>">
 											<img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>">
 											<input type="file" name="ps_imgUpload">
 											<input type="hidden" name="pimg_num" value="${img.pimg_num }" id="pimg_num">
 											<!-- <input type="submit" class="ps_imgSubmit"> -->
 										</form>
+									</div>
 									</c:forEach>
-								</div>	
-								
+								</div>
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'filterSet' }">
 								<div class="checkFilter">
-									<div>
+									<div style="margin-top: 20px;">
+									<span><label>필터 설정하기</label></span>
 										<form method="post" action="<c:url value='/filterSet'/>">
-											<input type="checkbox" name="chFilter" value="YOUNGAGE">강아지 1살 이하
-											<input type="checkbox" name="chFilter" value="OLDAGE">노령견
-											<input type="checkbox" name="chFilter" value="SMALLSIZE">소형견 5kg 이하
-											<input type="checkbox" name="chFilter" value="MIDDLESIZE">중형견 5~15kg 이하
-											<input type="checkbox" name="chFilter" value="BIGSIZE">대형견 15kg 이상
-											<input type="checkbox" name="chFilter" value="APART">아파트
-											<input type="checkbox" name="chFilter" value="YARD">마당
-											<input type="checkbox" name="chFilter" value="THESICK">환자견 케어
-											<input type="checkbox" name="chFilter" value="LICENSE">자격증
-											<input type="checkbox" name="chFilter" value="STROLL">산책
-											<input type="checkbox" name="chFilter" value="PICKUP">픽업
-											<input type="checkbox" name="chFilter" value="COOKIE">수제간식
-											<input type="checkbox" name="chFilter" value="OTHERPET">반려견 없는 곳
-											<input type="checkbox" name="chFilter" value="FIRSTAID">응급 처치
-											<input type="checkbox" name="chFilter" value="DOSE">투약 가능
-											<button type="submit" class="modifyBtn">
+											<div>
+												<span><label>나이</label></span>
+												<input type="checkbox" name="chFilter" value="YOUNGAGE">강아지 1살 이하
+												<input type="checkbox" name="chFilter" value="OLDAGE">노령견
+											</div>
+											<div>
+												<span><label>무게</label></span>
+												<input type="checkbox" name="chFilter" value="SMALLSIZE">소형견 5kg 이하
+												<input type="checkbox" name="chFilter" value="MIDDLESIZE">중형견 5~15kg 이하
+												<input type="checkbox" name="chFilter" value="BIGSIZE">대형견 15kg 이상
+											</div>
+											<div>
+												<span><label>공간</label></span>
+												<input type="checkbox" name="chFilter" value="APART">아파트
+												<input type="checkbox" name="chFilter" value="YARD">마당
+												<input type="checkbox" name="chFilter" value="OTHERPET">반려견 없는 곳
+											</div>
+											<div>
+												<span><label>전문지식</label></span>
+												<input type="checkbox" name="chFilter" value="THESICK">환자견 케어
+												<input type="checkbox" name="chFilter" value="LICENSE">자격증
+												<input type="checkbox" name="chFilter" value="DOSE">투약 가능
+												<input type="checkbox" name="chFilter" value="FIRSTAID">응급 처치
+											</div>
+											<div>
+												<span><label>기타 편의</label></span>
+												<input type="checkbox" name="chFilter" value="STROLL">산책
+												<input type="checkbox" name="chFilter" value="PICKUP">픽업
+												<input type="checkbox" name="chFilter" value="COOKIE">수제간식
+											</div><br>		
+											<div class="modifyBtnBox">
+											<button type="submit" class="modifyBtn2">
 												<label>설정하기</label>
 											</button>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -637,33 +658,36 @@ $(function(){
 								</div>
 								<div class="queBox">
 									<div class="ppetImgBox"><img id="ppetImg"></div>
-									<div><input type="text" placeholder="이름" name="pi_name"></div>
-									<div><select name="pi_sex">
+									<div class="ppetInsertInput">
+									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name"></div>
+									<div class="ppetInputRight"><select name="pi_sex">
 										<option>성별</option>
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div><input type="text" placeholder="품종" name="pi_type"></div>
-									<div><input type="text" placeholder="무게" name="pi_weight"></div>
-									<div>
-									<select name="pi_year">
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type"></div>
+									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight"></div>
+									<div class="ppetInputLeft">
+									<select name="pi_month" style="width:70px">
+										<c:forEach var="i" begin="1" end="12">
+											<option value="${i}">${i }</option>
+										</c:forEach>
+									</select>
+									<select name="pi_year" style="width:104px">
 										<c:forEach var="i" begin="1980" end="${year }">
 											<option value="${i}">${i }</option>
 										</c:forEach>
-									</select></div>
-									<div>
-										<select name="pi_month">
-											<c:forEach var="i" begin="1" end="12">
-												<option value="${i}">${i }</option>
-											</c:forEach>
-										</select>
+									</select>
 									</div>
-									<div>
+									</div>
+									<div class="PtextArea">
 									<textarea rows="10" cols="50" name="pi_content"></textarea>
 									</div>
-									<button type="submit" class="modifyBtn">
+									<div class="modifyBtnBox">
+									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
+									</div>
 								</div>
 								</form>
 							</div>
