@@ -14,12 +14,13 @@
       	width : 50%;
         height: 600px;
       }
+      .mystyle{background-color: pink;}
     </style>
-	<div style="width: 100%; margin-top: 5px; padding: 10px; ">
-		<table style="border: 1px solid black; margin-top: 5px; padding: 10px;">
+	<div style="width: 100%; margin-top: 5px; padding: 10px; border: 1px solid black;">
+		<table style="margin-top: 5px; padding: 10px;">
 			<tr>
-				<td colspan="3" style="text-align: center;">지역을 선택하세요.</td>
-				<td style="text-align: center;">날짜를 선택하세요.</td>
+				<td colspan="3" style="text-align: center;"><h4>지역을 선택하세요.</h4></td>
+				<td style="text-align: center;"><h4>날짜를 선택하세요.</h4></td>
 			</tr>
 			<tr style="padding: 10px;">
 				<td width="150px"><select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select></td>
@@ -31,12 +32,27 @@
 					</div>
 				</td>
 			</tr>
-		</table>
-		<c:forEach var="vo" items="${filterlist }">
-			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
-		</c:forEach>z
-		<script>sojaeji();</script>
+			<tr><td><br /></td></tr>
+			<tr>
+				<td colspan="14" style="text-align: center;"><h4>조건을 선택하세요.</h4></td>
+			</tr>
+<tr>
+<c:forEach var="vo" items="${filterlist }">
+<td style=" text-align: center; margin: 0px;">
+	<div class="btn-group" data-toggle="buttons" style=" margin: 0px;">
+		<label class="btn"  >
+			<input type="checkbox" class="filterName" name="filterName" value="${vo.fl_name}"> ${vo.f_type }
+  		</label> 
 	</div>
+</td>
+</c:forEach>
+</tr>
+</table>
+		<%-- <c:forEach var="vo" items="${filterlist }">
+			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
+		</c:forEach> --%>
+		<script>sojaeji();</script>
+</div>
 	<%-- <div class="btn-group" data-toggle="buttons">
 		<c:forEach items="${filterlist }" var="filter">
 			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
@@ -301,6 +317,15 @@
 		    		getlist()
 	    })
 	}
+	$(".btn").on('click',function(){
+	    var $input = $(this).find('input');
+	    $(this).toggleClass('mystyle');
+	    if ($(this).hasClass('mystyle')) {
+	    	$input.prop("checked",true);       
+	    } else {
+	        $input.prop("checked",false);
+	    }
+	});
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
