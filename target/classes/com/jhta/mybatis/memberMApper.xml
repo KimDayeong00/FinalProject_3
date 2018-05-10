@@ -11,8 +11,8 @@
 	
 	<insert id="insertP" parameterType="petsitter">
 		insert into petsitter(PS_EMAIL,PS_PWD,PS_PHONE,PS_NAME,PS_ADDR1,PS_ADDR2,PS_CONTENT,PS_REGDATE,PS_LAT,
-PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN) values(#{ps_email},#{ps_pwd},#{ps_phone},#{ps_name},#{ps_addr1},#{ps_addr2}
-		,#{ps_content},sysdate,#{ps_lat},#{ps_lng},null,null,#{ps_gubun},0)
+PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pwd},#{ps_phone},#{ps_name},#{ps_addr1},#{ps_addr2}
+		,#{ps_content},sysdate,#{ps_lat},#{ps_lng},null,null,#{ps_gubun},0,0)
 	</insert>
 	
 	

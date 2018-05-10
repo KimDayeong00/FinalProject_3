@@ -43,10 +43,10 @@
                   <li><a href="#"><i class="fa fa-desktop"></i> UI Elements</a>
                     
                   </li>
-                  <li><a href="#"><i class="fa fa-table"></i> Tables </a>
+                  <li><a href="<c:url value="/admin/mManage" />"><i class="fa fa-table"></i> 회원관리 </a>
                   
                   </li>
-                  <li><a href="#"><i class="fa fa-bar-chart-o"></i> 정산 </a>
+                  <li><a href="<c:url value="/admin/calc" />"><i class="fa fa-bar-chart-o"></i> 정산 </a>
                  
                   </li>
                   <li><a href="#"> <i class="fa fa-clone"></i>Layouts</a>

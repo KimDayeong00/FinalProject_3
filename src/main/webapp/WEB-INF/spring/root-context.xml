@@ -22,14 +22,8 @@
 		</property>
 	
 	</bean>	
-
-	
-		simplemailsender 객체 생성
-		<bean class="com.jhta.project.mail.SimpleMailSender" >
-			<property name="ms" ref="com.jhta.project.mailSender" />
-		</bean>
+ -->
 		
-		 -->
 
 	<!-- 1.dataSource 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"

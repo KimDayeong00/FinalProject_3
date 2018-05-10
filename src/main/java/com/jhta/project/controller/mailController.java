@@ -1,29 +1,29 @@
 package com.jhta.project.controller;
 
 
-import org.springframework.stereotype.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.jhta.project.mail.EmailForm;
+import com.jhta.project.mail.SimpleMailSender;
 
 @Controller
 public class mailController {
-/*
-	@Autowired
-	private SimpleMailSender sender;
-
-	@RequestMapping(value = "/mail/mailForm")
-	public String mailForm() {
-
-		return "/members/pForm";
-	}
-
-	// mailSending ÄÚµå
-	@RequestMapping(value = "/mail/mailSending", method = RequestMethod.POST)
-	public String mailSending(String title, String data, String toEmail, String fromEmail) {
-		boolean result = sender.sendMail(title, data, toEmail, fromEmail); 
-
-		return ".main";
-		
-		
-	}	*/
-		
+	 /* @Autowired
+      private SimpleMailSender emailSender;
+          
+      @RequestMapping(value="send",method=RequestMethod.GET)
+      public String formback() {
+          return ".members.mailform";
+      }
+      
+      
+      @RequestMapping(value="send",method=RequestMethod.POST)
+      public String submit(EmailForm form) throws Exception{
+          emailSender.sendEmail(form);
+          return ".members.success";
+      }*/
 }
