@@ -4,20 +4,27 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.petAdminMapper">
 
-<select id="earn"  resultType="pay" parameterType="map">
-	SELECT  sum(comn) as count, 
+<select id="earn"  resultType="pay" parameterType="string">
+select to_char(d_ymd,'YYYY-MM-DD') created_date, nvl(count,0) count from  
+(SELECT TO_DATE(#{value},'yyyymm') + LEVEL - 1 d_ymd  
+FROM dual 
+<![CDATA[
+CONNECT BY LEVEL <= TO_CHAR(LAST_DAY(TO_DATE(#{value},'yyyymm')),'dd')) a FULL OUTER JOIN 
+ ]]>
+(
+SELECT  sum(comn) as count, 
   to_char(pay_date, 'YYYY-MM-DD') as created_date 
 FROM 
   pay 
 WHERE 
-<![CDATA[
-  to_char(pay_date, 'YYYY-MM-DD')>=#{start} AND to_char(pay_date, 'YYYY-MM-DD')<#{end}
- ]]>
+ to_char(pay_date, 'YYYYMM')=#{value}
 GROUP BY 
   to_char(pay_date, 'YYYY-MM-DD')
-  order by created_date asc
+  order by created_date  asc
+) b
+ON a.d_ymd = b.created_date
+order by d_ymd
 </select>
 
 
 </mapper>
-

@@ -17,8 +17,8 @@ public class adminService {
 	@Autowired private adminDAO dao;
 
 	
-	public List<payVO> earn(String start,String end){
-		return dao.earn(start, end);
+	public List<payVO> earn(String createday){
+		return dao.earn(createday);
 	}
 	
 	
