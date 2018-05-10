@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-    </div>aaa
+    </div>
     <!-- hero-section close -->
     <!-- service-section start -->
     <div class="space-medium">
