@@ -77,5 +77,18 @@ select * from itemreview where p_num=#{p_num}
 <select id="imglist"  parameterType="Integer" resultType="shopitemimagevo">
 select * from itemimage where p_num=#{p_num}
 </select>
+
+<insert id="payinsert" parameterType="payboardvo">
+insert into payboard values(seq_payboard_buy_num.nextval,sysdate,#{name},#{addr},#{caddr},#{accprice},#{m_email})
+</insert>
+
+<select id="getbuynum" resultType="int">
+select max(buy_num) from payboard
+</select>
+
+<insert id="orderinsert" parameterType="orderitemlistvo">
+insert into orderitemlist values(seq_orderitemlist_order_num.nextval,#{amount},#{price},#{p_num},#{buy_num})
+</insert>
+
 </mapper>
 

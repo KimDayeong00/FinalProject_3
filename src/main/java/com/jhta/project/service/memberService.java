@@ -41,4 +41,7 @@ public class memberService {
 	public int updatePwd(memberVO vo) {
 		return dao.updatePwd(vo);
 	}
+	public memberVO infoEmail(String email) {
+		return dao.infoEmail(email);
+	}
 }

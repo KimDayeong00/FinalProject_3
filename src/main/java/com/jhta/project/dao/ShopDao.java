@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.project.vo.OrderItemListVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
@@ -15,6 +16,7 @@ import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
+import com.jhta.project.vo.ShopPayBoardVo;
 
 @Repository
 public class ShopDao {
@@ -72,4 +74,14 @@ public class ShopDao {
 		return sqlSession.selectList(NAMESPACE+".imglist",p_num);
 	}
 	
+	public int getbuynum() {
+		return sqlSession.selectOne(NAMESPACE+".getbuynum");
+	}
+	
+	public int payinsert(ShopPayBoardVo vo) {
+		return sqlSession.insert(NAMESPACE+".payinsert",vo);
+	}
+	public int orderinsert(OrderItemListVo vo) {
+		return sqlSession.insert(NAMESPACE+".orderinsert",vo);
+	}
 }

@@ -42,5 +42,8 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pw
 		update memberlist set m_pwd=#{m_pwd} where m_email=#{m_email}	
 	</update>
 	
+	<select id="infoEmail" parameterType="string" resultType="member">
+		select * from memberlist where m_email=#{value}
+	</select>
 </mapper>
 
