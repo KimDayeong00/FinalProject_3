@@ -36,6 +36,7 @@ import com.jhta.project.service.PetSitterServiceImpl;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PpetInfoService;
 import com.jhta.project.vo.DisableDateVo;
+import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterVo;
@@ -344,6 +345,26 @@ public class PetsitterPageController {
 		mv.addObject("dtld","ppetList");
 		mv.addObject("url",path+"/petInfo");
 	
+		return mv;
+	}
+	
+	@RequestMapping(value="/PpetDetail", method=RequestMethod.GET)
+	public ModelAndView myPetDetailView(String page, String dtld, HttpSession session,String pi_num) {
+		ModelAndView mv=new ModelAndView(url);
+		String m_email = (String) session.getAttribute("login");
+		int pi_n = Integer.parseInt(pi_num);
+		
+		PetsitterPetVo ppetInfo = petInfoService.selectPetUpdate(pi_n);
+		String[] date = ppetInfo.getPi_age().split("-");
+		
+		String pi_year = date[0];
+		String pi_month = date[1];
+		
+		mv.addObject("page",page);
+		mv.addObject("dtld",dtld);
+		mv.addObject("pi_year",pi_year);
+		mv.addObject("pi_month",pi_month);
+		mv.addObject("ppetInfo",ppetInfo);
 		return mv;
 	}
 	

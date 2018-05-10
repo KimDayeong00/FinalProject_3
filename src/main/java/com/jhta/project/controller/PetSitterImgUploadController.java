@@ -110,4 +110,45 @@ public class PetSitterImgUploadController {
 		return ob.toString();
 	}
 	
+	@RequestMapping(value="/myPetImgUpload",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String myPetImgUpload(MultipartHttpServletRequest multi) {
+		String root = multi.getSession().getServletContext().getRealPath("/");
+		String path = root+"resources/upload/";
+		String m_email = (String) multi.getSession().getAttribute("login");
+		String msg = "success";
+		
+		String savefilename = "";
+		String orgfilename = "";
+		File dir = new File(path);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		Iterator<String> files = multi.getFileNames();
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			
+			MultipartFile mf = multi.getFile(uploadFile);
+			orgfilename = mf.getOriginalFilename();
+			savefilename=UUID.randomUUID() +"_" + orgfilename;
+			
+			try {
+				mf.transferTo(new File(path+savefilename));
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg="fail";
+			}
+		}
+		System.out.println("filename:"+savefilename);
+		//int pimg_num = Integer.parseInt(multi.getParameter("pimg_num"));
+		
+		JSONObject ob=new JSONObject();
+		ob.put("msg", msg);
+		//ob.put("pimg_num",vo.getPimg_num());
+		ob.put("pi_orgfilename", orgfilename);
+		ob.put("pi_savefilename", savefilename);
+		return ob.toString();
+	}
+	
 }

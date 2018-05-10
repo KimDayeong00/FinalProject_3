@@ -5,26 +5,30 @@ public class MpetInfoVo {
 	private String pi_name;
 	private String pi_age;
 	private String pi_type;
-	private int weight;
+	private int pi_weight;
 	private String m_email;
 	private String pi_orgfilename;
 	private String pi_savefilename;
 	private String pi_sex;
+	private String pi_content;
+	private int pi_gubun;
 	
 	public MpetInfoVo() {}
 
-	public MpetInfoVo(int pi_num, String pi_name, String pi_age, String pi_type, int weight, String m_email,
-			String pi_orgfilename, String pi_savefilename, String pi_sex) {
+	public MpetInfoVo(int pi_num, String pi_name, String pi_age, String pi_type, int pi_weight, String m_email,
+			String pi_orgfilename, String pi_savefilename, String pi_sex,String pi_content,int pi_gubun) {
 		super();
 		this.pi_num = pi_num;
 		this.pi_name = pi_name;
 		this.pi_age = pi_age;
 		this.pi_type = pi_type;
-		this.weight = weight;
+		this.pi_weight = pi_weight;
 		this.m_email = m_email;
 		this.pi_orgfilename = pi_orgfilename;
 		this.pi_savefilename = pi_savefilename;
 		this.pi_sex=pi_sex;
+		this.pi_content=pi_content;
+		this.pi_gubun=pi_gubun;
 	}
 
 	public int getPi_num() {
@@ -59,14 +63,6 @@ public class MpetInfoVo {
 		this.pi_type = pi_type;
 	}
 
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
 	public String getM_email() {
 		return m_email;
 	}
@@ -98,6 +94,29 @@ public class MpetInfoVo {
 	public void setPi_sex(String pi_sex) {
 		this.pi_sex = pi_sex;
 	}
-	
+
+	public int getPi_weight() {
+		return pi_weight;
+	}
+
+	public void setPi_weight(int pi_weight) {
+		this.pi_weight = pi_weight;
+	}
+
+	public String getPi_content() {
+		return pi_content;
+	}
+
+	public void setPi_content(String pi_content) {
+		this.pi_content = pi_content;
+	}
+
+	public int getPi_gubun() {
+		return pi_gubun;
+	}
+
+	public void setPi_gubun(int pi_gubun) {
+		this.pi_gubun = pi_gubun;
+	}
 	
 }

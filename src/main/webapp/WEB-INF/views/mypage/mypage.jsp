@@ -22,9 +22,34 @@
 	</div>
 	<div class='mypetsitterContent'>
 		<div class='mypageMenubar'>
-			<div class="menubarDiv2"><span><a href="<c:url value='/mypage'/>">받은 예약 내역</a></span></div>
+			<div class="menubarDiv"><span><a href="<c:url value='/mypage?page=top&dtld=reservation'/>">예약 중인 내역</a></span></div>
+			<div class="menubarDiv"><span><a href="<c:url value='/mypage'/>">이전 예약 내역</a></span></div>
 		</div>
 		<div class="reservationInfo">
+			<div class="">
+				<table class="bookTable">
+					<tr style="border-bottom:1px solid gray;">
+						<th>돌봄 시작 날짜</th><th>돌봄 끝 날짜</th><th>돌보미 상세</th><th>맡기는 반려견</th>
+					</tr>
+					
+						<c:forEach var="mlist" items="${mbookList }">
+							<tr>
+								<td>${mlist.bk_startdate }</td>
+								<td>${mlist.bk_enddate }</td>
+								<td><a href="<c:url value='/detail?ps_email=${mlist.ps_email }'/>">${mlist.ps_name }</a></td>
+								<c:choose>
+									<c:when test="${mlist.count>1 }">
+										<td>${mlist.pi_name } 외 ${mlist.count-1 }마리</td>
+									</c:when>
+									<c:otherwise>
+										<td>${mlist.pi_name }</td>	
+									</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

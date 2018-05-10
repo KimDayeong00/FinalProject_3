@@ -1,6 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+//저장된 반려견 셀렉트 박스 값 불러오기
+var pi_sex = '<c:out value="${mpetInfo.pi_sex}"/>';
+var pi_year = '<c:out value="${pi_year}"/>';
+var pi_month = '<c:out value="${pi_month}"/>';
+
+//저장된 펫시터 반려견 라디오 값 불러오기
+var pi_gubun = '<c:out value="${mpetInfo.pi_gubun}"/>';
+
+$(document).ready(function(){
+	//반려견 셀렉트 박스 값 설정
+	if(pi_sex=='남'){
+		$("#pi_sex").prop("value","남");
+	}else if(pi_sex=='여'){
+		$("#pi_sex").prop("value","여");
+	}
+	
+	$("#pi_year").prop("value",pi_year);
+	$("#pi_month").prop("value",pi_month);
+	
+	//반려견 라디오 값 설정
+	$('input:radio[name="pi_gubun"]').each(function(){
+				if(pi_gubun==this.value){		
+					this.checked=true;
+					//$("#pi_gubun").prop("value",this.value);
+				}
+		});
+});
+</script>
+<script>
+	$(document).ready(function(){
+		$('input:radio[name="gubun"]').click(function(){
+			 $("#pi_gubun").prop("value",this.value);
+		});
+	});
+</script>
+<script>
+$(document).ready(function(){
+	//이미지 hover 효과
+	$('.ppetImgBox img').hover(function(){
+		$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+	},function(){
+		$(this).css("border","");
+	});
+	
+	$('#ppetImg').hover(function(){
+		$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+	},function(){
+		$(this).css("border","");
+	});
+	
+	
+	//이미지 클릭하여 업로드
+	$('.ppetImgBox img').click(function(){
+		var img = $(this);
+		var input = img.next('input[name=my_imgUpload]');
+		//var submit = input.next('.ps_imgSubmit');
+		input.trigger("click");
+		if(input.val()!==""){
+			var fd = new FormData();
+			fd.append("file",input.prop("files")[0]);
+			$.ajax({
+				url:"<c:url value='/myPetImgUpload'/>",
+				data:fd,
+				processData:false,
+				contentType:false,
+				type:'post',
+				dataType:"json",
+				success:function(data){
+					alert(data.msg);
+					img.prop("src","<c:url value='/resources/upload/"+data.pi_savefilename+"'/>");
+					$("#pi_savefilename").prop("value",data.pi_savefilename);
+					$("#pi_orgfilename").prop("value",data.pi_orgfilename);
+					//input.next(".pimg_num").prop("value",data.pimg_num);
+				}
+			});
+		}
+	});
+});
+
+</script>
 
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
@@ -26,34 +107,43 @@
 				<c:choose>
 					<c:when test="${dtld eq 'petList' }">
 					<div style="border-top:1px solid gray;">
-						<c:if test="${null ne ppetList}">
-								<c:forEach var="vo3" items="${petList }">
+						<c:if test="${null ne mpetList}">
+								<c:forEach var="vo3" items="${mpetList }">
 								<div class="ppetInfo">
 									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
-										<span>${vo3.pi_name }</span><br>
+										<span><a href="<c:url value='/myPetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
-										<span><a href="<c:url value='/petInfoUpdate?page=petInfo&dtld=petUpdate&pi_num=${vo3.pi_num }'/>">수정하기</a></span>
+										<span><a href="<c:url value='/myPetInfoUpdate?page=petInfo&dtld=petUpdate&pi_num=${vo3.pi_num }'/>">수정하기</a></span>
 									</div>
 								</div>
 								</c:forEach>
 						</c:if>
 					</div>
 					<div>
-						<a href="<c:url value='/petInfo?page=petInfo&dtld=petInsert'/>">+반려견 추가하기</a>
+						<a href="<c:url value='/myPetInfo?page=petInfo&dtld=petInsert'/>">+반려견 추가하기</a>
 					</div>
 					</c:when>
 					<c:when test="${dtld eq 'petInsert' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='petInfo'/>">
+								
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
-									<input type="radio" name="pi_gubun" value="1" checked="checked">현재 키우고 있음<br>
-									<input type="radio" name="pi_gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
+									<input type="radio" name="gubun" value="1">현재 키우고 있음<br>
+									<input type="radio" name="gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox"><img id="ppetImg"></div>
+									<div class="ppetImgBox">
+										<form method="post" enctype="multipart/form-data" class="ps_imgForm" action="<c:url value='/myPetImgUpload'/>">
+											<img id="ppetImg">
+											<input type="file" name="my_imgUpload" style="display:none;">
+										</form>
+									</div>
+									
+								</div>
+									<div class="queBox">
+									<form method="post" action="<c:url value='myPetInfo'/>">
 									<div><input type="text" placeholder="이름" name="pi_name"></div>
 									<div><select name="pi_sex">
 										<option>성별</option>
@@ -76,20 +166,24 @@
 										</select>
 									</div>
 									<div>
+									<label>관리 지침 및 요청 사항</label><br>
 									<textarea rows="10" cols="50" name="pi_content"></textarea>
 									</div>
+									<input type="hidden" name="pi_gubun" id="pi_gubun">
+									<input type="hidden" name="pi_savefilename" id="pi_savefilename">
+									<input type="hidden" name="pi_orgfilename" id="pi_orgfilename">
 									<button type="submit" class="modifyBtn">
 										<label>설정하기</label>
 									</button>
+									</form>
 								</div>
-								</form>
 							</div>
 						</div>
 					</c:when>
 					<c:when test="${dtld eq 'petUpdate' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='petInfoUpdate'/>">
+								<form method="post" action="<c:url value='myPetInfoUpdate'/>">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="pi_gubun" value="1">현재 키우고 있음<br>
@@ -97,14 +191,14 @@
 								</div>
 								<div class="queBox">
 									<div class="ppetImgBox"><img id="ppetImg"></div>
-									<div><input type="text" placeholder="이름" name="pi_name" value="${ppetInfo.pi_name }"></div>
+									<div><input type="text" placeholder="이름" name="pi_name" value="${mpetInfo.pi_name }"></div>
 									<div><select name="pi_sex" id="pi_sex">
 										<option>성별</option>
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div><input type="text" placeholder="품종" name="pi_type" value="${ppetInfo.pi_type }"></div>
-									<div><input type="text" placeholder="무게" name="pi_weight" value="${ppetInfo.pi_weight }"></div>
+									<div><input type="text" placeholder="품종" name="pi_type" value="${mpetInfo.pi_type }"></div>
+									<div><input type="text" placeholder="무게" name="pi_weight" value="${mpetInfo.pi_weight }"></div>
 									<div>
 									<select name="pi_year" id="pi_year">
 										<c:forEach var="i" begin="1980" end="${year }">
@@ -119,14 +213,31 @@
 										</select>
 									</div>
 									<div>
-									<textarea rows="10" cols="50" name="pi_content">${ppetInfo.pi_content }</textarea>
+									<label>관리 지침 및 요청 사항</label><br>
+									<textarea rows="10" cols="50" name="pi_content">${mpetInfo.pi_content }</textarea>
 									</div>
-									<input type="hidden" name="pi_num" value="${ppetInfo.pi_num }">
+									<input type="hidden" name="pi_num" value="${mpetInfo.pi_num }">
 									<button type="submit" class="modifyBtn">
 										<label>설정하기</label>
 									</button>
 								</div>
 								</form>
+							</div>
+						</div>
+					</c:when>
+					<c:when test="${dtld eq 'petDetail' }">
+						<div class="petInsert">
+							<div class="petInsertContent">
+								<div>
+									<img src="<c:url value='/resources/upload/${mpetInfo.pi_savefilename }'/>">
+									<div class="queBox" style="border-bottom:1px solid gray;">
+									<span>${mpetInfo.pi_name }</span>&nbsp;<span>${mpetInfo.pi_sex }, ${pi_year }년 ${pi_month }월 생, ${mpetInfo.pi_type }, ${mpetInfo.pi_weight }kg</span><br>
+									</div><br>
+									<div>
+									<label>관리 지침 및 요청 사항</label><br>
+									<textarea rows="10" cols="50" style="width: 100%;" readonly="readonly">${mpetInfo.pi_content }</textarea>
+									</div>
+								</div>
 							</div>
 						</div>
 					</c:when>

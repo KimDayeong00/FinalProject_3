@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
 	var startcheckin = '<c:out value="${vo.po_startcheckin}"/>';
 	var endcheckin = '<c:out value="${vo.po_endcheckin}"/>';
@@ -295,13 +296,16 @@
 	<div class="imgSlide">
 		<div class="slider">
 			<c:forEach var="img" items="${imgList }">
-				<div><img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>"></div>
+				<div><img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>">
+				</div>
 			</c:forEach>
 		</div>
 	</div>
 	<form method="post" action="#">
 	<div class="book">
-		<p>예약을 원하는 날짜와 시간을 선택해주세요.</p>
+		<div class="book-font">
+		<p><strong>예약을 원하는 날짜와 시간을 선택해주세요.</strong></p>
+		</div>
 		<div class="calendar">
 			<input type="text" id="selector" style="width: 150px" placeholder="시작 날짜 선택하기"> 
 			<input type="text" id="selector2" style="width: 150px" placeholder="끝 날짜 선택하기">
@@ -349,7 +353,7 @@
 			<div><span>부가세</span></div>
 			<div class="price"><span class="tax">0</span>원</div>
 		</div>
-		<div class="book_box2" style="border-bottom:1px solid gray;height:30px;">
+		<div class="book_box2" style="border-bottom:1px solid #BABABA;height:30px;">
 			
 			<div><span>총 합계</span></div>
 			<div class="price"><span class="totalprice">0</span>원</div>
@@ -360,12 +364,13 @@
 	</div>
 	</form>
 	<div class="petsitterInfo">
+	<div class="ps-content">
 		<div class="petsitterProfile">
 			<div class="petsitterImg">
-				<img>
+				<img src="<c:url value='resources/images/noprofile.png'/>">
 			</div>
 			<div class="profile">
-				<span class="petsitterName">${vo2.ps_name }</span><span class="addr">${vo2.ps_addr1 }</span>
+				<span class="petsitterName">${vo2.ps_name }</span>&nbsp;&nbsp;&nbsp;<span class="addr">${vo2.ps_addr1 }</span><br><br>
 				<div class="filterList">
 					<c:forEach var="filter" items="${filterList }">
 						<div class="filter"><span>${filter.f_type}</span></div>
@@ -375,10 +380,13 @@
 			</div>
 		</div>
 		<div class="petsitterOption">
-			<div class="petSize">
+			<!-- <div class="petSize">
 				<span>돌봄 가능한 강아지 크기 & 나이</span><br>
 				<span></span><br>
 				<span></span><br>
+			</div> -->
+			<div class="petSize">
+				<img src="<c:url value='resources/images/Watch-icon.png'/>">
 			</div>
 			<div class="time">
 				<div style="text-align: left;">
@@ -389,81 +397,94 @@
 			</div>
 		</div>
 		<div class="homeStateWrap">
-			<p>돌봄 환경</p>
 			<div class="homeState">
+			<p><strong>돌봄 환경</strong></p>
 				<div class="left">
-					<span>돌봄 공간</span>
-					<span>${vo.po_space }</span><br>
-					<span>인근 지하철 역</span>
-					<span>${vo.po_subway }</span><br>
-					<span>마당 유무</span>
+					<div style="background-color:#f0efe8;"><span>돌봄 공간</span><span class="right-span">${vo.po_space }</span></div>
+					<div><span>인근 지하철 역</span><span class="right-span">${vo.po_subway }</span></div>
+					<div style="background-color:#f0efe8;"><span>마당 유무</span>
 					<c:choose>
 						<c:when test="${vo.po_yard eq 0}">
-							<span>없습니다.</span>									
+							<span class="right-span">없습니다</span>									
 						</c:when>
 						<c:otherwise>
-							<span>있습니다.</span>
+							<span class="right-span">있습니다</span>
 						</c:otherwise>
 					</c:choose>
-					<br>				
+					</div>				
 				</div>
 				<div class="right">
-					<span>14세 미만 아동</span>
+					<div style="background-color:#f0efe8;"><span>14세 미만 아동</span>
 					<c:choose>
 						<c:when test="${vo.po_child eq 0}">
-							<span>없습니다.</span><br>										
+							<span class="right-span">없습니다</span>										
 						</c:when>
 						<c:otherwise>
-							<span>${vo.po_child }명 있습니다.</span>
+							<span class="right-span">${vo.po_child }명 있습니다</span>
 						</c:otherwise>
-					</c:choose>		
-					<br>
-					<span>가족 동거 유무</span>
+					</c:choose>	
+					</div>	
+					<div><span>가족 동거 유무</span>
 					<c:choose>
 						<c:when test="${vo.po_family eq 0}">
-							<span>혼자 살고 있어요.</span><br>										
+							<span class="right-span">혼자 살고 있어요</span>										
 						</c:when>
 						<c:otherwise>
-							<span>${vo.po_family }명과 같이 살아요.</span>
+							<span class="right-span">${vo.po_family }명과 같이 살아요</span>
 						</c:otherwise>
-					</c:choose>		
-					<br>
-					<span>다른 동물 유무</span>
+					</c:choose>
+					</div>
+					<div style="background-color:#f0efe8;"><span>다른 동물 유무</span>
 					<c:choose>
 						<c:when test="${vo.po_otherpet eq 0}">
-							<span>혼자 살고 있어요.</span><br>										
+							<span class="right-span">혼자 살고 있어요</span>							
 						</c:when>
 						<c:otherwise>
-							<span>${vo.po_otherpet }마리와 같이 살아요.</span>
+							<span class="right-span">${vo.po_otherpet }마리와 같이 살아요</span>
 						</c:otherwise>
-					</c:choose>		
-					<br>
+					</c:choose>
+					</div>
 				</div>
 			</div>
-		</div>
+		</div><br>
 		<div class="introduction">
-			<p>돌보미 소개</p>
-			<div>
-				<!--<c:if test="${vo3.pi_gubun eq 0 }">
-					<span>${vo2.ps_name } 돌보미는 강아지를 키운 적이 있으며, 현재는 키우고 있지 않습니다.</span><br>
-				</c:if>--> 
-				<c:forEach var="vo3" items="${petList }">
-					<div class="petImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div><br>
-					<span class="petName">${vo3.pi_name }</span><br>
-					<span class="petInfo">(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
-				</c:forEach>
+			<div class="introBox">
+				<div class="petIntro">
+				<p><strong>돌보미 소개</strong></p>
+					<c:set var="loop" value="0"/>
+					<c:forEach var="gubun" items="${petList }" varStatus="status">
+						<c:if test="${gubun.pi_gubun eq 0}">
+							<c:set var="loop" value="${loop+1 }"/>
+						</c:if>
+						<c:if test="${loop eq fn:length(petList) }">
+							<span>${vo2.ps_name } 돌보미는 강아지를 키운 적이 있으며, 현재는 키우고 있지 않습니다.</span>
+						</c:if>
+					</c:forEach>
+					<br><br>
+					<c:forEach var="vo3" items="${petList }">
+						<div class="petImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>">
+						<span class="petName">${vo3.pi_name }</span>
+						<span class="petInfo">(${vo3.pi_type }, ${vo3.pi_sex }, ${vo3.pi_age }살)</span>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="introContent">
+				<div class="selfIntroduction">
+					${vo2.ps_content }
+				</div>
+				<div class="hideIntroduction">
+				</div>
+				</div>
 			</div>
-			<div class="selfIntroduction">
-				${vo2.ps_content }
+		<div class="ps-review">
+			<div><p><strong>후기 1개</strong></p></div>
+			<div><span><strong>이름</strong></span></div>
+			<div class="ps-rvContent">
+			몽이를 키우는 동안 모르는 사람에게 맡긴 적이 없어<br>
+			걱정이 많았는데 펫시터 분 첫인상부터 너무 좋으신 분이라 안심했어요. :) 
 			</div>
-			<div class="hideIntroduction">
-			</div>
-		</div>
-		<div class="review">
-			<div><img></div>
-			<p>이름</p>
-			<div></div>
 		</div>
 	</div>
-	
+	</div>
+</div>
 </div>
