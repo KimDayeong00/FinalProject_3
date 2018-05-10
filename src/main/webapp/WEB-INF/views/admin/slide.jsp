@@ -34,7 +34,8 @@
                     <ul class="nav child_menu">
                       <li><a href="<c:url value="/shopadmin/list" />">상품관리</a></li>
                       <li><a href="<c:url value="/shopadmin/itemadd" />">상품추가</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
+                      <li><a href="<c:url value="/shopadmin/kategorie" />">카테고리추가</a></li>
+                      <li><a href="<c:url value="/shopadmin/filter" />">필터추가</a></li>
                     </ul>
                   </li>
                   <li><a href="<c:url value="/admin/mManage" />"><i class="fa fa-table"></i> 회원관리 </a></li>
