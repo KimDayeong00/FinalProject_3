@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">    
 <configuration>
-
 	<typeAliases>
 		<!-- ItemFilter -->
 		<typeAlias type="com.jhta.project.vo.ItemFilterVo" alias="itemFilter" />
@@ -58,22 +57,22 @@
 	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   	
+	   	<mapper resource="com/jhta/mybatis/FilterMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml"/>
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		
 	<!--  Shop -->
+		<mapper resource="com/jhta/mybatis/MpetInfoMapper.xml"/>
+		<!--  Shop -->
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	
 		<!--  Date-->
 		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
         <mapper resource="com/jhta/mybatis/AdminMapper.xml" />
-        <mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
-        <mapper resource="com/jhta/mybatis/ShopMapper.xml" /> 
     <!--  Qna -->   
        <mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
    </mappers>
 
 </configuration>
-
-
 

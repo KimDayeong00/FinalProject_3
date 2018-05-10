@@ -16,8 +16,12 @@ public class PetsitterOptionService {
 		return dao.getOption(ps_email);
 	}
 	
-	public List<String> getImg(String ps_email) {
-		return dao.getImg(ps_email);
+//	public List<String> getImg(String ps_email) {
+//		return dao.getImg(ps_email);
+//	}
+	
+	public int updatePsInfoSet(PetsitterOptionVo vo) {
+		return dao.updatePsInfoSet(vo);
 	}
 	
 }

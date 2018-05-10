@@ -29,5 +29,18 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pw
 		select count(*) from petsitter where ps_email = #{value}	
 	</select>
 	
+	
+	<select id="selectMember" parameterType="string" resultType="member">
+		select * from memberlist where m_email=#{value}	
+	</select>
+	
+	<update id="updateMember" parameterType="member">
+		update memberlist set m_name=#{m_name},m_phone=#{m_phone},m_addr=#{m_addr} where m_email=#{m_email}	
+	</update>
+	
+	<update id="updatePwd" parameterType="member">
+		update memberlist set m_pwd=#{m_pwd} where m_email=#{m_email}	
+	</update>
+	
 </mapper>
 

@@ -15,4 +15,8 @@ public class DisableDateService {
 	public List<DisableDateVo> getDisable(String ps_email) {
 		return dao.getDisable(ps_email);
 	}
+	
+	public int updateDis(DisableDateVo vo) {
+		return dao.updateDis(vo);
+	}
 }

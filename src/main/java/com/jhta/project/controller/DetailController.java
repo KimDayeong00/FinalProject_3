@@ -35,13 +35,13 @@ public class DetailController {
 	@RequestMapping("/detail")
 	public ModelAndView detail(String ps_email) {
 		ModelAndView mv=new ModelAndView(".detail");
-		PetsitterOptionVo vo = service.getOption("A@B.COM");
-		List<PetSitterImageVo> imgList = service2.getImg("A@B.COM");
-		PetSitterVo vo2 = service3.select("A@B.COM");
-		List<PetsitterPetVo> petList = service4.select("A@B.COM");
-		PetSitterPriceVo vo4 = service5.select("A@B.COM");
-		List<PetSitterFilterVo> filterList=service3.getFilter("A@B.COM");
-		List<DisableDateVo> dd = service6.getDisable("A@B.COM");
+		PetsitterOptionVo vo = service.getOption(ps_email);
+		List<PetSitterImageVo> imgList = service2.getImg(ps_email);
+		PetSitterVo vo2 = service3.select(ps_email);
+		List<PetsitterPetVo> petList = service4.select(ps_email);
+		PetSitterPriceVo vo4 = service5.select(ps_email);
+		List<PetSitterFilterVo> filterList=service3.getFilter(ps_email);
+		List<DisableDateVo> dd = service6.getDisable(ps_email);
 		
 //		String day = dd.getDisday();
 //		String date = dd.getDisDate();
