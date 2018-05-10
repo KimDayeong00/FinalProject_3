@@ -86,9 +86,12 @@ String email = (String)session.getAttribute("login");
                         <a href="<c:url value='/'/>"><img src="<c:url value='/resources/images/logo.png'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
                     </div>
                     <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+									   <nav class="navbar navbar-reverse">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <div class="navigation">
                             <div id="navigation">
-                                <ul>
+      <ul class="nav navbar-nav">
                                     <!-- <li class="active"><a href="index.html" title="Home">홈</a></li> -->
                                     <li><a href="about.html" title="About us">소개</a> </li>
                                     <!-- <li class="has-sub"><a href="blog-default.html" title="Blog ">Blog</a>
@@ -98,7 +101,21 @@ String email = (String)session.getAttribute("login");
                                         </ul>
                                     </li> -->
 									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
-                                    <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
+									 
+									 
+       <!-- Collect the nav links, forms, and other content for toggling -->
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리 <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+           <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰 홈</a></li>
+            <c:forEach var="classvo" items="${classvo}">
+          <li><a href="<c:url value='/item/classitemlist?classnum=${classvo.classnum }'/>">${classvo.name }</a></li>
+        </c:forEach>    
+          </ul>
+        </li>
+     
+                               
                                     <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
                                     <li class="has-sub"><a href="#" title="Tours">고객지원</a>
                                         <ul>
@@ -109,6 +126,9 @@ String email = (String)session.getAttribute("login");
                                 </ul>
                             </div>
                         </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+                        </nav>
                     </div>
                 </div>
             </div>

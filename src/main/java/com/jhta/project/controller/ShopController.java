@@ -47,6 +47,7 @@ public class ShopController {
 		mv.addObject("classvo",classvo);
 		return mv;
 	}
+
 	
 	@RequestMapping("/item/classitemlist")
 	public ModelAndView classitemlist(@RequestParam(value="pageNum",defaultValue="1")int pageNum,ShopClassVo vo,ShopFieldVo vo2) {
@@ -171,6 +172,9 @@ public class ShopController {
 	public ModelAndView cart(ShopCartVo vo,HttpSession session) {
 		System.out.println("아아아"+vo.toString());
 		ModelAndView mv=new ModelAndView(".shop.cartlist");	
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addObject("classvo",classvo);
 		String url="localhost:8090"+vo.getUrl();
 		ShopItemVo vo2=service.iteminfo(vo.getNum());
 		String img=vo2.getImage_name();
@@ -222,11 +226,6 @@ public class ShopController {
 		return ".shop.cartlist";
 	}
 	
-	@RequestMapping("/shop/cartlist")
-	public String cartlist() {
-	
-		return ".shop.cartlist";
-	}
 	
 	@RequestMapping("/shop/order")
 	public ModelAndView order() {
@@ -252,13 +251,16 @@ public class ShopController {
 		}else{
 			System.out.println("아님열로");
 		}
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addAttribute("classvo",classvo);
 		mv.addAttribute("member", member);
 		mv.addAttribute("list",list);
 		return ".shop.buy";
 	}
 	
 	@RequestMapping("/shop/pay")
-	public String pay(ShopPayBoardVo vo,OrderItemListVo vo2,HttpServletRequest req,int []p_num,int [] cnt,String [] price) {
+	public String pay(Model mv,ShopPayBoardVo vo,OrderItemListVo vo2,HttpServletRequest req,int []p_num,int [] cnt,String [] price) {
 		String juso1=req.getParameter("juso1");
 		String juso2=req.getParameter("juso2");
 		String addr=juso1+juso2;
@@ -269,6 +271,9 @@ public class ShopController {
 		String caddr3=req.getParameter("caddr3");
 		String caddr=caddr1+"-"+caddr2+"-"+caddr3;
 		
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addAttribute("classvo",classvo);
 		ShopPayBoardVo vo3=new ShopPayBoardVo(0, null, vo.getName(), addr, caddr, accprice, m_email);
 		System.out.println("값들을 출력하자"+vo3.toString());
 		service.payinsert(vo3);

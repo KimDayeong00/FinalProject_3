@@ -7,13 +7,13 @@
 
 .filtertype{width: 100px;height:40px;background-color:#525f78; margin:2px;padding: 10px;text-align:center;border: #336600 1px solid;border-radius:0px;font-size: 15px;}
 .container{width:1000px;}
-#item{word-wrap:break-word; width:220px;}
+#item{word-wrap:break-word; width:250px;}
 #bunryu{width:1000px;}
 .mystyle{background-color: #00ab33;}
 </style>
 <div id="wrap" class="container">
 
-<div id="bunryu">
+<div id="bunryu" style="margin-left: 200px;">
 
 <ul class="list-inline">
 	<li>분류</li>
@@ -61,7 +61,7 @@
 
 
 
-<div id="content" >
+<div id="content"  style="margin-left: 150px;">
 <c:set var="i" value="0" />
 <c:set var="j" value="3" />
 
@@ -71,10 +71,9 @@
             <c:if test="${i%j == 0 }">
                <tr>
             </c:if>
-                    <td style="size: 220px;" id="item">
-                    <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"><br>
-                    <a id="${itemvo.p_num }" 
-			href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">${itemvo.item_name }</a>
+                    <td style="size: 240px;" id="item">
+                <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"> <br> ${itemvo.item_name }</a><br>
+                
 			</td>
             <c:if test="${i%j == j-1 }">
                 </tr>
@@ -91,7 +90,7 @@
 
 </div>
 
-<div id="page" >
+<div id="page" style="margin-left: 400px;" >
   <ul class="pagination">
 	<c:choose>
 
