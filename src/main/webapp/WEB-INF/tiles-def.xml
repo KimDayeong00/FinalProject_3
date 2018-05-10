@@ -10,9 +10,9 @@
 	</definition>
 
 	<!-- .admin.notice -->
-	<definition name=".admin.notice" extends=".main">
+	<!-- <definition name=".admin.notice" extends=".main">
 		<put-attribute name="main" value="/WEB-INF/views/admin/notice.jsp"/>
-	</definition>
+	</definition> -->
 	<!-- 
 		뷰이름이 .admin.notice 라면
 		{1}의 위치에 admin
@@ -26,7 +26,26 @@
 		<put-attribute name="main1" value="/WEB-INF/views/shop/home.jsp"/>
 		<put-attribute name="footer1" value="/WEB-INF/views/footer.jsp"/>
 	</definition>
+	
+		<definition name=".admin" template="/WEB-INF/views/admin/layout.jsp">
+			<put-attribute name="header_a" value="/WEB-INF/views/admin/header.jsp" />
+			<put-attribute name="slide" value="/WEB-INF/views/admin/slide.jsp"/>
+			<put-attribute name="main_a" value="/WEB-INF/views/admin/main.jsp"/>
+		</definition>
 
+
+
+	<definition name=".admin.*.*.*" extends=".admin">
+		<put-attribute name="main_a" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp"/>
+	</definition>
+
+	<definition name=".admin.*.*" extends=".admin">
+		<put-attribute name="main_a" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+	</definition>
+	
+	<definition name=".admin.*" extends=".admin">
+		<put-attribute name="main_a" value="/WEB-INF/views/admin/{1}.jsp"/>
+	</definition>
 
 
 	<definition name=".shop.*.*.*" extends=".shop">

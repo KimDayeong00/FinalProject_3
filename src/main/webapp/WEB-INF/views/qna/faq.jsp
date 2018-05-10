@@ -12,7 +12,7 @@
 <body>
 			<h2>FAQ</h2>
 			<div>
-				많은 고객님께서 자주 문의하시는 질문에 대한 답변안내입니다. 
+				많은 고객님께서 자주 문의하시는 질문에 대한 답변안내입니다.
 			</div>			
 
 <!-- 			<form name="search" method="post" action="faq.asp">

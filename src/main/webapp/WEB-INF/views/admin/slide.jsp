@@ -52,7 +52,7 @@
                   <li><a href="#"> <i class="fa fa-clone"></i>Layouts</a>
                     
                   </li>
-                   <li><a href="#"><i class="fa fa-bug"></i> Additional Pages</a>
+                   <li><a href="<c:url value="/qna/adminqna" />"><i class="fa fa-bug"></i> 1:1문의</a>
                    
                   </li>
                 </ul>

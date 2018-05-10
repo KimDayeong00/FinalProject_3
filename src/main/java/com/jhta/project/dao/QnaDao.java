@@ -63,4 +63,12 @@ public class QnaDao {
 	public int qnadelete(int qnum) {
 		return sqlsession.delete(NAMESPACE + ".qnadelete", qnum);
 	}
+	
+	public int maxnum() {
+		return sqlsession.selectOne(NAMESPACE + ".maxnum");
+	}
+	
+	public int adminupdate(QnaVo vo) {
+		return sqlsession.update(NAMESPACE + ".adminupdate", vo);
+	}
 }

@@ -56,4 +56,12 @@ public class QnaService {
 	public int qnadelete(int qnum) {
 		return dao.qnadelete(qnum);
 	}
+	
+	public int maxnum() {
+		return dao.maxnum();
+	}
+	
+	public int adminupdate(QnaVo vo) {
+		return dao.adminupdate(vo);
+	}
 }
