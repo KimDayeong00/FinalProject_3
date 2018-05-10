@@ -34,7 +34,7 @@
 		</table>
 		<c:forEach var="vo" items="${filterlist }">
 			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
-		</c:forEach>
+		</c:forEach>z
 		<script>sojaeji();</script>
 	</div>
 	<%-- <div class="btn-group" data-toggle="buttons">
