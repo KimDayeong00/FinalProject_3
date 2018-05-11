@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.jhta.project.util.ImageRecognition;
 @Controller
 public class HomeConrtoller {
 	
@@ -16,15 +18,13 @@ public class HomeConrtoller {
 	}
 	
 	
-	@RequestMapping("/mypage")
-	public ModelAndView pageMove(String page, String dtld) {
-		ModelAndView mv=new ModelAndView(".petsitter_mypage.mypetsitter.petsitter_info");
-		
-		mv.addObject("page",page);
-		mv.addObject("dtld",dtld);
-		return mv;
+	@RequestMapping("/tensor")
+	public String tensor() {
+		ImageRecognition ir = new ImageRecognition();
+		ir.images();
+		return ".tensor";
+
 	}
 	
-
 }
 

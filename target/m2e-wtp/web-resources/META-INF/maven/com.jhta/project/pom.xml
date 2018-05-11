@@ -16,16 +16,20 @@
 	<dependencies>
 
 
-	
-	
-	
 
-	  
-	
-	
-	
 
-		
+		<dependency>
+			<groupId>org.tensorflow</groupId>
+			<artifactId>tensorflow</artifactId>
+			<version>1.1.0-rc2</version>
+		</dependency>
+
+
+
+
+
+
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -34,10 +38,10 @@
 		</dependency>
 		<!-- 웹소켓 사용하기 -->
 		<dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-websocket</artifactId>
-          <version>4.2.5.RELEASE</version>
-      </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>4.2.5.RELEASE</version>
+		</dependency>
 
 
 		<!-- tiles -->

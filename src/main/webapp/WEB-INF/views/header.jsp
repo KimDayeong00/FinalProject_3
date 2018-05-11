@@ -30,6 +30,7 @@ String email = (String)session.getAttribute("login");
                         }else if (email == null || email.equals("")){
                         %>
                         	<li><a href="<c:url value="/login" />">로그인</a></li>
+                        	
                         	<li><a href="<c:url value="/register1" />">회원가입</a></li>
                         	<li><a href="<c:url value="/register2" />">펫시터 등록</a></li>
                         
@@ -65,6 +66,7 @@ String email = (String)session.getAttribute("login");
                                             <li><a href="blog-single.html" title="Blog Single ">Blog Single</a></li>
                                         </ul>
                                     </li> -->
+                                    <li><a href="<c:url value="/tensor" />">텐서</a></li>
 									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
                                     <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
                                     <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
