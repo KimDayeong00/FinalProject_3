@@ -3,6 +3,7 @@ package com.jhta.project.controller;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import com.jhta.project.service.FilterTypeListService;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterService;
 import com.jhta.project.vo.FilterTypeListVo;
+import com.jhta.project.vo.FilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
 
@@ -34,31 +36,68 @@ public class BookingController {
 	@Autowired private FilterTypeListService filterTypeListService;
 	
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
-	public String list(Model model) {
-		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist();
-		List<FilterTypeListVo>filterlist = filterTypeListService.list();
-		for(PetSitterJoinFilterVo x : alllist) {
-			System.out.println(x.getPs_email());
+	public String list(Model model,Date bk_startdate,Date bk_enddate) {
+		HashMap<String, Object>map = new HashMap<>();
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
+		for(PetSitterJoinFilterVo vo : alllist) {
+			for(FilterVo vo1 : vo.getList()) {
+				System.out.println(vo1.getFl_name());
+			}
 		}
+		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);
-		return ".booking.test2";
+		return ".booking.list";
 	}
 	@RequestMapping(value="/booking/list",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng) {
-		HashMap<String, String>map = new HashMap<>();
+	public String jsonlist(String lat ,String lng, String leftlat, String leftlng,String rightlat,String rightlng,Date bk_startdate,Date bk_enddate,String[] filterchk,int chklength) {
+		System.out.println("bk_startdate:"+bk_startdate);
+		System.out.println("bk_enddate:"+bk_enddate);
+		HashMap<String, Object>map = new HashMap<>();
 		map.put("lat", lat);
 		map.put("lng", lng);
 		map.put("leftlat", leftlat);
 		map.put("leftlng", leftlng);
 		map.put("rightlat", rightlat);
 		map.put("rightlng", rightlng);
-		
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		for(int i=0; i<filterchk.length; i++) {
+			filterchk[i]=filterchk[i].replaceAll("[\"\\[\\]]", "");
+			System.out.println("filterchk[i] : "+filterchk[i]);
+		}
+		map.put("filterchk", filterchk);
+		System.out.println("chklength : "+ chklength);
+		map.put("chklength", chklength);
 		List<PetSitterJoinFilterVo> list=psetsitterservice.list(map);
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
 			obj.put("list",list);
+		}else {
+			System.out.println("없는값");
+		}
+		return obj.toString();
+	}
+	@RequestMapping(value="/booking/map",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String jsonmap(Date bk_startdate,Date bk_enddate,String[] filterchk,int chklength) {
+		System.out.println("bk_startdate:"+bk_startdate);
+		System.out.println("bk_enddate:"+bk_enddate);
+		HashMap<String, Object>map = new HashMap<>();
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		for(int i=0; i<filterchk.length; i++) {
+			filterchk[i]=filterchk[i].replaceAll("[\"\\[\\]]", "");
+		}
+		map.put("filterchk", filterchk);
+		map.put("chklength", chklength);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
+		JSONObject obj=new JSONObject();
+		if(alllist!=null) {
+			obj.put("alllist",alllist);
 		}else {
 			System.out.println("없는값");
 		}
@@ -89,7 +128,7 @@ public class BookingController {
 		    ////////////////////////////////////////////////////////////////////////////
 			///////////////////// 2. DB저장 ////////////////////////////////////////////
 			long filesize=file1.getSize();//파일크기 구하기
-			PetSitterImageVo vo=new PetSitterImageVo("0","A@A.COM" , savefilename, orgfilename);
+			PetSitterImageVo vo=new PetSitterImageVo(0,"A@A.COM" , savefilename, orgfilename);
 			imageService.insert(vo);
 			////////////////////////////////////////////////////////////////////////////
 			return ".booking.list";

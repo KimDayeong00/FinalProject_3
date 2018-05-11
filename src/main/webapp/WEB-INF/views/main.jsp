@@ -2,80 +2,58 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- header-section close -->
-    <!-- hero-section start -->
-    <div class="hero-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-                    <div class="hero-section-caption pinside40">
-                        <h1 class="hero-title">Discover The Places You’ve Never Been Before</h1>
-                        <a href="domestic-tour.html" class="btn btn-primary ">view tours</a> </div>
-                </div>
-            </div>
-        </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 1700px; margin: auto;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="<c:url value='/resources/images/11.JPG'/>" style="width:100%">
+      <div class="carousel-caption">
+      </div> 
     </div>
-    <!-- hero-section close -->
+
+    <div class="item">
+      <img src="<c:url value='/resources/images/12.JPG'/>"style="width:100%">
+      <div class="carousel-caption">
+      </div> 
+    </div>
+    <div class="item">
+      <img src="<c:url value='/resources/images/13.JPG'/>"style="width:100%">
+      <div class="carousel-caption">
+      </div> 
+    </div>
+
+  
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
     <!-- service-section start -->
     <div class="space-medium">
         <div class="container">
             <div class="row">
                 <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="section-title text-center">
-                        <h1>Find The Tour</h1>
-                    </div>
-                </div>
+                        <div class="service-img">
+                            <a href="#"><img src="<c:url value='/resources/images/5.JPG'/>"></a>
+                        </div>
+               </div>
             </div>
-            <div class="row">
-                <!-- service start -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="service-block">
-                        <div class="service-img">
-                            <a href="#"><img src="<c:url value='/resources/images/service-img-1.jpg'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
-                        </div>
-                        <div class="service-content">
-                            <h3><a href="#" class="title">Group Tour</a></h3>
-                            <p>Scelerisque vitae velit e llamcorper plvinar esras sit amet odio et dolor por bibendum sit amet neceros.</p>
-                            <div class="service-btn-link"><a href="domestic-tour.html" class="btn-link">Domestic Tour</a></div>
-                            <div><a href="international-tour.html" class="btn-link">International Tour</a></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- service close -->
-                <!-- service start -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="service-block">
-                        <div class="service-img">
-                        <c:url value=''/>
-                            <a href="#"><img src="  <c:url value='/resources/images/service-img-2.jpg'/>" alt="Tour and Travel Agency - Responsive Website Template"></a>
-                        </div>
-                        <div class="service-content">
-                            <h3><a href="#" class="title">Couple Tour</a></h3>
-                            <p>Pellentesque bibendum, ante et ornare viverra, ex neque lorem ipusm dtium vestibulum eros ut lacinia.</p>
-                            <div class="service-btn-link"><a href="domestic-tour.html" class="btn-link">Domestic Tour</a></div>
-                            <div><a href="international-tour.html" class="btn-link">International Tour</a></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- service close -->
-                <!-- service start -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="service-block">
-                        <div class="service-img">
-                            <a href="#"><img src="resources/images/service-img-3.jpg" alt="Tour and Travel Agency - Responsive Website Template"></a>
-                        </div>
-                        <div class="service-content">
-                            <h3><a href="#" class="title">Off Season Tour</a></h3>
-                            <p>Donec pretium vestibulum eros ut Pellentesque bineque luctus orci in pharetra ante quam etestibul.</p>
-                            <div class="service-btn-link"><a href="domestic-tour.html" class="btn-link">Domestic Tour</a></div>
-                            <div><a href="international-tour.html" class="btn-link">International Tour</a></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- service close -->
-            </div>
-        </div>
-    </div>
-    <!-- service-section close -->
+         </div>
+     </div>
     <!-- about-section start -->
     <div class="bg-default space-medium">
         <div class="container">

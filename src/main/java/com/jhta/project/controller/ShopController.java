@@ -57,7 +57,7 @@ public class ShopController {
 		ModelAndView mv=new ModelAndView(".shop.item.itemlist");
 		HashMap<String, Object> map=new HashMap<String,Object>();
 		int totalRowCount=service.classcnt(classnum);
-		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
+		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
 
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
@@ -84,7 +84,7 @@ public class ShopController {
 		int fieldnum=vo2.getFieldnum();
 		HashMap<Object,Object> map2=new HashMap<>();
 		int totalRowCount=service.fieldcnt(fieldnum);
-		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
+		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
 		map2.put("startRow",pu.getStartRow());
 		map2.put("endRow",pu.getEndRow());
 		map2.put("fieldnum",fieldnum);
@@ -125,7 +125,7 @@ public class ShopController {
 		map2.put("fieldnum", fieldnum);
 		map2.put("fc_num",fc_num);
 		int totalRowCount=service.itemcnt(map2);
-		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
+		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
 		map2.put("startRow",pu.getStartRow());
 		map2.put("endRow",pu.getEndRow());
 		List<ShopItemVo> itemvo=service.itemlist(map2);
@@ -237,6 +237,7 @@ public class ShopController {
 	@RequestMapping(	value="/shop/buy",method=RequestMethod.POST)
 	public String buy(Model mv, int [] cnt,int []chk,int []num,String id,ShopCartVo vo) {
 		System.out.println("멤버여기까진오고");
+		System.out.println(id);
 		memberVO member = memberService.infoEmail(id);
 		System.out.println("여기서막히는거");
 		List<ShopCartVo> list = new ArrayList<>();

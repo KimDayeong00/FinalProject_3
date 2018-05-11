@@ -16,7 +16,7 @@ public class PetSitterServiceImpl implements PetSitterService{
 	@Autowired private PetSitterDao petsitterDao;
 	
 	@Override
-	public List<PetSitterJoinFilterVo> list(HashMap<String, String> map) {
+	public List<PetSitterJoinFilterVo> list(HashMap<String, Object> map) {
 		return petsitterDao.list(map);
 	}
 	
@@ -25,12 +25,22 @@ public class PetSitterServiceImpl implements PetSitterService{
 		return petsitterDao.select(ps_email);
 	}
 	@Override
-	public List<PetSitterJoinFilterVo> alllist() {
-		return petsitterDao.alllist();
+	public List<PetSitterJoinFilterVo> alllist(HashMap<String, Object> map) {
+		return petsitterDao.alllist(map);
 	}
 	
 	@Override
 	public List<PetSitterFilterVo> getFilter(String ps_email) {
 		return petsitterDao.getFilter(ps_email);
+	}
+	
+	@Override
+	public int updateAccount(PetSitterVo vo) {
+		return petsitterDao.updateAccount(vo);
+	}
+	
+	@Override
+	public int updatePwd(PetSitterVo vo) {
+		return petsitterDao.updatePwd(vo);
 	}
 }

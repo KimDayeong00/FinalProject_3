@@ -17,7 +17,7 @@ select NVL(count(*),0) from field where classnum=#{classnum}
 </select>
 
 <select id="classitemlist" parameterType="hashmap" resultType="shopitemvo">
-select * from (select aa.*,rownum rnum from (select * from item where fieldnum in(select fieldnum from field where classnum in(select classnum from class where classnum=#{classnum} )))aa) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+select * from (select aa.*,rownum rnum from (select * from item where fieldnum in(select fieldnum from field where classnum in(select classnum from class where classnum=#{classnum} )))aa) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow} order by p_num desc]]>
  			
 </select>
 
@@ -26,18 +26,18 @@ select NVL(count(*),0) from item where fieldnum in(select fieldnum from field wh
 </select>
 
 <select id="fielditemlist" parameterType="hashmap" resultType="shopitemvo">
-select * from (select * from (select aa.*,rownum rnum from (select * from item where  fieldnum = #{fieldnum})aa)) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+select * from (select * from (select aa.*,rownum rnum from (select * from item where  fieldnum = #{fieldnum})aa)) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow} order by p_num desc]]>
 </select>
 
 <select id="itemlist" parameterType="hashmap" resultType="shopitemvo">
 select * from (select aa.*,rownum rnum from (select * from item)aa 
 <where>
 <if test="fc_num=='0'">
-fieldnum = #{fieldnum}) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+fieldnum = #{fieldnum}) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow} order by p_num desc]]>
 </if>
 
 <if test="fc_num!=null and fc_num!='0'"> 
-fieldnum in #{fieldnum} and p_num in (select p_num from itemfilter where fc_num in(select fc_num from filtercontent where ${sql}))) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow}]]>
+fieldnum in #{fieldnum} and p_num in (select p_num from itemfilter where fc_num in(select fc_num from filtercontent where ${sql}))) <![CDATA[where rnum >=#{startRow} and rnum <=#{endRow} order by p_num desc]]>
 </if>
 
 </where>
@@ -63,7 +63,7 @@ select * from filtertype where ft_num in(select ft_num from filtercontent where 
 </select>
 
 <select id="filtercontent" parameterType="Integer" resultType="shopfiltercontentvo">
-select * from filtercontent where ft_num in(select ft_num from filtertype where ft_num=#{ft_num})
+select * from filtercontent where ft_num =#{ft_num}
 </select>
 
 <select id="iteminfo" parameterType="Integer" resultType="shopitemvo">

@@ -6,4 +6,7 @@
 	<select id="getDisable" parameterType="string" resultType="com.jhta.project.vo.DisableDateVo">
 		select * from disabledate where ps_email=#{value}
 	</select>
+	<update id="updateDis" parameterType="com.jhta.project.vo.DisableDateVo">
+		update disabledate set disday=#{disday},disDate=#{disDate} where ps_email=#{ps_email}
+	</update>
 </mapper>

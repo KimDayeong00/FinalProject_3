@@ -20,6 +20,14 @@
 
 
 	
+	
+	
+
+	  
+	
+	
+	
+
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
 		<dependency>
@@ -27,7 +35,12 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>4.2.5.RELEASE</version>
 		</dependency>
-
+		<!-- 웹소켓 사용하기 -->
+		<dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>4.2.5.RELEASE</version>
+      </dependency>
 
 
 		<!-- tiles -->

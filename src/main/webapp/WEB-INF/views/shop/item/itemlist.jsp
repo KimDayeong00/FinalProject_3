@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style>
 
@@ -72,8 +73,8 @@
                <tr>
             </c:if>
                     <td style="size: 240px;" id="item">
-                <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"> <br> ${itemvo.item_name }</a><br>
-                
+                <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"> <br><font color="#004B91" >${itemvo.item_name }</font></a><br>
+               <span style="font-weight: bold;color: #b12603;"> <fmt:formatNumber value="${itemvo.price}" pattern="#,###.##"/>원</span>
 			</td>
             <c:if test="${i%j == j-1 }">
                 </tr>
@@ -90,6 +91,7 @@
 
 </div>
 
+<br>
 <div id="page" style="margin-left: 400px;" >
   <ul class="pagination">
 	<c:choose>
@@ -171,18 +173,7 @@
 </div>
 </div>
 
-<!--  -->
 
-
-<!--          
-<div class="btn-group" data-toggle="buttons">
-  <label class="btn">
-    <input type="checkbox" > Check2dsfs
-  </label>
-</div> -->
-
-   
-<!--  -->
 <script>
 
 $(".btn").on('click',function(){

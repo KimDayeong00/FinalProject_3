@@ -20,35 +20,61 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8&callback=initMap">
     </script>
-	<div style="width: 100%; background-color: pink">
-		<select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;시도</option></select>
-		<select style="width: 100px;" class="addr" name="gugun" id="gugun"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구군</option></select>
-		<select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select>
-		<script>sojaeji();</script><br />
+    
+	<div style="width: 100%; margin-top: 5px; padding: 10px; ">
+		<table style="border: 1px solid black; margin-top: 5px; padding: 10px;">
+			<tr>
+				<td colspan="3" style="text-align: center;">지역을 선택하세요.</td>
+				<td style="text-align: center;">날짜를 선택하세요.</td>
+			</tr>
+			<tr style="padding: 10px;">
+				<td width="150px"><select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select></td>
+				<td width="150px"><select style="width: 100px;" class="addr" name="gugun" id="gugun"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;시군구</option></select></td>
+				<td width="150px"><select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select></td>
+			<td>
+					<div class="calendar">
+						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
+					</div>
+				</td>
+			</tr>
+		</table>
+		<script>sojaeji();</script>
 	</div>
-	<div class="btn-group" data-toggle="buttons">
+	<%-- <div class="btn-group" data-toggle="buttons">
 		<c:forEach items="${filterlist }" var="filter">
 			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
-		    	<input type="checkbox" autocomplete="off" value="${filter.f_type}">${filter.f_type}
+		    	<input type="checkbox" name="chk" value="${filter.f_type}">${filter.f_type}
 			</label>
 		</c:forEach>
-	</div>
+	</div> --%>
     <div id="petsitterList"></div>
     <div id="map"></div>
     <script type="text/javascript">
-    var search;
     var address = new Array();
-    var zoomLevel;
     var map;
     var geocoder;
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var n=0;
-    $(".addr").on("change",function(){
-    	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
-    	console.log(addres);
-    	addreslist(addres);
+    var bk_startdate;
+	var bk_enddate;
+	var ref=0;
+    $("name").on("click",function(){
+    	console.log("안녕")
     })
     
+    $(".addr").on("change",function(){
+    	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
+    	addreslist(addres);
+    	setTimeout(function(){
+    	 if($("#dong").val()!=""){
+     		map.setZoom(17)
+     	}else if($("#gugun").val()!=""){
+     		map.setZoom(15)
+     	}else if($("#sido").val()!=""){
+     		map.setZoom(10)
+     	} 
+    	},100);
+    })
 	function initMap() {
     	geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(37.566535, 126.97796919999996);
@@ -79,7 +105,6 @@
 		      	var img = '${data.ps_saveimage}';
 				address.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
 			</c:forEach>
-			list1(address);
         	arraygetlist(37.566535,126.97796919999996,33.193668738614384, 124.82258606250002,38.53185554526987, 130.71125793750002)	
         function moveToLocation(lat, lng){
             var center = new google.maps.LatLng(lat, lng);
@@ -104,12 +129,13 @@
 	            }
             });
         }
-        google.maps.event.addListener(map, 'zoom_changed', function() {
+       google.maps.event.addListener(map, 'zoom_changed', function() {
+    	   console.log("왔다감")
 	    	getlist();
-		});
+		}); 
 	}
 	function getlist(){
-		zoomLevel = map.getZoom();
+		var zoomLevel = map.getZoom();
         var bounds =  map.getBounds();
         var endLo = bounds.getNorthEast();
         var startLo = bounds.getSouthWest();
@@ -123,7 +149,9 @@
         $("#petsitterList").append("차이lng: " + (endLo.lng()-startLo.lng())+"<br>");
         $("#petsitterList").append("맵 중앙 lat: " + pos.lat()+"<br>");
         $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
+        console.log("getlist()"+pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
         arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
+       
 	}
 	function addreslist(address){
    		n=0;
@@ -131,24 +159,26 @@
    	  		geocoder.geocode( { 'address': address}, function(results, status) {
 		   		locations.push({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()});
 		   		map.setCenter(results[0].geometry.location);
+		   	 	var bounds =  map.getBounds();
+		        var endLo = bounds.getNorthEast();
+		        var startLo = bounds.getSouthWest();
+		        var pos=map.getCenter();
+		        console.log("1:"+pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng())
+   	 			getlist()
    	  		});
-   	 	list1(locations)
 	}
-		var markerCluster;
+	var markerCluster;
 	function list1(locations){
-		var markers;
-		for(var i=0;i<locations.length ; i++){
-			markers = locations.map(function(location, j) {
+ 		var markers = locations.map(function(location, j) {
+					console.log(locations[j].email)
 	 				return new google.maps.Marker({
-	 				map: map,
 	 			    position: location,
 	 			   	email:locations[j].email,
 	 			   	name:locations[j].name,
 	 			   	addr1:locations[j].addr1,
 	 			   	content:locations[j].content,
 	 			   	img:locations[j].img,
-	 				label: labels[j % labels.length],
-	 				draggable: true
+	 				label: labels[j % labels.length]
 	 				});
 	 		});
 			var infowindow = new google.maps.InfoWindow();
@@ -174,25 +204,31 @@
 					infowindow.open(map, this);
 		 			});
 		 		}
-
-
-		 		//addMarkers(markers:Array.<google.maps.Marker>, opt_nodraw:boolean)
-		 		if(markerCluster==undefined){
+		 		 if(markerCluster==undefined){
 		 			markerCluster = new MarkerClusterer(map, markers,
 		 			{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-		 		}else{
-		 			markerCluster.clearMarkers();
-		 			markerCluster.resetViewport();
-		 			markerCluster.addMarkers(markers,false);
-		 			
-		 		}
-		}
+		  		}else{
+		 			 markerCluster.clearMarkers();
+			    	 markerCluster.addMarkers(markers);
+		  		}
 	}
+	
 	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
-		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng},function(data) {
-	    		var arr=new Array();
+		console.log("arraygetlist()")
+		var ddd=$("#selector").val().split('to ');
+		var arr = new Array();
+		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate},function(data) {
 	    		$("#petsitterList").html("");
+	    		console.log("랭스 : "+data.list.length)
 	        	for(var q=0; q<data.list.length; q++){
+			      	var email = data.list[q].ps_email;
+	    	        var lat = data.list[q].ps_lat;
+			        var lng = data.list[q].ps_lng;
+			      	var name = data.list[q].ps_name;
+			      	var addr1 = data.list[q].ps_addr1;
+			      	var content = data.list[q].ps_content;
+			      	var img = data.list[q].ps_saveimage;
+			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img});
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
@@ -207,17 +243,36 @@
 					                    for(var w=0; w<data.list[q].list.length; w++){
 					                    	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
 					                    }
-					                    console.log(data.list[q].ps_overprice);
 					                    petsitterList+=
 					                    "</div>"+
 	                                    "<div class='tour-details-text' style='margin:0px; padding:0px;'><span style='display: inline-block; color: gray; font-size: 20px; width:100%; margin:0px; padding:0px; margin-top:-5px; '>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"&nbsp;&nbsp;&nbsp;&nbsp; 대형견 추가금/"+data.list[q].ps_overprice+"</span></div>"+
-	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='#' class='btn btn-primary'>예약하기</a></span> </div>"+
+	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='<c:url value='/detail?ps_email="+data.list[q].ps_email+"'/>' class='btn btn-primary'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
 	                    "</div>";
 	                    $("#petsitterList").append(petsitterList); 				
-	        				
 	    		}
+	    		if(ref==0){
+	    			ref++;
+	    			list1(address);
+	    		}else{
+	    			list1(arr)
+	     		}
 	    })
 	}
+	flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
+	flatpickr("#selector");
+	var selector = $("#selector").flatpickr({
+		mode:"range",
+		dateFormat : "Y/m/d",
+		minDate : "today",
+		onValueUpdate : function(){
+			var ddd=$("#selector").val().split('to ');
+			bk_startdate = ddd[0];
+			bk_enddate = ddd[1];
+			if(bk_startdate!=undefined && bk_enddate!=undefined){
+				getlist()
+			}
+		}
+	});
 </script>

@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -21,10 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jhta.project.service.ShopAdminService;
+import com.jhta.project.service.ShopAdminServiceImpl;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
-import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Controller
@@ -33,7 +31,7 @@ public class ItemController {
 	@Resource(name="uploadPath")
     private String uploadPath;
 	
-@Autowired ShopAdminService service;
+@Autowired ShopAdminServiceImpl service;
 
 	@RequestMapping("/itemadd")
 	public ModelAndView main() {

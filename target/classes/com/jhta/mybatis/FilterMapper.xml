@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.FilterMapper">
+	<insert id="insertFilter" parameterType="hashmap">
+		insert into filter values(seq_filter_f_num.nextval,#{ps_email},#{fl_name})
+	</insert>
+	<delete id="deleteFilter" parameterType="string">
+		delete from filter where ps_email=#{value}
+	</delete>
+</mapper>

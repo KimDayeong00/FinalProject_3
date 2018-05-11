@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.QnaMapper">
+
+	<select id = "qnalist" resultType = "qnavo">
+		select * from qna order by refer desc, step asc
+	</select>
+
+
+
+	<sql id="search">
+		<if test="field!=null and field!=''">
+		    where ${field} like '%' ||#{keyword} ||'%'
+		</if>
+	</sql>
+	<!-- 전체글의 갯수 -->
+	<select id="count" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt from qna
+		<include refid="search"/>
+	</select>
+	<select id="adminlist" parameterType="hashmap" resultType="qnavo">
+	  select * from
+	  (
+		  select aa.*,rownum rnum from
+		  (
+		    select * from qna 
+		    <include refid="search"/>
+		    order by refer desc, step asc
+		  )aa
+	  )
+	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
+	</select>
+	<select id="list" parameterType="hashmap" resultType="qnavo">
+	  select * from
+	  (
+		  select aa.*,rownum rnum from
+		  (
+		    select * from qna 
+		    where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email}))
+		    order by refer desc, step asc
+		  )aa
+	  )
+	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
+	</select>
+	<!-- 이전글 -->
+	<select id="prev" parameterType="int" resultType="qnavo">
+	  select * from
+		(
+		  select * from qna <![CDATA[ where qnum<#{qnum} order by qnum desc ]]>
+		)
+	   where rownum=1
+	</select>
+	<!-- 다음글 -->
+	<select id="next" parameterType="int" resultType="qnavo">
+	  select * from
+		(
+		  select * from qna <![CDATA[ where qnum>#{qnum} order by qnum asc ]]>
+		)
+	   where rownum=1
+	</select>
+	
+	
+	
+	<select id="orderiteminfo" parameterType="String" resultType="shopitemvo">
+		select * from item where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
+	</select>
+	<insert id = "insert" parameterType = "qnavo">
+		insert into qna values(#{qnum}, #{title}, #{content}, sysdate, 0, #{refer}, #{lev}, #{step}, #{p_num})
+	</insert>
+	<select id = "qnagetinfo" parameterType = "int" resultType = "qnavo">
+		select * from qna where p_num = #{p_num}
+	</select>
+	<select id="qnagetlist" parameterType="string" resultType="qnavo">
+		select * from qna where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
+	</select>
+	<delete id="qnadelete" parameterType="int">
+"src/main/webapp/WEB-INF/views/petsitter_mypage"		delete from qna where qnum = #{qnum}
+	</delete>
+	
+	<select id = "maxnum" resultType="int">
+		select NVL(max(qnum),0) maxnum from qna
+	</select>
+	
+	<update id = "adminupdate" parameterType="qnavo">
+		update qna set step=step+1 where refer=#{refer} and step>#{step}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -8,8 +8,10 @@ import com.jhta.project.vo.PetSitterJoinFilterVo;
 import com.jhta.project.vo.PetSitterVo;
 
 public interface PetSitterService {
-	List<PetSitterJoinFilterVo> list(HashMap<String, String> map);
-	List<PetSitterJoinFilterVo> alllist();
+	List<PetSitterJoinFilterVo> list(HashMap<String, Object> map);
+	List<PetSitterJoinFilterVo> alllist(HashMap<String, Object> map);
 	PetSitterVo select(String ps_email);
 	List<PetSitterFilterVo> getFilter(String ps_email);
+	int updateAccount(PetSitterVo vo);
+	int updatePwd(PetSitterVo vo);
 }

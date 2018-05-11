@@ -18,7 +18,11 @@ public class PetsitterOptionDao {
 		return vo;
 	}
 	
-	public List<String> getImg(String ps_email) {
-		 return sqlSession.selectList(NAMESPACE+".getImg",ps_email);
+//	public List<String> getImg(String ps_email) {
+//		 return sqlSession.selectList(NAMESPACE+".getImg",ps_email);
+//	}
+	
+	public int updatePsInfoSet(PetsitterOptionVo vo) {
+		return sqlSession.update(NAMESPACE+".updatePsInfoSet",vo);
 	}
 }
