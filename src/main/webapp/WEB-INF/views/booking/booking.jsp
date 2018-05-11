@@ -4,8 +4,10 @@
 <div id="content">
 	<div class="reservationWrap">
 		<h2>예약하기</h2>
-		<div>
-		
+		<div class="bookingDetail">
+			<div></div>
+			<div></div>
+			<div></div>
 		</div>
 	</div>
 </div>
