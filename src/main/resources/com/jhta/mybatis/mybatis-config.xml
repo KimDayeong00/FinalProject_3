@@ -6,6 +6,8 @@
 	<typeAliases>
 		<!-- ItemFilter -->
 		<typeAlias type="com.jhta.project.vo.ItemFilterVo" alias="itemFilter" />
+		<!-- Mpage -->
+		<typeAlias type="com.jhta.project.vo.MpageVo" alias="mpage" />
 		<!-- Introduce -->
 		<typeAlias type="com.jhta.project.vo.IntroduceVo" alias="introduce" />
 		<!-- admin -->
@@ -46,6 +48,8 @@
 	<mappers>
 	<!-- Introduce -->
 		<mapper resource="com/jhta/mybatis/IntroduceMapper.xml" />
+	<!-- Introduce -->
+		<mapper resource="com/jhta/mybatis/MpageMapper.xml" />
 	<!-- ItemFilter -->
 		<mapper resource="com/jhta/mybatis/ItemFilterMapper.xml" />
 	<!--  Petsitter -->

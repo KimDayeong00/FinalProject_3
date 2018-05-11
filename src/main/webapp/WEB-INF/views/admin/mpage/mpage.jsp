@@ -1,130 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<script>
-
-function select(){
-	var classsel = document.getElementById("classsel");
-	var val = classsel.options[classsel.selectedIndex].value;
-		$.ajax({
- 			url:"<c:url value='/shopadmin/fieldlist?classnum="+val+"'/>",
- 			dataType:"json",
- 			success:function(data){
- 				$("#fieldsel").empty();
- 				$("#fieldsel").append("<option>선택하세요.</option>");
- 				for(var i=0;i<data.fieldvo.length;i++){
- 					var option ="<option value="+data.fieldvo[i].fieldnum+">"+data.fieldvo[i].name+"</option>";
- 					$("#fieldsel").append(option);
- 				}
- 			}		
- 		});
-}
-function select1(){
-	var classsel = document.getElementById("classsel");
-	var fieldsel = document.getElementById("fieldsel");
-	var classnum = classsel.options[classsel.selectedIndex].value;
-	var fieldnum = fieldsel.options[fieldsel.selectedIndex].value;
-	console.log(classnum);
-	console.log(fieldnum);
-	$("#fieldnum").html("")
-	$.getJSON("<c:url value='/shopadmin/getfilter'/>",{classnum:classnum,fieldnum:fieldnum},function(data) {
-		/* fieldnum / classnum */
-		for(var q=0; q<data.fieldlist.length; q++){
-	      	var ft_num = data.fieldlist[q].ft_num;
-	      	var ft_name = data.fieldlist[q].ft_name;
-	      	$("#fieldnum").append(ft_name)
-		      	console.log("ft_num : "+ft_num);
-		      	console.log("ft_name : "+ft_name);
-		    var carr = data.arr[q].arrr;   
-	      	$("#fieldnum").append("<br>");
-	      	for(var i=0; i<carr.length;i++){
-	      		if(ft_num==1){						
-	      			$("#fieldnum").append("<input type='radio' name='filterrdo' id='' value="+carr[i].fc_num+">"+carr[i].fc_name+"&nbsp;&nbsp;");
-	      		}else{
-	      			$("#fieldnum").append("<input type='checkbox' name='filterchk' id='' value="+carr[i].fc_num+">"+carr[i].fc_name+"&nbsp;&nbsp;");
-	      		}
-		      	console.log("data.arr[q].arr1[i].fc_num : "+carr[i].fc_num);
-		      	console.log("data.arr[q].arr1[i].ft_num : "+carr[i].ft_num);
-		      	console.log("data.arr[q].arr1[i].fc_name : "+carr[i].fc_name);
-	      	}
-	      	$("#fieldnum").append("<br>");
-    	}
-	})
-}
-function handleFileSelect() 
-{
-    var files = document.getElementById('file1').files[0]; //파일 객체
-
-    var reader = new FileReader();
-
-         
-    reader.onload = (function(theFile) 
-    {
-        return function(e) 
-        {
-            var img_view = ['<img src=" ', e.target.result, ' " title=" ', escape(theFile.name), ' " style="width:210px;height:200px;"/>'].join('');                
-            document.getElementById('list').innerHTML = img_view;
-        };
-    })(files);
-    reader.readAsDataURL(files);    
-}
-
-</script>
-<form method="post" action="<c:url value='/shopadmin/insert'/>" enctype="multipart/form-data" name="frm" onsubmit="return aaa()">
+<form method="post" action="<c:url value='/mpage/update'/>" name="frm" onsubmit="return aaa()">
 	<table class="table table-striped" style="float:left; margin-left:300px;">
-
 		<thead>
 			<tr>
-				<th colspan="2" align="center">상품등록하기</th>
+				<th colspan="2" align="center">메인페이지 수정하기</th>
 			</tr>
 		</thead>
+
 		<tbody>
 			<tr>
-				<td>항목선택</td>
-				<td>
-					<select id="classsel" onchange="select()">
-						<option>선택하세요.</option>
-					<c:forEach var="classvo" items="${classvo }">
-						<option value="${classvo.classnum }">${classvo.name }</option>
-						</c:forEach>
-					</select>
-					
-				
-					<select id="fieldsel" onchange="select1()" name="fieldnum"> 
-					<option>선택하세요.</option>
-					</select>
-			
-				</td>
-			</tr>
-			<tr>
-				<td><div id="classnum">필터선택</div></td>
-				<td><div id="fieldnum"></div></td>
-			</tr>
-			<tr>
-				<td>대표이미지</td>
-				<td><input type="file" name="file1" id="file1" onchange="handleFileSelect()">
-				<div id="list" style="size: 200px;"><img src=""  style="size:200px"></div>
-				</td>
-			</tr>
-			<tr>
-				<td>상세이미지</td>
-				<td><input multiple="multiple" type="file" name="multifile" /> </td>
-			</tr>
-			<tr>
-				<td>상품이름</td>
-				<td><input type="text" name="item_name"></td>
-			</tr>
-			<tr>
-				<td>상품가격</td>
-				<td><input type="text" name="price"></td>
-			</tr>
-			<tr>
-				<td>입고수량</td>
-				<td><input type="text" name="stock"></td>
-			</tr>
-			<tr>
-				<td>내용입력</td>
 				<td><div class="x_content">
                   <div id="alerts"></div>
                   <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
@@ -197,24 +83,30 @@ function handleFileSelect()
                   </div>
 
                   <div id="editor-one" class="editor-wrapper placeholderText" contenteditable="true"></div>
-                  <textarea style="display:none;"></textarea>
+                  <textarea name="content" id="content" style="display:none;"></textarea>
  
                 </div></td>
 			</tr>
 			
 			<tr>
-				<td>상품등록</td>
-				<td><input type="submit" value="상품등록"></td>
+				<td><input type="submit" value="수정하기"></td>
 			</tr>
 		</tbody>
 	</table>
-	<input type="hidden" id="content" name="content" />
+	<input type="hidden" id="hcontent" name="hcontent" />
 </form>
 <script type="text/javascript">
 	function aaa(){
-		$("#content").val($("#editor-one").html());
+		$("#hcontent").val($("#editor-one").html());
 		return true;
 	}
+	$(document).ready(function() {
+		var lat;
+		<c:forEach items="${list}" var="data" varStatus="status">
+	    lat = '${data.content}';
+		$("#editor-one").html(lat);
+		</c:forEach>
+	});
 </script>
 <!-- include libraries(jQuery, bootstrap) -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 

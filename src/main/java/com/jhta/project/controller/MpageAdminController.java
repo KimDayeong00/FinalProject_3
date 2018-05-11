@@ -11,23 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jhta.project.dao.IntroduceDao;
-import com.jhta.project.service.IntroduceServiceImpl;
+import com.jhta.project.dao.MpageDao;
+import com.jhta.project.service.MpageServiceImpl;
 import com.jhta.project.vo.IntroduceVo;
+import com.jhta.project.vo.MpageVo;
 
 @Controller
-public class IntroduceAdminController {
-	@Autowired private IntroduceServiceImpl dao;
-	@RequestMapping("/introduce/introduce")
-	public String introduce(Model mv) {
-		List<IntroduceVo> list = dao.list();
+public class MpageAdminController {
+	@Autowired private MpageServiceImpl dao;
+	@RequestMapping("/mpage/mpage")
+	public String mpage(Model mv) {
+		List<MpageVo> list = dao.list();
 		mv.addAttribute("list", list);
-		return ".admin.introduce.introduce";
+		return ".admin.mpage.mpage";
 	}
-	@RequestMapping(value="/introduce/update",method=RequestMethod.POST)
-	public String introduceInsert(String hcontent) {
-		IntroduceVo vo = new IntroduceVo("1",hcontent);
+	@RequestMapping(value="/mpage/update",method=RequestMethod.POST)
+	public String mpageInsert(String hcontent) {
+		MpageVo vo = new MpageVo("1",hcontent);
 		dao.update(vo);
-		return ".admin.introduce.introduce";
+		return ".admin.mpage.mpage";
 	}
 	
 	

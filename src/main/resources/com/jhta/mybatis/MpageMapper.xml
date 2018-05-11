@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.MpageMapper">
+	<select id="getinfo" resultType="mpage">
+		select * from mpage where m_num=1
+	</select>
+	<update id="update" parameterType="mpage">
+		update mpage set content=#{content} where m_num=1
+	</update>	
+</mapper>
