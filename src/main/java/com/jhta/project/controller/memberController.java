@@ -46,15 +46,16 @@ public class memberController {
       return "/members/login";
    }
 
-   @RequestMapping("/register1")
-   public String register1() {
-      return ".members.join";
+   @RequestMapping("/logout")
+   public String logout(HttpSession session) {
+      // 테스트용으로 잠시 바꿈
+      System.out.println("로그아웃하기");
+      session.removeAttribute("login");
+      session.removeAttribute("login_type");
+
+      return ".main";
    }
-   @RequestMapping("/register2")
-   public String register2() {
-      return ".members.join2";
-   }
-   
+
    @RequestMapping("/n_login")
    public String n_login(String email, String pwd, HttpSession session) {
       System.out.println(email);
@@ -84,6 +85,16 @@ public class memberController {
       return returnV;
    }
 
+   @RequestMapping("/register1")
+   public String register1() {
+      return ".members.join";
+   }
+
+   @RequestMapping("/register2")
+   public String register2() {
+      return ".members.join2";
+   }
+
    /*
     * type은 회원 유형(일반,펫시터) type1은 가입 유형(일반가입=1, 카카오=2, 구글=3, 네이버=4)
     */
@@ -96,13 +107,12 @@ public class memberController {
       session.setAttribute("type1", type1);
       return ".members.terms";
    }
-   
-   
+
    @RequestMapping("/socialJ")
-   public String register(int type, int type1,String email, HttpSession session) {
+   public String register(int type, int type1, String email, HttpSession session) {
       System.out.println("타입은" + type);
       System.out.println("타입1은" + type1);
-      System.out.println("이메일 : "+email);
+      System.out.println("이메일 : " + email);
       session.setAttribute("type", type);
       session.setAttribute("type1", type1);
       session.setAttribute("email", email);
@@ -127,14 +137,15 @@ public class memberController {
       System.out.println(vo.toString());
       int a = (Integer) session.getAttribute("type");
       int b = (Integer) session.getAttribute("type1");
-
+      String returnV = "";
       vo.setM_gubun(b);
       int row = service.insertM(vo);
       if (row > 0) {
-         System.out.println("우레카!");
+         returnV = ".main";
+      } else {
+         returnV = "/error";
       }
-
-      return ".main";
+      return returnV;
    }
 
    @RequestMapping("/joinP")
@@ -159,8 +170,8 @@ public class memberController {
    }
 
    @RequestMapping(value = "/callback")
-   public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,HttpSession session)
-         throws UnsupportedEncodingException {
+   public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,
+         HttpSession session) throws UnsupportedEncodingException {
 
       String storedState = (String) request.getSession().getAttribute("state"); // 세션에 저장된 토큰을 받아옵니다.
 
@@ -168,7 +179,7 @@ public class memberController {
 
          System.out.println("401 unauthorized"); // 인증이 실패했을 때의 처리 부분입니다.
 
-         return "redirect:/";
+         return "/error";
 
       }
       // AccessToken 요청 및 파싱할 부분
@@ -191,14 +202,36 @@ public class memberController {
       JSONObject responseData = jsonObject.getJSONObject("data");
 
       // json의 구조가 data 아래에 자식이 둘인 형태여서 map으로 파싱이 안됩니다. 따라서 자식 노드로 접근합니다.
-
+      String returnV = "";
       Map<String, String> userMap = Utils.JSONStringToMap(responseData.get("response").toString());
       System.out.println(userMap.get("email"));
-      session.setAttribute("email", userMap.get("email"));
-      // 사용자 정보 값은 자식노드 중에 response에 저장되어 있습니다. response로 접근하여 그 값들은 map으로 파싱합니다.
+      int a = (int) session.getAttribute("type");
+      if (a == 3) {
+         System.out.println("네이버 로그인시");
+         int mc = service.emailc_m(userMap.get("email"));
+         int pc = service.emailc_p(userMap.get("email"));
+         if (mc == 0 && pc == 0) {
+            returnV = ".members.join";
+         } else if (mc != 0) {
+            System.out.println("네이버 맴버로그인");
+            session.setAttribute("login", userMap.get("email"));
+            session.setAttribute("login_type", 1);
+            returnV = ".main";
+         } else if (pc != 0) {
+            System.out.println("네이버 펫시터로그인");
+            session.setAttribute("login", userMap.get("email"));
+            session.setAttribute("login_type", 2);
+            returnV = ".main";
+         }
 
-      return ".members.terms";
+      } else {
+         System.out.println("네이버 회원가입시");
+         session.setAttribute("email", userMap.get("email"));
+         // 사용자 정보 값은 자식노드 중에 response에 저장되어 있습니다. response로 접근하여 그 값들은 map으로 파싱합니다.
 
+         returnV = ".members.terms";
+      }
+      return returnV;
    }
 
    @RequestMapping(value = "/personalInfo")
@@ -237,11 +270,49 @@ public class memberController {
       }
    }
 
+   // 소셜로그인 처리부분
+   @RequestMapping(value = "/sociallogin")
+   public String naverLogin(int type1, String email, HttpSession session) {
+      System.out.println("타입1은" + type1);
+      System.out.println("이메일은 : " + email);
+
+      String returnV = "";
+      // 네이버일때는 별개로 처리
+      if (type1 == 4) {
+         String state = Utils.generateState(); // 토큰을 생성합니다.
+         session.setAttribute("type", 3);
+         session.setAttribute("type1", type1);
+         session.setAttribute("state", state); // 세션에 토큰을 저장합니다.
+         returnV = "redirect:" + requestUrl + state; // 만들어진 URL로 인증을 요청합니다.
+      } else {
+
+         // 카카오나 구글 로그인 처리
+         int mc = service.emailc_m(email);
+         int pc = service.emailc_p(email);
+         if (mc == 0 && pc == 0) {
+            returnV = ".members.join";
+         } else if (mc != 0) {
+            System.out.println("소셜 맴버로그인");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 1);
+            returnV = ".main";
+         } else if (pc != 0) {
+            System.out.println("소셜 펫시터로그인");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 2);
+            returnV = ".main";
+         }
+
+      }
+      return returnV;
+   }
+
+   // 회원가입시 로그인
    @RequestMapping(value = "/naverlogin")
-   public String naverLogin(int type, int type1,HttpSession session) {
+   public String naverLogin(int type, int type1, HttpSession session) {
       String state = Utils.generateState(); // 토큰을 생성합니다.
-      System.out.println("타입은"+type);
-      System.out.println("타입1은"+type1);
+      System.out.println("타입은" + type);
+      System.out.println("타입1은" + type1);
       session.setAttribute("type", type);
       session.setAttribute("type1", type1);
       session.setAttribute("state", state); // 세션에 토큰을 저장합니다.
@@ -274,5 +345,12 @@ public class memberController {
       }
       return ob.toString();
    }
-
+   
+   @RequestMapping("/mypage/order")
+   public ModelAndView order() {
+   ModelAndView mv=new ModelAndView(".members.order");
+   return mv;
+   }
+   
+ 
 }

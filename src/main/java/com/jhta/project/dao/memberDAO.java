@@ -46,4 +46,8 @@ public class memberDAO {
 	public int updatePwd(memberVO vo) {
 		return session.update(NAMESPACE+".updatePwd",vo);
 	}
+	
+	public memberVO infoEmail(String email) {
+		return session.selectOne(NAMESPACE+".infoEmail",email);
+	}
 }

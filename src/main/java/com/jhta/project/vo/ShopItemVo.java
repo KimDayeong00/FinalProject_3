@@ -12,7 +12,6 @@ private int fieldnum;
 private String content;
 private String image_name;
 
-
 public ShopItemVo() {}
 
 
@@ -27,6 +26,16 @@ public ShopItemVo(int p_num, String item_name, int price, Date regdate, int stoc
 	this.fieldnum = fieldnum;
 	this.content = content;
 	this.image_name = image_name;
+}
+
+
+
+
+@Override
+public String toString() {
+	return "ShopItemVo [p_num=" + p_num + ", item_name=" + item_name + ", price=" + price + ", regdate=" + regdate
+			+ ", stock=" + stock + ", fieldnum=" + fieldnum + ", content=" + content + ", image_name=" + image_name
+			+ "]";
 }
 
 
@@ -107,14 +116,6 @@ public String getImage_name() {
 
 public void setImage_name(String image_name) {
 	this.image_name = image_name;
-}
-
-
-@Override
-public String toString() {
-	return "ShopItemVo [p_num=" + p_num + ", item_name=" + item_name + ", price=" + price + ", regdate=" + regdate
-			+ ", stock=" + stock + ", fieldnum=" + fieldnum + ", content=" + content + ", image_name=" + image_name
-			+ "]";
 }
 
 

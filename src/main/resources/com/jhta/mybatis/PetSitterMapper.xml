@@ -51,8 +51,6 @@
 		and petsitter.ps_email not in(select ps_email from PETSITTERBOOK where 
 		BK_ENDDATE > #{bk_startdate} AND #{bk_enddate} > BK_STARTDATE)
 		</if> 
-		
-		  
 	</select>
 	<select id="list" resultMap="petsitterjoinfilter" parameterType="hashmap">
 		select r.rnum,r.cnt petcnt,f.f_num,f.f_type, f.fl_name, p.ps_careprice,p.ps_price,p.ps_overprice,cc.ps_originalimg,cc.ps_lat,cc.ps_lng,cc.ps_saveimage,cc.ps_email, cc.ps_pwd, cc.ps_phone, cc.ps_name, cc.ps_addr1, cc.ps_addr2, cc.ps_content, cc.ps_regdate from 
@@ -87,7 +85,7 @@
 		group by d.ps_email,rnum
 		order by rnum asc) r
 		where cc.ps_email=f.ps_email and cc.ps_email=p.ps_email and cc.ps_email=r.ps_email order by r.rnum asc
-	</select>
+	</select>    
 	<select id="getFilter" parameterType="string" resultType="com.jhta.project.vo.PetSitterFilterVo">
 		select fl_name,f_type from filtertypelist where fl_name in(select fl_name from filter where ps_email=#{value})
 	</select>

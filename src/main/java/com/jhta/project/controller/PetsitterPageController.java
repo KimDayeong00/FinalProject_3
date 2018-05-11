@@ -395,7 +395,7 @@ public class PetsitterPageController {
 		
 		System.out.println("lat값:"+lat+" lng값:"+lng);
 		
-		PetSitterVo sitterVo = new PetSitterVo(ps_email,null,ps_phone,ps_name,ps_addr1,ps_addr2,ps_content,null,lat,lng,null,null,0,0);
+		PetSitterVo sitterVo = new PetSitterVo(ps_email,null,ps_phone,ps_name,ps_addr1,ps_addr2,ps_content,null,lat,lng,null,null,0,0,0);
 		
 		int n = petsitterService.updateAccount(sitterVo);
 		
@@ -419,7 +419,7 @@ public class PetsitterPageController {
 		String path = context.getContextPath();
 		String msg = "오류로 인해 실패하였습니다.";
 		
-		PetSitterVo sitterVo = new PetSitterVo(ps_email,ps_pwd,null,null,null,null,null,null,0,0,null,null,0,0);
+		PetSitterVo sitterVo = new PetSitterVo(ps_email,ps_pwd,null,null,null,null,null,null,0,0,null,null,0,0,0);
 		
 		int n = petsitterService.updatePwd(sitterVo);
 		

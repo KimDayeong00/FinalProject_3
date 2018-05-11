@@ -1,6 +1,5 @@
 package com.jhta.project.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import com.jhta.project.service.PpetInfoService;
 import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
-import com.jhta.project.vo.PetSitterJoinFilterVo;
 import com.jhta.project.vo.PetSitterPriceVo;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterOptionVo;

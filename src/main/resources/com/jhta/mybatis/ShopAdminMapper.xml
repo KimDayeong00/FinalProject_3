@@ -3,6 +3,37 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.ShopAdminMapper">
+<resultMap type="com.jhta.project.vo.ShopClassJoinShopFieldVo" id="shopclassjoinshopfield">
+		<result property="classnum" column="classnum"/>
+		<result property="name" column="name"/>
+		<collection property="list" ofType="com.jhta.project.vo.ShopFieldVo">
+			<result property="fieldnum" column="fieldnum"/>
+			<result property="classnum" column="classnum"/>
+			<result property="name" column="fname"/>
+		</collection>
+</resultMap>
+	<select id="itemgetinfo" resultType="shopitemvo" parameterType="int">
+		select p_num,item_name,price,regdate,stock,content,image_name from item where p_num = #{p_num}
+	</select>
+	<select id="itemfiltergetinfo" resultType="itemFilter" parameterType="int">
+		select if_num,p_num ifp_num,fc_num from itemfilter where p_num=#{p_num}
+	</select>
+	<select id="itemimggetinfo" resultType="shopitemimagevo" parameterType="int">
+		select item_num,item_savefilename,p_num imgp_num from itemimage where p_num=#{p_num}
+	</select>
+	<select id="list" resultMap="shopclassjoinshopfield">
+		select c.classnum, c.name,f.fieldnum,f.name fname from class c, field f
+		where c.classnum=f.classnum
+	</select>
+	<select id="itemlist" parameterType="hashmap" resultType="shopitemvo">
+	select * from item where fieldnum = #{fieldnum}
+	</select>
+	<delete id="remove" parameterType="String" >
+	delete from item where p_num=#{p_num}
+	</delete>
+	<delete id="imgremove" parameterType="String">
+	delete from itemimage where p_num=#{p_num}
+	</delete>
 
 <select id="classlist"  resultType="shopclassvo">
 	select * from class
@@ -18,14 +49,16 @@ select max(p_num) from item
 <insert id="itemadd" parameterType="shopitemvo">
 insert into item values(seq_item_p_num.nextval,#{item_name},#{price},sysdate,#{stock},#{fieldnum},#{content},null)
 </insert>
+<update id="itemupdate" parameterType="shopitemvo">
+update item set item_name=#{item_name},price=#{price},stock=#{stock},content=#{content} where p_num=#{p_num}
+</update>
 
-<insert id="imageadd" parameterType="shopitemimagevo">
-insert into itemimage values(seq_itemimage_item_num.nextval,#{item_savefilename},#{p_num})
-</insert>
 
 <update id="itemimage"  parameterType="hashmap">
 update item set image_name='${savefilename}' where p_num=#{p_num}
 </update>
-
+<insert id="multifile" parameterType="hashmap">
+insert into itemimage values(seq_itemimage_item_num.nextval,'${savefilename}',${p_num})
+</insert>
 </mapper>
 

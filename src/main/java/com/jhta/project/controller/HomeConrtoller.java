@@ -1,25 +1,29 @@
 package com.jhta.project.controller;
 
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.jhta.project.service.ShopService;
 @Controller
 public class HomeConrtoller {
-	
+
+	@Autowired ShopService service;
+
 	@RequestMapping("/")
+
 	public String main() {
 		return ".main";
-
 	}
 	
-	@RequestMapping("/petsitterPage")
-	public String petsitterPage() {
-		return ".mypage.petsitter_info";
-
+//	@RequestMapping("/login")
+//	public String login() {
+//		return "/members/login";
+//	}
+	
+	@RequestMapping("/admin/class")
+	public String adminclass() {
+		return ".admin.class";
 	}
 
 }
-

@@ -7,11 +7,11 @@ window.onload=function(){
 	$("#price").text(Comma(${iteminfo.price})+"원");
 }
 $(function(){
-	$("#mount").change(function(){
+	$("#cnt").change(function(){
 	
-		var mount=this.value;
+		var cnt=this.value;
 		var price=${iteminfo.price};
-		var com=mount * price;
+		var com=cnt * price;
 		var sum=Comma(com);
 		$("#sum").text(sum);
 	});
@@ -36,12 +36,19 @@ function Comma(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function abcd(){
-	alert("hello");
-	
+function cart(){
 
-
+	form=document.getElementById("info");
+	form.action="<c:url value='/shop/cart'/>";
+	form.submit();
 }
+
+function buy(){
+	form=document.getElementById("info");
+	form.action="<c:url value='/shop/buy'/>";
+	form.submit();
+}
+
 </script>
 <div class="container" style="margin:auto;">
 	<div id="iteminfo">
@@ -61,10 +68,11 @@ function abcd(){
 		</div>
 
 		<div id="infobox"  style="padding-left: 100px;" >
-			<form name="info" action="" method="post">
-				<input type="hidden" name="" value=""> <input type="hidden"
-					name="" value=""> <input type="hidden" name="" value="">
-				<input type="hidden" name="" value="">
+			<form name="info" method="post" id="info">
+				<input type="hidden" name="num" value="${iteminfo.p_num }">
+				<input type="hidden" name="title" value="${iteminfo.item_name }"> 
+				<input type="hidden" name="price" value="${iteminfo.price }"> 
+				<input type="hidden" name="url" value="${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}">
 
 				<fieldset>
 
@@ -72,7 +80,7 @@ function abcd(){
 						<h2>${iteminfo.item_name }</h2>
 						<div class="star">
 							<span class="ic-star" style="margin-top: 1px;"> <!-- 별점 width 값 입력 -->
-								<em style="width: 90%">90점1</em>
+								<em style="width: 90%">90점</em>
 							</span>
 						</div>
 					</div>
@@ -95,23 +103,11 @@ function abcd(){
 						</div>
 						
 			
-						<div class="option"
-							style="padding-top: 0; margin-bottom: 0px; margin-top: -7px;">
-							<dl>
-
-
-							</dl>
-						</div>
-
-
-
-
-
 						<div>
 							<dl>
 								<dt >수량:</dt>
 									<dd>
-								 <select name="mount" id="mount" >
+								 <select name="cnt" id="cnt" >
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -156,12 +152,13 @@ function abcd(){
 
 
 					</div>
-					<div>
-							<a href="#"  onmousedown="javascript:sh.sendWish();"><button type="button" class="btn btn-info">바로 구매하기</button></a>
-						 <a href="#" onmousedown="abcd()"><button type="button" class="btn btn-info">장바구니 담기</button></a>
-							<a href="#"  onmousedown="javascript:sh.sendWish();"><button type="button" class="btn btn-info">관심상품 추가</button></a>
 					
-		
+					<div>
+					
+							<a href="javascript:buy()"><button type="button" class="btn btn-info">바로 구매하기</button></a>
+						 <a href="javascript:cart()"><button type="button" class="btn btn-info">장바구니 담기</button></a>
+				
+				
 					
 					</div>
 				</fieldset>

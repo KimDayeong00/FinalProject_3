@@ -18,9 +18,7 @@ import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.memberService;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.MpetInfoVo;
-import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterBookVo;
-import com.jhta.project.vo.PetsitterPetVo;
 import com.jhta.project.vo.memberVO;
 
 @Controller

@@ -72,7 +72,3 @@
         <!-- tiny-footer-start -->
     </div>
     <!-- footer close -->
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'jg2' of https://github.com/KimDayeong00/FinalProject_3.git
