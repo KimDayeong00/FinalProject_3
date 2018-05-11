@@ -166,7 +166,7 @@ public class ShopAdminController {
 			String orgfilename=mf.getOriginalFilename();	
 			String filename=UUID.randomUUID()+"_"+orgfilename;
 			String savefilename=uploadPath+filename;
-
+			System.out.println("filename : "+filename);
 			try {
 				mf.transferTo(new File(savefilename));
 				map.put("savefilename",filename);

@@ -9,7 +9,7 @@
 .container{width:1000px;}
 #item{word-wrap:break-word; width:220px;}
 #bunryu{width:1000px;}
-.mystyle{background-color: #00ab33;}
+.mystyle{background-color: #ffff66;}
 </style>
 <div id="wrap" class="container">
 

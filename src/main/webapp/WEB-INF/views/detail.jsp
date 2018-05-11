@@ -300,7 +300,7 @@
 			</c:forEach>
 		</div>
 	</div>
-	<form method="post" action="#">
+	<form method="post" action="<c:url value='/reservation'/>">
 	<div class="book">
 		<div class="book-font">
 		<p><strong>예약을 원하는 날짜와 시간을 선택해주세요.</strong></p>
@@ -485,4 +485,5 @@
 		</div>
 	</div>
 	</div>
+</div>
 </div>

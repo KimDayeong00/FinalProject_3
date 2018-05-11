@@ -58,7 +58,7 @@ String email = (String)session.getAttribute("login");
                             <div id="navigation">
                                 <ul>
                                     <!-- <li class="active"><a href="index.html" title="Home">홈</a></li> -->
-                                    <li><a href="<c:url value='/introduce/getinfo'/>" title="About us">소개</a> </li>
+                                    <li><a href="<c:url value='/introduce/getinfo'/>" title="About us">이용방법</a> </li>
                                     <!-- <li class="has-sub"><a href="blog-default.html" title="Blog ">Blog</a>
                                         <ul>
                                             <li><a href="blog-default.html" title="Blog">Blog Default</a></li>
@@ -67,7 +67,6 @@ String email = (String)session.getAttribute("login");
                                     </li> -->
 									 <li><a href="<c:url value='/booking/list'/>" title="BookingList">예약하기</a> </li>
                                     <li><a href=" <c:url value='/shop/home'/>" title="ShoppingMall">쇼핑몰</a></li>
-                                    <li><a href="styleguide.html" title="Styleguide">이용방법</a> </li>
                                     <li class="has-sub"><a href="#" title="Tours">고객지원</a>
                                         <ul>
                                             <li><a href="<c:url value='/qna/faq'/>" title="Group Tours">FAQ</a></li>

@@ -24,7 +24,7 @@ public class PetSitterImgUploadController {
 	@ResponseBody
 	public String ps_imgTest(MultipartHttpServletRequest multi) {
 		String root = multi.getSession().getServletContext().getRealPath("/");
-		String path = root+"resources/upload/";
+		String path = root+"resources/petimage/";
 		String ps_email = (String) multi.getSession().getAttribute("login");
 		
 		String savefilename = "";
