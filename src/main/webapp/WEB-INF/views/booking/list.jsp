@@ -21,6 +21,7 @@
 			<tr>
 				<td colspan="3" style="text-align: center;"><h4>지역을 선택하세요.</h4></td>
 				<td style="text-align: center;"><h4>날짜를 선택하세요.</h4></td>
+				<td><input type="button" value="이미지로검색" style="margin-left: 30px;"/></td>
 			</tr>
 			<tr style="padding: 10px;">
 				<td width="150px"><select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select></td>
