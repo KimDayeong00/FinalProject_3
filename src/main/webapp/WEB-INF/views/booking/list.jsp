@@ -126,7 +126,7 @@
 		      	var name = '${data.ps_name}';
 		      	var addr1 = '${data.ps_addr1}';
 		      	var content = '${data.ps_content}';
-		      	var img = '${data.ps_saveimage}';
+		      	var img = '${data.pimg_savefilename}';
 		      	var careprice = ${data.ps_careprice};
 		      	var price = ${data.ps_price};
 		      	var overprice = ${data.ps_overprice};
@@ -261,7 +261,7 @@
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
-	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
+	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
 	                                "<h2>"+data.list[q].ps_content+"</h2>"+
