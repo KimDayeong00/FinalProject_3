@@ -193,6 +193,14 @@
 
 
 /*
+	예약 페이지
+*/
+.bookingDetail {width:100%;overflow: hidden;border: 1px solid #BABABA;}
+
+
+
+
+/*
 	폰트 부분
 */
 .book-font{}
