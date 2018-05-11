@@ -29,7 +29,7 @@
 				<td width="150px"><select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select></td>
 			<td>
 					<div class="calendar">
-						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
+						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
 					</div>
 				</td>
 			</tr>
@@ -76,15 +76,9 @@
 	var ref=0;
 	var filterchk=[];
 	var infowindow;
-    $(".filterName").on("click",function(){
-    	filterchk=[]
-    	 $('input:checkbox[name="filterName"]').each(function() {
-    	      if(this.checked){
-    	            filterchk.push(this.value)
-    	      }
-    	 });
-    	changeMap()
-    })
+   /*  $(".filterName").on("click",function(){
+    	
+    }) */
     
     $(".addr").on("change",function(){
     	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
@@ -328,6 +322,13 @@
 	    } else {
 	        $input.prop("checked",false);
 	    }
+	    filterchk=[]
+	   	 $('input:checkbox[name="filterName"]').each(function() {
+	   	      if(this.checked){
+	   	            filterchk.push(this.value)
+	   	      }
+	   	 });
+	   	changeMap()
 	});
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
