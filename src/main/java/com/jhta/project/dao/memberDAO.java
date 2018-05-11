@@ -35,4 +35,19 @@ public class memberDAO {
 		return session.selectOne(NAMESPACE+".emailc_p",email);
 	}
 	
+	public memberVO selectMember(String m_email) {
+		return session.selectOne(NAMESPACE+".selectMember",m_email);
+	}
+	
+	public int updateMember(memberVO vo) {
+		return session.update(NAMESPACE+".updateMember",vo);
+	}
+	
+	public int updatePwd(memberVO vo) {
+		return session.update(NAMESPACE+".updatePwd",vo);
+	}
+	
+	public memberVO infoEmail(String email) {
+		return session.selectOne(NAMESPACE+".infoEmail",email);
+	}
 }

@@ -137,6 +137,7 @@ $("#login-button").on('click', function() {
 				function(success) {
 					console.log(success);
 					var user_info = JSON.parse(success.body);
+					alert(user_info.emails[0].value);
 					console.log(user_info);
 					location.href="<c:url value='/socialJ?type=1&type1=3&email="+user_info.emails[0].value+"' />";
 					

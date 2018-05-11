@@ -86,4 +86,17 @@
 		order by rnum asc) r
 		where cc.ps_email=f.ps_email and cc.ps_email=p.ps_email and cc.ps_email=r.ps_email order by r.rnum asc
 	</select>    
+	<select id="getFilter" parameterType="string" resultType="com.jhta.project.vo.PetSitterFilterVo">
+		select fl_name,f_type from filtertypelist where fl_name in(select fl_name from filter where ps_email=#{value})
+	</select>
+	<select id="select" parameterType="string" resultType="petsitter">
+		select * from petsitter where ps_email=#{ps_email}
+	</select>
+	<update id="updatePsAccount" parameterType="petsitter">
+		update petsitter set ps_phone=#{ps_phone},ps_name=#{ps_name},ps_addr1=#{ps_addr1},ps_addr2=#{ps_addr2},ps_content=#{ps_content},ps_lat=#{ps_lat},
+		ps_lng=#{ps_lng} where ps_email=#{ps_email}	
+	</update>
+	<update id="updatePsPwd" parameterType="petsitter">
+		update petsitter set ps_pwd=#{ps_pwd} where ps_email=#{ps_email}		
+	</update>
 </mapper>

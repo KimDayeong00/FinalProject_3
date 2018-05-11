@@ -37,6 +37,7 @@ public class BookingController {
 	
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model,Date bk_startdate,Date bk_enddate) {
+		System.out.println("처음에 예약페이지 옴");
 		HashMap<String, Object>map = new HashMap<>();
 		map.put("bk_startdate", bk_startdate);
 		map.put("bk_enddate", bk_enddate);
@@ -128,7 +129,7 @@ public class BookingController {
 		    ////////////////////////////////////////////////////////////////////////////
 			///////////////////// 2. DB저장 ////////////////////////////////////////////
 			long filesize=file1.getSize();//파일크기 구하기
-			PetSitterImageVo vo=new PetSitterImageVo("0","A@A.COM" , savefilename, orgfilename);
+			PetSitterImageVo vo=new PetSitterImageVo(0,"A@A.COM" , savefilename, orgfilename);
 			imageService.insert(vo);
 			////////////////////////////////////////////////////////////////////////////
 			return ".booking.list";

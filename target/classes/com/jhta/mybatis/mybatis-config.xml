@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">    
 <configuration>
-
 	<typeAliases>
-
+		<!-- ItemFilter -->
+		<typeAlias type="com.jhta.project.vo.ItemFilterVo" alias="itemFilter" />
+		<!-- Introduce -->
+		<typeAlias type="com.jhta.project.vo.IntroduceVo" alias="introduce" />
 		<!-- admin -->
 		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
 		<typeAlias type="com.jhta.project.vo.ShopClassJoinShopFieldVo" alias="shopclassjoinshopfield" />
@@ -21,6 +23,7 @@
   		
 		<!--  Member -->
 		<typeAlias alias="member" type="com.jhta.project.vo.memberVO" />
+		
 		<!--  Shop -->
 		<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
 		<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
@@ -30,9 +33,21 @@
 		<typeAlias type="com.jhta.project.vo.ShopItemJoinVo" alias="shopitemjoinvo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemReviewVo" alias="shopitemreviewvo" />
+        <typeAlias type="com.jhta.project.vo.ShopClassFieldVo" alias="shopclassfieldvo" />
+        <!-- <typeAlias type="com.jhta.project.vo.PayboardVo" alias="payboardvo" /> -->
+		<typeAlias type="com.jhta.project.vo.ShopPayBoardVo" alias="payboardvo" />
+		<typeAlias type="com.jhta.project.vo.OrderItemListVo" alias="orderitemlistvo" />
+   	
+   	<!--  Qna -->  
+   	    <typeAlias type="com.jhta.project.vo.QnaVo" alias="qnavo" />
 	</typeAliases>
-	
+
+
 	<mappers>
+	<!-- Introduce -->
+		<mapper resource="com/jhta/mybatis/IntroduceMapper.xml" />
+	<!-- ItemFilter -->
+		<mapper resource="com/jhta/mybatis/ItemFilterMapper.xml" />
 	<!--  Petsitter -->
 		<mapper resource="com/jhta/mybatis/PetSitterMapper.xml" />
 		<mapper resource="com/jhta/mybatis/FilterTypeListMapper.xml" />
@@ -42,16 +57,23 @@
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
+	   	
+	   	<mapper resource="com/jhta/mybatis/FilterMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml"/>
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
+		
+	<!--  Shop -->
+		<mapper resource="com/jhta/mybatis/MpetInfoMapper.xml"/>
 		<!--  Shop -->
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	
 		<!--  Date-->
 		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
-	</mappers>
-
-
-
+        <mapper resource="com/jhta/mybatis/AdminMapper.xml" />
+    <!--  Qna -->   
+       <mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
+   </mappers>
 
 </configuration>
+

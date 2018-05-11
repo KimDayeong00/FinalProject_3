@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.project.dao.ShopDao;
+import com.jhta.project.vo.OrderItemListVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
 import com.jhta.project.vo.ShopFilterContentVo;
@@ -15,6 +16,7 @@ import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemJoinVo;
 import com.jhta.project.vo.ShopItemReviewVo;
 import com.jhta.project.vo.ShopItemVo;
+import com.jhta.project.vo.ShopPayBoardVo;
 
 @Service
 public class ShopService {
@@ -67,5 +69,14 @@ public class ShopService {
 	
 	public List<ShopItemImageVo> imglist(int p_num){
 		return dao.imglist(p_num);
+	}
+	public int getbuynum() {
+		return dao.getbuynum();
+	}
+	public int payinsert(ShopPayBoardVo vo) {
+		return dao.payinsert(vo);
+	}
+	public int orderinsert(OrderItemListVo vo) {
+		return dao.orderinsert(vo);
 	}
 }

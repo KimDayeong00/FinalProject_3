@@ -4,8 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SimpleMailSender {
-
-	
 	/* @Autowired
 	    private JavaMailSender mailSender;
 	    
@@ -19,7 +17,5 @@ public class SimpleMailSender {
 	    }
 	
 	*/
-	
-	
 
 }

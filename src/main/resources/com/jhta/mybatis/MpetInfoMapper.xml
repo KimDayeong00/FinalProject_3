@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jhta.mybatis.MpetInfoMapper">
+	<select id="select" parameterType="string" resultType="com.jhta.project.vo.MpetInfoVo">
+		select pi_num,pi_name,to_char(trunc((sysdate-pi_age)/365.254)) pi_age,pi_type,pi_weight,
+		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun from mpetinfo where m_email=#{value}
+	</select>
+	<insert id="insertPet" parameterType="com.jhta.project.vo.MpetInfoVo">
+		insert into mpetinfo values(seq_mpetinfo_pi_num.nextval,#{pi_name},to_date(#{pi_age},'yyyymm'),#{pi_type},
+		#{pi_weight},#{m_email},#{pi_orgfilename},#{pi_savefilename},#{pi_sex},#{pi_content},#{pi_gubun})
+	</insert>
+	<update id="updatePet" parameterType="com.jhta.project.vo.MpetInfoVo">
+		update mpetinfo set pi_name=#{pi_name},pi_age=to_date(#{pi_age},'yyyymm'),pi_type=#{pi_type},pi_weight=#{pi_weight},
+		pi_sex=#{pi_sex},pi_content=#{pi_content},pi_gubun=#{pi_gubun} where pi_num=#{pi_num}
+	</update>
+	<select id="selectPetUpdate" parameterType="int" resultType="com.jhta.project.vo.MpetInfoVo">
+		select pi_num,pi_name,to_char(pi_age,'yyyy-fmmm') pi_age,pi_type,pi_weight,
+		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun from mpetinfo where pi_num=#{value}
+	</select>
+</mapper>

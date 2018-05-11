@@ -33,6 +33,16 @@
   </div><!-- /.container-fluid -->
 </nav>
 
+<script>
+$(function(){
+	$("button").removeClass("btn");
+	$("button").removeClass("btn-default");
+	$("button").addClass("btn");
+	$("button").css("background-color","green");
+	
+})
+</script>
+
 
   
   

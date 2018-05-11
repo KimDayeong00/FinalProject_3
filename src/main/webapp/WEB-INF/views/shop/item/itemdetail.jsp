@@ -155,7 +155,7 @@ function buy(){
 					
 					<div>
 					
-							<a href="#"  onmousedown="javascript:sh.sendWish();"><button type="button" class="btn btn-info">바로 구매하기</button></a>
+							<a href="javascript:buy()"><button type="button" class="btn btn-info">바로 구매하기</button></a>
 						 <a href="javascript:cart()"><button type="button" class="btn btn-info">장바구니 담기</button></a>
 				
 				

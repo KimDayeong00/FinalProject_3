@@ -3,6 +3,8 @@ package com.jhta.project.util;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -23,7 +25,8 @@ public class ImageRecognition {
 	 * private String modelpath; private String imagepath;
 	 */
 
-	public void images() {
+	public String images(byte[] bytes) throws UnsupportedEncodingException  {
+		String result = "";
 		File file = new File("C:\\Users\\YoonSoo\\Desktop\\inception_dec_2015");
 		String modelpath = file.getAbsolutePath();
 		System.out.println("Opening: " + file.getAbsolutePath());
@@ -32,7 +35,7 @@ public class ImageRecognition {
 		List<String> labels = readAllLinesOrExit(Paths.get(modelpath, "imagenet_comp_graph_label_strings.txt"));
 
 		/*try {*/
-		 File file2 = new File("C:\\Users\\YoonSoo\\Desktop\\dog\\dog1.jpg");
+		 /*File file2 = new File("C:\\Users\\YoonSoo\\Desktop\\dog\\dog1.jpg");*/
          String imagepath = file.getAbsolutePath();
          System.out.println("Image Path: " + imagepath);
       /*   Image img = ImageIO.read(file2);*/
@@ -41,24 +44,28 @@ public class ImageRecognition {
 		}*/
 	
 		
-		 byte[] imageBytes = readAllBytesOrExit(Paths.get("C:\\Users\\YoonSoo\\Desktop\\dog\\dog1.jpg"));
-
+		/* byte[] imageBytes = readAllBytesOrExit(Paths.get(file2));*/
+         byte[] imageBytes = bytes;
          try (Tensor image = Tensor.create(imageBytes)) {
              float[] labelProbabilities = executeInceptionGraph(graphDef, image);
              int bestLabelIdx = maxIndex(labelProbabilities);
-             System.out.println(labels.get(bestLabelIdx));
-             
-             
+             Dogs dog = new Dogs();
+             String dogName = dog.dogC(labels.get(bestLabelIdx));
+             System.out.println(dogName);
            
              
              System.out.println(
                      String.format(
-                             "BEST MATCH: %s (%.2f%% likely)",
-                             labels.get(bestLabelIdx), labelProbabilities[bestLabelIdx] * 100f));
+                             "BEST MATCH: %s (%.2f%%)",
+                             dogName, labelProbabilities[bestLabelIdx] * 100f));
+             
+             result = String.format(
+                     "%s (%.2f%%)",
+                     dogName, labelProbabilities[bestLabelIdx] * 100f);
          }
-
+     //  result= URLEncoder.encode(result,"utf-8");
 		
-		
+		return result;
 		
 		
 	}

@@ -16,4 +16,8 @@ public class DisableDateDao {
 	public List<DisableDateVo> getDisable(String ps_email) {
 		return sqlSession.selectList(NAMESPACE+".getDisable",ps_email);
 	}
+	
+	public int updateDis(DisableDateVo vo) {
+		return sqlSession.update(NAMESPACE+".updateDis",vo);
+	}
 }
