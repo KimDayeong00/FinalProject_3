@@ -47,6 +47,7 @@ public class ShopController {
 		mv.addObject("classvo",classvo);
 		return mv;
 	}
+
 	
 	@RequestMapping("/item/classitemlist")
 	public ModelAndView classitemlist(@RequestParam(value="pageNum",defaultValue="1")int pageNum,ShopClassVo vo,ShopFieldVo vo2) {
@@ -56,7 +57,7 @@ public class ShopController {
 		ModelAndView mv=new ModelAndView(".shop.item.itemlist");
 		HashMap<String, Object> map=new HashMap<String,Object>();
 		int totalRowCount=service.classcnt(classnum);
-		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
+		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
 
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
@@ -83,7 +84,7 @@ public class ShopController {
 		int fieldnum=vo2.getFieldnum();
 		HashMap<Object,Object> map2=new HashMap<>();
 		int totalRowCount=service.fieldcnt(fieldnum);
-		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
+		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
 		map2.put("startRow",pu.getStartRow());
 		map2.put("endRow",pu.getEndRow());
 		map2.put("fieldnum",fieldnum);
@@ -124,7 +125,7 @@ public class ShopController {
 		map2.put("fieldnum", fieldnum);
 		map2.put("fc_num",fc_num);
 		int totalRowCount=service.itemcnt(map2);
-		PageUtil pu=new PageUtil(pageNum,24,10,totalRowCount);
+		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
 		map2.put("startRow",pu.getStartRow());
 		map2.put("endRow",pu.getEndRow());
 		List<ShopItemVo> itemvo=service.itemlist(map2);
@@ -171,6 +172,9 @@ public class ShopController {
 	public ModelAndView cart(ShopCartVo vo,HttpSession session) {
 		System.out.println("아아아"+vo.toString());
 		ModelAndView mv=new ModelAndView(".shop.cartlist");	
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addObject("classvo",classvo);
 		String url="localhost:8090"+vo.getUrl();
 		ShopItemVo vo2=service.iteminfo(vo.getNum());
 		String img=vo2.getImage_name();
@@ -222,11 +226,6 @@ public class ShopController {
 		return ".shop.cartlist";
 	}
 	
-	@RequestMapping("/shop/cartlist")
-	public String cartlist() {
-	
-		return ".shop.cartlist";
-	}
 	
 	@RequestMapping("/shop/order")
 	public ModelAndView order() {
@@ -238,6 +237,7 @@ public class ShopController {
 	@RequestMapping(	value="/shop/buy",method=RequestMethod.POST)
 	public String buy(Model mv, int [] cnt,int []chk,int []num,String id,ShopCartVo vo) {
 		System.out.println("멤버여기까진오고");
+		System.out.println(id);
 		memberVO member = memberService.infoEmail(id);
 		System.out.println("여기서막히는거");
 		List<ShopCartVo> list = new ArrayList<>();
@@ -252,13 +252,16 @@ public class ShopController {
 		}else{
 			System.out.println("아님열로");
 		}
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addAttribute("classvo",classvo);
 		mv.addAttribute("member", member);
 		mv.addAttribute("list",list);
 		return ".shop.buy";
 	}
 	
 	@RequestMapping("/shop/pay")
-	public String pay(ShopPayBoardVo vo,OrderItemListVo vo2,HttpServletRequest req,int []p_num,int [] cnt,String [] price) {
+	public String pay(Model mv,ShopPayBoardVo vo,OrderItemListVo vo2,HttpServletRequest req,int []p_num,int [] cnt,String [] price) {
 		String juso1=req.getParameter("juso1");
 		String juso2=req.getParameter("juso2");
 		String addr=juso1+juso2;
@@ -269,6 +272,9 @@ public class ShopController {
 		String caddr3=req.getParameter("caddr3");
 		String caddr=caddr1+"-"+caddr2+"-"+caddr3;
 		
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addAttribute("classvo",classvo);
 		ShopPayBoardVo vo3=new ShopPayBoardVo(0, null, vo.getName(), addr, caddr, accprice, m_email);
 		System.out.println("값들을 출력하자"+vo3.toString());
 		service.payinsert(vo3);
