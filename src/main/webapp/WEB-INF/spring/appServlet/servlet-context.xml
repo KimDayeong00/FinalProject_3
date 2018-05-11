@@ -34,16 +34,8 @@
 
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg
-<<<<<<< HEAD
-			value="C:\Users\Lee\Desktop\파이널프로젝트\FinalProject_3\src\main\webapp\resources\itemimage\"></beans:constructor-arg>
-			
-			
-=======
-			value="C:\Users\JHTA\git\FinalProject_3\src\main\webapp\resources\itemimage\">
-			
-			</beans:constructor-arg>
->>>>>>> branch 'jiho' of https://github.com/KimDayeong00/FinalProject_3.git
-
+			value="C:\Users\Lee\Desktop\파이널프로젝트\FinalProject_3\src\main\webapp\resources\itemimage\">
+		</beans:constructor-arg>
 	</beans:bean>
 	
 	<!-- <websocket:handlers>
