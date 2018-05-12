@@ -350,7 +350,7 @@ table {
 		<input type="text" id="dog"  />
 		<ul class="output" style="display: none;">
 		</ul>
-		<button type="button" id="submit">Search</button>
+		<button type="button" id="submit" onclick="gogo()">Search</button>
 		
 	</form>
 
@@ -369,6 +369,7 @@ table {
 		$(document).ready(function() {
 			 $("#input_img").on("change", handleImgFileSelect); 
 			$("#input_img").change(function(){
+				$("#submit").attr("disabled", false);
 				var formData = new FormData();
 				formData.append("media", $("input[name=media]")[0].files[0]);
 		             $.ajax({
@@ -381,6 +382,7 @@ table {
 		                success: function(result){
 		                  //  var aa=decodeURI(result.dog);
 		                    $("#dog").val(result.dog);
+		                    $("#submit").attr("disabled", true);
 		                }
 		            });
 		         });
@@ -417,6 +419,12 @@ table {
 				}
 				reader.readAsDataURL(f);
 			});
+		}
+		
+		
+		
+		function gogo() {
+			alert("버튼클릭!");
 		}
 	</script>
 
