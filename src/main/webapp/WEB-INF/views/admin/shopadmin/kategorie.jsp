@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form method="post"  enctype="multipart/form-data" name="frm" onsubmit="return aaa()">
-	<table class="table table-striped" style="float:left; margin-left:300px;">
+	<table class="table table-striped" style="float:left; margin-left:300px; width: 1000px;">
 
 		<thead>
 			<tr>

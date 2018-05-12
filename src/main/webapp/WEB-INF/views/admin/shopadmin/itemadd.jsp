@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!-- include libraries(jQuery, bootstrap) -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<style>
+</style>
 <script>
 
 function select(){
@@ -72,7 +77,7 @@ function handleFileSelect()
 
 </script>
 <form method="post" action="<c:url value='/shopadmin/insert'/>" enctype="multipart/form-data" name="frm" onsubmit="return aaa()">
-	<table class="table table-striped" style="float:left; margin-left:300px;">
+	<table class="table table-striped" style="float:left; margin-left:300px; width: 1000px;">
 
 		<thead>
 			<tr>
@@ -216,9 +221,6 @@ function handleFileSelect()
 		return true;
 	}
 </script>
-<!-- include libraries(jQuery, bootstrap) -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
 
 

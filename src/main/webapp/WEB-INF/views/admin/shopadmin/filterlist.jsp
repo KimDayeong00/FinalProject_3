@@ -11,7 +11,7 @@ function select(){
  			url:"<c:url value='/shopadmin/filtercontent?ft_num="+val+"'/>",
  			dataType:"json",
  			success:function(data){
- 				$("#classnum").html("");
+ 				$("#classnum").html("필터내용");
  				for(var q=0; q<data.list.length; q++){
  			      	var fc_name = data.list[q].fc_name;
  			      	console.log(fc_name)
@@ -22,11 +22,11 @@ function select(){
 }
 </script>
 <form method="post" enctype="multipart/form-data" name="frm" onsubmit="return aaa()">
-	<table class="table table-striped" style="float:left; margin-left:300px;">
+	<table class="table table-striped" style="float:left; margin-left:300px; width: 1000px;">
 
 		<thead>
 			<tr>
-				<th colspan="2" align="center">상품등록하기</th>
+				<th colspan="2" align="center">필터관리하기</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -45,10 +45,6 @@ function select(){
 			</tr>
 			<tr>
 				<td><div id="classnum">필터내용</div></td>
-			</tr>
-			<tr>
-				<td>상품등록</td>
-				<td><input type="submit" value="상품등록"></td>
 			</tr>
 		</tbody>
 	</table>
