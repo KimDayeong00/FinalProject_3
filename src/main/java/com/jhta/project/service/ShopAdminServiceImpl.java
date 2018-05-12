@@ -22,8 +22,11 @@ public class ShopAdminServiceImpl{
 	public int filtercontentinsert(ShopFilterContentVo vo) {
 		return dao.filtercontentinsert(vo);
 	}
-	public List<ShopFilterContentVo> filtercontentlist(int ft_num) {
-		return dao.filtercontentlist(ft_num);
+	public List<ShopFilterContentVo> filtercontentlist() {
+		return dao.filtercontentlist();
+	}
+	public List<ShopFilterContentVo> filtercontent(int ft_num) {
+		return dao.filtercontent(ft_num);
 	}
 	public List<ShopFilterTypeVo> filtertypelist() {
 		return dao.filtertypelist();

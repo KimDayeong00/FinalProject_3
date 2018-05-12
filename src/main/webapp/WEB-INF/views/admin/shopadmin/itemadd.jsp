@@ -5,8 +5,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<style>
-</style>
 <script>
 
 function select(){
@@ -25,7 +23,7 @@ function select(){
  			}		
  		});
 }
-function select1(){
+/* function select1(){
 	var classsel = document.getElementById("classsel");
 	var fieldsel = document.getElementById("fieldsel");
 	var classnum = classsel.options[classsel.selectedIndex].value;
@@ -34,7 +32,7 @@ function select1(){
 	console.log(fieldnum);
 	$("#fieldnum").html("")
 	$.getJSON("<c:url value='/shopadmin/getfilter'/>",{classnum:classnum,fieldnum:fieldnum},function(data) {
-		/* fieldnum / classnum */
+		fieldnum / classnum
 		for(var q=0; q<data.fieldlist.length; q++){
 	      	var ft_num = data.fieldlist[q].ft_num;
 	      	var ft_name = data.fieldlist[q].ft_name;
@@ -56,7 +54,7 @@ function select1(){
 	      	$("#fieldnum").append("<br>");
     	}
 	})
-}
+} */
 function handleFileSelect() 
 {
     var files = document.getElementById('file1').files[0]; //파일 객체
@@ -96,7 +94,7 @@ function handleFileSelect()
 					</select>
 					
 				
-					<select id="fieldsel" onchange="select1()" name="fieldnum"> 
+					<select id="fieldsel"  name="fieldnum"> 
 					<option>선택하세요.</option>
 					</select>
 			
@@ -104,7 +102,20 @@ function handleFileSelect()
 			</tr>
 			<tr>
 				<td><div id="classnum">필터선택</div></td>
-				<td><div id="fieldnum"></div></td>
+				<td><div id="fieldnum">
+					<c:forEach var="filtertype" items="${filtertype }">
+						<h4>${filtertype.ft_name }</h4>
+						<c:forEach var="filtercontent" items="${filtercontent }">
+							<c:if test="${filtertype.ft_num==filtercontent.ft_num }">
+								<c:if test="${filtertype.ft_num==1}">
+									<input type='radio' name='filterrdo' id='' value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+								</c:if>
+									<input type='checkbox' name='filterchk' id='' value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+							</c:if>
+						</c:forEach>
+						<br /><br />
+					</c:forEach>
+				</div></td>
 			</tr>
 			<tr>
 				<td>대표이미지</td>

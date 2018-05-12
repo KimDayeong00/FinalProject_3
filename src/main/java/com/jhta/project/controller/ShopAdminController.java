@@ -45,6 +45,10 @@ public class ShopAdminController {
 	@RequestMapping("/shopadmin/itemadd")
 	public String itemadd(Model model) {
 		List<ShopClassVo> list = shopService.classlist();
+		List<ShopFilterTypeVo> filtertype = shopAdminService.filtertypelist();
+		List<ShopFilterContentVo> filtercontent = shopAdminService.filtercontentlist();
+		model.addAttribute("filtertype", filtertype);
+		model.addAttribute("filtercontent", filtercontent);
 		model.addAttribute("classvo", list);
 		return ".admin.shopadmin.itemadd";
 	}
@@ -88,7 +92,7 @@ public class ShopAdminController {
 	@RequestMapping(value="/shopadmin/filtercontent",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String filtercontent(int ft_num) {
-		List<ShopFilterContentVo>list = shopAdminService.filtercontentlist(ft_num);
+		List<ShopFilterContentVo>list = shopAdminService.filtercontent(ft_num);
 		JSONObject obj=new JSONObject();
 		obj.put("list",list);
 		for(ShopFilterContentVo vo : list) {
@@ -114,15 +118,18 @@ public class ShopAdminController {
 	public String update(Model model,int p_num,int fieldnum) {
 		ShopItemVo list = shopAdminService.itemgetinfo(p_num);
 		List<ItemFilterVo> flist = shopAdminService.itemfiltergetinfo(p_num);
-			System.out.println("왜안나오냐!!!!!!!!!"+list.getImage_name());
 		List<ShopItemImageVo> ilist = shopAdminService.itemimggetinfo(p_num);
 		List<ShopFilterTypeVo> filtertypevo=shopService.filtertype(fieldnum);
+		List<ShopFilterTypeVo> filtertype = shopAdminService.filtertypelist();
+		List<ShopFilterContentVo> filtercontent = shopAdminService.filtercontentlist();
 		HashMap<Object, Object> map=new HashMap<>();
 		for(ShopFilterTypeVo filter:filtertypevo) {
 			int ft_num=filter.getFt_num();
 			List<ShopFilterContentVo> filtercontentvo=shopService.filtercontent(ft_num);
 			map.put(filter.getFt_num(), filtercontentvo);
 		}
+		model.addAttribute("filtertype", filtertype);
+		model.addAttribute("filtercontent", filtercontent);
 		model.addAttribute("list", list);
 		model.addAttribute("flist", flist);
 		model.addAttribute("ilist", ilist);

@@ -46,11 +46,14 @@
 	<insert id="filtertypeinsert" parameterType="String">
 		insert into filtertype values(SEQ_FILTERTYPE_FT_NUM.nextval,#{ft_name})
 	</insert>
-	<insert id="filtercontent" parameterType="shopfiltercontentvo">
+	<insert id="filtercontentinsert" parameterType="shopfiltercontentvo">
 		insert into filtercontent values(SEQ_FILTERCONTENT_FC_NUM.nextval,#{ft_num},#{fc_name})
 	</insert>
-	<select id="filtercontentlist" parameterType="int" resultType="shopfiltercontentvo">
+	<select id="filtercontent" parameterType="int" resultType="shopfiltercontentvo">
 		select * from filtercontent where ft_num = #{ft_num}
+	</select>
+	<select id="filtercontentlist" resultType="shopfiltercontentvo">
+		select * from filtercontent
 	</select>
 <select id="classlist"  resultType="shopclassvo">
 	select * from class

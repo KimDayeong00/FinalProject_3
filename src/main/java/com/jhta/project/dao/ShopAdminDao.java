@@ -67,11 +67,14 @@ public class ShopAdminDao {
 	public int filtertypeinsert(String ft_name) {
 		return sqlSession.insert(NAMESPACE+".filtertypeinsert",ft_name);
 	}
-	public int filtercontentinsert(ShopFilterContentVo vo) {
-		return sqlSession.insert(NAMESPACE+".filtercontent",vo);
+	public List<ShopFilterContentVo> filtercontentlist() {
+		return sqlSession.selectList(NAMESPACE+".filtercontentlist");
 	}
-	public List<ShopFilterContentVo> filtercontentlist(int ft_num) {
-		return sqlSession.selectList(NAMESPACE+".filtercontentlist",ft_num);
+	public int filtercontentinsert(ShopFilterContentVo vo) {
+		return sqlSession.insert(NAMESPACE+".filtercontentinsert",vo);
+	}
+	public List<ShopFilterContentVo> filtercontent(int ft_num) {
+		return sqlSession.selectList(NAMESPACE+".filtercontent",ft_num);
 	}
 	
 	public int maxpnum() {
