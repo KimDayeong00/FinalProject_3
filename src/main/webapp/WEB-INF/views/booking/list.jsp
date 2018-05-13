@@ -15,32 +15,26 @@
         height: 600px;
       }
     </style>
-	<div style="margin:10px; width: 99%; margin-top: 5px; padding: 10px; border: solid 2px #dcdcdc; border-radius: 10px;" onmouseover="aaa(this)" onmouseout="bbb(this)">
+	<div class="divhover"  style="margin:10px; width: 99%; margin-top: 5px; padding: 10px; border: solid 2px #dcdcdc; border-radius: 10px;" ><!-- onmouseover="aaa(this)" onmouseout="bbb(this)" -->
 				<div style="margin-left: 540px; font-size: 18px; font-weight: bold; "><span >지역을 선택하세요.</span><span style="margin-left: 375px;"> 날짜를 선택하세요.</span></div>
 				<!-- <input type="button" value="이미지로검색" style="margin-left: 30px;"/> -->
 				<div style="width:100%; margin-top: 10px;">
 					<div style="float: left; margin-left: 400px;">
-						<select style="width: 140px; border-radius: 10px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select>
-						<select style="width: 140px; border-radius: 10px;" class="addr" name="gugun" id="gugun"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;시군구</option></select>
-						<select style="width: 140px; border-radius: 10px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="sido" id="sido" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" > <option value="">광역시/도</option></select>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="gugun" id="gugun" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">시군구</option></select>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="dong" id="dong" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">동</option></select>
 					</div>
-					<div class="calendar" style="margin-left: 200px;">
-						<input type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
+					<div class="calendar" style="margin-left: 200px;" >
+						<input onmouseover="aaa(this)" onmouseout="ddd(this)" type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
 					</div>
 				</div>
-<table style="margin-top: 10px;">
-<tr>
-	<td colspan="12" style="text-align: center;"><h4>조건을 선택하세요.</h4></td>
-</tr>
-<tr>
-<td style="text-align: center; margin: 0px;">
+	<div style="text-align: center; margin-top: 10px;">
+		<h4>조건을 선택하세요.</h4>
 		<c:forEach var="vo" items="${filterlist }">
-			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
+			<label class="checkbox-inline" onmouseover="ccc(this)" onmouseout="ddd(this)"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
 		</c:forEach>
-</td>
-</tr>
-</table>
 		<script>sojaeji();</script>
+	</div>
 </div>
 	<%-- <div class="btn-group" data-toggle="buttons">
 		<c:forEach items="${filterlist }" var="filter">
@@ -245,7 +239,7 @@
 	    		$("#petsitterList").html("");
 	        	for(var q=0; q<data.list.length; q++){
 	        		var petsitterList=
-	                        "<div class='tour-block' onmouseover='aaa(this)' onmouseout='bbb(this)' name='ssd' style='background-color: white; padding:0; margin:0; border:2px solid #dcdcdc; margin-top:5px;'>"+
+	                        "<div class='tour-block' name='ssd' style='background-color: white; padding:0; margin:0; border:2px solid #dcdcdc; margin-top:5px;' onmouseover='aaa(this)' onmouseout='bbb(this)'>"+
 	        				"<div class='tour-img' style='width:20%; margin-top:5px;'>"+
 	        				"<a href='#'><img style='margin-top:5px; width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
                         	"</div>"+
@@ -307,10 +301,24 @@
 	}
 	function aaa(div){
 		$(div).css("border", "2px solid orange");
+		$(div).css("color", "orange");
 	}
 	function bbb(div){
 		$(div).css("border", "2px solid #dcdcdc");
+		$(div).css("color", "#5f5f5f");
 	}
+	function ccc(div){
+		$(div).css("color", "orange");
+	}
+	function ddd(div){
+		$(div).css("color", "#5f5f5f");
+	}
+	$( ".divhover" ).mouseover(function() {
+		$(this).css("border", "2px solid orange");
+	});
+	$( ".divhover" ).mouseout(function() {
+		$(this).css("border", "2px solid #dcdcdc");
+	});
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
