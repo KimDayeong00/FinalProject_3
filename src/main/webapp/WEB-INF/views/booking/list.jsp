@@ -14,46 +14,32 @@
       	width : 50%;
         height: 600px;
       }
-      .mystyle{background-color: yellow;}
     </style>
-	<div style="width: 100%; margin-top: 5px; padding: 10px; border: 1px solid black;">
-		<table style="margin-top: 5px; padding: 10px;">
-			<tr>
-				<td colspan="3" style="text-align: center;"><h4>지역을 선택하세요.</h4></td>
-				<td style="text-align: center;"><h4>날짜를 선택하세요.</h4></td>
-				<td><input type="button" value="이미지로검색" style="margin-left: 30px;"/></td>
-			</tr>
-			<tr style="padding: 10px;">
-				<td width="150px"><select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select></td>
-				<td width="150px"><select style="width: 100px;" class="addr" name="gugun" id="gugun"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;시군구</option></select></td>
-				<td width="150px"><select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select></td>
-			<td>
-					<div class="calendar">
-						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
+	<div style="margin:10px; width: 99%; margin-top: 5px; padding: 10px; border: solid 2px #dcdcdc; border-radius: 10px;" onmouseover="aaa(this)" onmouseout="bbb(this)">
+				<div style="margin-left: 540px; font-size: 18px; font-weight: bold; "><span >지역을 선택하세요.</span><span style="margin-left: 375px;"> 날짜를 선택하세요.</span></div>
+				<!-- <input type="button" value="이미지로검색" style="margin-left: 30px;"/> -->
+				<div style="width:100%; margin-top: 10px;">
+					<div style="float: left; margin-left: 400px;">
+						<select style="width: 140px; border-radius: 10px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select>
+						<select style="width: 140px; border-radius: 10px;" class="addr" name="gugun" id="gugun"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;시군구</option></select>
+						<select style="width: 140px; border-radius: 10px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select>
 					</div>
-				</td>
-			</tr>
-			<tr><td><br /></td></tr>
-</table>
-<table>
-			<tr>
-				<td colspan="14" style="text-align: center;"><h4>조건을 선택하세요.</h4></td>
-			</tr>
+					<div class="calendar" style="margin-left: 200px;">
+						<input type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
+					</div>
+				</div>
+<table style="margin-top: 10px;">
 <tr>
-<c:forEach var="vo" items="${filterlist }">
+	<td colspan="12" style="text-align: center;"><h4>조건을 선택하세요.</h4></td>
+</tr>
+<tr>
 <td style="text-align: center; margin: 0px;">
-	<div class="btn-group" data-toggle="buttons" style="margin:0px; ">
-		<label class="btn" style="width: 100%;" >
-			<input type="checkbox" class="filterName" name="filterName" value="${vo.fl_name}"> ${vo.f_type }
-  		</label> 
-	</div>
+		<c:forEach var="vo" items="${filterlist }">
+			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
+		</c:forEach>
 </td>
-</c:forEach>
 </tr>
 </table>
-		<%-- <c:forEach var="vo" items="${filterlist }">
-			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
-		</c:forEach> --%>
 		<script>sojaeji();</script>
 </div>
 	<%-- <div class="btn-group" data-toggle="buttons">
@@ -63,7 +49,7 @@
 			</label>
 		</c:forEach>
 	</div> --%>
-    <div id="petsitterList"></div>
+    <div id="petsitterList" style="padding: 5px;"></div>
     <div id="map"></div>
     <script type="text/javascript">
     var address = new Array();
@@ -76,9 +62,15 @@
 	var ref=0;
 	var filterchk=[];
 	var infowindow;
-   /*  $(".filterName").on("click",function(){
-    	
-    }) */
+   	$(".filterName").on("click",function(){
+   		filterchk=[]
+   	 $('input:checkbox[name="filterName"]').each(function() {
+   	      if(this.checked){
+   	            filterchk.push(this.value)
+   	      }
+   	 });
+   	changeMap()
+    })
     
     $(".addr").on("change",function(){
     	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
@@ -222,7 +214,7 @@
 			 		    	getlist();
 		 		      	},100);
 		 			var contentString =
-		 				"<a href='<c:url value='/detail?ps_email="+this.email+"'/>'><div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
+		 				"<a href='<c:url value='/detail?ps_email="+this.email+"'/>'><div class='tour-block' style=' padding:0; margin:0; border:2px solid #dcdcdc; margin-top:5px;'>"+
         				"<div class='tour-img' style='width:200px;'>"+
         				"<img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+this.img+"'/>'>"+
                     	"</div>"+
@@ -253,23 +245,22 @@
 	    		$("#petsitterList").html("");
 	        	for(var q=0; q<data.list.length; q++){
 	        		var petsitterList=
-	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
-	        				"<div class='tour-img' style='width:20%;'>"+
-	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
+	                        "<div class='tour-block' onmouseover='aaa(this)' onmouseout='bbb(this)' name='ssd' style='background-color: white; padding:0; margin:0; border:2px solid #dcdcdc; margin-top:5px;'>"+
+	        				"<div class='tour-img' style='width:20%; margin-top:5px;'>"+
+	        				"<a href='#'><img style='margin-top:5px; width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
 	                                "<h2>"+data.list[q].ps_content+"</h2>"+
 	                                "<div class='tour-meta'>이름 : "+data.list[q].ps_name+"&nbsp;&nbsp; | &nbsp; 반려견 :"+data.list[q].petcnt +"마리</div>"+
-	                               
-	                                "<div class='tour-details' style=''>"+
+	                                "<div >"+
 	                                "<div class='tour-text mb40' style='text-align: center; height:115px; margin:0px; padding:0px;'>";
 					                    for(var w=0; w<data.list[q].list.length; w++){
-					                    	petsitterList+="<div style='display: inline-block; margin:5px;'><span style='border:1px solid gray; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
+					                    	petsitterList+="<div class='filterlist' style='display: inline-block; margin:5px;'><span style='border:2px solid #dcdcdc; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
 					                    }
 					                    petsitterList+=
 					                    "</div>"+
 	                                    "<div class='tour-details-text' style='margin:0px; padding:0px;'><span style='display: inline-block; color: gray; font-size: 20px; width:100%; margin:0px; padding:0px; margin-top:-5px; '>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"&nbsp;&nbsp;&nbsp;&nbsp; 대형견 추가금/"+data.list[q].ps_overprice+"</span></div>"+
-	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='<c:url value='/detail?ps_email="+data.list[q].ps_email+"'/>' class='btn btn-primary'>예약하기</a></span> </div>"+
+	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='<c:url value='/detail?ps_email="+data.list[q].ps_email+"'/>' class='btn btn-primary' style='background-color:ffd700;'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
 	                    "</div>";
@@ -314,22 +305,12 @@
 		    		getlist()
 	    })
 	}
-	$(".btn").on('click',function(){
-	    var $input = $(this).find('input');
-	    $(this).toggleClass('mystyle');
-	    if ($(this).hasClass('mystyle')) {
-	    	$input.prop("checked",true);       
-	    } else {
-	        $input.prop("checked",false);
-	    }
-	    filterchk=[]
-	   	 $('input:checkbox[name="filterName"]').each(function() {
-	   	      if(this.checked){
-	   	            filterchk.push(this.value)
-	   	      }
-	   	 });
-	   	changeMap()
-	});
+	function aaa(div){
+		$(div).css("border", "2px solid orange");
+	}
+	function bbb(div){
+		$(div).css("border", "2px solid #dcdcdc");
+	}
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
