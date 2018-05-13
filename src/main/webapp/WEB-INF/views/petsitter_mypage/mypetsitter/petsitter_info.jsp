@@ -459,7 +459,31 @@ $(function(){
 						<c:choose>
 							<c:when test="${dtld eq 'reservation' }">
 								<div>
-									
+									<table class="bookTable">
+										<tr style="border-bottom:1px solid gray;">
+											<th>돌봄 시작 날짜</th><th>돌봄 끝 날짜</th><th>예약 회원 이름</th><th>맡기는 반려견</th><th>요청사항</th>
+										</tr>
+											<c:forEach var="plist" items="${pbookList }">
+												<tr>
+													<td>${plist.bk_startdate }</td>
+													<td>${plist.bk_enddate }</td>
+													<td>${plist.m_name }</td>
+													<c:choose>
+														<c:when test="${plist.count>1 }">
+															<td>${plist.pi_name } 외 ${plist.count-1 }마리</td>
+														</c:when>
+														<c:otherwise>
+															<td>${plist.pi_name }</td>	
+														</c:otherwise>
+													</c:choose>
+													<td>
+														<textarea rows="5" cols="10" readonly="readonly">
+															${plist.bk_content }
+														</textarea>
+													</td>
+												</tr>
+											</c:forEach>
+									</table>
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'reservationSet' }">

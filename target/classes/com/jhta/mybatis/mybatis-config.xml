@@ -64,9 +64,10 @@
 	   	<mapper resource="com/jhta/mybatis/PayMapper.xml" />
 	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml" />
 	   	<mapper resource="com/jhta/mybatis/BookpetInfoMapper.xml"/>
-	   	
 	   	<mapper resource="com/jhta/mybatis/FilterMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/ReviewMapper.xml"/>
+	   	
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		

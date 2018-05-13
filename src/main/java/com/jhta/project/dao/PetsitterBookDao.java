@@ -29,4 +29,12 @@ public class PetsitterBookDao {
 	public int insertBook (PetsitterBookVo vo) {
 		return sqlSession.insert(NAMESPACE+".insertBook",vo);
 	}
+	
+	public List<PetsitterBookVo> selectPrevList(String m_email){
+		return sqlSession.selectList(NAMESPACE+".selectPrevList",m_email);
+	}
+	
+	public List<PetsitterBookVo> selectPbookList(String ps_email){
+		return sqlSession.selectList(NAMESPACE+".selectPbookList",ps_email);
+	}
 }

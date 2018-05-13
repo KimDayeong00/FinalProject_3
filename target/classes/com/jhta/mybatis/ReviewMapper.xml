@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.ReviewMapper">
+	<insert id="insertReview" parameterType="com.jhta.project.vo.ReviewVo">
+		insert into review values(seq_review_r_num.nextval,${r_content},#{r_score},sysdate,#{m_email},#{ps_email},#{bk_num})	
+	</insert>
+	
+</mapper>

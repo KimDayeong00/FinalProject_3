@@ -65,7 +65,7 @@ public class ReservationController {
 		
 		System.out.println("petsitterBook");
 		try {
-		PetsitterBookVo vo=new PetsitterBookVo(0,bk_startdate,bk_enddate,null,m_email,ps_email,null,bk_content);
+		PetsitterBookVo vo=new PetsitterBookVo(0,bk_startdate,bk_enddate,null,m_email,null,ps_email,null,bk_content,0);
 		int n = bookService.insertBook(vo);
 		
 		if(n>0) {
