@@ -14,12 +14,14 @@
       	width : 50%;
         height: 600px;
       }
+      .mystyle{background-color: yellow;}
     </style>
-	<div style="width: 100%; margin-top: 5px; padding: 10px; ">
-		<table style="border: 1px solid black; margin-top: 5px; padding: 10px;">
+	<div style="width: 100%; margin-top: 5px; padding: 10px; border: 1px solid black;">
+		<table style="margin-top: 5px; padding: 10px;">
 			<tr>
-				<td colspan="3" style="text-align: center;">지역을 선택하세요.</td>
-				<td style="text-align: center;">날짜를 선택하세요.</td>
+				<td colspan="3" style="text-align: center;"><h4>지역을 선택하세요.</h4></td>
+				<td style="text-align: center;"><h4>날짜를 선택하세요.</h4></td>
+				<td><input type="button" value="이미지로검색" style="margin-left: 30px;"/></td>
 			</tr>
 			<tr style="padding: 10px;">
 				<td width="150px"><select style="width: 100px;" class="addr" name="sido" id="sido"><option value="">&nbsp;광역시/도</option></select></td>
@@ -27,16 +29,33 @@
 				<td width="150px"><select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select></td>
 			<td>
 					<div class="calendar">
-						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
+						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
 					</div>
 				</td>
 			</tr>
-		</table>
-		<c:forEach var="vo" items="${filterlist }">
-			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
-		</c:forEach>
-		<script>sojaeji();</script>
+			<tr><td><br /></td></tr>
+</table>
+<table>
+			<tr>
+				<td colspan="14" style="text-align: center;"><h4>조건을 선택하세요.</h4></td>
+			</tr>
+<tr>
+<c:forEach var="vo" items="${filterlist }">
+<td style="text-align: center; margin: 0px;">
+	<div class="btn-group" data-toggle="buttons" style="margin:0px; ">
+		<label class="btn" style="width: 100%;" >
+			<input type="checkbox" class="filterName" name="filterName" value="${vo.fl_name}"> ${vo.f_type }
+  		</label> 
 	</div>
+</td>
+</c:forEach>
+</tr>
+</table>
+		<%-- <c:forEach var="vo" items="${filterlist }">
+			<label class="checkbox-inline"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
+		</c:forEach> --%>
+		<script>sojaeji();</script>
+</div>
 	<%-- <div class="btn-group" data-toggle="buttons">
 		<c:forEach items="${filterlist }" var="filter">
 			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
@@ -57,15 +76,9 @@
 	var ref=0;
 	var filterchk=[];
 	var infowindow;
-    $(".filterName").on("click",function(){
-    	filterchk=[]
-    	 $('input:checkbox[name="filterName"]').each(function() {
-    	      if(this.checked){
-    	            filterchk.push(this.value)
-    	      }
-    	 });
-    	changeMap()
-    })
+   /*  $(".filterName").on("click",function(){
+    	
+    }) */
     
     $(".addr").on("change",function(){
     	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
@@ -107,7 +120,7 @@
 		      	var name = '${data.ps_name}';
 		      	var addr1 = '${data.ps_addr1}';
 		      	var content = '${data.ps_content}';
-		      	var img = '${data.ps_saveimage}';
+		      	var img = '${data.pimg_savefilename}';
 		      	var careprice = ${data.ps_careprice};
 		      	var price = ${data.ps_price};
 		      	var overprice = ${data.ps_overprice};
@@ -242,7 +255,7 @@
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
-	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
+	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
 	                                "<h2>"+data.list[q].ps_content+"</h2>"+
@@ -301,6 +314,22 @@
 		    		getlist()
 	    })
 	}
+	$(".btn").on('click',function(){
+	    var $input = $(this).find('input');
+	    $(this).toggleClass('mystyle');
+	    if ($(this).hasClass('mystyle')) {
+	    	$input.prop("checked",true);       
+	    } else {
+	        $input.prop("checked",false);
+	    }
+	    filterchk=[]
+	   	 $('input:checkbox[name="filterName"]').each(function() {
+	   	      if(this.checked){
+	   	            filterchk.push(this.value)
+	   	      }
+	   	 });
+	   	changeMap()
+	});
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>

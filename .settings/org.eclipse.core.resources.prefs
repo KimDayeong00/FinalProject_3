@@ -1,3 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/jhta/project/controller/HomeConrtoller.java=UTF-8
+encoding//src/main/java/com/jhta/project/controller/ItemController.java=UTF-8
+encoding//src/main/java/com/jhta/project/controller/ShopAdminController.java=UTF-8
+encoding//src/main/java/com/jhta/project/controller/memberController.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/admin/qna/adminqna.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/members/join.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/qna/faq.jsp=UTF-8
 encoding/<project>=UTF-8

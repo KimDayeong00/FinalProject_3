@@ -26,7 +26,7 @@ import com.jhta.project.vo.memberVO;
 
 @Controller
 public class memberController {
-   private static final String mydomain = "http://localhost:8090/project/callback";
+   private static final String mydomain = "http://192.168.0.2:8090/project/callback";
 
    private static final String clientId = "MfMVXKoyjlrxFxb21n3w";
 
@@ -42,19 +42,20 @@ public class memberController {
 
    @RequestMapping("/login")
    public String login() {
-      // 테스트용으로 잠시 바꿈
+      // ���ㅽ�몄�⑹�쇰� ���� 諛�轅�
       return "/members/login";
    }
 
-   @RequestMapping("/register1")
-   public String register1() {
-      return ".members.join";
+   @RequestMapping("/logout")
+   public String logout(HttpSession session) {
+      // ���ㅽ�몄�⑹�쇰� ���� 諛�轅�
+      System.out.println("濡�洹몄������湲�");
+      session.removeAttribute("login");
+      session.removeAttribute("login_type");
+
+      return ".main";
    }
-   @RequestMapping("/register2")
-   public String register2() {
-      return ".members.join2";
-   }
-   
+
    @RequestMapping("/n_login")
    public String n_login(String email, String pwd, HttpSession session) {
       System.out.println(email);
@@ -70,12 +71,12 @@ public class memberController {
          if (mc == 0 && pc == 0) {
             returnV = "/members/login";
          } else if (mc != 0) {
-            System.out.println("맴버로그인");
+            System.out.println("留대�濡�洹몄��");
             session.setAttribute("login", email);
             session.setAttribute("login_type", 1);
             returnV = ".main";
          } else if (pc != 0) {
-            System.out.println("펫시터로그인");
+            System.out.println("�レ���곕�洹몄��");
             session.setAttribute("login", email);
             session.setAttribute("login_type", 2);
             returnV = ".main";
@@ -84,25 +85,34 @@ public class memberController {
       return returnV;
    }
 
+   @RequestMapping("/register1")
+   public String register1() {
+      return ".members.join";
+   }
+
+   @RequestMapping("/register2")
+   public String register2() {
+      return ".members.join2";
+   }
+
    /*
-    * type은 회원 유형(일반,펫시터) type1은 가입 유형(일반가입=1, 카카오=2, 구글=3, 네이버=4)
+    * type�� ���� ����(�쇰�,�レ����) type1�� 媛��� ����(�쇰�媛���=1, 移댁뭅��=2, 援ш�=3, �ㅼ�대�=4)
     */
    @RequestMapping("/register")
    public String register(int type, int type1, HttpSession session) {
-      System.out.println("타입은" + type);
-      System.out.println("타입1은" + type1);
+      System.out.println("������" + type);
+      System.out.println("����1��" + type1);
       session.setAttribute("email", "");
       session.setAttribute("type", type);
       session.setAttribute("type1", type1);
       return ".members.terms";
    }
-   
-   
+
    @RequestMapping("/socialJ")
-   public String register(int type, int type1,String email, HttpSession session) {
-      System.out.println("타입은" + type);
-      System.out.println("타입1은" + type1);
-      System.out.println("이메일 : "+email);
+   public String register(int type, int type1, String email, HttpSession session) {
+      System.out.println("������" + type);
+      System.out.println("����1��" + type1);
+      System.out.println("�대��� : " + email);
       session.setAttribute("type", type);
       session.setAttribute("type1", type1);
       session.setAttribute("email", email);
@@ -127,14 +137,15 @@ public class memberController {
       System.out.println(vo.toString());
       int a = (Integer) session.getAttribute("type");
       int b = (Integer) session.getAttribute("type1");
-
+      String returnV = "";
       vo.setM_gubun(b);
       int row = service.insertM(vo);
       if (row > 0) {
-         System.out.println("우레카!");
+         returnV = ".main";
+      } else {
+         returnV = "/error";
       }
-
-      return ".main";
+      return returnV;
    }
 
    @RequestMapping("/joinP")
@@ -146,7 +157,7 @@ public class memberController {
       System.out.println(vo.toString());
       int row = service.insertP(vo);
       if (row > 0) {
-         System.out.println("우레카!");
+         System.out.println("�곕��移�!");
       }
 
       return ".main";
@@ -154,28 +165,28 @@ public class memberController {
 
    @RequestMapping("/jusoPopup")
    public String popup() {
-      System.out.println("주소 들어옴");
+      System.out.println("二쇱�� �ㅼ�댁��");
       return "/members/jusoPopup";
    }
 
    @RequestMapping(value = "/callback")
-   public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,HttpSession session)
-         throws UnsupportedEncodingException {
+   public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,
+         HttpSession session) throws UnsupportedEncodingException {
 
-      String storedState = (String) request.getSession().getAttribute("state"); // 세션에 저장된 토큰을 받아옵니다.
+      String storedState = (String) request.getSession().getAttribute("state"); // �몄���� ���λ�� ���곗�� 諛����듬����.
 
-      if (!state.equals(storedState)) { // 세션에 저장된 토큰과 인증을 요청해서 받은 토큰이 일치하는지 검증합니다.
+      if (!state.equals(storedState)) { // �몄���� ���λ�� ���곌낵 �몄��� ��泥��댁�� 諛��� ���곗�� �쇱�����吏� 寃�利��⑸����.
 
-         System.out.println("401 unauthorized"); // 인증이 실패했을 때의 처리 부분입니다.
+         System.out.println("401 unauthorized"); // �몄��� �ㅽ�⑦���� ���� 泥�由� 遺�遺�������.
 
-         return "redirect:/";
+         return "/error";
 
       }
-      // AccessToken 요청 및 파싱할 부분
-      String data = Utils.getHtml(getAccessUrl(state, code), null); // AccessToken을 요청하고 그 값을 가져옵니다.
+      // AccessToken ��泥� 諛� ���깊�� 遺�遺�
+      String data = Utils.getHtml(getAccessUrl(state, code), null); // AccessToken�� ��泥���怨� 洹� 媛��� 媛��몄�듬����.
 
-      Map<String, String> map = Utils.JSONStringToMap(data); // JSON의 형태로 받아온 값을 Map으로 저장합니다.
-      System.out.println("준비");
+      Map<String, String> map = Utils.JSONStringToMap(data); // JSON�� ����濡� 諛����� 媛��� Map�쇰� ���ν�⑸����.
+      System.out.println("以�鍮�");
       String accessToken = map.get("access_token");
       System.out.println(accessToken);
       String tokenType = map.get("token_type");
@@ -183,35 +194,57 @@ public class memberController {
 
       String profileDataXml = Utils.getHtml(userProfileUrl, tokenType + " " + accessToken);
 
-      // tokentype 와 accessToken을 조합한 값을 해더의 Authorization에 넣어 전송합니다. 결과 값은 xml로
-      // 출력됩니다.
+      // tokentype �� accessToken�� 議고�⑺�� 媛��� �대���� Authorization�� �ｌ�� ���≫�⑸����. 寃곌낵 媛��� xml濡�
+      // 異��λ�⑸����.
 
-      JSONObject jsonObject = XML.toJSONObject(profileDataXml); // xml을 json으로 파싱합니다.
+      JSONObject jsonObject = XML.toJSONObject(profileDataXml); // xml�� json�쇰� ���깊�⑸����.
 
       JSONObject responseData = jsonObject.getJSONObject("data");
 
-      // json의 구조가 data 아래에 자식이 둘인 형태여서 map으로 파싱이 안됩니다. 따라서 자식 노드로 접근합니다.
-
+      // json�� 援ъ“媛� data ������ ������ ���� �����ъ�� map�쇰� ���깆�� ���⑸����. �곕�쇱�� ���� �몃��濡� ��洹쇳�⑸����.
+      String returnV = "";
       Map<String, String> userMap = Utils.JSONStringToMap(responseData.get("response").toString());
       System.out.println(userMap.get("email"));
-      session.setAttribute("email", userMap.get("email"));
-      // 사용자 정보 값은 자식노드 중에 response에 저장되어 있습니다. response로 접근하여 그 값들은 map으로 파싱합니다.
+      int a = (int) session.getAttribute("type");
+      if (a == 3) {
+         System.out.println("�ㅼ�대� 濡�洹몄�몄��");
+         int mc = service.emailc_m(userMap.get("email"));
+         int pc = service.emailc_p(userMap.get("email"));
+         if (mc == 0 && pc == 0) {
+            returnV = ".members.join";
+         } else if (mc != 0) {
+            System.out.println("�ㅼ�대� 留대�濡�洹몄��");
+            session.setAttribute("login", userMap.get("email"));
+            session.setAttribute("login_type", 1);
+            returnV = ".main";
+         } else if (pc != 0) {
+            System.out.println("�ㅼ�대� �レ���곕�洹몄��");
+            session.setAttribute("login", userMap.get("email"));
+            session.setAttribute("login_type", 2);
+            returnV = ".main";
+         }
 
-      return ".members.terms";
+      } else {
+         System.out.println("�ㅼ�대� ����媛�����");
+         session.setAttribute("email", userMap.get("email"));
+         // �ъ�⑹�� ��蹂� 媛��� �����몃�� 以��� response�� ���λ���� ���듬����. response濡� ��洹쇳���� 洹� 媛��ㅼ�� map�쇰� ���깊�⑸����.
 
+         returnV = ".members.terms";
+      }
+      return returnV;
    }
 
    @RequestMapping(value = "/personalInfo")
    public void personalInfo(HttpServletRequest request) throws Exception {
-      String token = "AAAAOMXEXCTHSoBwSNqMs0QhpLgUD6iXl9tm2TWauM1/8wPe+X61+rXjtcTwmxB69FLFNIwOwLCfO6fiLdQRv7CYXkI=";// 네이버
-                                                                                          // 로그인
-                                                                                          // 접근
-                                                                                          // 토큰;
-                                                                                          // 여기에
-                                                                                          // 복사한
-                                                                                          // 토큰값을
-                                                                                          // 넣어줍니다.
-      String header = "Bearer " + token; // Bearer 다음에 공백 추가
+      String token = "AAAAOMXEXCTHSoBwSNqMs0QhpLgUD6iXl9tm2TWauM1/8wPe+X61+rXjtcTwmxB69FLFNIwOwLCfO6fiLdQRv7CYXkI=";// �ㅼ�대�
+                                                                                          // 濡�洹몄��
+                                                                                          // ��洹�
+                                                                                          // ����;
+                                                                                          // �ш린��
+                                                                                          // 蹂듭�ы��
+                                                                                          // ���곌���
+                                                                                          // �ｌ�댁�����.
+      String header = "Bearer " + token; // Bearer �ㅼ���� 怨듬갚 異�媛�
       try {
          String apiURL = "https://openapi.naver.com/v1/nid/me";
          URL url = new URL(apiURL);
@@ -220,9 +253,9 @@ public class memberController {
          con.setRequestProperty("Authorization", header);
          int responseCode = con.getResponseCode();
          BufferedReader br;
-         if (responseCode == 200) { // 정상 호출
+         if (responseCode == 200) { // ���� �몄�
             br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-         } else { // 에러 발생
+         } else { // ���� 諛���
             br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
          }
          String inputLine;
@@ -237,15 +270,53 @@ public class memberController {
       }
    }
 
+   // ����濡�洹몄�� 泥�由щ�遺�
+   @RequestMapping(value = "/sociallogin")
+   public String naverLogin(int type1, String email, HttpSession session) {
+      System.out.println("����1��" + type1);
+      System.out.println("�대��쇱�� : " + email);
+
+      String returnV = "";
+      // �ㅼ�대��쇰���� 蹂�媛�濡� 泥�由�
+      if (type1 == 4) {
+         String state = Utils.generateState(); // ���곗�� ���깊�⑸����.
+         session.setAttribute("type", 3);
+         session.setAttribute("type1", type1);
+         session.setAttribute("state", state); // �몄���� ���곗�� ���ν�⑸����.
+         returnV = "redirect:" + requestUrl + state; // 留��ㅼ�댁� URL濡� �몄��� ��泥��⑸����.
+      } else {
+
+         // 移댁뭅�ㅻ�� 援ш� 濡�洹몄�� 泥�由�
+         int mc = service.emailc_m(email);
+         int pc = service.emailc_p(email);
+         if (mc == 0 && pc == 0) {
+            returnV = ".members.join";
+         } else if (mc != 0) {
+            System.out.println("���� 留대�濡�洹몄��");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 1);
+            returnV = ".main";
+         } else if (pc != 0) {
+            System.out.println("���� �レ���곕�洹몄��");
+            session.setAttribute("login", email);
+            session.setAttribute("login_type", 2);
+            returnV = ".main";
+         }
+
+      }
+      return returnV;
+   }
+
+   // ����媛����� 濡�洹몄��
    @RequestMapping(value = "/naverlogin")
-   public String naverLogin(int type, int type1,HttpSession session) {
-      String state = Utils.generateState(); // 토큰을 생성합니다.
-      System.out.println("타입은"+type);
-      System.out.println("타입1은"+type1);
+   public String naverLogin(int type, int type1, HttpSession session) {
+      String state = Utils.generateState(); // ���곗�� ���깊�⑸����.
+      System.out.println("������" + type);
+      System.out.println("����1��" + type1);
       session.setAttribute("type", type);
       session.setAttribute("type1", type1);
-      session.setAttribute("state", state); // 세션에 토큰을 저장합니다.
-      return "redirect:" + requestUrl + state; // 만들어진 URL로 인증을 요청합니다.
+      session.setAttribute("state", state); // �몄���� ���곗�� ���ν�⑸����.
+      return "redirect:" + requestUrl + state; // 留��ㅼ�댁� URL濡� �몄��� ��泥��⑸����.
 
    }
 
@@ -274,5 +345,12 @@ public class memberController {
       }
       return ob.toString();
    }
-
+   
+   @RequestMapping("/mypage/order")
+   public ModelAndView order() {
+   ModelAndView mv=new ModelAndView(".members.order");
+   return mv;
+   }
+   
+ 
 }

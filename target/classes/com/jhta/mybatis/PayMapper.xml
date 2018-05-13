@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.PayMapper">
+	<insert id="insertPay" parameterType="com.jhta.project.vo.PayVo2">
+		insert into pay values(seq_pay_pay_num.nextval,#{pay_price},sysdate,#{patsitter_price},#{comn},#{m_email},#{bk_num})
+	</insert>
+
+</mapper>

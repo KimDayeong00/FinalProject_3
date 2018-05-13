@@ -432,6 +432,11 @@ $(function(){
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
 		</div>	
+		
+		<div class="order">
+			<span><a href="<c:url value='/mypage/order'/>">주문목록/배송조회</a></span>
+		</div>	
+		
 		<div class="petsitterInfoManage">
 			<span><a href="<c:url value='/psinfoSet?page=sitterInfo&dtld=psInfoSet'/>">펫시터 정보 관리</a></span>
 		</div>
@@ -633,9 +638,7 @@ $(function(){
 						<c:if test="${null ne ppetList}">
 								<c:forEach var="vo3" items="${ppetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>">
-									
-									</div>
+									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/PpetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
@@ -706,34 +709,37 @@ $(function(){
 								</div>
 								<div class="queBox">
 									<div class="ppetImgBox"><img id="ppetImg"></div>
-									<div><input type="text" placeholder="이름" name="pi_name" value="${ppetInfo.pi_name }"></div>
-									<div><select name="pi_sex" id="pi_sex">
+									<div class="ppetInsertInput">
+									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name" value="${ppetInfo.pi_name }"></div>
+									<div class="ppetInputRight"><select name="pi_sex" id="pi_sex">
 										<option>성별</option>
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div><input type="text" placeholder="품종" name="pi_type" value="${ppetInfo.pi_type }"></div>
-									<div><input type="text" placeholder="무게" name="pi_weight" value="${ppetInfo.pi_weight }"></div>
-									<div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" value="${ppetInfo.pi_type }"></div>
+									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight" value="${ppetInfo.pi_weight }"></div>
+									<div class="ppetInputLeft">
+									<select name="pi_month" id="pi_month">
+										<c:forEach var="i" begin="1" end="12">
+											<option value="${i}">${i }</option>
+										</c:forEach>
+									</select>
 									<select name="pi_year" id="pi_year">
 										<c:forEach var="i" begin="1980" end="${year }">
 											<option value="${i}">${i }</option>
 										</c:forEach>
-									</select></div>
-									<div>
-										<select name="pi_month" id="pi_month">
-											<c:forEach var="i" begin="1" end="12">
-												<option value="${i}">${i }</option>
-											</c:forEach>
-										</select>
+									</select>
 									</div>
-									<div>
+									</div>
+									<div class="PtextArea">
 									<textarea rows="10" cols="50" name="pi_content">${ppetInfo.pi_content }</textarea>
 									</div>
 									<input type="hidden" name="pi_num" value="${ppetInfo.pi_num }">
-									<button type="submit" class="modifyBtn">
+									<div class="modifyBtnBox">
+									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
+									</div>
 								</div>
 								</form>
 							</div>

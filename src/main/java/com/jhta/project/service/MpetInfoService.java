@@ -27,4 +27,8 @@ public class MpetInfoService {
 	public int updateMypet(MpetInfoVo vo) {
 		return dao.updateMypet(vo);
 	}
+	
+	public List<MpetInfoVo> psbltPet(String m_email){
+		return dao.psbltPet(m_email);
+	}
 }

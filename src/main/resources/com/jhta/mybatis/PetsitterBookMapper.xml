@@ -17,4 +17,12 @@
 	<select id="getBpetCnt" parameterType="int" resultType="int">
 		select count(*) from(select aa.* from mpetinfo aa,bookpetinfo bb where aa.pi_num in(bb.pi_num) and bb.bk_num=#{value})
 	</select>
+	<insert id="insertBook" parameterType="com.jhta.project.vo.PetsitterBookVo">
+		insert into petsitterbook values(seq_petsitterbook_bk_num.nextval,to_date(#{bk_startdate},'yyyy-mm-dd hh24:mi'),
+		to_date(#{bk_enddate},'yyyy-mm-dd hh24:mi'),'예약중',#{m_email},#{ps_email},#{bk_content})
+		
+		<selectKey keyProperty="bk_num" resultType="Integer" order="AFTER">
+			select seq_petsitterbook_bk_num.currval from dual
+		</selectKey>
+	</insert>
 </mapper>

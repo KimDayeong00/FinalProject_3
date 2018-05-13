@@ -6,4 +6,7 @@
 	<select id="selectBpet" parameterType="int" resultType="com.jhta.project.vo.MpetInfoVo">
 		select aa.* from mpetinfo aa,bookpetinfo bb where aa.pi_num in(bb.pi_num) and bb.bk_num=#{value}
 	</select>
+	<insert id="insertBpet" parameterType="com.jhta.project.vo.BookpetInfoVo">
+		insert into bookpetinfo values(SEQ_BOOKPETINFO_BPI_NUM.nextval,#{bk_num},#{pi_num})
+	</insert>
 </mapper>

@@ -20,23 +20,37 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 구글 -->
+<!-- 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+ -->
 <!-- 카카오 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- Bootstrap -->
-<link href="resources/vendors/bootstrap/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Font Awesome -->
-<link href="resources/vendors/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<!-- NProgress -->
-<link href="resources/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="<c:url value="/resources/admin/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
+ <!-- Font Awesome -->
+    <link href="<c:url value="/resources/admin/vendors/font-awesome/css/font-awesome.min.css" />" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<c:url value="/resources/admin/vendors/nprogress/nprogress.css" />" rel="stylesheet">
 <!-- Animate.css -->
 <link href="resources/vendors/animate.css/animate.min.css"
 	rel="stylesheet">
 
-<!-- Custom Theme Style -->
-<link href="resources/build/css/custom.min.css" rel="stylesheet">
+ <!-- Custom Theme Style -->
+    <link href="<c:url value="/resources/build/css/custom.min.css" />" rel="stylesheet">
+
+
+<script>
+
+function goPopup(){
+	// 주소검색을 수행할 팝업 페이지를 호출합니다.
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+	var pop = window.open("<c:url value="/send" />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	
+}
+</script>
+
+
+
 </head>
 
 <body class="login">
@@ -51,15 +65,16 @@
 						<h1>로그인하기</h1>
 						<div>
 							<input type="text" class="form-control" placeholder="이메일" name="email"
-								required="" />
+								required="" onkeypress="if(event.keyCode == 13){ document.getElementById('myForm').submit() }"/>
 						</div>
 						<div>
 							<input type="password" class="form-control" placeholder="비밀번호" name="pwd"
-								required="" />
+								required="" onkeypress="if(event.keyCode == 13){ document.getElementById('myForm').submit() }"
+								/>
 						</div>
 						<div>
 							<a class="btn btn-default submit" href="#" onclick="document.getElementById('myForm').submit()">로그인</a> <a
-								class="reset_pass" href="#">비밀번호 찾기</a>
+								class="reset_pass" href="#" onclick="goPopup();">비밀번호 찾기</a>
 
 						</div>
 						<div class="login_wrapper" style="float: left;">
@@ -159,6 +174,8 @@
 			Kakao.API.request({
 				url : '/v1/user/me',
 				success : function(res) {
+					alert( JSON.stringify(res));
+					
 					var emailM = JSON.stringify(res.kaccount_email);
 					var emailLength = emailM.length;
 					var newEmail = emailM.substr(1,(emailLength-2));
@@ -175,10 +192,12 @@
 	});
 	//]]>
 </script>
+
+
+<!-- 
 <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};HandleGoogleApiLibrary()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 
 <script>
-
 // Called when Google Javascript API Javascript is loaded
 function HandleGoogleApiLibrary() {
 	// Load "client" & "auth2" libraries
@@ -241,7 +260,7 @@ $("#login-button").on('click', function() {
 });
 
 </script>
-
+ -->
 <!-- 
 <script src="https://apis.google.com/js/platform.js?onload=renderButton"
 	async defer></script>

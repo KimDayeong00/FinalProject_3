@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -18,20 +18,21 @@
         </c:forEach>    
           </ul>
         </li>
-          <li><a href="#">장바구니 </a></li>
-            <li class="active"><a href="#">마이페이지</a></li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search" >
-        </div>
-        <button type="submit" class="btn btn-default">검색하기</button>
-      </form>
-    
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
+<script>
+/* $(function(){
+	$("button").removeClass("btn");
+	$("button").removeClass("btn-default");
+	$("button").addClass("btn");
+	$("button").css("background-color","green");
+	
+}) */
+</script>
+
 
   
-  
+   --%>

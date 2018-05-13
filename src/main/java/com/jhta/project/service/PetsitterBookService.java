@@ -24,4 +24,8 @@ public class PetsitterBookService {
 	public int getBpetCnt(int bk_num) {
 		return dao.getBpetCnt(bk_num);
 	}
+	
+	public int insertBook(PetsitterBookVo vo) {
+		return dao.insertBook(vo);
+	}
 }

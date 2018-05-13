@@ -25,8 +25,11 @@
 			<div class="menubarDiv"><span><a href="<c:url value='/mypage?page=top&dtld=reservation'/>">예약 중인 내역</a></span></div>
 			<div class="menubarDiv"><span><a href="<c:url value='/mypage'/>">이전 예약 내역</a></span></div>
 		</div>
+		
 		<div class="reservationInfo">
-			<div class="">
+			<c:choose>
+				<c:when test="${dtld eq reservation }">
+					<div class="">
 				<table class="bookTable">
 					<tr style="border-bottom:1px solid gray;">
 						<th>돌봄 시작 날짜</th><th>돌봄 끝 날짜</th><th>돌보미 상세</th><th>맡기는 반려견</th>
@@ -47,9 +50,11 @@
 								</c:choose>
 							</tr>
 						</c:forEach>
-					
 				</table>
 			</div>
+				</c:when>
+			</c:choose>
+			
 		</div>
 	</div>
 </div>

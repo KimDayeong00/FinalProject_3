@@ -25,4 +25,8 @@ public class PetsitterBookDao {
 	public int getBpetCnt (int bk_num) {
 		return sqlSession.selectOne(NAMESPACE+".getBpetCnt",bk_num);
 	}
+	
+	public int insertBook (PetsitterBookVo vo) {
+		return sqlSession.insert(NAMESPACE+".insertBook",vo);
+	}
 }
