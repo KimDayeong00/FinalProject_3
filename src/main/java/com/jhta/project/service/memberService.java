@@ -1,5 +1,8 @@
 package com.jhta.project.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,11 @@ public class memberService {
 	public int emailc(String email) {
 		return dao.emailc(email);
 	}
+	
+	public String pwd(Map<String, String> map) {
+		return dao.pwd(map);
+	}
+	
 	
 	public int emailc_m(String email) {
 		return dao.emailc_m(email);

@@ -49,8 +49,8 @@ if(login.equals("admin")){
 %>
 
 
-<body class="nav-md">
- <div class="container body">
+<body class="nav-md" >
+ <div class="container body" style="margin: 0px; width: 100%; padding: 0px;">
       <div class="main_container">
 
 	<div id="slide" >

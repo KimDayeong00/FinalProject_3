@@ -353,7 +353,9 @@ table {
 		<button type="button" id="submit" onclick="gogo()">Search</button>
 		
 	</form>
-
+	<form name="popup1" method="post">
+	<input type="hidden" id="dogName" name="dogName">
+	</form>
 	<link
 		href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Patua+One'
 		rel='stylesheet' type='text/css'>
@@ -369,7 +371,6 @@ table {
 		$(document).ready(function() {
 			 $("#input_img").on("change", handleImgFileSelect); 
 			$("#input_img").change(function(){
-				$("#submit").attr("disabled", false);
 				var formData = new FormData();
 				formData.append("media", $("input[name=media]")[0].files[0]);
 		             $.ajax({
@@ -382,19 +383,21 @@ table {
 		                success: function(result){
 		                  //  var aa=decodeURI(result.dog);
 		                    $("#dog").val(result.dog);
-		                    $("#submit").attr("disabled", true);
+    		                var dogs = result.dog.split("(");
+							dog = dogs[0];
+		                    document.getElementById("dogName").value = dog;
 		                }
 		            });
 		         });
 
 
-			
+			/* 
 			
 			$("#submit").click(function(){
 				
 			});
 			
-		
+		 */
 		
 		
 		
@@ -424,8 +427,24 @@ table {
 		
 		
 		function gogo() {
-			alert("버튼클릭!");
+			
+			opener.name = "list"; // 부모창의 이름 설정
+			document.popup1.target = "list"; // 타켓을 부모창으로 설
+			document.popup1.action = "<c:url value='/booking/doglist' />";
+			document.popup1.submit();
+			self.close();
 		}
+		
+		
+		 /* function goOpener1() {
+			opener.name = "mManager"; // 부모창의 이름 설정
+			document.popup1.target = "mManager"; // 타켓을 부모창으로 설
+			document.popup1.action = "<c:url value='/admin/updateOK_p' />";
+			document.popup1.submit();
+			self.close();
+		}  */
+		
+		
 	</script>
 
 

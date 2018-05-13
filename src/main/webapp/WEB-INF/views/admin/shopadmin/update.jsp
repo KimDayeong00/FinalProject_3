@@ -46,29 +46,21 @@ function asas(){
 		</thead>
 		<tbody>
 		<tr>
-				<td><div id="classnum">필터선택</div></td>
+			<td><div id="classnum">필터선택</div></td>
 				<td><div id="fieldnum">
-			<c:forEach var="filtertypevo" items="${filtertypevo }" >
-				<br />${filtertypevo.ft_name } <br />
-				<c:forEach var="map" items="${map }">
-					<c:forEach var="filtercontent" items="${map.value }">
-						<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
-							<c:choose>
-								<c:when test="${filtertypevo.ft_num==1}">
-									<input id="${filtercontent.fc_num }"  type="radio" class="filterchk"
-									name="filterchk" value="${filtercontent.fc_num }"> <a href="#">${filtercontent.fc_name }</a>
-								</c:when>
-								<c:otherwise>
-									<input id="${filtercontent.fc_num }"  type="checkbox" class="filterchk"
-									name="filterchk" value="${filtercontent.fc_num }"> <a href="#">${filtercontent.fc_name }</a>
-								
-								</c:otherwise>
-							</c:choose>
-						</c:if>
+					<c:forEach var="filtertype" items="${filtertype }">
+						<h4>${filtertype.ft_name }</h4>
+						<c:forEach var="filtercontent" items="${filtercontent }">
+							<c:if test="${filtertype.ft_num==filtercontent.ft_num }">
+								<c:if test="${filtertype.ft_num==1}">
+									<input type='radio' name='filterchk' id='filterchk' class="filterchk" value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+								</c:if>
+									<input type='checkbox' name='filterchk' id='filterchk' class="filterchk" value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+							</c:if>
+						</c:forEach>
+						<br /><br />
 					</c:forEach>
-				</c:forEach>
-			</c:forEach>
-			</div></td>
+				</div></td>
 			</tr>
 			<tr>
 				<td>대표이미지</td>

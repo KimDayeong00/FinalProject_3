@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jhta.project.dao.IntroduceDao;
+import com.jhta.project.service.IntroduceServiceImpl;
 import com.jhta.project.vo.IntroduceVo;
 
 @Controller
 public class IntroduceAdminController {
-	@Autowired private IntroduceDao dao;
+	@Autowired private IntroduceServiceImpl dao;
 	@RequestMapping("/introduce/introduce")
 	public String introduce(Model mv) {
 		List<IntroduceVo> list = dao.list();

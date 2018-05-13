@@ -11,12 +11,35 @@ import com.jhta.project.vo.ItemFilterVo;
 import com.jhta.project.vo.ShopClassJoinShopFieldVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
+import com.jhta.project.vo.ShopFilterContentVo;
+import com.jhta.project.vo.ShopFilterTypeVo;
 import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Service
 public class ShopAdminServiceImpl{
 	@Autowired private ShopAdminDao dao;
+	public int filtercontentinsert(ShopFilterContentVo vo) {
+		return dao.filtercontentinsert(vo);
+	}
+	public List<ShopFilterContentVo> filtercontentlist() {
+		return dao.filtercontentlist();
+	}
+	public List<ShopFilterContentVo> filtercontent(int ft_num) {
+		return dao.filtercontent(ft_num);
+	}
+	public List<ShopFilterTypeVo> filtertypelist() {
+		return dao.filtertypelist();
+	}
+	public int fieldinsert(ShopFieldVo vo) {
+		return dao.fieldinsert(vo);
+	}
+	public int filtertypeinsert(String ft_name) {
+		return dao.filtertypeinsert(ft_name);
+	}
+	public int classinsert(String name) {
+		return dao.classinsert(name);
+	}
 	public ShopItemVo itemgetinfo(int p_num){
 		return dao.itemgetinfo(p_num);
 	}

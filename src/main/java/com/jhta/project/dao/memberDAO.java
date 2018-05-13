@@ -1,5 +1,8 @@
 package com.jhta.project.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,4 +53,11 @@ public class memberDAO {
 	public memberVO infoEmail(String email) {
 		return session.selectOne(NAMESPACE+".infoEmail",email);
 	}
+	
+	public String pwd(Map<String, String> map) {
+		return session.selectOne(NAMESPACE+".pwd", map);
+	}
+	
+	
+	
 }

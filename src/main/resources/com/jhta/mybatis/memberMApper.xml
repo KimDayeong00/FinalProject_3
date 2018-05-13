@@ -30,7 +30,20 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pw
 	</select>
 	
 	
+	
+	<select id="pwd" parameterType="map" resultType="string">
+		select 
+		<if test="gubun eq 'member'">
+			m_pwd from memberlist where m_email = #{email}
+		</if>
+		<if test="gubun eq 'petsitter'">
+			ps_pwd from petsitter where ps_email = #{email}
+		</if>
+	</select>
+	
+	
 	<select id="selectMember" parameterType="string" resultType="member">
+	
 		select * from memberlist where m_email=#{value}	
 	</select>
 	
