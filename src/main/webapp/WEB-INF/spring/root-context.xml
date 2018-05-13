@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -20,16 +23,9 @@
 				<prop key="mail.smtp.starttls.enable">true</prop>		
 			</props>
 		</property>
-	
 	</bean>	
-
-	
-		simplemailsender 객체 생성
-		<bean class="com.jhta.project.mail.SimpleMailSender" >
-			<property name="ms" ref="com.jhta.project.mailSender" />
-		</bean>
+ -->
 		
-		 -->
 
 	<!-- 1.dataSource 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"

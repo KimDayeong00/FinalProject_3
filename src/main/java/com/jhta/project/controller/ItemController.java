@@ -1,4 +1,4 @@
-/*package com.jhta.project.controller;
+package com.jhta.project.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -21,10 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jhta.project.service.ShopAdminService;
+import com.jhta.project.service.ShopAdminServiceImpl;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
-import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Controller
@@ -33,7 +31,7 @@ public class ItemController {
 	@Resource(name="uploadPath")
     private String uploadPath;
 	
-@Autowired ShopAdminService service;
+@Autowired ShopAdminServiceImpl service;
 
 	@RequestMapping("/itemadd")
 	public ModelAndView main() {
@@ -54,7 +52,7 @@ public class ItemController {
 	@RequestMapping("/itemadd/fieldlist")
 	@ResponseBody
 	public HashMap<String, Object> fieldlist(ShopClassVo vo) {
-		System.out.println("�ш린源�吏���");
+		System.out.println("여기까지옴");
 		int classnum = vo.getClassnum();
 	//	JSONObject obj = new JSONObject();
 		HashMap<String, Object> map= new HashMap<>();
@@ -96,22 +94,22 @@ public class ItemController {
 		}
 		
 		
-//���〓�� ���쇰� �살�댁�ㅺ린
+//전송된 파일명 얻어오기
 		String orgfilename=file1.getOriginalFilename();
-		//���ν�� ���쇰� 留��ㅺ린(以�蹂듬��吏� ����濡�)
+		//저장할 파일명 만들기(중복되지 않도록)
 		String savefilename=UUID.randomUUID()+"_"+orgfilename;
 		try {
-			//���〓�� ���쇱�� �쎌�댁�ㅺ린 ���� �ㅽ�몃┝
+			//전송된 파일을 읽어오기 위한 스트림
 			InputStream is=file1.getInputStream();
-			//��踰��� ���ν��湲� ���� ���� �ㅽ�몃┝媛�泥� 
+			//서버에 저장하기 위한 파일 스트림객체 
 			FileOutputStream fos=new FileOutputStream(uploadPath+"\\"+ savefilename);
-			//���쇰났�ы��湲�
+			//파일복사하기
 			FileCopyUtils.copy(is, fos);
 			fos.close();
 			is.close();
-			System.out.println(uploadPath + savefilename +" [���쇱��濡����깃났!]");
+			System.out.println(uploadPath + savefilename +" [파일업로드성공!]");
 			map.put("savefilename", savefilename);
-			///////////////////////DB����/////////////////////////////////////
+			///////////////////////DB저장/////////////////////////////////////
 			service.itemimage(map);
 			return mv;
 		}catch(IOException ie) {
@@ -123,4 +121,4 @@ public class ItemController {
 	
 	}
 
-}*/
+}

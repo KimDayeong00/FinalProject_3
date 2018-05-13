@@ -1,45 +1,35 @@
 package com.jhta.project.controller;
 
-import java.security.Provider.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.jhta.project.service.MpageServiceImpl;
 import com.jhta.project.service.ShopService;
+import com.jhta.project.service.memberService;
+import com.jhta.project.vo.MpageVo;
 import com.jhta.project.vo.ShopClassVo;
+
+
 @Controller
 public class HomeConrtoller {
 
 	@Autowired ShopService service;
+	@Autowired MpageServiceImpl dao;
+	@Autowired memberService memberService;
 
 	@RequestMapping("/")
-
-	public String main() {
+	public String main(Model mv) {
+		List<MpageVo> list = dao.list();
+		List<ShopClassVo> classvo=service.classlist();
+		mv.addAttribute("list", list);
+		mv.addAttribute("classvo", classvo);
 		return ".main";
 	}
-	
-	
-	@RequestMapping("/mypage")
-	public ModelAndView pageMove(String page, String dtld) {
-		ModelAndView mv=new ModelAndView(".petsitter_mypage.mypetsitter.petsitter_info");
-		
-		mv.addObject("page",page);
-		mv.addObject("dtld",dtld);
-		return mv;
-	}
-	
 
-	
-//	@RequestMapping("/login")
-//	public String login() {
-//		return "/members/login";
-//	}
-	
 	@RequestMapping("/admin/class")
 	public String adminclass() {
 		return ".admin.class";

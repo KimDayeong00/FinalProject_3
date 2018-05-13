@@ -2,9 +2,17 @@
     pageEncoding="UTF-8"%>
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+  <style>
+
+  </style>
 <script>
 window.onload=getTotal;
 
+function buy(){
+	form=document.getElementById("cart");
+	form.action="<c:url value='/shop/buy'/>";
+	form.submit();
+}
 	
 function getTotal(){
 	var sum=0;
@@ -14,19 +22,25 @@ function getTotal(){
 			
 		});
 		$("#gettot").text(Comma(sum)+"원");
-	
+		
 	if(sum<50000){
-		console.log("5만이하이므로 배송비 붙음");
-		
 		$("#delivery").text(Comma(3000)+"원");
+		$("#pay").text(Comma(sum+3000)+"원");
 	}else{
-		console.log("5만넘어서 배송공짜");
+	
 		$("#delivery").text("0원");
-		
+		$("#pay").text(Comma(sum)+"원");
 	}
 	}
 $(function(){
 
+	$(".chk").on("click",function(){
+		if ($('.chk').is(":checked")) {
+		    $('input[name=sampleHidden]').val('Y');
+		} else {
+		    $('input[name=sampleHidden]').val('N');
+		}
+	})
 
 		<c:forEach items="${sessionScope.cartlist}" var="data" begin="1" varStatus="a">
 		//	${data.hash }	
@@ -58,6 +72,7 @@ function change(price,cnt,hash){
 	
 }
 
+
 function checkAll(){
 		var check=document.getElementsByName("chk");
 		var checkAll=document.getElementById("chkall");
@@ -79,7 +94,7 @@ function checkAll(){
 <div style="width:100%; background-color: green; height: 8px;">
 </div>
 
-<form>
+<form id="cart" method="post">
 <table>
 		<colgroup>
 			<col width="40">
@@ -103,19 +118,27 @@ function checkAll(){
 		</thead>
 		<tbody>
 
-<c:forEach items="${sessionScope.cartlist}" var="data" begin="1">
+							
+<c:forEach items="${sessionScope.cartlist}" var="data" begin="0" varStatus="a" >
 	
   			<tr>
-								<td><input type="checkbox" name="chk"  id="${data.num}" value="${data.num }"></td>
+								<td><input type="checkbox"  class="chk" name="chk"  id="${data.num}" value="${a.index }">
+								<input type="hidden" name="num" value="${data.num}">
+								
+								</td>
+
 								<td>
 					<a href="product.html?pd_code=G010620"><img src="<c:url value='/resources/itemimage/${data.img }'/>" width="90" height="90"></a>
+					<input type="hidden" name="img" value="${data.img }">
 									</td>
 								<td>
-								<a href="product.html?pd_code=G010620">${data.title} </a>
+								<a href="${data.url }">${data.title} </a>
+								<input type="hidden" name="title" value="${data.title}">
 
 								</td>
 								<td>
 																<div><span class="price"><fmt:formatNumber value="${data.price}" pattern="#,###.##"/>원</span></div>
+																<input type="hidden" name="price" value="${data.price}">
 								</td>
 								<td>
 									<div >
@@ -167,6 +190,7 @@ function checkAll(){
 							
 		</tbody>
 	</table>
+	<input type="hidden" value="${sessionScope.login }"name="id">
 	<hr style="width:100%; height:5px; background-color:gray">
 	<img src="<c:url value='/resources/itemimage/cart_total_tit.png'/>">
 	
@@ -194,12 +218,17 @@ function checkAll(){
 		
 		<div class="price total" style="float: left;"><!-- 결제예상금액 -->
 		<img src="<c:url value='/resources/itemimage/cart_total_06.png'/>">
-			<br>32,940원
+			<br><div id="pay"></div>
 		</div>
 		
 		</div>
+		
 	<hr style="width: 100%; height:8px; background-color: pink;">
 </form>
+
+<div class="mid" style="margin-top:10px; margin:auto;">
+	<div style="display:inline-block; padding-left: 10px;  padding-bottom: 35px; "><a href="javascript:buy();"><img src="<c:url value='/resources/itemimage/cart_btn_01_m.jpg'/>"></a></div>
+	</div>
 
 
  

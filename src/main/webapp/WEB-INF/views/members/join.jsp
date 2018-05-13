@@ -90,6 +90,7 @@
 	});
 	//]]>
 </script>
+<!-- 
 <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};HandleGoogleApiLibrary()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 
 <script>
@@ -158,3 +159,4 @@ $("#login-button").on('click', function() {
 });
 
 </script>
+ -->

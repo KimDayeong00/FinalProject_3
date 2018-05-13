@@ -1,22 +1,22 @@
 package com.jhta.project.vo;
 
 public class PetSitterImageVo {
-	private String pimg_num;
+	private int pimg_num;
 	private String ps_email;
 	private String pimg_savefilename;
 	private String pimg_orgfilename;
 	public PetSitterImageVo() {};
-	public PetSitterImageVo(String pimg_num, String ps_email, String pimg_savefilename, String pimg_orgfilename) {
+	public PetSitterImageVo(int pimg_num, String ps_email, String pimg_savefilename, String pimg_orgfilename) {
 		super();
 		this.pimg_num = pimg_num;
 		this.ps_email = ps_email;
 		this.pimg_savefilename = pimg_savefilename;
 		this.pimg_orgfilename = pimg_orgfilename;
 	}
-	public String getPimg_num() {
+	public int getPimg_num() {
 		return pimg_num;
 	}
-	public void setPimg_num(String pimg_num) {
+	public void setPimg_num(int pimg_num) {
 		this.pimg_num = pimg_num;
 	}
 	public String getPs_email() {

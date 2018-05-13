@@ -2,57 +2,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style>
 
-.filtertype{width: 100px;height:40px;background-color:#525f78; margin:2px;padding: 10px;text-align:center;border: #336600 1px solid;border-radius:10px;font-size: 15px;}
+.filtertype{width: 100px;height:40px;background-color:#525f78; margin:2px;padding: 10px;text-align:center;border: #336600 1px solid;border-radius:0px;font-size: 15px;}
 .container{width:1000px;}
-#item{word-wrap:break-word; width:220px;}
+#item{word-wrap:break-word; width:250px;}
 #bunryu{width:1000px;}
+.mystyle{background-color: #ffff66;}
 </style>
 <div id="wrap" class="container">
 
-<div id="bunryu">
-<table border="1">
-	<tr>
-		<td>분류</td>
-		<c:forEach var="fieldvo" items="${fieldvo}">
-			<td style="color: red"><a href="<c:url value='/item/fielditemlist?fieldnum=${fieldvo.fieldnum }&classnum=${fieldvo.classnum }'/>">${fieldvo.name }</a></td>
-		</c:forEach>
-	</tr>
-</table>
-	</div>
+<div id="bunryu" style="margin-left: 200px;">
 
-<div id="cont">
-<table class="table table-hover" border="1"> 
+<ul class="list-inline">
+	<li>분류</li>
+	<c:forEach var="fieldvo" items="${fieldvo}">
+	<li><a href="<c:url value='/item/fielditemlist?fieldnum=${fieldvo.fieldnum }&classnum=${fieldvo.classnum }'/>">${fieldvo.name }</a></li>
+	</c:forEach>
+</ul>
+	</div>
+<br>
+
+<div id="cont" >
+<ul class="list-inline">
+
 	<c:forEach var="filtertypevo" items="${filtertypevo }" >
-		<tr>
-			<td style="color: white">
+
 			
-			<div class="filtertype">${filtertypevo.ft_name }</div>
+			<div class="filtertype" ><li><font color="white">${filtertypevo.ft_name }</font></li></div>
 			
-			</td>
+		
+			
+			         
 			<c:forEach var="map" items="${map }">
 
 				<c:forEach var="filtercontent" items="${map.value }">
-					<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
-						<td><input id="${filtercontent.fc_num }"  type="checkbox"
-							name="check" value="${filtercontent.fc_num }"
-							onclick="getchk(${classnum},${fieldnum })"> <a href="">${filtercontent.fc_name }</a>
+				<c:if test="${ filtercontent.ft_num==filtertypevo.ft_num}">
+					
 
-						</td>
+						<div class="btn-group" data-toggle="buttons">
+		 <label class="btn"  >
+	<input id="${filtercontent.fc_num }" type="checkbox" name="check" value="${filtercontent.fc_num }" onclick="prev(event)"> ${filtercontent.fc_name }
+  </label> 
+</div>
+					
 					</c:if>
 				</c:forEach>
 
 			</c:forEach>
-		</tr>
+			
+	
 	</c:forEach>
-</table>
+	</ul>
+
+			
 
 
 
 
-<div id="content" >
+<div id="content"  style="margin-left: 150px;">
 <c:set var="i" value="0" />
 <c:set var="j" value="3" />
 
@@ -62,10 +72,9 @@
             <c:if test="${i%j == 0 }">
                <tr>
             </c:if>
-                    <td style="size: 220px;" id="item">
-                    <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"><br>
-                    <a id="${itemvo.p_num }" 
-			href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">${itemvo.item_name }</a>
+                    <td style="size: 240px;" id="item">
+                <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"> <br><font color="#004B91" >${itemvo.item_name }</font></a><br>
+               <span style="font-weight: bold;color: #b12603;"> <fmt:formatNumber value="${itemvo.price}" pattern="#,###.##"/>원</span>
 			</td>
             <c:if test="${i%j == j-1 }">
                 </tr>
@@ -82,16 +91,18 @@
 
 </div>
 
-<div id="page">
+<br>
+<div id="page" style="margin-left: 400px;" >
+  <ul class="pagination">
 	<c:choose>
 
 		<c:when test="${pgchk eq 'class'}">
 			<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-					<a href="<c:url value='/item/classitemlist?pageNum=${pu.startPageNum-1 }&classnum=${classnum }'/>">이전</a>
+				 <li><a aria-label="Previous" href="<c:url value='/item/classitemlist?pageNum=${pu.startPageNum-1 }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
 				</c:when>
 				<c:otherwise>
-		이전
+		<li class="disabled"><a aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a> </li>
 	</c:otherwise>
 			</c:choose>
 
@@ -100,13 +111,10 @@
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						<a
-							href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>"><span
-							style='color: blue'>${i }</span></a>
+						 <li class="active"><a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>"><span
-							style='color: #555'>${i}</span></a>
+					 <li><a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -114,10 +122,10 @@
 
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				<a href="<c:url value='/item/classitemlist?pageNum=${pu.endPageNum+1 }&classnum=${classnum }'/>">다음</a>
+				  <li class="disabled"><a href="<c:url value='/item/classitemlist?pageNum=${pu.endPageNum+1 }&classnum=${classnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 			</c:when>
 			<c:otherwise>
-		다음
+		  <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 	</c:otherwise>
 		</c:choose>
 		
@@ -125,52 +133,87 @@
 
 		<c:when test="${pgchk eq 'field'}">
 
-	<c:choose>
+					<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-					<a href="<c:url value='/item/classitemlist?pageNum=${pu.startPageNum-1 }&classnum=${classnum }'/>">이전</a>
+				 <li><a aria-label="Previous" href="<c:url value='/item/classitemlist?pageNum=${pu.startPageNum-1 }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
 				</c:when>
 				<c:otherwise>
-		이전
+		<li class="disabled"><a aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a> </li>
 	</c:otherwise>
 			</c:choose>
 
-			<c:forEach var="i" begin="${pu.startPageNum }"
+				<c:forEach var="i" begin="${pu.startPageNum }"
 				end="${pu.endPageNum }">
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						<a
-							href="<c:url value='/item/fielditemlist?pageNum=${i }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><span
-							style='color: red'>${i }</span></a>
+						 <li class="active"><a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-						<a
-							href="<c:url value='/item/fielditemlist?pageNum=${i }&classnum=${classnum }&fieldnum=${fieldnum }'/>"><span
-							style='color: blue'>${i}</span></a>
+					 <li><a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			
-					<c:choose>
+	
+
+		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				<a href="<c:url value='/item/classitemlist?pageNum=${pu.endPageNum+1 }&classnum=${classnum }'/>">다음</a>
+				  <li class="disabled"><a href="<c:url value='/item/classitemlist?pageNum=${pu.endPageNum+1 }&classnum=${classnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 			</c:when>
 			<c:otherwise>
-		다음
+		  <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 	</c:otherwise>
 		</c:choose>
-			
-		</c:when>
+		
+	</c:when>
 
 	</c:choose>
+</ul>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
+
 <script>
-		
-	
-	function getchk(classnum,fieldnum){
+
+$(".btn").on('click',function(){
+    var $input = $(this).find('input');
+    $(this).toggleClass('mystyle');
+    if ($(this).hasClass('mystyle')) {
+    	$input.prop("checked",true);       
+        var sql=getSql();
+    } else {
+        $input.prop("checked",false);
+
+    }
+   
+//	alert(${classnum});
+//	alert(${fieldnum});
+//	alert(sql);
+console.log("sql=>" + sql);
+	var plus="";
+	var content=document.getElementById("content");
+		$.ajax({
+			url:"<c:url value='/item/itemlist?classnum="+${classnum}+"&fieldnum="+${fieldnum}+"&sql="+sql+"'/>",
+			dataType:"json",
+			success:function(data){
+				$("#page").html("");
+					$("#content").html("");
+				for(var i=0;i<data.itemvo.length; i++){
+					$("#content").append("<a href='<c:url value='/item/detail?p_num="+data.itemvo[i].p_num+"'/>'>"+data.itemvo[i].item_name);
+					var str=data.itemvo[i].item_name;
+					alert(str);
+					plus+=str;
+				}				
+			}	
+		});
+    return false; //Click event is triggered twice and this prevents re-toggling of classes
+});
+
+	function prev(e){
+		e.preventDefault();	
+	}
+/*		console.log(classnum+","+fieldnum)
 		var sql=getSql();
 		alert(classnum);
 		alert(fieldnum);
@@ -197,12 +240,12 @@
  			}	
  		});
  		
-	}
+	}*/
 	function getSql(){
 		var check=document.getElementsByName("check");
 		var chk=0;
 		var sql="";
-		
+		console.log("check" + check.length)
 		for(var i=0;i<check.length;i++){
 			if(check[i].checked==true){
 				chk++;
@@ -212,10 +255,13 @@
 				}else if(chk==1){
 					sql+="fc_num="+check[i].value;
 				}
-				
+				console.log("for..........")
 			}
 		}
+		console.log("sql::::" + sql)
 		return sql;
 	}
-	
+
+
+
 	</script>

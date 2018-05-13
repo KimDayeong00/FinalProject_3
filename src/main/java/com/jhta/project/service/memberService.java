@@ -29,4 +29,19 @@ public class memberService {
 	public int emailc_p(String email) {
 		return dao.emailc_p(email);
 	}
+	
+	public memberVO selectMember(String m_email) {
+		return dao.selectMember(m_email);
+	}
+	
+	public int updateMember(memberVO vo) {
+		return dao.updateMember(vo);
+	}
+	
+	public int updatePwd(memberVO vo) {
+		return dao.updatePwd(vo);
+	}
+	public memberVO infoEmail(String email) {
+		return dao.infoEmail(email);
+	}
 }

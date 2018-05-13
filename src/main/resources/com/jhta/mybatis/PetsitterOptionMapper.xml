@@ -7,10 +7,13 @@
 	<select id="getOption" parameterType="string" resultType="petoption">
 		select ps_email,to_char(po_startcheckin,'hh24:mi') po_startcheckin,to_char(po_endcheckin,'hh24:mi') po_endcheckin,
 		to_char(po_startcheckout,'hh24:mi') po_startcheckout,to_char(po_endcheckout,'hh24:mi') po_endcheckout,
-		po_space,po_subway,po_yard,po_child,po_family from petsitteroption where ps_email=#{value}
+		po_space,po_subway,po_yard,po_child,po_family,po_otherpet from petsitteroption where ps_email=#{value}
 	</select>
-	<select id="getImg" parameterType="string" resultType="string">
-		select pimg_savefilename from petsitterimage where ps_email=#{value}
-	</select>
+	<update id="updatePsInfoSet">
+		update petsitteroption set po_startcheckin=to_date(#{po_startcheckin},'hh24:mi'),po_endcheckin=to_date(#{po_endcheckin},'hh24:mi'),
+		po_startcheckout=to_date(#{po_startcheckout},'hh24:mi'),po_endcheckout=to_date(#{po_endcheckout},'hh24:mi'),
+		po_space=#{po_space},po_subway=#{po_subway},po_yard=#{po_yard},po_child=#{po_child},po_family=#{po_family},
+		po_otherpet=#{po_otherpet} where ps_email=#{ps_email}
+	</update>
 </mapper>
 

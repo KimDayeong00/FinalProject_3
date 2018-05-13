@@ -3,7 +3,7 @@ package com.jhta.project.vo;
 public class PetsitterPetVo {
 	private int pi_num;
 	private String pi_name;
-	private int pi_age;
+	private String pi_age;
 	private String pi_type;
 	private int pi_weight;
 	private String pi_content;
@@ -15,7 +15,7 @@ public class PetsitterPetVo {
 	
 	public PetsitterPetVo() {}
 
-	public PetsitterPetVo(int pi_num, String pi_name, int pi_age, String pi_type, int pi_weight, String pi_content,
+	public PetsitterPetVo(int pi_num, String pi_name, String pi_age, String pi_type, int pi_weight, String pi_content,
 			String ps_email, String pi_savefilename, String pi_originalfilename, String pi_sex, int pi_gubun) {
 		super();
 		this.pi_num = pi_num;
@@ -47,11 +47,11 @@ public class PetsitterPetVo {
 		this.pi_name = pi_name;
 	}
 
-	public int getPi_age() {
+	public String getPi_age() {
 		return pi_age;
 	}
 
-	public void setPi_age(int pi_age) {
+	public void setPi_age(String pi_age) {
 		this.pi_age = pi_age;
 	}
 

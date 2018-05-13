@@ -18,9 +18,18 @@
     <link href="<c:url value="/resources/admin/vendors/nprogress/nprogress.css" />" rel="stylesheet">
     <!-- iCheck -->
     <link href="<c:url value="/resources/admin/vendors/iCheck/skins/flat/green.css" />" rel="stylesheet">
-	
+    <!-- bootstrap-wysiwyg -->
+    <link href="<c:url value="/resources/admin/vendors/google-code-prettify/bin/prettify.min.css" />" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" />" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="<c:url value="/resources/admin/vendors/select2/dist/css/select2.min.css" />" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="<c:url value="/resources/admin/vendors/switchery/dist/switchery.min.css" />" rel="stylesheet">
+    <!-- starrr -->
+    <link href="<c:url value="/resources/admin/vendors/starrr/dist/starrr.css" />" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="<c:url value="/resources/admin/vendors/jqvmap/dist/jqvmap.min.css" />" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<c:url value="/resources/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" />" rel="stylesheet">
 
@@ -40,8 +49,8 @@ if(login.equals("admin")){
 %>
 
 
-<body class="nav-md">
- <div class="container body">
+<body class="nav-md" >
+ <div class="container body" style="margin: 0px; width: 100%; padding: 0px;">
       <div class="main_container">
 
 	<div id="slide" >
@@ -63,8 +72,7 @@ if(login.equals("admin")){
 </div>
 
 	
-  <!-- jQuery -->
-    
+  	<!-- jQuery -->
     <script src="<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js" />"></script>
     <!-- Bootstrap -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap/dist/js/bootstrap.min.js" />"></script>
@@ -73,15 +81,60 @@ if(login.equals("admin")){
     <!-- NProgress -->
     <script src="<c:url value="/resources/admin/vendors/nprogress/nprogress.js" />"></script>
     <!-- Chart.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="<c:url value="/resources/admin/vendors/gauge.js/dist/gauge.min.js" />"></script>
     <!-- bootstrap-progressbar -->
     <script src="<c:url value="/resources/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js" />"></script>
     <!-- iCheck -->
     <script src="<c:url value="/resources/admin/vendors/iCheck/icheck.min.js" />"></script>
+    <!-- Skycons -->
+    <script src="<c:url value="/resources/admin/vendors/skycons/skycons.js" />"></script>
+     <!-- Flot -->
+    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.pie.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.time.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.stack.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/Flot/jquery.flot.resize.js" />"></script>
+    <!-- Flot plugins -->
+    <script src="<c:url value="/resources/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/flot-spline/js/jquery.flot.spline.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/flot.curvedlines/curvedLines.js" />"></script>
+    <!-- DateJS -->
+    <script src="<c:url value="/resources/admin/vendors/DateJS/build/date.js" />"></script> 
+	 <!-- JQVMap -->
+    <script src="<c:url value="/resources/admin/vendors/jqvmap/dist/jquery.vmap.js" />"></script> 
+    <script src="<c:url value="/resources/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js" />"></script> 
+    <script src="<c:url value="/resources/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js" />"></script> 
+	<!-- bootstrap-daterangepicker -->
+    <script src="<c:url value="/resources/admin/vendors/moment/min/moment.min.js" />"></script> 
+    <script src="<c:url value="/resources/admin/vendors/bootstrap-daterangepicker/daterangepicker.js" />"></script> 
     <!-- Custom Theme Scripts -->
     <script src="<c:url value="/resources/build/js/custom.min.js" />"></script>
+  	<!-- PNotify -->
+    <script src="<c:url value="/resources/admin/vendors/pnotify/dist/pnotify.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/pnotify/dist/pnotify.buttons.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/pnotify/dist/pnotify.nonblock.js" />"></script>
+  	 
+  	 <!-- bootstrap-wysiwyg -->
+    <script src="<c:url value="/resources/admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/jquery.hotkeys/jquery.hotkeys.js" />"></script>
+    <script src="<c:url value="/resources/admin/vendors/google-code-prettify/src/prettify.js" />"></script>
+    <!-- jQuery Tags Input -->
+    <script src="<c:url value="/resources/admin/vendors/jquery.tagsinput/src/jquery.tagsinput.js" />"></script>
+    <!-- Switchery -->
+    <script src="<c:url value="/resources/admin/vendors/switchery/dist/switchery.min.js" />"></script>
+    <!-- Select2 -->
+    <script src="<c:url value="/resources/admin/vendors/select2/dist/js/select2.full.min.js" />"></script>
+    <!-- Parsley -->
+    <script src="<c:url value="/resources/admin/vendors/parsleyjs/dist/parsley.min.js" />"></script>
+    <!-- Autosize -->
+    <script src="<c:url value="/resources/admin/vendors/autosize/dist/autosize.min.js" />"></script>
+    <!-- jQuery autocomplete -->
+    <script src="<c:url value="/resources/admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js" />"></script>
+    <!-- starrr -->
+    <script src="<c:url value="/resources/admin/vendors/starrr/dist/starrr.js" />"></script>
+  	
   	<!-- Datatables -->
     <script src="<c:url value="/resources/admin/vendors/datatables.net/js/jquery.dataTables.min.js" />"></script>
     <script src="<c:url value="/resources/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js" />"></script>
@@ -99,9 +152,6 @@ if(login.equals("admin")){
     <script src="<c:url value="/resources/admin/vendors/pdfmake/build/pdfmake.min.js" />"></script>
     <script src="<c:url value="/resources/admin/vendors/pdfmake/build/vfs_fonts.js" />"></script>
    
-    <!-- DateJS -->
-    <script src="<c:url value="/resources/admin/vendors/DateJS/build/date.js" />"></script> 
-
 </body>
 	
 <%}else { %>
