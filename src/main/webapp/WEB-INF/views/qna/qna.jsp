@@ -39,7 +39,14 @@
 					<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></td>
 					<td style = "text-align: left;padding-left: 10px">${vo.title }</td>
 					<td><a href="javascript:detail('${vo.regdate }','${vo.title}','${vo.content }')">상세보기</a></td>
-					<td>처리중</td>
+					<c:choose>
+						<c:when test = "${0==vo.hit }">
+							<td>${vo.comments }</td>
+						</c:when>
+						<c:otherwise>
+							<td><a href="javascript:comm('${vo.qnum }')">답변완료</a></td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -140,6 +147,9 @@
 	}
 	$("#reset").click(function(){
 		$("#insert").css("display","none");
+	});
+	$("#comm").click(function(){
+		$("#commform").css("display","block");
 	});
 	
 	$("#qnainsert").click(function(){

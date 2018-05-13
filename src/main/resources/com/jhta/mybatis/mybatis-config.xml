@@ -5,10 +5,6 @@
 <configuration>
 
 	<typeAliases>
-	
-	<!-- Petsitter -->
-		<typeAlias type="com.jhta.project.vo.FilterTypeListVo" alias="FilterTypeList" />
-		<typeAlias type="com.jhta.project.vo.PetSitterImageVo" alias="petsitterimage" />
 
 		<!-- admin -->
 		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
@@ -40,6 +36,7 @@
    	
    	<!--  Qna -->  
    	    <typeAlias type="com.jhta.project.vo.QnaVo" alias="qnavo" />
+   	    <typeAlias type="com.jhta.project.vo.AdminqnaVo" alias="adminqnavo" />
 		
 	</typeAliases>
 
@@ -67,7 +64,7 @@
         <mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
         <mapper resource="com/jhta/mybatis/ShopMapper.xml" /> 
     <!--  Qna -->   
-       <mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
+       	<mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
    </mappers>
 
 </configuration>
