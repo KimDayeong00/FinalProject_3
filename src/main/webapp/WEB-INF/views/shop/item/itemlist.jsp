@@ -72,7 +72,7 @@
             <c:if test="${i%j == 0 }">
                <tr>
             </c:if>
-                    <td style="size: 240px;" id="item">
+                    <td style="size: 250px;" id="item">
                 <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"> <br><font color="#004B91" >${itemvo.item_name }</font></a><br>
                <span style="font-weight: bold;color: #b12603;"> <fmt:formatNumber value="${itemvo.price}" pattern="#,###.##"/>원</span>
 			</td>
@@ -88,11 +88,8 @@
 
 
 
-
-</div>
-
 <br>
-<div id="page" style="margin-left: 400px;" >
+<div id="page" style="margin-left: 230px;" >
   <ul class="pagination">
 	<c:choose>
 
@@ -132,10 +129,10 @@
 	</c:when>
 
 		<c:when test="${pgchk eq 'field'}">
-
+			
 					<c:choose>
 				<c:when test="${pu.startPageNum>9 }">
-				 <li><a aria-label="Previous" href="<c:url value='/item/classitemlist?pageNum=${pu.startPageNum-1 }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
+				 <li><a aria-label="Previous" href="<c:url value='/item/fielditemlist?pageNum=${pu.startPageNum-1 }&fieldnum=${fieldnum }&classnum=${classnum }'/>"><span aria-hidden="true">&laquo;</span></a></li>
 				</c:when>
 				<c:otherwise>
 		<li class="disabled"><a aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a> </li>
@@ -147,10 +144,10 @@
 				<c:choose>
 					<c:when test="${i==pu.pageNum }">
 						<!-- 현재페이지 색상 다르게 표시하기 -->
-						 <li class="active"><a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>">${i }</a></li>
+						 <li class="active"><a href="<c:url value='/item/fielditemlist?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
 					</c:when>
 					<c:otherwise>
-					 <li><a href="<c:url value='/item/classitemlist?pageNum=${i }&classnum=${classnum }'/>">${i }</a></li>
+					 <li><a href="<c:url value='/item/fielditemlist?pageNum=${i }&fieldnum=${fieldnum }&classnum=${classnum }'/>">${i }</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -158,7 +155,7 @@
 
 		<c:choose>
 			<c:when test="${pu.endPageNum<pu.totalPageCount }">
-				  <li class="disabled"><a href="<c:url value='/item/classitemlist?pageNum=${pu.endPageNum+1 }&classnum=${classnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+				  <li class="disabled"><a href="<c:url value='/item/fielditemlist?pageNum=${pu.endPageNum+1 }&classnum=${classnum }&fieldnum=${fieldnum }'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 			</c:when>
 			<c:otherwise>
 		  <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
@@ -172,7 +169,7 @@
 </div>
 </div>
 </div>
-
+</div>
 
 <script>
 
@@ -199,12 +196,17 @@ console.log("sql=>" + sql);
 			success:function(data){
 				$("#page").html("");
 					$("#content").html("");
-				for(var i=0;i<data.itemvo.length; i++){
+					alert(data.classvo.length + data.classvo[0]);
+					for(var i=0;i<data.classvo.length;i++){
+						
+					}
+					
+			/* 	for(var i=0;i<data.itemvo.length; i++){
 					$("#content").append("<a href='<c:url value='/item/detail?p_num="+data.itemvo[i].p_num+"'/>'>"+data.itemvo[i].item_name);
 					var str=data.itemvo[i].item_name;
 					alert(str);
 					plus+=str;
-				}				
+				}				 */
 			}	
 		});
     return false; //Click event is triggered twice and this prevents re-toggling of classes

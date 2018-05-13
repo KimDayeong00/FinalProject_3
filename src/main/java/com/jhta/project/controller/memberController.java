@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +15,17 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jhta.project.service.ShopService;
 import com.jhta.project.service.memberService;
 import com.jhta.project.utils.Utils;
 import com.jhta.project.vo.PetSitterVo;
+import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.memberVO;
 
 @Controller
@@ -39,7 +43,8 @@ public class memberController {
 
    @Autowired
    private memberService service;
-
+   @Autowired 
+   private ShopService service2;
    @RequestMapping("/login")
    public String login() {
       // 테스트용으로 잠시 바꿈
@@ -57,10 +62,12 @@ public class memberController {
    }
 
    @RequestMapping("/n_login")
-   public String n_login(String email, String pwd, HttpSession session) {
+   public String n_login(String email, String pwd, HttpSession session,Model mv) {
       System.out.println(email);
       System.out.println(pwd);
       String returnV = "";
+      List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
       if (email.equals("admin") && pwd.equals("admin")) {
          session.setAttribute("login", "admin");
          returnV = ".admin";

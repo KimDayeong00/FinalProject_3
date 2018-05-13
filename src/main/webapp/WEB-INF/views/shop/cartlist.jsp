@@ -8,6 +8,21 @@
 <script>
 window.onload=getTotal;
 
+function chkchk(){
+	if($('input[name=chk]').prop("checked")){
+		buy();
+	}else{
+		if($('input[name=chk]').prop("checked")){
+			buy();
+		}
+		alert("구매하실 상품을 선택해주세요.");
+	}
+
+
+
+
+
+}
 function buy(){
 	form=document.getElementById("cart");
 	form.action="<c:url value='/shop/buy'/>";
@@ -122,7 +137,9 @@ function checkAll(){
 <c:forEach items="${sessionScope.cartlist}" var="data" begin="0" varStatus="a" >
 	
   			<tr>
-								<td><input type="checkbox"  class="chk" name="chk"  id="${data.num}" value="${a.index }">
+								<td>
+							
+								<input type="checkbox"  class="chk" name="chk"  id="${data.num}" value="${a.index }">
 								<input type="hidden" name="num" value="${data.num}">
 								
 								</td>
@@ -193,7 +210,7 @@ function checkAll(){
 	<input type="hidden" value="${sessionScope.login }"name="id">
 	<hr style="width:100%; height:5px; background-color:gray">
 	<img src="<c:url value='/resources/itemimage/cart_total_tit.png'/>">
-	
+	<br>
 	<!-- 주문합계 -->
 	<div >
 	
@@ -227,7 +244,7 @@ function checkAll(){
 </form>
 
 <div class="mid" style="margin-top:10px; margin:auto;">
-	<div style="display:inline-block; padding-left: 10px;  padding-bottom: 35px; "><a href="javascript:buy();"><img src="<c:url value='/resources/itemimage/cart_btn_01_m.jpg'/>"></a></div>
+	<div style="display:inline-block; padding-left: 10px;  padding-bottom: 35px;margin-left: 800px; "><a href="javascript:chkchk();"><img src="<c:url value='/resources/itemimage/cart_btn_01_m.jpg'/>"></a></div>
 	</div>
 
 

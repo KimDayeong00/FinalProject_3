@@ -15,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.MpetInfoService;
 import com.jhta.project.service.PetsitterBookService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.service.memberService;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.PetsitterBookVo;
+import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.memberVO;
 
 @Controller
@@ -26,6 +28,7 @@ public class MypageController {
 	@Autowired MpetInfoService mpetInfoService;
 	@Autowired memberService memServcie;
 	@Autowired PetsitterBookService bookService;
+	@Autowired ShopService shopservice;
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypage")
@@ -56,6 +59,8 @@ public class MypageController {
 			mv.addObject("page","list");
 			mv.addObject("dtld","reservation");
 		}
+		List<ShopClassVo> classvo=shopservice.classlist();
+		mv.addObject("classvo",classvo);
 		mv.setViewName(mypage);
 		return mv;
 	}
@@ -69,7 +74,7 @@ public class MypageController {
 		Calendar cc= Calendar.getInstance();
 		int year = cc.get(Calendar.YEAR);
 		
-		System.out.println(year+"³âµµ");
+		System.out.println(year+"ï¿½âµµ");
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -86,7 +91,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -102,7 +107,7 @@ public class MypageController {
 		int n = mpetInfoService.insertMypet(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ßÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -145,7 +150,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -157,7 +162,7 @@ public class MypageController {
 		int n = mpetInfoService.updateMypet(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ß Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½Ý·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -207,13 +212,13 @@ public class MypageController {
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0);
 		int n = memServcie.updateMember(memVo);
 		
 		if(n>0) {
-			msg = "È¸¿ø Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -230,13 +235,13 @@ public class MypageController {
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0);	
 		int n = memServcie.updatePwd(memVo);
 		
 		if(n>0) {
-			msg = "ºñ¹Ð¹øÈ£°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
