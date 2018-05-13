@@ -82,33 +82,11 @@
 </div>
 
 
-
 	<br>
-	<input type = "button" value = "1:1문의하기" id = "showform">
+	<input type = "button" value = "1:1문의하기" id = "showform" onclick="getPopup()">
 	</div>
 	<br><br><br>
-	<div id = "insert" >
- 		<form action="<c:url value='/qna/insert'/>" method="post">
-			 <label id="option" style = "">관련상품</label>
-			<select size="1" name="p_num">
-				<option value="">선택하세요</option>
-				<c:forEach var="vo" items="${orderiteminfo }">
-					<option value="${vo.p_num }">${vo.item_name }</option>
-				</c:forEach>
-			</select>
-			<br>
-			<input type = "hidden" name = "qnum" value = "0">
-			 <label id="qnalabeltitle">문의제목</label>
-			<input type="text" name="title" id = "title">
-			<br>
-			 <label id="qnalabelcontent">문의내용</label>
-			<textarea rows="3" cols = "30" name="content" id = "content"></textarea>
-			<br>
-			<input type="reset" value="취소" id = "reset">
-			<input type="submit" value="문의하기" name="qnainsert" id = "qnainsert">
-			<br>
-		</form>
-	</div>
+	
 	<div id = detail>
 	<label id="detaillabelregdate">문의날짜</label><br>
 			<input type="text" id = "detailregdate" name="detailregdate" style = "size: 100;">
@@ -135,10 +113,20 @@
 		}
 	} */
 	
-	$("#showform").click(function(){
+/* 	$("#showform").click(function(){
 		$("#insert").css("display","block");
 		$("input[type='hidden']");
-	});
+	}); */
+	var pop;
+	function getPopup(){
+	 pop = window.open("<c:url value='/qna/qnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	}
+	function testCheck(){
+		console.log("옴");
+		setTimeout(() => {
+			location.href="<c:url value='/qna/qna'/>";
+		}, 100);	
+	}
 	function detail(regdate, title, content){
 		$("#detail").css("display","block");
 		$("#detailregdate").val(regdate);

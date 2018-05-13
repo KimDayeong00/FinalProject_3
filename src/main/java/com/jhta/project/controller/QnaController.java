@@ -51,10 +51,10 @@ public class QnaController {
 			
 			List<QnaVo> list = service.list(map);
 			List<QnaVo> vo = service.qnagetlist(m_email);
-			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
 			
 			System.out.println("리스트 : " + list);
 			
+			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
 			mv.addAttribute("orderiteminfo", vvo);
 			mv.addAttribute("qnagetlist", vo);
 			mv.addAttribute("qnalist",list);
@@ -80,7 +80,7 @@ public class QnaController {
 		service.insert(vo1);
 		System.out.println(vo1.getComments());
 		
-		return "redirect:/qna/qna";
+		return ".qna.windowclose";
 	}
 
 	
@@ -95,7 +95,13 @@ public class QnaController {
 			
 			return ".admin.qna.adminqna";
 	}
-	
+	@RequestMapping("/qna/qnaPopup")
+	public String qnaPopup(Model mv, HttpSession session) {
+			String m_email = (String)session.getAttribute("login");
+			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
+			mv.addAttribute("orderiteminfo", vvo);
+			return "/qna/qnaPopup";
+	}
 	@RequestMapping(value="/qna/admininsert",method=RequestMethod.GET)
 	public String admininsert(AdminqnaVo vo) {
 		
