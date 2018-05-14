@@ -179,9 +179,11 @@
 .checkTimeBox input{width:140px;}
 .checkTimeBox label{width:150px;}
 .houseSet {width:650px;overflow: hidden;margin-top:100px;}
+.priceSet {width:650px;overflow: hidden;}
 .houseSetBox select {width:90px;}
 .houseSetBox input {width:100px;}
 .houseSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
+.priceSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
 .subwaySet {margin-top:20px;margin-bottom:20px;}
 
 /*

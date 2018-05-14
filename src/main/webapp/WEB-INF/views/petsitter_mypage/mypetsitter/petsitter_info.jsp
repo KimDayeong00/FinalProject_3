@@ -628,19 +628,20 @@ $(function(){
 										<input type="hidden" id="otherpetNum" style="width:100px" name="otherpetNum">
 										</div>
 									</div>
+									<label>이용 가격 설정</label>
 									<div class="priceSet">
-										<label>이용 가격 설정</label>
+										
 										<div class="houseSetBox">
-										<label>1박 요금</label>
-										<input type="text" name="ps_price">원
+										<label style="margin-right:59px;">1박 요금</label>
+										<input type="text" name="ps_price" value="${priceVo.ps_price }">원
 										</div>
 										<div class="houseSetBox">
 										<label>1day 요금</label>
-										<input type="text" name="ps_careprice">원
+										<input type="text" name="ps_careprice" value="${priceVo.ps_careprice }">원
 										</div>
 										<div class="houseSetBox">
 										<label>대형견 추가 가격</label>
-										<input type="text" name="ps_overprice">원
+										<input type="text" name="ps_overprice" value="${priceVo.ps_overprice }">원
 										</div>
 										
 									</div>

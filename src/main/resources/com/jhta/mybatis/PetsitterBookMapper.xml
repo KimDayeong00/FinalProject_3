@@ -44,7 +44,8 @@
 	<select id="selectPrevList" parameterType="string" resultType="com.jhta.project.vo.PetsitterBookVo">
 		select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
 		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
-		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email and pb.bk_situation='완료'
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email and pb.bk_situation='완료' 
+		order by pb.bk_num
 	</select>
 	<select id="selectPbookList" parameterType="string" resultType="com.jhta.project.vo.PetsitterBookVo">
 		select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
@@ -65,6 +66,19 @@
 		p.ps_name,m.m_name,pb.bk_content from petsitterbook pb, petsitter p, memberlist m where pb.ps_email=#{ps_email}
 		 and pb.ps_email=p.ps_email and pb.m_email=m.m_email)aa )
 		 <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	
+	<select id="getPrevListCnt" parameterType="string" resultType="int">
+		select count(bk_num) from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email and pb.bk_situation='완료')
+	</select>
+	
+	<select id="getPrevListCnt2" parameterType="hashmap" resultType="com.jhta.project.vo.PetsitterBookVo">
+		select * from(select aa.*,rownum rnum from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email and pb.bk_situation='완료'
+		order by pb.bk_num)aa ) <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
 	
 	<update id="completeBook" parameterType="int">

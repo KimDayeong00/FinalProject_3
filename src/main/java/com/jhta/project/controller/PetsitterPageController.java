@@ -38,6 +38,7 @@ import com.jhta.project.service.PetSitterImageServiceImpl;
 import com.jhta.project.service.PetSitterServiceImpl;
 import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.PetsitterOptionService;
+import com.jhta.project.service.PetsitterPriceService;
 import com.jhta.project.service.PpetInfoService;
 import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.BookListVo;
@@ -45,6 +46,7 @@ import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
+import com.jhta.project.vo.PetSitterPriceVo;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterBookVo;
 import com.jhta.project.vo.PetsitterOptionVo;
@@ -60,6 +62,8 @@ public class PetsitterPageController {
 	@Autowired PpetInfoService petInfoService;
 	@Autowired PetSitterServiceImpl petsitterService;
 	@Autowired PetsitterBookService bookService;
+	@Autowired PetsitterPriceService priceService;
+	
 	private String url = ".petsitter_mypage.mypetsitter.petsitter_info";
 	private String alertUrl = ".petsitter_mypage.alert";
 	
@@ -151,7 +155,9 @@ public class PetsitterPageController {
 		
 		PetsitterOptionVo optionVo = service2.getOption(ps_email);
 		List<PetSitterImageVo> ps_imgVo = imageService.getImg(ps_email);
+		PetSitterPriceVo priceVo= priceService.select(ps_email);
 		
+		mv.addObject("priceVo",priceVo);
 		mv.addObject("optionVo",optionVo);
 		mv.addObject("ps_imgVo",ps_imgVo);
 		mv.addObject("page",page);
@@ -163,10 +169,16 @@ public class PetsitterPageController {
 	@RequestMapping(value="/psinfoSet", method=RequestMethod.POST)
 	public ModelAndView psinfoSet(String checkinStart, String checkinEnd, String checkoutStart,
 			String checkoutEnd, String houseSelect, String houseType, String yardSelect, String familySelect, String familyNum, 
-			String childSelect, String childNum, String subway, String otherpetSelect, String otherpetNum, HttpSession session) {
+			String childSelect, String childNum, String subway, String otherpetSelect, String otherpetNum, 
+			String ps_price, String ps_careprice, String ps_overprice, HttpSession session) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String ps_email = (String) session.getAttribute("login");
 		String po_space = houseSelect;
+		
+		int price = Integer.parseInt(ps_price);
+		int careprice = Integer.parseInt(ps_careprice);
+		int overprice = Integer.parseInt(ps_overprice);
+		
 		int po_yard = Integer.parseInt(yardSelect);
 		int po_child = Integer.parseInt(childSelect);
 		int po_family = Integer.parseInt(familySelect);
@@ -186,9 +198,13 @@ public class PetsitterPageController {
 		
 		PetsitterOptionVo vo=new PetsitterOptionVo(ps_email,checkinStart,checkinEnd,checkoutStart,checkoutEnd,po_space,subway,
 				po_yard,po_child,po_family,po_otherpet);
+		
+		PetSitterPriceVo priceVo = new PetSitterPriceVo(ps_email,price,careprice,overprice);
+		int k = priceService.updatePrice(priceVo);
+		
 		int n = service2.updatePsInfoSet(vo);
 		
-		if(n<0) {
+		if(n<0 || k<0) {
 			mv.addObject("msg","오류로 인해 실패하였습니다");
 		}else{
 			mv.addObject("msg","설정이 완료되었습니다");
