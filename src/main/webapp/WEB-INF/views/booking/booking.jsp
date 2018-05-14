@@ -83,11 +83,23 @@
 	});
 	
 </script>
+<script>
+	function checkIt(){
+		if($(".check").val()==0){
+			
+			alert("반려견을 선택해주세요");
+			
+			return false;
+		}
+
+	}
+
+</script>
 <div id="content">
 	<div class="reservationWrap">
 		<h2>예약하기</h2>
 		<div class="bookingDetail">
-			<form action="<c:url value='/reservation_p'/>" method="post">
+			<form action="<c:url value='/reservation_p'/>" method="post" onsubmit="return checkIt();">
 				<div class="bookingWrap">
 					<div class="checkTimeWrap">
 						<div class="startdateBox">체크인 ${bk_startdate }</div>

@@ -80,14 +80,21 @@ public class ReservationController {
 			PayVo2 vo3=new PayVo2(0,Integer.parseInt(pay_price),null,Integer.parseInt(petsitter_price),Integer.parseInt(comn),m_email,bk_num);
 			payService.insertPay(vo3);
 			
-			return ".booking.success";
+			session.setAttribute("rlt", "success");
+			
+			return ".members.success";
+			//return ".booking.success";
 		}else {
-			return ".booking.error";
+			session.setAttribute("rlt", "fail");
+			return ".members.success";
+			//return ".booking.error";
 		}
 		
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			return ".booking.error";
+			session.setAttribute("rlt", "fail");
+			return ".members.success";
+			//return ".booking.error";
 		}
 		
 	}

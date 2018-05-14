@@ -180,7 +180,7 @@
 .checkTimeBox label{width:150px;}
 .houseSet {width:650px;overflow: hidden;margin-top:100px;}
 .houseSetBox select {width:90px;}
-.houseSetBox input {width:20px;}
+.houseSetBox input {width:100px;}
 .houseSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
 .subwaySet {margin-top:20px;margin-bottom:20px;}
 

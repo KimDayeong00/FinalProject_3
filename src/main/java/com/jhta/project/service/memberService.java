@@ -53,15 +53,14 @@ public class memberService {
 		return dao.infoEmail(email);
 	}
 	
-<<<<<<< HEAD
-	public int deleteMember(String m_email) {
-		return dao.deleteMember(m_email);
-=======
 	public int pwd_search(Map<String, String> map) {
 		return dao.pwd_search(map);
 	}
 	public int pwd_ok(Map<String, String> map) {
 		return dao.pwd_ok(map);
->>>>>>> branch 'ys1' of https://github.com/KimDayeong00/FinalProject_3.git
+	}
+	
+	public int deleteMember(String m_email) {
+		return dao.deleteMember(m_email);
 	}
 }

@@ -54,11 +54,6 @@ public class memberDAO {
 		return session.selectOne(NAMESPACE+".infoEmail",email);
 	}
 	
-<<<<<<< HEAD
-	public int deleteMember(String m_email) {
-		return session.delete(NAMESPACE+".deleteMember",m_email);
-	}
-=======
 	public String pwd(Map<String, String> map) {
 		return session.selectOne(NAMESPACE+".pwd", map);
 	}
@@ -71,6 +66,8 @@ public class memberDAO {
 		return session.update(NAMESPACE+".pwd_ok",map);
 	}
 	
+	public int deleteMember(String m_email) {
+		return session.delete(NAMESPACE+".deleteMember",m_email);
+	}
 	
->>>>>>> branch 'ys1' of https://github.com/KimDayeong00/FinalProject_3.git
 }

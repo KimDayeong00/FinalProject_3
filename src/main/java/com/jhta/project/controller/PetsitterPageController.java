@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -37,6 +39,7 @@ import com.jhta.project.service.PetSitterServiceImpl;
 import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PpetInfoService;
+import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.MpetInfoVo;
@@ -61,7 +64,7 @@ public class PetsitterPageController {
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypetsitter")
-	public ModelAndView pageMove(String page, String dtld, HttpSession session) {
+	public ModelAndView pageMove(@RequestParam(value="pageNum",defaultValue="1")int pageNum, String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(url);
 		ArrayList<BookListVo> list=new ArrayList<>();
 		String ps_email = (String) session.getAttribute("login");
@@ -71,7 +74,27 @@ public class PetsitterPageController {
 		}
 		
 		List<DisableDateVo> disablelist = service.getDisable(ps_email);
-		List<PetsitterBookVo> pbookList = bookService.selectPbookList(ps_email);
+		//List<PetsitterBookVo> pbookList = bookService.selectPbookList(ps_email);
+//		for(int i=0;i<pbookList.size();i++) {
+//			PetsitterBookVo vo= pbookList.get(i);
+//			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
+//			MpetInfoVo mpetVo = mpetList.get(0);
+//			String pi_name = mpetVo.getPi_name();
+//			int count = bookService.getBpetCnt(vo.getBk_num());
+//			BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
+//					vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
+//			list.add(bookList);
+//			
+//		}
+		HashMap<String, Object> map=new HashMap<>();
+		
+		int totalRowCount = bookService.getPbookCnt(ps_email);
+		PageUtil pu=new PageUtil(pageNum,10,5,totalRowCount);
+		map.put("ps_email",ps_email);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<PetsitterBookVo> pbookList = bookService.getPbookCnt2(map);
+		
 		for(int i=0;i<pbookList.size();i++) {
 			PetsitterBookVo vo= pbookList.get(i);
 			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
@@ -81,9 +104,9 @@ public class PetsitterPageController {
 			BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
 					vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
 			list.add(bookList);
+			
 		}
-		
-		
+		mv.addObject("pu",pu);
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
 		mv.addObject("disableList",disablelist);
@@ -451,6 +474,29 @@ public class PetsitterPageController {
 		mv.addObject("dtld","accountUpdate");
 		mv.addObject("url",path+"/ps_account");
 	
+		return mv;
+	}
+	
+	@RequestMapping("/ps_complete")
+	public ModelAndView bookComplete(String bk_num,HttpSession session) {
+		ModelAndView mv=new ModelAndView(alertUrl);
+		ServletContext context = session.getServletContext();
+		String path = context.getContextPath();
+		String msg = "오류로 인해 실패하였습니다.";
+		
+		System.out.println("complete"+bk_num);
+		
+		int bnum = Integer.parseInt(bk_num);
+		
+		int n = bookService.completeBook(bnum);
+		if(n>0) {
+			msg = "완료되었습니다";
+		}
+		mv.addObject("msg",msg);
+		mv.addObject("page","list");
+		mv.addObject("dtld","reservation");
+		mv.addObject("url",path+"/mypetsitter");
+		
 		return mv;
 	}
 }
