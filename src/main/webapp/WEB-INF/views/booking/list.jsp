@@ -25,7 +25,7 @@
 						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="dong" id="dong" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">동</option></select>
 					</div>
 					<div class="calendar" style="margin-left: 200px;" >
-						<input onmouseover="aaa(this)" onmouseout="ddd(this)" type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
+						<input onmouseover="aaa(this)" onmouseout="bbb(this)" type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
 					</div>
 				</div>
 	<div style="text-align: center; margin-top: 10px;">
@@ -249,7 +249,7 @@
 	                                "<div >"+
 	                                "<div class='tour-text mb40' style='text-align: center; height:115px; margin:0px; padding:0px;'>";
 					                    for(var w=0; w<data.list[q].list.length; w++){
-					                    	petsitterList+="<div class='filterlist' style='display: inline-block; margin:5px;'><span style='border:2px solid #dcdcdc; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
+					                    	petsitterList+="<div style='display: inline-block; margin:5px;'><span class='filterlist' style='border:2px solid #dcdcdc; color:gray; border-radius: 10px; padding: 5px;'>"+data.list[q].list[w].f_type+"</span></div>";
 					                    }
 					                    petsitterList+=
 					                    "</div>"+
@@ -302,6 +302,9 @@
 	function aaa(div){
 		$(div).css("border", "2px solid orange");
 		$(div).css("color", "orange");
+		$(div).find(".filterlist").css("border", "2px solid orange");
+		$(div).find(".filterlist").css("border", "2px solid orange");
+		
 	}
 	function bbb(div){
 		$(div).css("border", "2px solid #dcdcdc");
@@ -319,6 +322,7 @@
 	$( ".divhover" ).mouseout(function() {
 		$(this).css("border", "2px solid #dcdcdc");
 	});
+	
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
