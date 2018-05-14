@@ -403,6 +403,7 @@ table {
 
 		       
 
+		                    
 		                    if($("#div_ajax_load_image").length != 0) {
 		                           $("#div_ajax_load_image").css({
 		                                  "top": top+"px",
