@@ -14,7 +14,6 @@
 	}
 	
 	function goOpener1() {
-		alert("pet");
 		opener.name = "mManager"; // 부모창의 이름 설정
 		document.popup1.target = "mManager"; // 타켓을 부모창으로 설
 		document.popup1.action = "<c:url value='/admin/updateOK_p' />";

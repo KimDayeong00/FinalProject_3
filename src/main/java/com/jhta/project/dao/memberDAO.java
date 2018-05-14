@@ -1,5 +1,8 @@
 package com.jhta.project.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,7 +54,23 @@ public class memberDAO {
 		return session.selectOne(NAMESPACE+".infoEmail",email);
 	}
 	
+<<<<<<< HEAD
 	public int deleteMember(String m_email) {
 		return session.delete(NAMESPACE+".deleteMember",m_email);
 	}
+=======
+	public String pwd(Map<String, String> map) {
+		return session.selectOne(NAMESPACE+".pwd", map);
+	}
+	
+	public int pwd_search(Map<String, String> map) {
+		return session.selectOne(NAMESPACE+".pwd_search", map);
+	}
+	
+	public int pwd_ok(Map<String, String> map) {
+		return session.update(NAMESPACE+".pwd_ok",map);
+	}
+	
+	
+>>>>>>> branch 'ys1' of https://github.com/KimDayeong00/FinalProject_3.git
 }
