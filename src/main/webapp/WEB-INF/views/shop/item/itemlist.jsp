@@ -86,7 +86,7 @@
 
 
 <br>
-<div id="page" style="margin-left: 230px;" >
+<div id="page" style="margin-left: 260px;" >
   <ul class="pagination">
 	<c:choose>
 
@@ -206,7 +206,7 @@ console.log("sql=>" + sql);
 				            if(k%j == 0){
 				               html+="<tr>";
 				            }
-				           html+="<td style='size: 250px' id='item'>";
+				           html+="<td style='size: 260px' id='item'>";
 				        html+="<a id='" + itemvo.p_num +"' href='<c:url value='/item/detail?p_num="+ itemvo.p_num +"'/>'>" ;
 				        html+="<img style='width: 170px; height:170px;' src='<c:url value='/resources/itemimage/"+ itemvo.image_name + "'/>'> <br>";
 				           html+="<font color='#004B91'>"+ itemvo.item_name +"</font></a><br>";
@@ -217,7 +217,7 @@ console.log("sql=>" + sql);
 				            k=k+1;
 				     }     
 				html +="</table>";
-				html+="<div id='page' style='margin-left:230px;'>";
+				html+="<div id='page' style='margin-left:250px;'>";
 				html+="<ul class='pagination'>";
 				
 				
@@ -227,26 +227,27 @@ console.log("sql=>" + sql);
 				
 				if(data.pu.startPageNum>9 ){
 					 html += "<li><a aria-label='Previous' href=\"javascript:aaa("+ (i-1)+ ",'"+data.fieldnum+"','"+data.classnum+"')\"><span aria-hidden='true'>&laquo;</span></a></li>";
-						}else{
+				}else{
 							
 				html+="<li class='disabled'><a aria-label='Previous' href='#'><span aria-hidden='true'>&laquo;</span></a> </li>";
-					}
-					for(var i=data.pu.startPageNum; i<=data.pu.endPageNum; i++){
-						console.log(i+","+sql+","+ data.fieldnum+"','"+data.classnum);
-								if(i==data.pu.pageNum){
+				}
+	for(var i=data.pu.startPageNum; i<=data.pu.endPageNum; i++){
+			console.log(i+","+sql+","+ data.fieldnum+"','"+data.classnum);
+				if(i==data.pu.pageNum){
 				 html+= "<li class='active'><a href=\"javascript:aaa("+ i+ ",'"+data.fieldnum+"','"+data.classnum+"')\">"+i+"</a></li>";
-								}
-									else{
-										 html+= "<li ><a href=\"javascript:aaa("+ i+ ",'"+data.fieldnum+"','"+data.classnum+"')\">"+i+"</a></li>";
+				}
+				else{
+					html+= "<li ><a href=\"javascript:aaa("+ i+ ",'"+data.fieldnum+"','"+data.classnum+"')\">"+i+"</a></li>";
 				 }
+	}
 
-						if(data.pu.endPageNum<data.pu.totalPageCount){
+				if(data.pu.endPageNum<data.pu.totalPageCount){
 					html+= "<li class='disabled'><a aria-label='Next' href=\"javascript:aaa("+ (i+1)+ ",'"+data.fieldnum+"','"+data.classnum+"')\"><span aria-hidden='true'>&raquo;</span></a></li>";
 				}else{
 					html+="<li class='disabled'><a href='###' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
-					}
+				}
 
-					}
+
 				$("#content").html(html);
 				
 				
