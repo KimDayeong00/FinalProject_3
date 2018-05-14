@@ -13,6 +13,7 @@ import com.jhta.project.service.PetSitterServiceImpl;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PetsitterPriceService;
 import com.jhta.project.service.PpetInfoService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
@@ -20,6 +21,7 @@ import com.jhta.project.vo.PetSitterPriceVo;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterOptionVo;
 import com.jhta.project.vo.PetsitterPetVo;
+import com.jhta.project.vo.ShopClassVo;
 
 @Controller
 public class DetailController {
@@ -29,7 +31,7 @@ public class DetailController {
 	@Autowired private PpetInfoService service4;
 	@Autowired private PetsitterPriceService service5;
 	@Autowired private DisableDateService service6;
-	
+	@Autowired private ShopService service7;
 	@RequestMapping("/detail")
 	public ModelAndView detail(String ps_email) {
 		ModelAndView mv=new ModelAndView(".detail");
@@ -40,6 +42,8 @@ public class DetailController {
 		PetSitterPriceVo vo4 = service5.select(ps_email);
 		List<PetSitterFilterVo> filterList=service3.getFilter(ps_email);
 		List<DisableDateVo> dd = service6.getDisable(ps_email);
+		List<ShopClassVo> classvo=service7.classlist();
+		mv.addObject("classvo",classvo);
 		
 //		String day = dd.getDisday();
 //		String date = dd.getDisDate();

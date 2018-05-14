@@ -14,17 +14,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jhta.project.service.QnaService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.AdminqnaVo;
 import com.jhta.project.vo.QnaVo;
+import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopItemVo;
 
 @Controller
 public class QnaController {
 	@Autowired private QnaService service;
-	
+	@Autowired private ShopService service2;
 	@RequestMapping("/qna/faq")
-	public String faq() {
+	public String faq(Model mv) {
+		List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
 		return ".qna.faq";
 	}
 
@@ -55,6 +59,8 @@ public class QnaController {
 			System.out.println("리스트 : " + list);
 			
 			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
+			List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 			mv.addAttribute("orderiteminfo", vvo);
 			mv.addAttribute("qnagetlist", vo);
 			mv.addAttribute("qnalist",list);

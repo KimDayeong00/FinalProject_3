@@ -61,6 +61,7 @@ function buy(){
 	}
 }
 
+
 </script>
 <div class="container" style="margin:auto;">
 	<div id="iteminfo">
@@ -81,18 +82,19 @@ function buy(){
 
 		<div id="infobox"  style="padding-left: 100px;" >
 			<form name="info" method="post" id="info">
+				<input type="hidden" name="url" value="${iteminfo.image_name }">
 				<input type="hidden" name="num" value="${iteminfo.p_num }">
 				<input type="hidden" name="title" value="${iteminfo.item_name }"> 
 				<input type="hidden" name="price" value="${iteminfo.price }"> 
-				<input type="hidden" name="url" value="${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}">
-
+			<%-- 	<input type="hidden" name="url" value="${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}"> --%>
+				<input type="hidden" value="${sessionScope.login }"name="id"> 
 				<fieldset>
 
 					<div class="hd">
 						<h2>${iteminfo.item_name }</h2>
 						<div class="star">
 							<span class="ic-star" style="margin-top: 1px;"> <!-- 별점 width 값 입력 -->
-								<em style="width: 90%">90점</em>
+								
 							</span>
 						</div>
 					</div>

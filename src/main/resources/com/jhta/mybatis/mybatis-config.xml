@@ -27,6 +27,7 @@
 		<typeAlias alias="member" type="com.jhta.project.vo.memberVO" />
 		
 		<!--  Shop -->
+		<typeAlias type="com.jhta.project.vo.OrderJoinVo" alias="orderjoinvo" />
 		<typeAlias type="com.jhta.project.vo.ShopClassVo" alias="shopclassvo" />
 		<typeAlias type="com.jhta.project.vo.ShopFieldVo" alias="shopfieldvo" />
 		<typeAlias type="com.jhta.project.vo.ShopFilterContentVo" alias="shopfiltercontentvo" />
@@ -73,6 +74,8 @@
 		<!--  Shop -->
 		<mapper resource="com/jhta/mybatis/ShopAdminMapper.xml" />
 		<mapper resource="com/jhta/mybatis/ShopMapper.xml" />	
+		<mapper resource="com/jhta/mybatis/OrderMapper.xml" />	
+		
 		<!--  Date-->
 		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
         <mapper resource="com/jhta/mybatis/AdminMapper.xml" />

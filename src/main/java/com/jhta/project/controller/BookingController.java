@@ -23,10 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jhta.project.service.FilterTypeListService;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.vo.FilterTypeListVo;
 import com.jhta.project.vo.FilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
+import com.jhta.project.vo.ShopClassVo;
 
 @Controller
 public class BookingController {
@@ -34,7 +36,7 @@ public class BookingController {
 	@Autowired private PetSitterService psetsitterservice;
 	@Autowired private PetSitterImageService imageService;
 	@Autowired private FilterTypeListService filterTypeListService;
-	
+	@Autowired private ShopService service2;
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model,Date bk_startdate,Date bk_enddate) {
 		System.out.println("1:"+bk_startdate);
@@ -48,6 +50,8 @@ public class BookingController {
 				System.out.println(vo1.getFl_name());
 			}
 		}
+		List<ShopClassVo> classvo=service2.classlist();
+		model.addAttribute("classvo",classvo);
 		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);
@@ -78,8 +82,6 @@ public class BookingController {
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
 			obj.put("list",list);
-		}else {
-			System.out.println("에드리스트실패");
 		}
 		return obj.toString();
 	}

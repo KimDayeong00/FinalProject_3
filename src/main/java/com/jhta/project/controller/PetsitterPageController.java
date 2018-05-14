@@ -18,12 +18,14 @@ import com.jhta.project.service.PetSitterImageServiceImpl;
 import com.jhta.project.service.PetSitterServiceImpl;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PpetInfoService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterOptionVo;
 import com.jhta.project.vo.PetsitterPetVo;
+import com.jhta.project.vo.ShopClassVo;
 
 @Controller
 public class PetsitterPageController {
@@ -34,6 +36,7 @@ public class PetsitterPageController {
 	@Autowired PetSitterServiceImpl service3;
 	@Autowired PpetInfoService petInfoService;
 	@Autowired PetSitterServiceImpl petsitterService;
+	@Autowired ShopService service99;
 	private String url = ".petsitter_mypage.mypetsitter.petsitter_info";
 	private String alertUrl = ".petsitter_mypage.alert";
 	
@@ -47,6 +50,8 @@ public class PetsitterPageController {
 		}
 		
 		List<DisableDateVo> disablelist = service.getDisable(ps_email);
+		List<ShopClassVo> classvo=service99.classlist();
+		mv.addObject("classvo",classvo);
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -91,7 +96,8 @@ public class PetsitterPageController {
 		
 		PetsitterOptionVo optionVo = service2.getOption(ps_email);
 		List<PetSitterImageVo> ps_imgVo = imageService.getImg(ps_email);
-		
+		List<ShopClassVo> classvo=service99.classlist();
+		mv.addObject("classvo",classvo);
 		mv.addObject("optionVo",optionVo);
 		mv.addObject("ps_imgVo",ps_imgVo);
 		mv.addObject("page",page);
@@ -136,7 +142,8 @@ public class PetsitterPageController {
 		
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		
+		List<ShopClassVo> classvo=service99.classlist();
+		mv.addObject("classvo",classvo);
 		//mv.addObject("ps_email",ps_email);
 		mv.addObject("page","sitterInfo");
 		mv.addObject("dtld","psInfoSet");
