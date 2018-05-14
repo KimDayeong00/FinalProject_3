@@ -69,10 +69,10 @@
 				<!-- <input type="button" value="이미지로검색" style="margin-left: 30px;"/> -->
 				<div style="width:100%; margin-top: 10px;">
 					<div style="float: left; margin-left: 400px;">
-						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="sido" id="sido" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" > <option value="">광역시/도</option></select>
-						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="gugun" id="gugun" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">시군구</option></select>
-						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="dong" id="dong" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">동</option></select>					</div>
-					<a href="javascript:tensor();" class="button">이미지로 검색</a>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="sido" id="sido" onmouseover="aaa(this)" onmouseout="bbb(this)"  > <option value="">광역시/도</option></select>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="gugun" id="gugun" onmouseover="aaa(this)" onmouseout="bbb(this)" ><option value="">시군구</option></select>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="dong" id="dong" onmouseover="aaa(this)" onmouseout="bbb(this)" ><option value="">동</option></select>					</div>
+					<!-- <a href="javascript:tensor();" class="button">이미지로 검색</a> -->
 					<div class="calendar" style="margin-left: 200px;" >
 						<input onmouseover="aaa(this)" onmouseout="bbb(this)" type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
 					</div>
@@ -80,7 +80,7 @@
 	<div style="text-align: center; margin-top: 10px;">
 		<h4>조건을 선택하세요.</h4>
 		<c:forEach var="vo" items="${filterlist }">
-			<label class="checkbox-inline" onmouseover="ccc(this)" onmouseout="ddd(this)"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
+			<label class="checkbox-inline" onmouseover="ccc(this)" onmouseout="eee(this)"><input class="filterName" name="filterName" type="checkbox" value="${vo.fl_name}">${vo.f_type }</label>
 		</c:forEach>
 		<script>sojaeji();</script>
 	</div>
@@ -379,6 +379,9 @@
 	}
 	function ddd(div){
 		$(div).css("border", "2px solid #dcdcdc");
+	}
+	function eee(div){
+		$(div).css("border", "");
 	}
 	$( ".divhover" ).mouseover(function() {
 		$(this).css("border", "2px solid orange");
