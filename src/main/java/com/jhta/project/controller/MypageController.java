@@ -60,7 +60,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetInfo", method=RequestMethod.GET)
+	@RequestMapping(value="/myPetInfo", method=RequestMethod.GET)
 	public ModelAndView myPetInfoView(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
 		String m_email = (String) session.getAttribute("login");
@@ -69,7 +69,7 @@ public class MypageController {
 		Calendar cc= Calendar.getInstance();
 		int year = cc.get(Calendar.YEAR);
 		
-		System.out.println(year+"³âµµ");
+		System.out.println(year+"ï¿½âµµ");
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -78,7 +78,7 @@ public class MypageController {
 		return mv;
 	}
 	
-	//@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
+	@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
 	public ModelAndView ppetInfo(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
 									String pi_month, String pi_content, String pi_gubun, String pi_savefilename, String pi_orgfilename) {
 		ModelAndView mv=new ModelAndView(alertUrl);
@@ -86,7 +86,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -102,7 +102,7 @@ public class MypageController {
 		int n = mpetInfoService.insertMypet(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ßÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -113,7 +113,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.GET)
+	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.GET)
 	public ModelAndView ppetInfoUpdateView(String page, String dtld, HttpSession session, String pi_num) {
 		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
 		String ps_email = (String) session.getAttribute("login");
@@ -137,7 +137,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.POST)
 	public ModelAndView ppetInfoUpdate(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
 									String pi_month, String pi_content, String pi_num, String pi_gubun) {
 		ModelAndView mv=new ModelAndView(alertUrl);
@@ -145,7 +145,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -157,7 +157,7 @@ public class MypageController {
 		int n = mpetInfoService.updateMypet(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ß Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½Ý·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -168,7 +168,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetDetail", method=RequestMethod.GET)
+	@RequestMapping(value="/myPetDetail", method=RequestMethod.GET)
 	public ModelAndView myPetDetailView(String page, String dtld, HttpSession session,String pi_num) {
 		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
 		String m_email = (String) session.getAttribute("login");
@@ -188,7 +188,7 @@ public class MypageController {
 		return mv;
 	}
 
-//	@RequestMapping(value="/my_account", method=RequestMethod.GET)
+	@RequestMapping(value="/my_account", method=RequestMethod.GET)
 	public ModelAndView psInfoUpdateView(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.myInfo");
 		String m_email = (String) session.getAttribute("login");
@@ -201,19 +201,19 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/my_account", method=RequestMethod.POST)
+	@RequestMapping(value="/my_account", method=RequestMethod.POST)
 	public ModelAndView psInfoUpdate(HttpSession session, String m_name, String m_addr, String m_phone, String m_content) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0);
 		int n = memServcie.updateMember(memVo);
 		
 		if(n>0) {
-			msg = "È¸¿ø Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -224,19 +224,19 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/my_pwdUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="/my_pwdUpdate", method=RequestMethod.POST)
 	public ModelAndView ps_pwdUpdate(HttpSession session, String m_pwd) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0);	
 		int n = memServcie.updatePwd(memVo);
 		
 		if(n>0) {
-			msg = "ºñ¹Ð¹øÈ£°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);

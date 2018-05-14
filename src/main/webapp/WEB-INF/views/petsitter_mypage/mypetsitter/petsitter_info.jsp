@@ -21,7 +21,6 @@ function imgdelete(num){
 	location.href="<c:url value='/imgdelete?pimg_num="+num+"'/>";
 }
     function bbasas(){
-    	console.log("ㄴㅇㅁㄴㅇㅁㅇㄴ")
 				var fd = new FormData($("#ps_imgform")[0]);
 				$.ajax({
 					url:"<c:url value='/ps_imgTest'/>",
@@ -40,20 +39,7 @@ function imgdelete(num){
 						} */
 					}
 				});
-				console.log("안녕")
-				var files = $("#mulfile")[0].files;
-				for (var i = 0; i < files.length; i++){
-				var reader = new FileReader();	
-				reader.onload = (function(theFile) 
-						{
-							 return function(e) 
-							 {
-							      var img_view = ['<img src=" ', e.target.result, ' " title=" ', escape(theFile.name), ' " style="width:200px;height:200px;"/>'].join('');                
-							      document.getElementById('ps_image').innerHTML += img_view;
-							 };
-						})(files);
-						reader.readAsDataURL(files[i]);    
-				}
+				location.href="<c:url value='/mypage'/>";
 	}
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
