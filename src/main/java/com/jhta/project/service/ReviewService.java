@@ -13,4 +13,8 @@ public class ReviewService {
 	public int insertReview(ReviewVo vo) {
 		return dao.insertReview(vo);
 	}
+	
+	public int updateBk_rv(int bk_num) {
+		return dao.updateBk_rv(bk_num);
+	}
 }

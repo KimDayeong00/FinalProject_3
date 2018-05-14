@@ -2,6 +2,7 @@ package com.jhta.project.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.jhta.project.service.MpetInfoService;
 import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.memberService;
+import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.PetsitterBookVo;
@@ -28,10 +31,11 @@ public class MypageController {
 	@Autowired MpetInfoService mpetInfoService;
 	@Autowired memberService memServcie;
 	@Autowired PetsitterBookService bookService;
+	
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypage")
-	public ModelAndView pageMove(HttpSession session) {
+	public ModelAndView pageMove(@RequestParam(value="pageNum",defaultValue="1")int pageNum,HttpSession session) {
 		ModelAndView mv=new ModelAndView();
 		ArrayList<BookListVo> list=new ArrayList<>();
 		int login_type = (int)session.getAttribute("login_type");
@@ -39,7 +43,15 @@ public class MypageController {
 		if(login_type==1) {
 			mypage = ".mypage.mypage";
 			String m_email = (String)session.getAttribute("login");
-			List<PetsitterBookVo> mbookList = bookService.selectMbook(m_email);
+			
+			HashMap<String, Object> map=new HashMap<>();
+			int totalRowCount = bookService.getBbookCnt(m_email);
+			PageUtil pu=new PageUtil(pageNum,10,5,totalRowCount);
+			map.put("m_email",m_email);
+			map.put("startRow", pu.getStartRow());
+			map.put("endRow", pu.getEndRow());
+			
+			List<PetsitterBookVo> mbookList = bookService.getBbookCnt2(map);
 			for(int i=0;i<mbookList.size();i++) {
 				PetsitterBookVo vo= mbookList.get(i);
 				List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
@@ -51,6 +63,7 @@ public class MypageController {
 				list.add(bookList);
 			}
 			mv.setViewName(mypage);
+			mv.addObject("pu",pu);
 			mv.addObject("mbookList",list);
 			mv.addObject("dtld","reservation");
 			
@@ -261,12 +274,19 @@ public class MypageController {
 	}
 	
 	@RequestMapping("/mypagePrevlist")
-	public ModelAndView myPrevBook(String page, String dtld, HttpSession session) {
+	public ModelAndView myPrevBook(@RequestParam(value="pageNum",defaultValue="1")int pageNum,String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.mypage");
 		ArrayList<PrevBookListVo> list=new ArrayList<>();
 		String m_email = (String)session.getAttribute("login");
 		
-		List<PetsitterBookVo> prevList = bookService.selectPrevList(m_email);
+		HashMap<String, Object> map=new HashMap<>();
+		int totalRowCount = bookService.getPrevListCnt(m_email);
+		PageUtil pu=new PageUtil(pageNum,10,5,totalRowCount);
+		map.put("m_email",m_email);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		
+		List<PetsitterBookVo> prevList = bookService.getPrevListCnt2(map);
 		for(int i=0;i<prevList.size();i++) {
 			PetsitterBookVo vo= prevList.get(i);
 			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
@@ -277,12 +297,21 @@ public class MypageController {
 					vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_review());
 			list.add(prevBookList);
 		}
-		
+		mv.addObject("pu",pu);
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
 		mv.addObject("prevList",list);
 		
 		return mv;
+	}
+	
+	@RequestMapping("/mypageLeave")
+	public String memberLeave(HttpSession session) {
+		String m_email = (String) session.getAttribute("login");
+		System.out.println("email"+m_email);
+		memServcie.deleteMember(m_email);
+		session.invalidate();
+		return ".mypage.leave";
 	}
 	
 }

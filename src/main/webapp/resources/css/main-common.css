@@ -179,9 +179,11 @@
 .checkTimeBox input{width:140px;}
 .checkTimeBox label{width:150px;}
 .houseSet {width:650px;overflow: hidden;margin-top:100px;}
+.priceSet {width:650px;overflow: hidden;}
 .houseSetBox select {width:90px;}
-.houseSetBox input {width:20px;}
+.houseSetBox input {width:100px;}
 .houseSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
+.priceSet .houseSetBox{width:50%;display: inline-block;float: left;margin-bottom:10px;}
 .subwaySet {margin-top:20px;margin-bottom:20px;}
 
 /*
@@ -194,8 +196,17 @@
 /*
 	마이페이지 예약 부분
 */
-.bookTable {width:100%;text-align: center;}
+.paging {width:110px;vertical-align: middle;margin: 0 auto;}
+.bookTable {width:100%;text-align: center;margin-bottom: 50px;}
 .bookTable th{text-align: center;}
+
+
+/*
+	예약 페이지
+*/
+.bookingDetail {width:100%;overflow: hidden;border: 1px solid #BABABA;}
+
+
 
 
 /*

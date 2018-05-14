@@ -13,4 +13,8 @@ public class PetsitterPriceService {
 	public PetSitterPriceVo select(String ps_email) {
 		return dao.select(ps_email);
 	}
+	
+	public int updatePrice(PetSitterPriceVo vo) {
+		return dao.updatePrice(vo);
+	}
 }

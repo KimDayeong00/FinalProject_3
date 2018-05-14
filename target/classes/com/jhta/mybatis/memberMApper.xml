@@ -30,7 +30,42 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pw
 	</select>
 	
 	
+	
+	<select id="pwd" parameterType="map" resultType="string">
+		select 
+		<if test="gubun eq 'member'">
+			m_pwd from memberlist where m_email = #{email}
+		</if>
+		<if test="gubun eq 'petsitter'">
+			ps_pwd from petsitter where ps_email = #{email}
+		</if>
+	</select>
+	
+	<select id="pwd_search" parameterType="map" resultType="int">
+		select count(*) from
+		<if test="gubun eq 'member'">
+			memberlist where m_email = #{email} and m_name = #{name} and m_phone = #{phone}
+		</if>
+		<if test="gubun eq 'petsitter'">
+			petsitter where ps_email = #{email} and ps_name = #{name} and ps_phone = #{phone}
+		</if>
+	</select>
+	
+	
+	<update id="pwd_ok" parameterType="map" >
+		<if test="gubun eq 'member'">
+		update memberlist set m_pwd = #{pwd} where m_email = #{email}
+		</if>
+		<if test="gubun eq 'petsitter'">
+		update petsitter set ps_pwd  = #{pwd} where ps_email = #{email}
+		</if>
+	</update>
+	
+	
+	
+	
 	<select id="selectMember" parameterType="string" resultType="member">
+	
 		select * from memberlist where m_email=#{value}	
 	</select>
 	
@@ -45,5 +80,9 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pw
 	<select id="infoEmail" parameterType="string" resultType="member">
 		select * from memberlist where m_email=#{value}
 	</select>
+	
+	<delete id="deleteMember" parameterType="string">
+		delete from memberlist where m_email=#{value}
+	</delete>
 </mapper>
 

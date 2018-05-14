@@ -12,6 +12,8 @@
 	var totalover = 0;
 	var disdayList = new Array();
 	var disdateList = new Array();
+	var disableBook = '${startdate}';
+	
 	<c:forEach items="${disableList}" var="list">
 		disdayList.push("${list.disday}");
 		disdateList.push("${list.disDate}")
@@ -105,7 +107,7 @@
 			minTime : startcheckin,
 			maxTime : "23:00",
 			minuteIncrement : "30",
-			disable : ["2018-05-06"],
+			disable : ["2018-05-16"],
 			"disable": [
 		        function(date) {
 		        	var checkTrue = false;
@@ -132,6 +134,18 @@
 		            		}
 		            	}
 		            }
+		            
+		            	var ss = disableBook.split(",");
+		            	for(var f=0;f<ss.length-1;f++){
+		            		var diss = ss[f].split("-");
+		            		console.log(diss[0]+","+diss[1]+","+diss[2]);
+		            		var das = new Date(parseInt(diss[0]),parseInt(diss[1]),parseInt(diss[2]));
+		            		console.log(das.getDate());
+		            		if(date.getDate() === das.getDate() && date.getMonth() != das.getMonth()){
+		            			checkTrue = true;
+		            		}
+		            	}
+		            
 		            return checkTrue;
 		            //return checkDateTrue;
 		        }
@@ -248,6 +262,18 @@
 		            		}
 		            	}
 		            }
+		            
+		            var ss = disableBook.split(",");
+	            	for(var f=0;f<ss.length-1;f++){
+	            		var diss = ss[f].split("-");
+	            		console.log(diss[0]+","+diss[1]+","+diss[2]);
+	            		var das = new Date(parseInt(diss[0]),parseInt(diss[1]),parseInt(diss[2]));
+	            		console.log(das.getDate());
+	            		if(date.getDate() === das.getDate() && date.getMonth() != das.getMonth()){
+	            			checkTrue = true;
+	            		}
+	            	}
+	            	
 		            return checkTrue;
 		            //return checkDateTrue;
 		        }
@@ -329,6 +355,23 @@
 		});
 	});
 </script>
+
+<script>
+	function checkIt(){
+		if($("#selector").val()==""||$("#selector2").val()==""){
+			alert("예약할 날짜를 선택해주세요");
+			
+			return false;
+		}
+		if($("#spinner1").val()==0 && $("#spinner2").val()==0){
+			alert("반려견을 추가해주세요");
+			
+			return false;
+		}
+		
+	}
+
+</script>
 <c:forEach var="j" items="${disday }" begin="0" end="${disday.length }">
 	${j }
 </c:forEach>
@@ -340,7 +383,7 @@
 			</c:forEach>
 		</div>
 	</div>
-	<form method="post" action="<c:url value='/reservation'/>">
+	<form method="post" action="<c:url value='/reservation'/>" onsubmit="return checkIt();">
 	<div class="book">
 		<div class="book-font">
 		<p><strong>예약을 원하는 날짜와 시간을 선택해주세요.</strong></p>

@@ -37,6 +37,8 @@ public class BookingController {
 	
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model,Date bk_startdate,Date bk_enddate) {
+		System.out.println("1:"+bk_startdate);
+		System.out.println("2:"+bk_enddate);
 		HashMap<String, Object>map = new HashMap<>();
 		map.put("bk_startdate", bk_startdate);
 		map.put("bk_enddate", bk_enddate);
@@ -77,10 +79,36 @@ public class BookingController {
 		if(list!=null) {
 			obj.put("list",list);
 		}else {
-			System.out.println("¾ø´Â°ª");
+			System.out.println("ï¿½ï¿½ï¿½Â°ï¿½");
 		}
 		return obj.toString();
 	}
+	
+	@RequestMapping("/booking/doglist")
+	public String dogist(String dogName) {
+		System.out.println("ì»¨íŠ¸ë¡¤ì–´ì—ì„œ ê°•ì•„ì§€ë©ë©ì´ : "+dogName);
+		/*HashMap<String, Object>map = new HashMap<>();
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
+		for(PetSitterJoinFilterVo vo : alllist) {
+			for(FilterVo vo1 : vo.getList()) {
+				System.out.println(vo1.getFl_name());
+			}
+		}
+		List<FilterTypeListVo>filterlist = filterTypeListService.list();
+		model.addAttribute("alllist", alllist);
+		model.addAttribute("filterlist", filterlist);*/
+		return ".booking.list";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/booking/map",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String jsonmap(Date bk_startdate,Date bk_enddate,String[] filterchk,int chklength) {
@@ -99,7 +127,7 @@ public class BookingController {
 		if(alllist!=null) {
 			obj.put("alllist",alllist);
 		}else {
-			System.out.println("¾ø´Â°ª");
+			System.out.println("ï¿½ï¿½ï¿½Â°ï¿½");
 		}
 		return obj.toString();
 	}
@@ -110,24 +138,24 @@ public class BookingController {
 	@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
 	public String upload(MultipartFile file1,HttpSession session) {
 		String uploadPath=session.getServletContext().getRealPath("/resources/upload");
-		//Àü¼ÛµÈ ÆÄÀÏ¸í ¾ò¾î¿À±â
+		//ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String orgfilename=file1.getOriginalFilename();
-		//ÀúÀåÇÒ ÆÄÀÏ¸í ¸¸µé±â(Áßº¹µÇÁö ¾Êµµ·Ï)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½)
 		String savefilename=UUID.randomUUID() +"_" + orgfilename;
 		try {
-			////////////////////// 1.ÆÄÀÏ¾÷·Îµå //////////////////////////////////
-			//Àü¼ÛµÈ ÆÄÀÏÀ» ÀĞ¾î¿À±â À§ÇÑ ½ºÆ®¸²
+			////////////////////// 1.ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Îµï¿½ //////////////////////////////////
+			//ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
 			InputStream is=file1.getInputStream();
-			//¼­¹ö¿¡ ÀúÀåÇÏ±â À§ÇÑ ÆÄÀÏ½ºÆ®¸²°´Ã¼
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½Ã¼
 			FileOutputStream fos=new FileOutputStream(uploadPath +"\\" + savefilename);
-			//ÆÄÀÏº¹»çÇÏ±â
+			//ï¿½ï¿½ï¿½Ïºï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			FileCopyUtils.copy(is,fos);
 			fos.close();
 			is.close();
-			System.out.println(uploadPath +"\\" + savefilename +" [ÆÄÀÏ¾÷·Îµå¼º°ø!]");
+			System.out.println(uploadPath +"\\" + savefilename +" [ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Îµå¼ºï¿½ï¿½!]");
 		    ////////////////////////////////////////////////////////////////////////////
-			///////////////////// 2. DBÀúÀå ////////////////////////////////////////////
-			long filesize=file1.getSize();//ÆÄÀÏÅ©±â ±¸ÇÏ±â
+			///////////////////// 2. DBï¿½ï¿½ï¿½ï¿½ ////////////////////////////////////////////
+			long filesize=file1.getSize();//ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 			PetSitterImageVo vo=new PetSitterImageVo(0,"A@A.COM" , savefilename, orgfilename);
 			imageService.insert(vo);
 			////////////////////////////////////////////////////////////////////////////

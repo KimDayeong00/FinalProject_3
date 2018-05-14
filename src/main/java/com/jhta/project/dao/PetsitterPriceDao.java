@@ -14,4 +14,8 @@ public class PetsitterPriceDao {
 	public PetSitterPriceVo select(String ps_email) {
 		return sqlSession.selectOne(NAMESPACE+".select",ps_email);
 	}
+	
+	public int updatePrice(PetSitterPriceVo vo) {
+		return sqlSession.update(NAMESPACE+".updatePrice",vo);
+	}
 }

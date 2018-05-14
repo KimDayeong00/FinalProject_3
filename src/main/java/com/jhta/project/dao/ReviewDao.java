@@ -14,4 +14,8 @@ public class ReviewDao {
 	public int insertReview(ReviewVo vo) {
 		return sqlSession.insert(NAMESPACE+".insertReview",vo);
 	}
+	
+	public int updateBk_rv(int bk_num) {
+		return sqlSession.update(NAMESPACE+".updateBk_rv",bk_num);
+	}
 }

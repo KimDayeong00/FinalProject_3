@@ -109,4 +109,7 @@
 	<update id="updatePsPwd" parameterType="petsitter">
 		update petsitter set ps_pwd=#{ps_pwd} where ps_email=#{ps_email}		
 	</update>
+	<delete id="leavePetsitter" parameterType="string">
+		delete from petsitter where ps_email=#{ps_email} 
+	</delete>
 </mapper>

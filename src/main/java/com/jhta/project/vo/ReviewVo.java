@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ReviewVo {
 	private int r_num;
 	private String r_content;
-	private int score;
+	private int r_score;
 	private Date r_regdate;
 	private String m_email;
 	private String ps_email;
@@ -13,12 +13,12 @@ public class ReviewVo {
 	
 	public ReviewVo() {}
 
-	public ReviewVo(int r_num, String r_content, int score, Date r_regdate, String m_email, String ps_email,
+	public ReviewVo(int r_num, String r_content, int r_score, Date r_regdate, String m_email, String ps_email,
 			int bk_num) {
 		super();
 		this.r_num = r_num;
 		this.r_content = r_content;
-		this.score = score;
+		this.r_score = r_score;
 		this.r_regdate = r_regdate;
 		this.m_email = m_email;
 		this.ps_email = ps_email;
@@ -41,12 +41,12 @@ public class ReviewVo {
 		this.r_content = r_content;
 	}
 
-	public int getScore() {
-		return score;
+	public int getR_score() {
+		return r_score;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setR_score(int r_score) {
+		this.r_score = r_score;
 	}
 
 	public Date getR_regdate() {

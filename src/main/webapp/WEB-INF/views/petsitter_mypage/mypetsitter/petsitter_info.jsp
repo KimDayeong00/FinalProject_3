@@ -54,6 +54,15 @@ function sendIt() {
 }
 </script>
 <script>
+function checkIt(){
+	if(!$("#agree").prop("checked")){
+		alert("안내 사항에 동의해주세요");
+		return false;
+	}
+}
+
+</script>
+<script>
 $(function(){
 	 
     $("#ps_phone").on('keydown', function(e){
@@ -101,6 +110,13 @@ $(function(){
       }
   });  
 });
+
+</script>
+<script>
+	function complete(bk_num){
+		console.log(bk_num);
+		location.href="<c:url value='/ps_complete?bk_num="+bk_num+"'/>";
+	}
 
 </script>
 <script>
@@ -461,7 +477,7 @@ $(function(){
 								<div>
 									<table class="bookTable">
 										<tr style="border-bottom:1px solid gray;">
-											<th>돌봄 시작 날짜</th><th>돌봄 끝 날짜</th><th>예약 회원 이름</th><th>맡기는 반려견</th><th>요청사항</th>
+											<th>돌봄 시작 날짜</th><th>돌봄 끝 날짜</th><th>예약 회원 이름</th><th>맡기는 반려견</th><th>요청사항</th><th>완료</th>
 										</tr>
 											<c:forEach var="plist" items="${pbookList }">
 												<tr>
@@ -473,7 +489,7 @@ $(function(){
 															<td>${plist.pi_name } 외 ${plist.count-1 }마리</td>
 														</c:when>
 														<c:otherwise>
-															<td>${plist.pi_name }</td>	
+															<td>${plist.pi_name }</td>
 														</c:otherwise>
 													</c:choose>
 													<td>
@@ -481,9 +497,53 @@ $(function(){
 															${plist.bk_content }
 														</textarea>
 													</td>
+													<td>
+														<c:choose>
+															<c:when test="${plist.bk_situation == '예약중' }">
+																<input type="button" value="완료" onclick="complete('${plist.bk_num}');">		
+															</c:when>
+															<c:otherwise>
+																완료
+															</c:otherwise>
+														</c:choose>
+													</td>
 												</tr>
 											</c:forEach>
 									</table>
+									<!-- 페이징 -->
+									<div class="paging">
+									<ul class="pagination">
+									<c:choose>
+										<c:when test="${pu.startPageNum>9 }">
+											 <li><a aria-label="Previous" href="<c:url value='/mypetsitter?pageNum=${pu.startPageNum-1 }&page=list&dtld=reservation'/>"><span aria-hidden="true">&laquo;</span></a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="disabled"><a aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a> </li>
+										</c:otherwise>
+									</c:choose>
+
+									<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+										<c:choose>
+											<c:when test="${i==pu.pageNum }">
+												<!-- 현재페이지 색상 다르게 표시하기 -->
+												 <li class="active"><a href="<c:url value='/mypetsitter?pageNum=${i }&page=list&dtld=reservation'/>">${i }</a></li>
+											</c:when>
+											<c:otherwise>
+												 <li><a href="<c:url value='/mypetsitter?pageNum=${i }&page=list&dtld=reservation'/>">${i }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+								<c:choose>
+									<c:when test="${pu.endPageNum<pu.totalPageCount }">
+										  <li class="disabled"><a href="<c:url value='/mypetsitter?pageNum=${pu.endPageNum+1 }&page=list&dtld=reservation'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+									</c:when>
+									<c:otherwise>
+								 		 <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+									</c:otherwise>
+								</c:choose>
+								</ul>
+								</div>
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'reservationSet' }">
@@ -578,7 +638,23 @@ $(function(){
 										</select>
 										<input type="hidden" id="otherpetNum" style="width:100px" name="otherpetNum">
 										</div>
-	
+									</div>
+									<label>이용 가격 설정</label>
+									<div class="priceSet">
+										
+										<div class="houseSetBox">
+										<label style="margin-right:59px;">1박 요금</label>
+										<input type="text" name="ps_price" value="${priceVo.ps_price }">원
+										</div>
+										<div class="houseSetBox">
+										<label>1day 요금</label>
+										<input type="text" name="ps_careprice" value="${priceVo.ps_careprice }">원
+										</div>
+										<div class="houseSetBox">
+										<label>대형견 추가 가격</label>
+										<input type="text" name="ps_overprice" value="${priceVo.ps_overprice }">원
+										</div>
+										
 									</div>
 										<div class="subwaySet">
 											<label>인근 지하철역</label><br>
@@ -846,7 +922,23 @@ $(function(){
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'leave' }">
-								<div>qq</div>
+								<div>
+									<form action="<c:url value='/petsitterLeave'/>" method="post" onsubmit="return checkIt();">
+										<div>
+											회원 탈퇴 시 해당 아이디로의 재가입이 불가합니다. 돌보미의 경우 보유하고 계신 수익금과 관련된 이력이 모두 삭제되며 진행중인 의뢰에 대해서는 취소 또는 완료가 된 후에 탈퇴해야 합니다. 
+	이를 지키지 않아 발생하는 문제에 대한 책임은 회원 본인에게 있으니 신중하게 결정해 주시기 바랍니다. 
+	
+	탈퇴 후에도 서비스에 등록한 후기는 자동으로 삭제되지 않으며 그대로 남아 있습니다. 삭제를 원하시는 게시글이 있다면 반드시 탈퇴 전에 삭제를 요청해 주시기 바랍니다. 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 후기글을 임의로 삭제해 드릴 수 없습니다.
+											<br><br>
+											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br>
+										 <div class="modifyBtnBox">
+										<button type="submit" class="modifyBtn2">
+											<label>탈퇴하기</label>
+										</button>
+										</div>
+										</div>
+									</form>
+								</div>
 							</c:when>
 						</c:choose>
 					</div>
