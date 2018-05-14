@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.MpetInfoService;
+import com.jhta.project.service.OrderListService;
 import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.ShopService;
 import com.jhta.project.service.memberService;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.MpetInfoVo;
+import com.jhta.project.vo.OrderItemVo;
+import com.jhta.project.vo.OrderJoinVo;
 import com.jhta.project.vo.PetsitterBookVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.memberVO;
@@ -29,6 +32,7 @@ public class MypageController {
 	@Autowired memberService memServcie;
 	@Autowired PetsitterBookService bookService;
 	@Autowired ShopService shopservice;
+	@Autowired OrderListService orderservice;
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypage")
@@ -257,9 +261,23 @@ public class MypageController {
 	
 	
 	@RequestMapping("/mypageShop")
-	public ModelAndView myPageShop() {
+	public ModelAndView myPageShop(HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.mypageShop");
-		
+		String m_email=(String)session.getAttribute("login");
+		System.out.println(m_email);
+		List<OrderJoinVo> orderlist=orderservice.orderlist(m_email);
+		System.out.println("번호는"+orderlist);
+		for(OrderJoinVo vo:orderlist) {
+			
+		System.out.print(vo.getBuy_num()+ " " + vo.getM_email());
+		List<OrderItemVo>  list=vo.getList();
+			for(OrderItemVo vv:list ) {
+				System.out.println(vv);
+			}
+		}
+		List<ShopClassVo> classvo=shopservice.classlist();
+		mv.addObject("classvo",classvo);
+		mv.addObject("orderlist",orderlist);
 		return mv;
 	}
 	

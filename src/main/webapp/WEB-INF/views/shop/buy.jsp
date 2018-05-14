@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<style>
+.tit{margin-top:7px; padding:5px;}
+.paypay{padding:3px;}
+</style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 window.onload=function(){
@@ -140,27 +143,22 @@ function removeComma(n) {
 		<img src="<c:url value='/resources/itemimage/order_step_02.png'/>">
 	</div>
 
-
-	<div class="line">
 		<div class="tit">받으시는 분</div>
-		<div class="content_wrap">
 			<div class="content"><input name="name" type="text" ></div>
-					</div>
-	</div>
-	<div class="line">
+					
+
 		<div class="tit">연락처</div>
-		<div class="content_wrap">
 			<div class="content"><input name="caddr1" type="text" > - <input name="caddr2" type="text" class="input_info"> - <input name="caddr3" type="text" class="input_info"></div>
-		</div>
-	</div>
+	
+
 
 <!-- 주소 입력  -->
 <div>
-<div>배송주소</div>
-<input type="text" id="sample6_postcode" placeholder="우편번호">
+<div class="tit">배송주소</div>
+<input style="width:100px;" type="text" id="sample6_postcode" placeholder="우편번호">
 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text"  name="juso1" id="sample6_address" placeholder="주소">
-<input type="text"  name="juso2" id="sample6_address2" placeholder="상세주소">
+<input style="width: 350px; margin-top:4px;"type="text"  name="juso1" id="sample6_address" placeholder="주소">
+<input style="width:200px; "type="text"  name="juso2" id="sample6_address2" placeholder="상세주소">
 
 <script>
     function sample6_execDaumPostcode() {
@@ -221,8 +219,8 @@ function removeComma(n) {
 			<div class="content_wrap">
 				<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t2.png'/>"></div>
 	
-					<div><label><input type="radio" name="pay_method"  checked=""> 신용카드</label></div>
-					<div><label><input type="radio" name="pay_method" value="bank"> 무통장입금</label></div>
+					<div class="paypay"><label><input type="radio" name="pay_method"  checked=""> 신용카드</label></div>
+					<div class="paypay"><label><input type="radio" name="pay_method" value="bank"> 무통장입금</label></div>
 
 			</div>
 		</div>
@@ -231,7 +229,7 @@ function removeComma(n) {
 
 			<div>
 				<img src="<c:url value='/resources/itemimage/order_pay_t3.png'/>">
-				<div class="content">
+				<div class="content" style="padding:5px;">
 						<table class="table table-bordered" style="width: 100px;">
 		<colgroup>
 			<col width="500">
@@ -260,7 +258,7 @@ function removeComma(n) {
 			</div>
 			
 			<div class="btn_wrap">
-				<div><input type="submit"  value="결제하기" onclick="pay()"></div>
+				<div><a href="javascript:pay()"><img src="<c:url value='/resources/itemimage/paypay.JPG'/>"></a></div>
 			</div>
 	
 

@@ -145,7 +145,7 @@ function checkAll(){
 								</td>
 
 								<td>
-					<a href="product.html?pd_code=G010620"><img src="<c:url value='/resources/itemimage/${data.img }'/>" width="90" height="90"></a>
+					<a href="<c:url value='/item/detail?p_num=${data.num }'/>"><img src="<c:url value='/resources/itemimage/${data.img }'/>" width="90" height="90"></a>
 					<input type="hidden" name="img" value="${data.img }">
 									</td>
 								<td>
