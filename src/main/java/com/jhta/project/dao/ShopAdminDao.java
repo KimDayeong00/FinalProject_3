@@ -11,6 +11,8 @@ import com.jhta.project.vo.ItemFilterVo;
 import com.jhta.project.vo.ShopClassJoinShopFieldVo;
 import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.ShopFieldVo;
+import com.jhta.project.vo.ShopFilterContentVo;
+import com.jhta.project.vo.ShopFilterTypeVo;
 import com.jhta.project.vo.ShopItemImageVo;
 import com.jhta.project.vo.ShopItemVo;
 
@@ -33,6 +35,9 @@ public class ShopAdminDao {
 	public List<ShopItemVo> itemlist(HashMap<Object, Object>map) {
 		return sqlSession.selectList(NAMESPACE+".itemlist",map);
 	}
+	public List<ShopFilterTypeVo> filtertypelist() {
+		return sqlSession.selectList(NAMESPACE+".filtertypelist");
+	}
 	public int delete(String p_num) {
 		return sqlSession.delete(NAMESPACE+".remove",p_num);
 	}
@@ -52,6 +57,24 @@ public class ShopAdminDao {
 	
 	public int itemadd(ShopItemVo vo) {
 		return sqlSession.insert(NAMESPACE+".itemadd",vo);
+	}
+	public int classinsert(String name) {
+		return sqlSession.insert(NAMESPACE+".classInsert",name);
+	}
+	public int fieldinsert(ShopFieldVo vo) {
+		return sqlSession.insert(NAMESPACE+".fieldInsert",vo);
+	}
+	public int filtertypeinsert(String ft_name) {
+		return sqlSession.insert(NAMESPACE+".filtertypeinsert",ft_name);
+	}
+	public List<ShopFilterContentVo> filtercontentlist() {
+		return sqlSession.selectList(NAMESPACE+".filtercontentlist");
+	}
+	public int filtercontentinsert(ShopFilterContentVo vo) {
+		return sqlSession.insert(NAMESPACE+".filtercontentinsert",vo);
+	}
+	public List<ShopFilterContentVo> filtercontent(int ft_num) {
+		return sqlSession.selectList(NAMESPACE+".filtercontent",ft_num);
 	}
 	
 	public int maxpnum() {

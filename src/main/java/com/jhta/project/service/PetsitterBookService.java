@@ -24,4 +24,16 @@ public class PetsitterBookService {
 	public int getBpetCnt(int bk_num) {
 		return dao.getBpetCnt(bk_num);
 	}
+	
+	public int insertBook(PetsitterBookVo vo) {
+		return dao.insertBook(vo);
+	}
+	
+	public List<PetsitterBookVo> selectPrevList(String m_email){
+		return dao.selectPrevList(m_email);
+	}
+	
+	public List<PetsitterBookVo> selectPbookList(String ps_email){
+		return dao.selectPbookList(ps_email);
+	}
 }

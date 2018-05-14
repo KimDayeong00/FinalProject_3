@@ -12,6 +12,8 @@
 	var totalover = 0;
 	var disdayList = new Array();
 	var disdateList = new Array();
+	var disableBook = '${startdate}';
+	
 	<c:forEach items="${disableList}" var="list">
 		disdayList.push("${list.disday}");
 		disdateList.push("${list.disDate}")
@@ -105,7 +107,7 @@
 			minTime : startcheckin,
 			maxTime : "23:00",
 			minuteIncrement : "30",
-			disable : ["2018-05-06"],
+			disable : ["2018-05-16"],
 			"disable": [
 		        function(date) {
 		        	var checkTrue = false;
@@ -132,6 +134,18 @@
 		            		}
 		            	}
 		            }
+		            
+		            	var ss = disableBook.split(",");
+		            	for(var f=0;f<ss.length-1;f++){
+		            		var diss = ss[f].split("-");
+		            		console.log(diss[0]+","+diss[1]+","+diss[2]);
+		            		var das = new Date(parseInt(diss[0]),parseInt(diss[1]),parseInt(diss[2]));
+		            		console.log(das.getDate());
+		            		if(date.getDate() === das.getDate() && date.getMonth() != das.getMonth()){
+		            			checkTrue = true;
+		            		}
+		            	}
+		            
 		            return checkTrue;
 		            //return checkDateTrue;
 		        }
@@ -400,6 +414,7 @@
 		<!-- 예약 페이지로 넘길 값 -->
 		<input type="hidden" name="ps_price" id="ps_price">
 		<input type="hidden" name="ps_day" id="ps_day">
+		<input type="hidden" name="ps_email" value="${ps_email }">
 		<button id="bookBtn" type="submit">
 			<label>예약하기</label>
 		</button>

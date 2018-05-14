@@ -50,4 +50,8 @@ public class memberDAO {
 	public memberVO infoEmail(String email) {
 		return session.selectOne(NAMESPACE+".infoEmail",email);
 	}
+	
+	public int deleteMember(String m_email) {
+		return session.delete(NAMESPACE+".deleteMember",m_email);
+	}
 }

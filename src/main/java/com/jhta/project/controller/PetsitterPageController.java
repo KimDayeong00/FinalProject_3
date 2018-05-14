@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -33,13 +34,16 @@ import com.jhta.project.service.FilterService;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterImageServiceImpl;
 import com.jhta.project.service.PetSitterServiceImpl;
+import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PpetInfoService;
+import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.PetSitterFilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterVo;
+import com.jhta.project.vo.PetsitterBookVo;
 import com.jhta.project.vo.PetsitterOptionVo;
 import com.jhta.project.vo.PetsitterPetVo;
 
@@ -52,12 +56,14 @@ public class PetsitterPageController {
 	@Autowired PetSitterServiceImpl service3;
 	@Autowired PpetInfoService petInfoService;
 	@Autowired PetSitterServiceImpl petsitterService;
+	@Autowired PetsitterBookService bookService;
 	private String url = ".petsitter_mypage.mypetsitter.petsitter_info";
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypetsitter")
 	public ModelAndView pageMove(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(url);
+		ArrayList<BookListVo> list=new ArrayList<>();
 		String ps_email = (String) session.getAttribute("login");
 		if(page==null) {
 			page = "list";
@@ -65,10 +71,23 @@ public class PetsitterPageController {
 		}
 		
 		List<DisableDateVo> disablelist = service.getDisable(ps_email);
+		List<PetsitterBookVo> pbookList = bookService.selectPbookList(ps_email);
+		for(int i=0;i<pbookList.size();i++) {
+			PetsitterBookVo vo= pbookList.get(i);
+			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
+			MpetInfoVo mpetVo = mpetList.get(0);
+			String pi_name = mpetVo.getPi_name();
+			int count = bookService.getBpetCnt(vo.getBk_num());
+			BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
+					vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
+			list.add(bookList);
+		}
+		
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
 		mv.addObject("disableList",disablelist);
+		mv.addObject("pbookList",list);
 		
 		return mv;
 	}

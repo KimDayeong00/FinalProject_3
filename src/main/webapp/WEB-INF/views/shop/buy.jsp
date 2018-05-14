@@ -100,12 +100,12 @@ function removeComma(n) {
 <c:forEach var="data"  items="${list}" varStatus="i">
   			<tr>
 								<td>
-					<a href="product.html?pd_code=G010620"><img src="<c:url value='/resources/itemimage/${data.url }'/>"   style="width:90px;height:90px;"></a>
+					<a href="<c:url value='/item/detail?p_num=${data.num }'/>"><img src="<c:url value='/resources/itemimage/${data.url }'/>"   style="width:90px;height:90px;"></a>
 					<input type="hidden" name="p_num" value="${data.num }">
 								</td>
 								<td>
 								
-								<a href="${data.url }">${data.title} </a>
+								<a href="<c:url value='/item/detail?p_num=${data.num }'/>">${data.title} </a>
 								<input type="hidden" name="title" value="${data.title}">
 								</td>
 								<td>

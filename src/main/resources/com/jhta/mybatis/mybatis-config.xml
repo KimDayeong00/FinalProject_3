@@ -6,6 +6,8 @@
 	<typeAliases>
 		<!-- ItemFilter -->
 		<typeAlias type="com.jhta.project.vo.ItemFilterVo" alias="itemFilter" />
+		<!-- Mpage -->
+		<typeAlias type="com.jhta.project.vo.MpageVo" alias="mpage" />
 		<!-- Introduce -->
 		<typeAlias type="com.jhta.project.vo.IntroduceVo" alias="introduce" />
 		<!-- admin -->
@@ -46,6 +48,8 @@
 	<mappers>
 	<!-- Introduce -->
 		<mapper resource="com/jhta/mybatis/IntroduceMapper.xml" />
+	<!-- Introduce -->
+		<mapper resource="com/jhta/mybatis/MpageMapper.xml" />
 	<!-- ItemFilter -->
 		<mapper resource="com/jhta/mybatis/ItemFilterMapper.xml" />
 	<!--  Petsitter -->
@@ -57,9 +61,13 @@
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
-	   	
+	   	<mapper resource="com/jhta/mybatis/PayMapper.xml" />
+	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml" />
+	   	<mapper resource="com/jhta/mybatis/BookpetInfoMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/FilterMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/ReviewMapper.xml"/>
+	   	
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		

@@ -29,7 +29,7 @@
 				<td width="150px"><select style="width: 100px;" class="addr" name="dong" id="dong"><option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;동</option></select></td>
 			<td>
 					<div class="calendar">
-						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
+						<input type="text" id="selector" style="width: 200px" placeholder="&nbsp;&nbsp;&nbsp;날짜 선택하기"> 
 					</div>
 				</td>
 			</tr>
@@ -76,15 +76,9 @@
 	var ref=0;
 	var filterchk=[];
 	var infowindow;
-    $(".filterName").on("click",function(){
-    	filterchk=[]
-    	 $('input:checkbox[name="filterName"]').each(function() {
-    	      if(this.checked){
-    	            filterchk.push(this.value)
-    	      }
-    	 });
-    	changeMap()
-    })
+   /*  $(".filterName").on("click",function(){
+    	
+    }) */
     
     $(".addr").on("change",function(){
     	var addres = $("#sido").val()+" "+$("#gugun").val()+" "+$("#dong").val();
@@ -126,7 +120,7 @@
 		      	var name = '${data.ps_name}';
 		      	var addr1 = '${data.ps_addr1}';
 		      	var content = '${data.ps_content}';
-		      	var img = '${data.ps_saveimage}';
+		      	var img = '${data.pimg_savefilename}';
 		      	var careprice = ${data.ps_careprice};
 		      	var price = ${data.ps_price};
 		      	var overprice = ${data.ps_overprice};
@@ -261,7 +255,7 @@
 	        		var petsitterList=
 	                        "<div class='tour-block' style='padding:0; margin:0; border:1px solid black; margin-top:5px;'>"+
 	        				"<div class='tour-img' style='width:20%;'>"+
-	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].ps_saveimage+"'/>'></a>"+
+	        				"<a href='#'><img style='width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
 	                                "<h2>"+data.list[q].ps_content+"</h2>"+
@@ -328,6 +322,13 @@
 	    } else {
 	        $input.prop("checked",false);
 	    }
+	    filterchk=[]
+	   	 $('input:checkbox[name="filterName"]').each(function() {
+	   	      if(this.checked){
+	   	            filterchk.push(this.value)
+	   	      }
+	   	 });
+	   	changeMap()
 	});
 </script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">

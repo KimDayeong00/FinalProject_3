@@ -28,7 +28,7 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="<c:url value="/introduce/introduce" />">메인페이지관리 </a>
+                  <li><a href="<c:url value="/mpage/mpage" />">메인페이지관리 </a>
                   <li><a href="<c:url value="/introduce/introduce" />">이용방법관리 </a>
                   </li>
                    <li><a>상품메뉴 <span class="fa fa-chevron-down"></span></a>
@@ -36,7 +36,7 @@
                       <li><a href="<c:url value="/shopadmin/list" />">상품관리</a></li>
                       <li><a href="<c:url value="/shopadmin/itemadd" />">상품추가</a></li>
                       <li><a href="<c:url value="/shopadmin/kategorie" />">카테고리추가</a></li>
-                      <li><a href="<c:url value="/shopadmin/filter" />">필터추가</a></li>
+                      <li><a href="<c:url value="/shopadmin/filterlist" />">필터추가</a></li>
                     </ul>
                   </li>
                   <li><a href="<c:url value="/admin/mManage" />"><i class="fa fa-table"></i> 회원관리 </a></li>

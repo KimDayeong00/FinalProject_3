@@ -44,4 +44,8 @@ public class memberService {
 	public memberVO infoEmail(String email) {
 		return dao.infoEmail(email);
 	}
+	
+	public int deleteMember(String m_email) {
+		return dao.deleteMember(m_email);
+	}
 }

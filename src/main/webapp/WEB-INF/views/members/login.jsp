@@ -20,7 +20,9 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- 구글 -->
+<!-- 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+ -->
 <!-- 카카오 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- Bootstrap -->
@@ -190,10 +192,12 @@ function goPopup(){
 	});
 	//]]>
 </script>
+
+
+<!-- 
 <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};HandleGoogleApiLibrary()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 
 <script>
-
 // Called when Google Javascript API Javascript is loaded
 function HandleGoogleApiLibrary() {
 	// Load "client" & "auth2" libraries
@@ -256,7 +260,7 @@ $("#login-button").on('click', function() {
 });
 
 </script>
-
+ -->
 <!-- 
 <script src="https://apis.google.com/js/platform.js?onload=renderButton"
 	async defer></script>
