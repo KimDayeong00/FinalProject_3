@@ -42,7 +42,14 @@ public class ShopController {
 		ModelAndView mv=new ModelAndView(".shop");
 		List<ShopClassVo> classvo=service.classlist();
 		System.out.println(classvo.toString());
+		List<ShopItemVo> hotitem=service.hotitem();
+		List<ShopItemVo> newitem=service.newitem();
+		
+		mv.addObject("hotitem",hotitem);
+		mv.addObject("newitem",newitem);
 		mv.addObject("classvo",classvo);
+		
+		
 		return mv;
 	}
 

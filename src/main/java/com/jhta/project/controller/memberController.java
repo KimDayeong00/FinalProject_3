@@ -48,13 +48,16 @@ public class memberController {
    @RequestMapping("/login")
    public String login() {
       // 테스트용으로 잠시 바꿈
+	   
       return "/members/login";
    }
 
    @RequestMapping("/logout")
-   public String logout(HttpSession session) {
+   public String logout(HttpSession session,Model mv) {
       // 테스트용으로 잠시 바꿈
       System.out.println("로그아웃하기");
+      List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
       session.removeAttribute("login");
       session.removeAttribute("login_type");
 

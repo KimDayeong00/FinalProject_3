@@ -50,6 +50,14 @@ public class ShopService {
 		return dao.fielditemlist(map);
 	}
 	
+	public List<ShopItemVo> hotitem() {
+		return dao.hotitem();
+	}
+	
+	public List<ShopItemVo> newitem() {
+		return dao.newitem();
+	}
+	
 	public int classcnt(int classnum) {
 		return dao.classcnt(classnum);
 	}
