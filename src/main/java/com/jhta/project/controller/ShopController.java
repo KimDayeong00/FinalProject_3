@@ -144,6 +144,7 @@ public class ShopController {
 			map.put(filter.getFt_num(), filtercontentvo);
 		}
 		List<ShopClassVo> classvo=service.classlist();
+		
 		map.put("pgchk","item");
 		map.put("pu", pu);
 		map.put("classvo",classvo);
@@ -152,6 +153,7 @@ public class ShopController {
 		map.put("itemvo",itemvo);
 		map.put("fieldnum",fieldnum);
 		map.put("classnum",classnum);
+		map.put("sql", sql);
 		System.out.println(",,,,,,,,,,:"+map);
 		return map;
 	
@@ -303,7 +305,12 @@ System.out.println("바이넘은몇일까"+buy_num);
 		return ".shop.item.pay";
 	}
 	
-	
+	@RequestMapping("/shop/success")
+	public ModelAndView success() {
+		ModelAndView mv=new ModelAndView(".shop.item.success");
+		return mv;
+		
+	}
 	
 	
 }

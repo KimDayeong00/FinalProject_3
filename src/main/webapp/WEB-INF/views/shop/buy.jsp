@@ -16,10 +16,17 @@ window.onload=function(){
 
 
 function pay(){
-	var accprice=$("#finalpay").text();
-	form=document.getElementById("pay");
-	form.action="<c:url value='/shop/pay?accprice="+accprice+"'/>";
-	form.submit();
+	 var radio = $(':input[name=pay_method]:radio:checked').val();
+	if(radio=="card"){
+		 var accprice=$("#finalpay").text();
+			form=document.getElementById("pay");
+			form.action="<c:url value='/shop/pay?accprice="+accprice+"'/>";
+			form.submit(); 
+	}else if(radio=="bank"){
+		alert("무통장입니다");
+	}
+	
+
 }
 
 function load(){
@@ -219,7 +226,7 @@ function removeComma(n) {
 			<div class="content_wrap">
 				<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t2.png'/>"></div>
 	
-					<div class="paypay"><label><input type="radio" name="pay_method"  checked=""> 신용카드</label></div>
+					<div class="paypay"><label><input type="radio" name="pay_method"  value="card" checked=""> 신용카드</label></div>
 					<div class="paypay"><label><input type="radio" name="pay_method" value="bank"> 무통장입금</label></div>
 
 			</div>
