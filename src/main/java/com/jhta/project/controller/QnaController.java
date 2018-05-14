@@ -32,11 +32,7 @@ public class QnaController {
 	public String list(@RequestParam(value="pageNum",defaultValue="1")int pageNum,String field,String keyword,Model mv,HttpSession session) {
 		
 		String m_email = (String)session.getAttribute("login");
-		System.out.println(m_email);
-		
-//		if(m_mail==null) {
-//			return ".members.login";
-//		}else {
+
 			HashMap<String,Object> map=new HashMap<String, Object>();
 			map.put("field",field);
 			map.put("keyword",keyword);
@@ -52,8 +48,6 @@ public class QnaController {
 			List<QnaVo> list = service.list(map);
 			List<QnaVo> vo = service.qnagetlist(m_email);
 			
-			System.out.println("리스트 : " + list);
-			
 			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
 			mv.addAttribute("orderiteminfo", vvo);
 			mv.addAttribute("qnagetlist", vo);
@@ -61,19 +55,23 @@ public class QnaController {
 			mv.addAttribute("pu",pu);
 			mv.addAttribute("field",field);
 			mv.addAttribute("keyword",keyword);
-			//System.out.println(mv);
 			
 			return ".qna.qna";
 		}
+	
+	@RequestMapping("/qna/qnaPopup")
+	public String qnaPopup(Model mv, HttpSession session) {
+		String m_email = (String)session.getAttribute("login");
+		List<ShopItemVo> vvo = service.orderiteminfo(m_email);
+		mv.addAttribute("orderiteminfo", vvo);
+		return "/qna/qnaPopup";
+	}
 	
 	@RequestMapping(value="/qna/insert",method=RequestMethod.POST)
 	public String insert(QnaVo vo, HttpSession session, Model mv) {
 		String m_email = (String)session.getAttribute("login");
 		
-		//System.out.println("인서트큐넘 : " + qnum);
-		
 		int qnum = service.maxnum()+1;
-		//System.out.println(qnum);
 		int refer = qnum;
 	
 		QnaVo vo1 = new QnaVo(qnum, vo.getTitle(), vo.getContent(), null, 0, refer, 0, 0, vo.getP_num(), "처리중");
@@ -82,8 +80,23 @@ public class QnaController {
 		
 		return ".qna.windowclose";
 	}
-
 	
+	@RequestMapping("/qna/delete")
+	public String qnadelete(int qnum) {
+		service.qnadelete(qnum);
+		service.admindelete(qnum);
+		
+		return "redirect:/qna/qna";
+	}
+	
+	@RequestMapping("/qna/detailPopup")
+	public String detailPopup(int qnum, Model mv) {
+		QnaVo vo = service.detailone(qnum);
+		System.out.println(vo.getRegdate());
+		mv.addAttribute("detailqna", vo);
+		return "/qna/detailPopup";
+	}
+
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
@@ -95,20 +108,19 @@ public class QnaController {
 			
 			return ".admin.qna.adminqna";
 	}
-	@RequestMapping("/qna/qnaPopup")
-	public String qnaPopup(Model mv, HttpSession session) {
-			String m_email = (String)session.getAttribute("login");
-			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
-			mv.addAttribute("orderiteminfo", vvo);
-			return "/qna/qnaPopup";
-	}
+	
+//	@RequestMapping("/qna/adminqnaPopup")
+//	public String adminqnaPopup(Model mv, HttpSession session) {
+//		String m_email = (String)session.getAttribute("login");
+//		List<ShopItemVo> vvo = service.orderiteminfo(m_email);
+//		mv.addAttribute("orderiteminfo", vvo);
+//		return "/admin/qna/adminqnaPopup";
+//	}
+//	
 	@RequestMapping(value="/qna/admininsert",method=RequestMethod.GET)
 	public String admininsert(AdminqnaVo vo) {
-		
-		
 		service.adminqnainsert(vo);
 		service.adminupdate(vo.getQnum());
-		
 		return "redirect:/qna/adminqna";
 	}
 	

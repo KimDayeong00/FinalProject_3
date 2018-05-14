@@ -61,8 +61,8 @@
                       <thead>
                         <tr>
                           <th>문의번호</th>
-                          <th>문의제목</th>
                           <th>문의날짜</th>
+                          <th>문의제목</th>
                           <th>상세보기</th>
                           <th>답변현황</th>
                         </tr>
@@ -72,8 +72,8 @@
 				<c:forEach var = "vo" items = "${adminlist }">
 					<tr onclick="javascript:adminform('${vo.title}')">
 						<td>${vo.qnum }</td>
-						<td>${vo.title }</td>
 						<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></td>
+						<td>${vo.title }</td>
 						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','${vo.regdate }','${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
 						<td>${vo.comments }</td>
 					</tr>
@@ -166,8 +166,9 @@
     </div>
     
     <script type="text/javascript">
+    	var pop;
     	function clickinfo(qnum, title, content, regdate, refer, lev, step, p_num){
-    		//$(".x_panel").css("display","block");
+    		$(".x_panel").css("display","block");
     		alert(title);
     		$("#email").val(regdate);
     		$("#email2").val(title);
@@ -176,8 +177,19 @@
     		$("#refer").val(refer);
     		$("#lev").val(lev);
     		$("#step").val(step);
+    		/* pop = window.open("<c:url value='/admin/qna/adminqnaPopup' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); */ 
     	
     	}
+    	/* var pop;
+    	function getPopup(){
+    	 pop = window.open("<c:url value='/qna/qnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+    	} */
+    	/* function testCheck(){
+    		console.log("옴");
+    		setTimeout(() => {
+    			location.href="<c:url value='/qna/adminqna'/>";
+    		}, 100);	
+    	} */
     
     </script>
     

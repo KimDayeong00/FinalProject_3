@@ -11,8 +11,6 @@
 	#insert {display: none; text-align: center;}
 	#detail {display: none;}
 	#showform {border-radius: 0.5em; color: black; background-color: white;}
-	#reset {border-radius: 0.5em; color: black; background-color: white;}
-	#qnainsert {border-radius: 0.5em; color: black; background-color: #E4E4E4; margin-bottom: 30px;}
 	#search {border-radius: 0.5em; color: black; background-color: white;}
 	#keyword {border-radius: 0.5em;}
 	#title {border-bottom-right-radius: 15px; width: 360px;}
@@ -32,13 +30,14 @@
 			<th style="text-align: center; width: 400px;">문의제목</th>
 			<th style="text-align: center; width: 150px;">상세보기</th>
 			<th style="text-align: center; width: 150px;">답변상태</th>
+			<th style="text-align: center; width: 100px;">삭제</th>
 		</tr>
 		<tbody id = "insertbody">
 			<c:forEach var = "vo" items = "${qnalist }">
 				<tr>
 					<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></td>
 					<td style = "text-align: left;padding-left: 10px">${vo.title }</td>
-					<td><a href="javascript:detail('${vo.regdate }','${vo.title}','${vo.content }')">상세보기</a></td>
+					<td><a href="javascript:detail('${vo.qnum }')">상세보기</a></td>
 					<c:choose>
 						<c:when test = "${0==vo.hit }">
 							<td>${vo.comments }</td>
@@ -47,23 +46,24 @@
 							<td><a href="javascript:comm('${vo.qnum }')">답변완료</a></td>
 						</c:otherwise>
 					</c:choose>
+					<td><a href = "<c:url value='/qna/delete?qnum=${vo.qnum }'/>">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	</div>
 
-	<br>
+	<input type = "button" value = "1:1문의하기" id = "showform" onclick="getPopup()" style = "margin-left: 880px; margin-top: 20px;">
 <!-- 페이징 -->
 <div>
 	<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 		<c:choose>
 			<c:when test="${i==pu.pageNum }"> <!-- 현재페이지 색상 다르게 표시하기 -->
-				<a href="<c:url value='/qna/qna?pageNum=${i }&field=${field }&keyword=${keyword }'/>"><span style='color:blue'>${i }</span></a>
+				<a href="<c:url value='/qna/qna?pageNum=${i }&field=${field }&keyword=${keyword }'/>"><span style='color:blue'></span></a>
 	
 			</c:when>
 			<c:otherwise>
-				<a href="<c:url value='/qna/qna?pageNum=${i }&field=${field }&keyword=${keyword }'/>"><span style='color:#555'>${i }</span></a>
+				<a href="<c:url value='/qna/qna?pageNum=${i }&field=${field }&keyword=${keyword }'/>"><span style='color:#555'></span></a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -83,22 +83,10 @@
 
 
 	<br>
-	<input type = "button" value = "1:1문의하기" id = "showform" onclick="getPopup()">
 	</div>
 	<br><br><br>
 	
-	<div id = detail>
-	<label id="detaillabelregdate">문의날짜</label><br>
-			<input type="text" id = "detailregdate" name="detailregdate" style = "size: 100;">
-			<br>
-	 <label id="detaillabelcontent">문의제목</label><br>
-			<input type="text" id = "detailtitle" name="detailtitle" style = "size: 100;">
-			<br>
-			 <label id="detaillabeltitle">문의내용</label><br>
-			<textarea rows="3" cols = "30" id = "detailcontent" name="detailcontent" style = "size: 50;"></textarea>
-			<br><br>
-			<input type="submit" value="확인" name="qnainsert">
-</div>
+
 <script type="text/javascript">
 	var select=document.getElementsByName("field")[0];
 	for(var i=0;i<select.options.length;i++){
@@ -127,11 +115,14 @@
 			location.href="<c:url value='/qna/qna'/>";
 		}, 100);	
 	}
-	function detail(regdate, title, content){
+	function detail(qnum){
 		$("#detail").css("display","block");
-		$("#detailregdate").val(regdate);
+/* 		$("#detailregdate").val(regdate);
 		$("#detailtitle").val(title);
-		$("#detailcontent").val(content);
+		$("#detailcontent").val(content); */
+		var url = "/qna/detailPopup?qnum="+qnum;
+
+		pop = window.open("<c:url value='/qna/detailPopup?qnum="+qnum+"' />", "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	}
 	$("#reset").click(function(){
 		$("#insert").css("display","none");
