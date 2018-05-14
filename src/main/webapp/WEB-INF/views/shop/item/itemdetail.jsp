@@ -38,16 +38,27 @@ function Comma(x) {
 }
 
 function cart(){
-
-	form=document.getElementById("info");
+	var id = '<%= session.getAttribute("login") %>';
+	if(id == "null"){
+		alert("로그인 하셔야 이용가능합니다");
+		location.href="<c:url value='/login' />";
+	}else{
+	 form=document.getElementById("info");
 	form.action="<c:url value='/shop/cart'/>";
-	form.submit();
+	form.submit(); 
+	}
 }
 
 function buy(){
+	var id = '<%= session.getAttribute("login") %>';
+	if(id == "null"){
+		alert("로그인 하셔야 이용가능합니다");
+		location.href="<c:url value='/login' />";
+	}else{
 	form=document.getElementById("info");
 	form.action="<c:url value='/shop/buy'/>";
 	form.submit();
+	}
 }
 
 </script>

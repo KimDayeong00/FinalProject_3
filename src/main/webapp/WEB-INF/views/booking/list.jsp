@@ -2,28 +2,77 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <style>
-      #petsitterList {
-      	width : 50%;
-        height: 600px;
-        position:relative;
-      	float:left;
-      	overflow:scroll;
-      }
-      #map {
-      	width : 50%;
-        height: 600px;
-      }
-    </style>
-	<div class="divhover"  style="margin:10px; width: 99%; margin-top: 5px; padding: 10px; border: solid 2px #dcdcdc; border-radius: 10px;" ><!-- onmouseover="aaa(this)" onmouseout="bbb(this)" -->
+	
+<style>
+#petsitterList {
+	width: 50%;
+	height: 600px;
+	position: relative;
+	float: left;
+	overflow: scroll;
+}
+
+#map {
+	width: 50%;
+	height: 600px;
+}
+
+.mystyle {
+	background-color: yellow;
+}
+
+.button {
+	padding: 0.75em 2em;
+	text-align: center;
+	text-decoration: none;
+	color: #2194E0;
+	border: 2px solid #2194E0;
+	font-size: 15px;
+	display: inline-block;
+	border-radius: 0.3em;
+	transition: all 0.2s ease-in-out;
+	position: absolute;
+	overflow: hidden;
+	margin-left: 50px;
+	margin-top: -25px;
+}
+
+.button:before {
+	content: "";
+	background-color: rgba(255, 255, 255, 0.5);
+	height: 50%;
+	width: 3em;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -4.5em;
+	-webkit-transform: skewX(-45deg) translateX(0);
+	transform: skewX(-45deg) translateX(0);
+	transition: none;
+}
+
+.button:hover {
+	background-color: #2194E0;
+	color: #fff;
+	border-bottom: 4px solid #1977b5;
+}
+
+.button:hover:before {
+	-webkit-transform: skewX(-45deg) translateX(13.5em);
+	transform: skewX(-45deg) translateX(13.5em);
+	transition: all 0.5s ease-in-out;
+}
+</style>
+	
+			<div class="divhover"  style="margin:10px; width: 99%; margin-top: 5px; padding: 10px; border: solid 2px #dcdcdc; border-radius: 10px;" ><!-- onmouseover="aaa(this)" onmouseout="bbb(this)" -->
 				<div style="margin-left: 540px; font-size: 18px; font-weight: bold; "><span >지역을 선택하세요.</span><span style="margin-left: 375px;"> 날짜를 선택하세요.</span></div>
 				<!-- <input type="button" value="이미지로검색" style="margin-left: 30px;"/> -->
 				<div style="width:100%; margin-top: 10px;">
 					<div style="float: left; margin-left: 400px;">
 						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="sido" id="sido" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" > <option value="">광역시/도</option></select>
 						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="gugun" id="gugun" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">시군구</option></select>
-						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="dong" id="dong" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">동</option></select>
-					</div>
+						<select style="width: 140px; height:31px; text-align:center; border-radius: 10px; font-size: 16px; font-stretch:100%;" class="addr" name="dong" id="dong" onmouseover="aaa(this)" onmouseout="bbb(this)" onmouseover="ccc(this)" onmouseout="ddd(this)" ><option value="">동</option></select>					</div>
+					<a href="javascript:tensor();" class="button">이미지로 검색</a>
 					<div class="calendar" style="margin-left: 200px;" >
 						<input onmouseover="aaa(this)" onmouseout="bbb(this)" type="text" id="selector" style="width: 240px; border-radius: 10px;" placeholder="시작날짜    >    마침날짜"> 
 					</div>
@@ -36,25 +85,18 @@
 		<script>sojaeji();</script>
 	</div>
 </div>
-	<%-- <div class="btn-group" data-toggle="buttons">
-		<c:forEach items="${filterlist }" var="filter">
-			<label class="btn btn-primary" style="border-radius:4px; padding:3px; margin: 3px;">
-		    	<input type="checkbox" name="chk" value="${filter.f_type}">${filter.f_type}
-			</label>
-		</c:forEach>
-	</div> --%>
-    <div id="petsitterList" style="padding: 5px;"></div>
-    <div id="map"></div>
-    <script type="text/javascript">
-    var address = new Array();
-    var map;
-    var geocoder;
-    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var n=0;
-    var bk_startdate;
+<div id="petsitterList"></div>
+<div id="map"></div>
+<script type="text/javascript">
+	var address = new Array();
+	var map;
+	var geocoder;
+	var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var n = 0;
+	var bk_startdate;
 	var bk_enddate;
-	var ref=0;
-	var filterchk=[];
+	var ref = 0;
+	var filterchk = [];
 	var infowindow;
    	$(".filterName").on("click",function(){
    		filterchk=[]
@@ -80,6 +122,7 @@
     	},100);
     })
 	function initMap() {
+
     	geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(37.566535, 126.97796919999996);
         var mapOptions = {
@@ -152,36 +195,42 @@
 	    	getlist();
 		}); 
 	}
-	function getlist(){
+	function getlist() {
 		var zoomLevel = map.getZoom();
-        var bounds =  map.getBounds();
-        var endLo = bounds.getNorthEast();
-        var startLo = bounds.getSouthWest();
-        var pos=map.getCenter();
-        /* console.log("Zoom: " + zoomLevel);
-        $("#petsitterList").append("Zoom: " + zoomLevel+"<br>");
-        $("#petsitterList").append("bounds: " + bounds+"<br>");
-        $("#petsitterList").append("좌측하단: " + startLo+"<br>");
-        $("#petsitterList").append("우측상단: " + endLo+"<br>");
-        $("#petsitterList").append("차이lat: " + (endLo.lat()-startLo.lat())+"<br>");
-        $("#petsitterList").append("차이lng: " + (endLo.lng()-startLo.lng())+"<br>");
-        $("#petsitterList").append("맵 중앙 lat: " + pos.lat()+"<br>");
-        $("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
-        arraygetlist(pos.lat(),pos.lng(),startLo.lat(),startLo.lng(),endLo.lat(),endLo.lng());
-       
+		var bounds = map.getBounds();
+		var endLo = bounds.getNorthEast();
+		var startLo = bounds.getSouthWest();
+		var pos = map.getCenter();
+		/* console.log("Zoom: " + zoomLevel);
+		$("#petsitterList").append("Zoom: " + zoomLevel+"<br>");
+		$("#petsitterList").append("bounds: " + bounds+"<br>");
+		$("#petsitterList").append("좌측하단: " + startLo+"<br>");
+		$("#petsitterList").append("우측상단: " + endLo+"<br>");
+		$("#petsitterList").append("차이lat: " + (endLo.lat()-startLo.lat())+"<br>");
+		$("#petsitterList").append("차이lng: " + (endLo.lng()-startLo.lng())+"<br>");
+		$("#petsitterList").append("맵 중앙 lat: " + pos.lat()+"<br>");
+		$("#petsitterList").append("맵 중앙 lng: " + pos.lng()+"<br>"); */
+		arraygetlist(pos.lat(), pos.lng(), startLo.lat(), startLo.lng(), endLo
+				.lat(), endLo.lng());
+
 	}
-	function addreslist(address){
-   		n=0;
-   		var locations=new Array();
-   	  		geocoder.geocode( { 'address': address}, function(results, status) {
-		   		locations.push({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()});
-		   		map.setCenter(results[0].geometry.location);
-		   	 	var bounds =  map.getBounds();
-		        var endLo = bounds.getNorthEast();
-		        var startLo = bounds.getSouthWest();
-		        var pos=map.getCenter();
-   	 			getlist()
-   	  		});
+	function addreslist(address) {
+		n = 0;
+		var locations = new Array();
+		geocoder.geocode({
+			'address' : address
+		}, function(results, status) {
+			locations.push({
+				lat : results[0].geometry.location.lat(),
+				lng : results[0].geometry.location.lng()
+			});
+			map.setCenter(results[0].geometry.location);
+			var bounds = map.getBounds();
+			var endLo = bounds.getNorthEast();
+			var startLo = bounds.getSouthWest();
+			var pos = map.getCenter();
+			getlist()
+		});
 	}
 	var markerCluster;
 	function list1(locations){
@@ -231,9 +280,10 @@
 			    	 markerCluster.addMarkers(markers);
 		  		}
 	}
-	
-	function arraygetlist(lat,lng,leftlat,leftlng,rightlat,rightlng){
+
+	function arraygetlist(lat, lng, leftlat, leftlng, rightlat, rightlng) {
 		var chklength = $(".filterName:checked").length;
+
 		var ddd=$("#selector").val().split('to ');
 		 $.getJSON("<c:url value='/booking/list'/>",{lat:lat,lng:lng,leftlat:leftlat,leftlng:leftlng,rightlat:rightlat,rightlng:rightlng,bk_startdate:bk_startdate,bk_enddate:bk_enddate,filterchk:JSON.stringify(filterchk),chklength:chklength},function(data) {
 	    		$("#petsitterList").html("");
@@ -265,39 +315,55 @@
 	flatpickr.localize(flatpickr.l10ns.ko); //언어 한글화
 	flatpickr("#selector");
 	var selector = $("#selector").flatpickr({
-		mode:"range",
+		mode : "range",
 		dateFormat : "Y/m/d",
 		minDate : "today",
-		onValueUpdate : function(){
-			var ddd=$("#selector").val().split('to ');
+		onValueUpdate : function() {
+			var ddd = $("#selector").val().split('to ');
 			bk_startdate = ddd[0];
 			bk_enddate = ddd[1];
-			if(bk_startdate!=undefined && bk_enddate!=undefined){
+			if (bk_startdate != undefined && bk_enddate != undefined) {
 				changeMap()
 			}
 		}
 	});
-	function changeMap(){
+	function changeMap() {
 		var chklength = $(".filterName:checked").length;
 		var arr = new Array();
-		 $.getJSON("<c:url value='/booking/map'/>",{bk_startdate:bk_startdate,bk_enddate:bk_enddate,filterchk:JSON.stringify(filterchk),chklength:chklength},function(data) {
-	        	for(var q=0; q<data.alllist.length; q++){
-			      	var email = data.alllist[q].ps_email;
-	    	        var lat = data.alllist[q].ps_lat;
-			        var lng = data.alllist[q].ps_lng;
-			      	var name = data.alllist[q].ps_name;
-			      	var addr1 = data.alllist[q].ps_addr1;
-			      	var content = data.alllist[q].ps_content;
-			      	var img = data.alllist[q].ps_saveimage;
-			      	var careprice = data.alllist[q].ps_careprice;
-			      	var price = data.alllist[q].ps_price;
-			      	var overprice = data.alllist[q].ps_overprice;
+		$.getJSON("<c:url value='/booking/map'/>", {
+			bk_startdate : bk_startdate,
+			bk_enddate : bk_enddate,
+			filterchk : JSON.stringify(filterchk),
+			chklength : chklength
+		}, function(data) {
+			for (var q = 0; q < data.alllist.length; q++) {
+				var email = data.alllist[q].ps_email;
+				var lat = data.alllist[q].ps_lat;
+				var lng = data.alllist[q].ps_lng;
+				var name = data.alllist[q].ps_name;
+				var addr1 = data.alllist[q].ps_addr1;
+				var content = data.alllist[q].ps_content;
+				var img = data.alllist[q].ps_saveimage;
+				var careprice = data.alllist[q].ps_careprice;
+				var price = data.alllist[q].ps_price;
+				var overprice = data.alllist[q].ps_overprice;
 
-			      	arr.push({email:email,name:name,addr1:addr1,content:content,lat:lat,lng:lng,img:img,price:price,careprice:careprice,overprice:overprice});
-	        	}
-		    		list1(arr)
-		    		getlist()
-	    })
+				arr.push({
+					email : email,
+					name : name,
+					addr1 : addr1,
+					content : content,
+					lat : lat,
+					lng : lng,
+					img : img,
+					price : price,
+					careprice : careprice,
+					overprice : overprice
+				});
+			}
+			list1(arr)
+			getlist()
+		})
 	}
 	function aaa(div){
 		$(div).css("border", "2px solid orange");
@@ -322,8 +388,24 @@
 	});
 	
 </script>
- <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8&callback=initMap">
-    </script>
+
+
+<script>
+
+function tensor(){
+	
+	var pop = window.open("<c:url value='/tensor' />","pop","width=570,height=800, scrollbars=yes, resizable=yes"); 
+	
+}
+
+
+
+</script>
+<script
+	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+	
+</script>
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8&callback=initMap">
+	
+</script>

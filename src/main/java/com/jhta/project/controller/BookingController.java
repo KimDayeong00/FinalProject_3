@@ -37,6 +37,8 @@ public class BookingController {
 	
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model,Date bk_startdate,Date bk_enddate) {
+		System.out.println("1:"+bk_startdate);
+		System.out.println("2:"+bk_enddate);
 		HashMap<String, Object>map = new HashMap<>();
 		map.put("bk_startdate", bk_startdate);
 		map.put("bk_enddate", bk_enddate);
@@ -81,6 +83,32 @@ public class BookingController {
 		}
 		return obj.toString();
 	}
+	
+	@RequestMapping("/booking/doglist")
+	public String dogist(String dogName) {
+		System.out.println("컨트롤어에서 강아지멍멍이 : "+dogName);
+		/*HashMap<String, Object>map = new HashMap<>();
+		map.put("bk_startdate", bk_startdate);
+		map.put("bk_enddate", bk_enddate);
+		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
+		for(PetSitterJoinFilterVo vo : alllist) {
+			for(FilterVo vo1 : vo.getList()) {
+				System.out.println(vo1.getFl_name());
+			}
+		}
+		List<FilterTypeListVo>filterlist = filterTypeListService.list();
+		model.addAttribute("alllist", alllist);
+		model.addAttribute("filterlist", filterlist);*/
+		return ".booking.list";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/booking/map",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String jsonmap(Date bk_startdate,Date bk_enddate,String[] filterchk,int chklength) {
