@@ -1,23 +1,21 @@
 package com.jhta.project.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.project.service.QnaService;
 import com.jhta.project.util.PageUtil;
-import com.jhta.project.vo.PayboardVo;
+import com.jhta.project.vo.AdminqnaVo;
 import com.jhta.project.vo.QnaVo;
 import com.jhta.project.vo.ShopItemVo;
 
@@ -53,8 +51,10 @@ public class QnaController {
 			
 			List<QnaVo> list = service.list(map);
 			List<QnaVo> vo = service.qnagetlist(m_email);
-			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
 			
+			System.out.println("리스트 : " + list);
+			
+			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
 			mv.addAttribute("orderiteminfo", vvo);
 			mv.addAttribute("qnagetlist", vo);
 			mv.addAttribute("qnalist",list);
@@ -64,30 +64,24 @@ public class QnaController {
 			//System.out.println(mv);
 			
 			return ".qna.qna";
-//		}
+		}
+	
+	@RequestMapping(value="/qna/insert",method=RequestMethod.POST)
+	public String insert(QnaVo vo, HttpSession session, Model mv) {
+		String m_email = (String)session.getAttribute("login");
+		
+		//System.out.println("인서트큐넘 : " + qnum);
+		
+		int qnum = service.maxnum()+1;
+		//System.out.println(qnum);
+		int refer = qnum;
+	
+		QnaVo vo1 = new QnaVo(qnum, vo.getTitle(), vo.getContent(), null, 0, refer, 0, 0, vo.getP_num(), "처리중");
+		service.insert(vo1);
+		System.out.println(vo1.getComments());
+		
+		return ".qna.windowclose";
 	}
-//	@RequestMapping(value="/qna/insert",method=RequestMethod.POST)
-//	public String insert(QnaVo vo, HttpSession session, Model mv) {
-//		String m_email = (String)session.getAttribute("login");
-//		
-//		int qnum = service.maxnum()+1;
-//		//System.out.println(qnum);
-//		int refer = qnum;
-//		
-//		QnaVo vo1 = new QnaVo(qnum, vo.getTitle(), vo.getContent(), null, 0, refer, 0, 0, vo.getP_num());
-//		service.insert(vo1);
-//		
-//		List<QnaVo> vo2 = service.qnagetlist(m_email);
-//		for(QnaVo vvo:vo2) {
-//			mv.addAttribute("qnum", vvo.getQnum());
-//			mv.addAttribute("title", vvo.getTitle());
-//			mv.addAttribute("content", vvo.getContent());
-//			mv.addAttribute("regdate", vvo.getRegdate());
-//			mv.addAttribute("p_num", vvo.getP_num());
-//			//System.out.println("제이슨피넘 : " + vvo.getP_num());
-//		}	
-//		return "redirect:/qna/qna";
-//	}
 
 	
 	
@@ -97,27 +91,25 @@ public class QnaController {
 	@RequestMapping("/qna/adminqna")
 	public String adminlist(Model mv) {
 			List<QnaVo> list = service.qnaList();
-			mv.addAttribute("adminlist",list);
+			mv.addAttribute("adminlist", list);
 			
 			return ".admin.qna.adminqna";
 	}
-	
+	@RequestMapping("/qna/qnaPopup")
+	public String qnaPopup(Model mv, HttpSession session) {
+			String m_email = (String)session.getAttribute("login");
+			List<ShopItemVo> vvo = service.orderiteminfo(m_email);
+			mv.addAttribute("orderiteminfo", vvo);
+			return "/qna/qnaPopup";
+	}
 	@RequestMapping(value="/qna/admininsert",method=RequestMethod.GET)
-	public String admininsert(int qnum, String title, String content, int refer, int lev, int step, int p_num) {
-		QnaVo vo1 = new QnaVo(0, title, content, null, 0, refer, lev, step, 0);
-		System.out.println("vo1값:" + vo1.getRefer());
-		System.out.println("vo1값:" + vo1.getContent());
-		service.adminupdate(vo1);
-		lev=lev+1;
-		step=step+1;
+	public String admininsert(AdminqnaVo vo) {
 		
-		qnum = service.maxnum()+1;
 		
-		QnaVo vo2 = new QnaVo(qnum, title, content, null, 0, refer, lev, step, p_num);
-		System.out.println("값들어가나:" + vo2.getRefer());
-		service.insert(vo2);
+		service.adminqnainsert(vo);
+		service.adminupdate(vo.getQnum());
 		
-		return "redirect:/admin/qna/adminqna";
+		return "redirect:/qna/adminqna";
 	}
 	
 

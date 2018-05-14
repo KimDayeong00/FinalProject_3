@@ -42,6 +42,7 @@
    	
    	<!--  Qna -->  
    	    <typeAlias type="com.jhta.project.vo.QnaVo" alias="qnavo" />
+   	    <typeAlias type="com.jhta.project.vo.AdminqnaVo" alias="adminqnavo" />
 	</typeAliases>
 
 
@@ -76,7 +77,7 @@
 		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
         <mapper resource="com/jhta/mybatis/AdminMapper.xml" />
     <!--  Qna -->   
-       <mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
+       	<mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
    </mappers>
 
 </configuration>

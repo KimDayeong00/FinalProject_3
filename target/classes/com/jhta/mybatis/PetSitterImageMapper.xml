@@ -3,11 +3,13 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.PetSitterImageMapper">
-    <update id="insert" parameterType="petsitterimage">
-    	update petsitterimage set pimg_savefilename=#{pimg_savefilename},pimg_orgfilename=#{pimg_orgfilename} 
-    	where ps_email=#{ps_email} and pimg_num=#{pimg_num}
-    </update>
+    <insert id="insert" parameterType="hashmap">
+    	insert into petsitterimage values(SEQ_PETSITTERIMAGE_PIMG_NUM.nextval,#{ps_email},#{pimg_savefilename},#{pimg_orgfilename}) 
+    </insert>
     <select id="getImg" parameterType="string" resultType="petsitterimage">
 		select * from petsitterimage where ps_email=#{value}
 	</select>
+	<delete id="delete" parameterType="int">
+		delete from petsitterimage where pimg_num=#{pimg_num}
+	</delete>
 </mapper>
