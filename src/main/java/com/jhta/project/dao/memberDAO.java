@@ -58,6 +58,13 @@ public class memberDAO {
 		return session.selectOne(NAMESPACE+".pwd", map);
 	}
 	
+	public int pwd_search(Map<String, String> map) {
+		return session.selectOne(NAMESPACE+".pwd_search", map);
+	}
+	
+	public int pwd_ok(Map<String, String> map) {
+		return session.update(NAMESPACE+".pwd_ok",map);
+	}
 	
 	
 }

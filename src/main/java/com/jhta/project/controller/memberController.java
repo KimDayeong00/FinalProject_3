@@ -18,10 +18,13 @@ import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.project.service.memberService;
+import com.jhta.project.util.ImageRecognition;
 import com.jhta.project.utils.Utils;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.memberVO;
@@ -373,6 +376,63 @@ public class memberController {
 
 	@RequestMapping("/sendmail")
 	public void sendmail(HttpServletRequest requset, HttpServletResponse response) {
+	}
+
+	@RequestMapping("/pwd_search")
+	public String pwd_search(HttpServletRequest requset, HttpServletResponse response) {
+		return ".members.pwd_search";
+	}
+
+	@RequestMapping(value = "/pwd", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String pwd(String gubun, String name, String email, String phone) {
+		Map<String, String> map = new HashMap<>();
+		if (gubun.equals("1")) {
+			map.put("gubun", "member");
+		} else {
+			map.put("gubun", "petsitter");
+		}
+		map.put("email", email);
+		map.put("name", name);
+		map.put("phone", phone);
+
+		int count = service.pwd_search(map);
+		System.out.println("검색결과 ?" + count);
+
+		JSONObject ob = new JSONObject();
+		if (count == 1) {
+
+			ob.put("result", "ok");
+		} else {
+			ob.put("result", "error");
+		}
+
+		return ob.toString();
+
+	}
+
+	@RequestMapping("/pwd_okok")
+	public String pwd_okok(HttpSession session, String size, String email, String pwd, String pwd_ok) {
+
+		if (!(pwd.equals(pwd_ok))) {
+			session.removeAttribute("rlt");
+			session.setAttribute("rlt", "fail");
+		} else {
+			Map<String, String> map = new HashMap<>();
+			map.put("gubun", size);
+			map.put("email", email);
+			map.put("pwd", pwd);
+			int row = service.pwd_ok(map);
+
+			if (row == 1) {
+				session.setAttribute("rlt", "success");
+			} else {
+				session.setAttribute("rlt", "fail");
+			}
+
+		}
+
+		return ".members.success";
 	}
 
 }

@@ -52,4 +52,11 @@ public class memberService {
 	public memberVO infoEmail(String email) {
 		return dao.infoEmail(email);
 	}
+	
+	public int pwd_search(Map<String, String> map) {
+		return dao.pwd_search(map);
+	}
+	public int pwd_ok(Map<String, String> map) {
+		return dao.pwd_ok(map);
+	}
 }
