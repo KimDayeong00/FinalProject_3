@@ -74,85 +74,14 @@
 						<td>${vo.qnum }</td>
 						<td><span id='regdate${a.index }'><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></span></td>
 						<td>${vo.title }</td>
-						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','regdate' +${a.index },'${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
+						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','${vo.regdate }','${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
 						<td><a href="javascript:admindetail('${vo.qnum }','${vo.comments }')">${vo.comments }</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
                     </table>
 					
-					<div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>상세보기</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" action = "<c:url value='/qna/admininsert'/>">
-                      <div class="item form-group">
-                    <input type = "hidden" id = "qnum" name = "qnum">
-                    <input type = "hidden" id = "refer" name = "aqrefer">
-                    <input type = "hidden" id = "lev" name = "aqlev">
-                    <input type = "hidden" id = "step" name = "aqstep">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email" id="regdate">문의날짜
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12" id = "email">
-                          <fmt:formatDate value = "${vo.regdate}" type="DATE" pattern="yyyy/MM/dd"/>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email" id="title">문의제목
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="email" id="email2" name="aqtitle" class="form-control col-md-7 col-xs-12" readonly="readonly">
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea" id="content">문의내용
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="textarea" required="required" name="aqcontent" class="form-control col-md-7 col-xs-12" readonly="readonly"></textarea>
-                        </div>
-                      </div>
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea" id="content">답변내용
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="textarea" required="required" name="aqcomments" class="form-control col-md-7 col-xs-12"></textarea>
-                        </div>
-                      </div>
-                        <div class="col-md-6 col-md-offset-3">
-                          <button type="reset" class="btn btn-primary">취소</button>
-                          <button id="insert" type="submit" class="btn btn-success">답변하기</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /page content -->
 
         <!-- footer content -->
         <footer>
@@ -168,17 +97,9 @@
     <script type="text/javascript">
     	var pop;
     	function clickinfo(qnum, title, content, regdate, refer, lev, step, p_num){
-    		/* $(".x_panel").css("display","block");
-    		$("#email").html($("#"+regdate).text());
-    		$("#email2").val(title);
-    		$("#textarea").val(content);
-    		$("#qnum").val(qnum);
-    		$("#refer").val(refer);
-    		$("#lev").val(lev);
-    		$("#step").val(step); */
-    		pop = window.open("<c:url value='/qna/adminqnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes");
- 
+    		pop = window.open("<c:url value='/qna/adminqnaPopup?qnum="+qnum+"&title="+title+"&content="+content+"&p_num="+p_num+"&refer="+refer+"&lev="+lev+"&step="+step+"' />","pop","width=570,height=420, scrollbars=yes, resizable=yes");
     	}
+    	
     	function admindetail(qnum, comments){
     		if(comments=='답변완료'){
     			pop = window.open("<c:url value='/qna/admindetail?qnum="+qnum+"' />", "pop","width=570,height=320, scrollbars=yes, resizable=yes"); 
@@ -186,12 +107,6 @@
     			alert("답변을 입력해주세요");
     		}
     	}
-    	/* var pop;
-    	function getPopup(){
-    	 pop = window.open("<c:url value='/qna/adminqnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-    	}  */
-    	
-    
     </script>
     
 
