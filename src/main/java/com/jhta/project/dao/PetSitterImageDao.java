@@ -1,5 +1,6 @@
 package com.jhta.project.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,8 +13,11 @@ import com.jhta.project.vo.PetSitterImageVo;
 public class PetSitterImageDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE="com.jhta.mybatis.PetSitterImageMapper";
-	public int insert(PetSitterImageVo vo) {
-		return sqlSession.insert(NAMESPACE+".insert",vo);
+	public int insert(HashMap<String, Object> map) {
+		return sqlSession.insert(NAMESPACE+".insert",map);
+	}
+	public int delete(int pimg_num) {
+		return sqlSession.delete(NAMESPACE+".delete",pimg_num);
 	}
 	
 	public List<PetSitterImageVo> getImg (String ps_email) {

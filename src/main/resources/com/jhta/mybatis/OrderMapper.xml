@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.OrderMapper">
+<resultMap type="com.jhta.project.vo.OrderJoinVo" id="orderjoinvo">
+	<result property="m_email" column="m_email"/>
+	<result property="buy_date" column="buy_date"/>
+	<result property="buy_num" column="buy_num"/>
+	<collection property="list" ofType="com.jhta.project.vo.OrderItemVo">
+		<result property="item_name" column="item_name"/>
+		<result property="amount" column="amount"/>
+		<result property="price" column="price"/>
+		<result property="p_num" column="p_num"/>
+		<result property="image_name" column="image_name"/>
+	</collection>
+	
+</resultMap>
+<!-- <select id="orderlist" parameterType="String" resultMap="orderjoinvo">
+select aa.m_email,aa.buy_date,bb.*,cc.* from payboard aa,orderitemlist bb,item cc
+ where aa.buy_num=bb.buy_num and bb.p_num=cc.p_num and aa.m_email=#{m_email} order by buy_date desc
+</select>
+	 -->
+ <select id="orderlist" parameterType="String" resultMap="orderjoinvo">
+select p.buy_date,p.m_email,p.buy_num,item.* from
+payboard p,(select item.item_name,item.image_name,orderitemlist.* from item,orderitemlist where item.p_num=orderitemlist.p_num) item
+where p.buy_num=item.buy_num and p.m_email=#{m_email}order by p.buy_date
+</select>
+</mapper>
+

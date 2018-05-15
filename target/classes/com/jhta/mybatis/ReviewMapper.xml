@@ -9,4 +9,13 @@
 	<update id="updateBk_rv" parameterType="int">
 		update petsitterbook set bk_review=1 where bk_num=#{value}
 	</update>
+	<select id="selectRv" parameterType="int" resultType="com.jhta.project.vo.ReviewVo">
+		select * from review where bk_num=#{value}	
+	</select>
+	<select id="selectPsRv" parameterType="string" resultType="com.jhta.project.vo.ReviewListVo">
+		select r.*,m.m_name from review r,memberlist m where r.m_email=m.m_email and r.ps_email=#{value}
+	</select>
+	<select id="rvCnt" resultType="int" parameterType="string">
+		select NVL(count(*),0) cnt from review where ps_email=#{value}	
+	</select>
 </mapper>

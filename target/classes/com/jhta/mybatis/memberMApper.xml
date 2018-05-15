@@ -5,13 +5,13 @@
 <mapper namespace="com.jhta.mybatis.memberMApper">
 	
 	<insert id="insertM" parameterType="member">
-		insert into memberlist values(#{m_email},#{m_pwd},#{m_name},#{m_phone},#{m_addr},0,sysdate,#{m_gubun})
+		insert into memberlist values(#{m_email},#{m_pwd},#{m_name},#{m_phone},#{m_addr},0,sysdate,#{m_gubun},null,null)
 	</insert>
 	
 	
 	<insert id="insertP" parameterType="petsitter">
 		insert into petsitter(PS_EMAIL,PS_PWD,PS_PHONE,PS_NAME,PS_ADDR1,PS_ADDR2,PS_CONTENT,PS_REGDATE,PS_LAT,
-PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pwd},#{ps_phone},#{ps_name},#{ps_addr1},#{ps_addr2}
+PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_ACTIVE,PS_GRADE) values(#{ps_email},#{ps_pwd},#{ps_phone},#{ps_name},#{ps_addr1},#{ps_addr2}
 		,#{ps_content},sysdate,#{ps_lat},#{ps_lng},null,null,#{ps_gubun},0,0)
 	</insert>
 	
@@ -84,5 +84,9 @@ PS_LNG,PS_SAVEIMAGE,PS_ORIGINALIMG,PS_GUBUN,PS_GRADE) values(#{ps_email},#{ps_pw
 	<delete id="deleteMember" parameterType="string">
 		delete from memberlist where m_email=#{value}
 	</delete>
+	
+	<update id="uploadImg" parameterType="hashmap">
+		update memberlist set m_saveimage=#{m_saveimage},m_originalimg=#{m_originalimg} where m_email=#{m_email}
+	</update>
 </mapper>
 

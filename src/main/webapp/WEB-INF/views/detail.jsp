@@ -379,7 +379,7 @@
 	<div class="imgSlide">
 		<div class="slider">
 			<c:forEach var="img" items="${imgList }">
-				<div><img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>"></div>
+				<div><img src="<c:url value='/resources/petimage/${img.pimg_savefilename}'/>"></div>
 			</c:forEach>
 		</div>
 	</div>
@@ -563,12 +563,21 @@
 				</div>
 			</div>
 		<div class="ps-review">
-			<div><p><strong>후기 1개</strong></p></div>
-			<div><span><strong>이름</strong></span></div>
+			<div><p><strong>후기 ${rvCnt }개</strong></p></div>
+			<c:forEach var="rv" items="${rvList }">
+				<div><span><strong>${rv.m_name }</strong></span></div>
+				<div class="ps-rvContent">
+					${rv.r_content }
+				</div>
+			</c:forEach>
+			
+			
+			<!-- <div><p><strong>후기 1개</strong></p></div>
+			<div><span><strong>이지영</strong></span></div>
 			<div class="ps-rvContent">
 			몽이를 키우는 동안 모르는 사람에게 맡긴 적이 없어<br>
 			걱정이 많았는데 펫시터 분 첫인상부터 너무 좋으신 분이라 안심했어요. :) 
-			</div>
+			</div> -->
 		</div>
 	</div>
 	</div>

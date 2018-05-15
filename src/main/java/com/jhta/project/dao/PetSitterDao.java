@@ -41,4 +41,8 @@ public class PetSitterDao {
 	public int deletePetsitter(String ps_email) {
 		return session.delete(NAMESPACE+".leavePetsitter",ps_email);
 	}
+	
+	public int sitterImgUpload(HashMap<String, Object> map) {
+		return session.update(NAMESPACE+".imgUpdate",map);
+	}
 }

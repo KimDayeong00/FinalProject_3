@@ -66,4 +66,8 @@ public class PetsitterBookDao {
 	public List<PetsitterBookVo> getPrevListCnt2(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE+".getPrevListCnt2",map);
 	}
+	
+	public String selectBk_content(int bk_num) {
+		return sqlSession.selectOne(NAMESPACE+".selectBk_content",bk_num);
+	}
 }

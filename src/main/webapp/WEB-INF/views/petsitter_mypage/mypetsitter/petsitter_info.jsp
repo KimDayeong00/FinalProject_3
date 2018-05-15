@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+	function detail(bk_num){
+		window.open("<c:url value='/contentDetail?bk_num="+bk_num+"'/>", "pop", "width=500,height=400, scrollbars=yes, resizable=yes");
+	}
+</script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlHuO4oLlpV9W3ENFiqWJI_MjY1Il0cB8">
 </script>
@@ -13,7 +18,31 @@ function goPopup(){
 	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
     //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 }
-
+function imgdelete(num){
+	console.log("num : "+num );
+	location.href="<c:url value='/imgdelete?pimg_num="+num+"'/>";
+}
+    function bbasas(){
+				var fd = new FormData($("#ps_imgform")[0]);
+				$.ajax({
+					url:"<c:url value='/ps_imgTest'/>",
+					data:fd,
+					processData:false,
+					contentType:false,
+					type:'post',
+					dataType:"json",
+					success:function(data){
+						/* $("#ps_image").html("");
+						console.log(data)
+						for(var i=0; i<data.ps_imgVo.length;i++){
+							$("#ps_image").append(
+								"<a href='#' style='margin:3px;'><img  style=' position:relative; width:200px; height:200px; overflow: hidden; display: inline;' src='<c:url value='/resources/upload/"+data.ps_imgVo[i].pimg_savefilename+"'/>'></a>"
+							)
+						} */
+					}
+				});
+				location.reload();
+	}
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
@@ -216,10 +245,18 @@ $(function(){
 		
 		
 		//이미지 hover 효과
-		$('.ps_image img').hover(function(){
+		$('.ps_image .img').hover(function(){
 			$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+			$(this).css("opacity","0.5");
+			var left = $(this).offset().left;
+			var top = $(this).offset().top;
+			$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+			$('#delete').css("left",left+65)
+			$('#delete').css("top",top+70)
 		},function(){
+			$(this).css("opacity","1");
 			$(this).css("border","");
+			$("#delete").html("")
 		});
 		
 		$('#ppetImg').hover(function(){
@@ -229,16 +266,13 @@ $(function(){
 		});
 		
 		
-		//이미지 클릭하여 업로드
-		$('.ps_image img').click(function(){
+	/* 	$('.ps_image img').click(function(){
 			var img = $(this);
 			var input = img.next('input[name=ps_imgUpload]');
 			var submit = input.next('.ps_imgSubmit');
 			input.trigger("click");
 			input.change(function(){
-				//submit.trigger("click",function(){
 					var fd = new FormData(input.parent(".ps_imgForm")[0]);
-					//fd.append("file",input.prop("files")[0]);
 					$.ajax({
 						url:"<c:url value='/ps_imgTest'/>",
 						data:fd,
@@ -247,20 +281,24 @@ $(function(){
 						type:'post',
 						dataType:"json",
 						success:function(data){
-							alert(data.msg);
-							img.prop("src","<c:url value='/resources/upload/"+data.pimg_savefilename+"'/>");
-							input.next(".pimg_num").prop("value",data.pimg_num);
+						$("#ps_image").html("");
+							console.log(data)
+							for(var i=0; i<data.ps_imgVo.length;i++){
+								$("#ps_image").append(
+									"<a href='#' style='margin:3px;'><img  style=' position:relative; width:200px; height:200px; overflow: hidden; display: inline;' src='<c:url value='/resources/upload/"+data.ps_imgVo[i].pimg_savefilename+"'/>'></a>"
+								)
+							}
 						}
 					});
 				//});
 			});
-		});
-		
+		}); */
 		$('#ppetImg').click(function(){
 			var img = $(this);
 			var input = img.next('input[name=ps_imgUpload]');
 			var submit = input.next('.ps_imgSubmit');
 			input.trigger("click");
+			$("#ps_image").html("")
 			input.change(function(){
 				//submit.trigger("click",function(){
 					var fd = new FormData(input.parent(".ps_imgForm")[0]);
@@ -439,19 +477,76 @@ $(function(){
 				}
 			});
 	});
+
+</script>
+<script>
+	$(document).ready(function(){
+		//이미지 hover 효과
+		$('.sitterImg img').hover(function(){
+			$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+			$(this).css("opacity","0.5");
+			var left = $(this).offset().left;
+			var top = $(this).offset().top;
+			$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+			$('#delete').css("left",left+65)
+			$('#delete').css("top",top+70)
+		},function(){
+			$(this).css("opacity","1");
+			$(this).css("border","");
+			$("#delete").html("")
+		});
+		
+		
+	 	$('.sitterImg img').click(function(){
+			var img = $(this);
+			var input = img.next('input[name=sitterImgFile]');
+			//var submit = input.next('.ps_imgSubmit');
+			input.trigger("click");
+			input.change(function(){
+					var fd = new FormData(input.parent(".sitterImgForm")[0]);
+					$.ajax({
+						url:"<c:url value='/sitterImgUpload'/>",
+						data:fd,
+						processData:false,
+						contentType:false,
+						type:'post',
+						dataType:"json",
+						success:function(data){
+						$("#ps_image").html("");
+							console.log(data)
+							img.prop("src",data.ps_saveimage);
+						}
+					});
+				//});
+			});
+		});
+		
+		
+	});
+
 </script>
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img src="<c:url value='resources/images/noprofile.png'/>">
+			<form class="sitterImgForm">
+			<c:choose>
+				<c:when test="${sessionScope.ps_saveimage eq null }">
+					<img src="<c:url value='/resources/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
 		</div>	
 		
-		<div class="order">
+		<!-- <div class="order">
 			<span><a href="<c:url value='/mypage/order'/>">주문목록/배송조회</a></span>
-		</div>	
+		</div> -->	
 		
 		<div class="petsitterInfoManage">
 			<span><a href="<c:url value='/psinfoSet?page=sitterInfo&dtld=psInfoSet'/>">펫시터 정보 관리</a></span>
@@ -493,9 +588,7 @@ $(function(){
 														</c:otherwise>
 													</c:choose>
 													<td>
-														<textarea rows="5" cols="10" readonly="readonly">
-															${plist.bk_content }
-														</textarea>
+														<a href="javascript:detail('${plist.bk_num}');">상세보기</a>
 													</td>
 													<td>
 														<c:choose>
@@ -547,21 +640,23 @@ $(function(){
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'reservationSet' }">
-								<form action="<c:url value='/disableSet'/>" method="post">
-								<p>날짜 설정</p>
-								<input type="hidden" id="calendar" name="disdate"><br>
-								<p>요일 설정</p>
-								<input type="checkbox" name="dayCheck" value="0">일
-								<input type="checkbox" name="dayCheck" value="1">월
-								<input type="checkbox" name="dayCheck" value="2">화
-								<input type="checkbox" name="dayCheck" value="3">수
-								<input type="checkbox" name="dayCheck" value="4">목
-								<input type="checkbox" name="dayCheck" value="5">금
-								<input type="checkbox" name="dayCheck" value="6">토<br>
-								<button type="submit" class="modifyBtn">
-									<label>설정하기</label>
-								</button>
-								</form>
+								<div class="calendarSet" style="width:290px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
+									<form action="<c:url value='/disableSet'/>" method="post">
+									<label style="font-size: 18px;">날짜 설정</label><br>
+									<input type="hidden" id="calendar" name="disdate" style="width:307px;"><br>
+									<label style="font-size: 18px;">요일 설정</label><br>
+									<input type="checkbox" name="dayCheck" value="0">일
+									<input type="checkbox" name="dayCheck" value="1">월
+									<input type="checkbox" name="dayCheck" value="2">화
+									<input type="checkbox" name="dayCheck" value="3">수
+									<input type="checkbox" name="dayCheck" value="4">목
+									<input type="checkbox" name="dayCheck" value="5">금
+									<input type="checkbox" name="dayCheck" value="6">토<br>
+									<button type="submit" class="modifyBtn">
+										<label>설정하기</label>
+									</button>
+									</form>
+								</div>
 							</c:when>
 						</c:choose>
 					</div>
@@ -666,16 +761,22 @@ $(function(){
 									</button>
 									</div>
 								</form>
-								<label>보여질 대표 이미지 설정</label>
-								<div style="overflow: hidden;width: 100%;">
+								<label style="float: left;">사진 관리</label>
+								<label style="float: left; margin-left: 160px; margin-right: 15px;">사진 업로드</label>
+								<form method="post" enctype="multipart/form-data" class="ps_imgForm" id="ps_imgform"action="<c:url value='/ps_imgTest'/>">
+								<input multiple="multiple" type="file" id="mulfile" class="mulfile" name="multifile" onchange="bbasas(this.value)" />
+								</form>
+								<div id="delete" style="position: absolute;"></div>
+								<div id="ps_image" style="overflow: hidden;width: 100%;">
 									<c:forEach var="img" items="${ps_imgVo }">
-									<div class="ps_image">
-										<form method="post" enctype="multipart/form-data" class="ps_imgForm" action="<c:url value='/ps_imgTest'/>">
-											<img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>">
-											<input type="file" name="ps_imgUpload">
-											<input type="hidden" name="pimg_num" value="${img.pimg_num }" id="pimg_num">
+									<div class="ps_image" onclick='imgdelete("${img.pimg_num }")'>
+											<div class='img' style="text-align: center; vertical-align: 
+											middle; float:left; margin:3px; width:200px;height:200px;
+											background-size: 100%; background-position: center; 
+											background-size: cover;
+											background-image: url(<c:url value='/resources/petimage/${img.pimg_savefilename}' />);">
+									</div>
 											<!-- <input type="submit" class="ps_imgSubmit"> -->
-										</form>
 									</div>
 									</c:forEach>
 								</div>
@@ -894,7 +995,7 @@ $(function(){
 										</div>
 										<div>
 										<label>자기 소개</label><br>
-										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required">
+										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required" style="width:100%">
 										</div>
 										<input type="hidden" id="ps_lat" name="ps_lat" value="${sitterVo.ps_lat }"/>
 	    								<input type="hidden" id="ps_lng" name="ps_lng" value="${sitterVo.ps_lng }"/>
@@ -924,13 +1025,13 @@ $(function(){
 							<c:when test="${dtld eq 'leave' }">
 								<div>
 									<form action="<c:url value='/petsitterLeave'/>" method="post" onsubmit="return checkIt();">
-										<div>
+										<div class="leaveBox" style="width:600px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
 											회원 탈퇴 시 해당 아이디로의 재가입이 불가합니다. 돌보미의 경우 보유하고 계신 수익금과 관련된 이력이 모두 삭제되며 진행중인 의뢰에 대해서는 취소 또는 완료가 된 후에 탈퇴해야 합니다. 
 	이를 지키지 않아 발생하는 문제에 대한 책임은 회원 본인에게 있으니 신중하게 결정해 주시기 바랍니다. 
 	
 	탈퇴 후에도 서비스에 등록한 후기는 자동으로 삭제되지 않으며 그대로 남아 있습니다. 삭제를 원하시는 게시글이 있다면 반드시 탈퇴 전에 삭제를 요청해 주시기 바랍니다. 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 후기글을 임의로 삭제해 드릴 수 없습니다.
 											<br><br>
-											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br>
+											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br><br>
 										 <div class="modifyBtnBox">
 										<button type="submit" class="modifyBtn2">
 											<label>탈퇴하기</label>

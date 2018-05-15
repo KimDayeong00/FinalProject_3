@@ -1,47 +1,33 @@
 package com.jhta.project.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jhta.project.dao.FilterDao;
 import com.jhta.project.service.DisableDateService;
 import com.jhta.project.service.FilterService;
-import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterImageServiceImpl;
 import com.jhta.project.service.PetSitterServiceImpl;
 import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PetsitterPriceService;
 import com.jhta.project.service.PpetInfoService;
+import com.jhta.project.service.ReviewService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.BookListVo;
+//github.com/KimDayeong00/FinalProject_3.git
 import com.jhta.project.vo.DisableDateVo;
 import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.PetSitterFilterVo;
@@ -51,6 +37,7 @@ import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterBookVo;
 import com.jhta.project.vo.PetsitterOptionVo;
 import com.jhta.project.vo.PetsitterPetVo;
+import com.jhta.project.vo.ShopClassVo;
 
 @Controller
 public class PetsitterPageController {
@@ -61,8 +48,10 @@ public class PetsitterPageController {
 	@Autowired PetSitterServiceImpl service3;
 	@Autowired PpetInfoService petInfoService;
 	@Autowired PetSitterServiceImpl petsitterService;
+	@Autowired ShopService service99;
 	@Autowired PetsitterBookService bookService;
 	@Autowired PetsitterPriceService priceService;
+	@Autowired ReviewService rvService;
 	
 	private String url = ".petsitter_mypage.mypetsitter.petsitter_info";
 	private String alertUrl = ".petsitter_mypage.alert";
@@ -78,6 +67,8 @@ public class PetsitterPageController {
 		}
 		
 		List<DisableDateVo> disablelist = service.getDisable(ps_email);
+		List<ShopClassVo> classvo=service99.classlist();
+		mv.addObject("classvo",classvo);
 		//List<PetsitterBookVo> pbookList = bookService.selectPbookList(ps_email);
 //		for(int i=0;i<pbookList.size();i++) {
 //			PetsitterBookVo vo= pbookList.get(i);
@@ -101,15 +92,21 @@ public class PetsitterPageController {
 		
 		for(int i=0;i<pbookList.size();i++) {
 			PetsitterBookVo vo= pbookList.get(i);
+			System.out.println("numberdkfajlsd:"+vo.getBk_num());
 			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
-			MpetInfoVo mpetVo = mpetList.get(0);
-			String pi_name = mpetVo.getPi_name();
-			int count = bookService.getBpetCnt(vo.getBk_num());
-			BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
-					vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
-			list.add(bookList);
+				MpetInfoVo mpetVo = mpetList.get(0);
+				String pi_name = mpetVo.getPi_name();
+				int count = bookService.getBpetCnt(vo.getBk_num());
+				BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
+						vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
+				list.add(bookList);
 			
 		}
+		
+		PetSitterVo sitterVo = petsitterService.select(ps_email);
+		System.out.println("ps_saveimageadfsdf:"+sitterVo.getPs_saveimage());
+		session.setAttribute("ps_saveimage", sitterVo.getPs_saveimage());
+		mv.addObject("sitterVo",sitterVo);
 		mv.addObject("pu",pu);
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -135,9 +132,9 @@ public class PetsitterPageController {
 		mv.addObject("page","list");
 		mv.addObject("dtld","reservationSet");
 		if(n<0) {
-			mv.addObject("msg","¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			mv.addObject("msg","ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½");
 		}else{
-			mv.addObject("msg","¼³Á¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			mv.addObject("msg","ï¿½ã…¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½çŒ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½");
 		}
 		
 		ServletContext context = session.getServletContext();
@@ -151,10 +148,12 @@ public class PetsitterPageController {
 	public ModelAndView psinfoSetView(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(url);
 		String ps_email = (String) session.getAttribute("login");
-		System.out.println("ÀÌ¸ÞÀÏ"+ps_email);
+		System.out.println("ï¿½ëŒ€ï¿½ï¿½ï¿½"+ps_email);
 		
 		PetsitterOptionVo optionVo = service2.getOption(ps_email);
 		List<PetSitterImageVo> ps_imgVo = imageService.getImg(ps_email);
+		List<ShopClassVo> classvo=service99.classlist();
+		mv.addObject("classvo",classvo);
 		PetSitterPriceVo priceVo= priceService.select(ps_email);
 		
 		mv.addObject("priceVo",priceVo);
@@ -183,7 +182,7 @@ public class PetsitterPageController {
 		int po_child = Integer.parseInt(childSelect);
 		int po_family = Integer.parseInt(familySelect);
 		int po_otherpet = Integer.parseInt(otherpetSelect);
-		if(houseSelect.equals("±âÅ¸")) {
+		if(houseSelect.equals("æ¹²ê³ ï¿½ï¿½")) {
 			po_space = houseType; 
 		}
 		if(po_child==1) {
@@ -205,14 +204,16 @@ public class PetsitterPageController {
 		int n = service2.updatePsInfoSet(vo);
 		
 		if(n<0 || k<0) {
-			mv.addObject("msg","¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			mv.addObject("msg","ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½");
 		}else{
-			mv.addObject("msg","¼³Á¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù");
+			mv.addObject("msg","ï¿½ã…¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½çŒ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½");
 		}
 		
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
+		List<ShopClassVo> classvo=service99.classlist();
+		mv.addObject("classvo",classvo);
 		//mv.addObject("ps_email",ps_email);
 		mv.addObject("page","sitterInfo");
 		mv.addObject("dtld","psInfoSet");
@@ -285,7 +286,7 @@ public class PetsitterPageController {
 	public ModelAndView filterSet(String[] chFilter, HttpSession session) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String ps_email = (String) session.getAttribute("login");
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
@@ -293,7 +294,7 @@ public class PetsitterPageController {
 		int n = filterService.insertFilter(chFilter, ps_email);
 		
 		if(n>0){
-			msg="¼³Á¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.";
+			msg="ï¿½ã…¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½çŒ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -314,7 +315,7 @@ public class PetsitterPageController {
 		Calendar cc= Calendar.getInstance();
 		int year = cc.get(Calendar.YEAR);
 		
-		System.out.println(year+"³âµµ");
+		System.out.println(year+"ï¿½ï¿½ï¿½ï¿½");
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -331,7 +332,7 @@ public class PetsitterPageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -341,7 +342,7 @@ public class PetsitterPageController {
 		int n = petInfoService.insertPpetInfo(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ßÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù.";
+			msg = "è«›ï¿½ï¿½ã…ºê»„ï¿½ï¿½ ç•°ï¿½åª›ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -384,7 +385,7 @@ public class PetsitterPageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -395,7 +396,7 @@ public class PetsitterPageController {
 		int n = petInfoService.petUpdate(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ß Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "è«›ï¿½ï¿½ã…ºê»„ ï¿½ï¿½è¹‚ë‹¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -432,10 +433,10 @@ public class PetsitterPageController {
 		String ps_email = (String) session.getAttribute("login");
 		
 		PetSitterVo sitterVo = petsitterService.select(ps_email);
+		mv.addObject("sitterVo",sitterVo);
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
-		mv.addObject("sitterVo",sitterVo);
 		return mv;
 	}
 	
@@ -446,19 +447,19 @@ public class PetsitterPageController {
 		String ps_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		
 		double lat = Double.parseDouble(ps_lat);
 		double lng = Double.parseDouble(ps_lng);
 		
-		System.out.println("lat°ª:"+lat+" lng°ª:"+lng);
+		System.out.println("latåª›ï¿½:"+lat+" lngåª›ï¿½:"+lng);
 		
 		PetSitterVo sitterVo = new PetSitterVo(ps_email,null,ps_phone,ps_name,ps_addr1,ps_addr2,ps_content,null,lat,lng,null,null,0,0,0);
 		
 		int n = petsitterService.updateAccount(sitterVo);
 		
 		if(n>0) {
-			msg = "Æê½ÃÅÍ Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½ãƒ¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½è¹‚ë‹¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -475,14 +476,14 @@ public class PetsitterPageController {
 		String ps_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		
 		PetSitterVo sitterVo = new PetSitterVo(ps_email,ps_pwd,null,null,null,null,null,null,0,0,null,null,0,0,0);
 		
 		int n = petsitterService.updatePwd(sitterVo);
 		
 		if(n>0) {
-			msg = "ºñ¹Ð¹øÈ£°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "é®ï¿½è«›ï¿½è¸°ï¿½ï¿½ë©¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -498,7 +499,7 @@ public class PetsitterPageController {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ã…»ï¿½æ¿¡ï¿½ ï¿½ëª…ï¿½ï¿½ ï¿½ã…½ï¿½â‘¦ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½.";
 		
 		System.out.println("complete"+bk_num);
 		
@@ -506,7 +507,7 @@ public class PetsitterPageController {
 		
 		int n = bookService.completeBook(bnum);
 		if(n>0) {
-			msg = "¿Ï·áµÇ¾ú½À´Ï´Ù";
+			msg = "ï¿½ï¿½çŒ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë“¬ï¿½ï¿½ï¿½ï¿½";
 		}
 		mv.addObject("msg",msg);
 		mv.addObject("page","list");
@@ -527,5 +528,14 @@ public class PetsitterPageController {
 			session.setAttribute("rlt", "fail");
 			 return ".members.success";
 		}
+	}
+	
+	@RequestMapping("/contentDetail")
+	public ModelAndView reviewDetail(String bk_num) {
+		ModelAndView mv=new ModelAndView("/petsitter_mypage/mypetsitter/bk_contentPop");
+		String bk_content = bookService.selectBk_content(Integer.parseInt(bk_num));
+		
+		mv.addObject("bk_content",bk_content);
+		return mv;
 	}
 }

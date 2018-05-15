@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.project.vo.AdminqnaVo;
 import com.jhta.project.vo.PayboardVo;
 import com.jhta.project.vo.QnaVo;
 import com.jhta.project.vo.ShopItemVo;
@@ -68,7 +69,11 @@ public class QnaDao {
 		return sqlsession.selectOne(NAMESPACE + ".maxnum");
 	}
 	
-	public int adminupdate(QnaVo vo) {
-		return sqlsession.update(NAMESPACE + ".adminupdate", vo);
+	public int adminupdate(int qnum) {
+		return sqlsession.update(NAMESPACE + ".adminupdate", qnum);
+	}
+	
+	public int adminqnainsert(AdminqnaVo vo) {
+		return sqlsession.insert(NAMESPACE + ".adminqnainsert", vo);
 	}
 }

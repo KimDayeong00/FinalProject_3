@@ -15,4 +15,5 @@ public interface PetSitterService {
 	int updateAccount(PetSitterVo vo);
 	int updatePwd(PetSitterVo vo);
 	int deletePetsitter(String ps_email);
+	int sitterImgUpload(HashMap<String, Object> map);
 }

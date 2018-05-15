@@ -1,12 +1,13 @@
 package com.jhta.project.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
+//github.com/KimDayeong00/FinalProject_3.git
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,16 +18,17 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.jhta.project.service.ShopService;
 import com.jhta.project.service.memberService;
-import com.jhta.project.util.ImageRecognition;
 import com.jhta.project.utils.Utils;
 import com.jhta.project.vo.PetSitterVo;
+import com.jhta.project.vo.ShopClassVo;
 import com.jhta.project.vo.memberVO;
 
 @Controller
@@ -45,34 +47,39 @@ public class memberController {
 	@Autowired
 	private memberService service;
 
+	@Autowired
+	private ShopService service2;
+	
 	@RequestMapping("/login")
 	public String login(HttpSession session) {
 		System.out.println("login");
 		session.removeAttribute("error");
 		return "/members/login";
 	}
-
 	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session,Model mv) {
 		System.out.println("logout");
 		session.removeAttribute("login");
 		session.removeAttribute("login_type");
 		session.removeAttribute("error");
+		List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
 		return ".main";
 	}
 
 	@RequestMapping("/n_login")
-	public String n_login(String email, String pwd, HttpSession session) {
+	public String n_login(String email, String pwd, HttpSession session,Model mv) {
 		System.out.println(email);
 		System.out.println(pwd);
 		Map<String, String> map = new HashMap<>();
 		String returnV = "";
+		List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
 		if (email.equals("admin") && pwd.equals("admin")) {
 			session.removeAttribute("login");
 			session.setAttribute("login", "admin");
 			returnV = ".admin";
 		} else {
-
 			int mc = service.emailc_m(email);
 			int pc = service.emailc_p(email);
 			if (mc == 0 && pc == 0) {
@@ -88,7 +95,6 @@ public class memberController {
 					session.removeAttribute("login");
 					session.setAttribute("login", email);
 					session.setAttribute("login_type", 1);
-
 					returnV = ".main";
 				} else {
 					session.setAttribute("error", "error");
@@ -123,11 +129,6 @@ public class memberController {
 	public String register2() {
 		return ".members.join2";
 	}
-
-	/*
-	 * type�� ���� ����(�쇰�,�レ����) type1�� 媛��� ����(�쇰�媛���=1, 移댁뭅��=2, 援ш�=3,
-	 * �ㅼ�대�=4)
-	 */
 	@RequestMapping("/register")
 	public String register(int type, int type1, HttpSession session) {
 		session.setAttribute("email", "");
@@ -429,9 +430,7 @@ public class memberController {
 			} else {
 				session.setAttribute("rlt", "fail");
 			}
-
 		}
-
 		return ".members.success";
 	}
 

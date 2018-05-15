@@ -65,4 +65,8 @@ public class PetsitterBookService {
 	public List<PetsitterBookVo> getPrevListCnt2(HashMap<String, Object> map){
 		return dao.getPrevListCnt2(map);
 	}
+	
+	public String selectBk_content(int bk_num) {
+		return dao.selectBk_content(bk_num);
+	}
 }

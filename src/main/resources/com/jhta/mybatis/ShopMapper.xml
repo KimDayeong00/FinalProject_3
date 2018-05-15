@@ -13,7 +13,7 @@ select * from item where fieldnum=#{fieldnum}
 </select>
 
 <select id="fieldcnt" parameterType="int" resultType="int">
-select NVL(count(*),0) from field where classnum=#{classnum}
+select NVL(count(*),0) from item where fieldnum=#{fieldnum}
 </select>
 
 <select id="classitemlist" parameterType="hashmap" resultType="shopitemvo">
@@ -63,7 +63,7 @@ select * from filtertype where ft_num in(select ft_num from filtercontent where 
 </select>
 
 <select id="filtercontent" parameterType="Integer" resultType="shopfiltercontentvo">
-select * from filtercontent where ft_num =#{ft_num}
+select * from filtercontent where ft_num =#{ft_num} and fc_num in (select fc_num from itemfilter  where p_num in (select p_num from item where fieldnum in (select fieldnum from field)))
 </select>
 
 <select id="iteminfo" parameterType="Integer" resultType="shopitemvo">
@@ -89,6 +89,14 @@ select max(buy_num) from payboard
 <insert id="orderinsert" parameterType="orderitemlistvo">
 insert into orderitemlist values(seq_orderitemlist_order_num.nextval,#{amount},#{price},#{p_num},#{buy_num})
 </insert>
+
+<select id="newitem" resultType="shopitemvo">
+select * from item <![CDATA[where rownum<11 order by p_num desc]]>
+</select>
+
+<select id="hotitem" resultType="shopitemvo">
+select aa.*,item.* from item,(select p_num,sum(amount) bb from orderitemlist group by p_num order by sum(amount) desc)aa <![CDATA[where item.p_num=aa.p_num and rownum<11 order by bb desc]]>
+</select>
 
 </mapper>
 

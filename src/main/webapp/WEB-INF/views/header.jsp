@@ -80,7 +80,7 @@ function aa() {
                                             <li><a href="blog-single.html" title="Blog Single ">Blog Single</a></li>
                                         </ul>
                                     </li> -->
-									 <li><a href="<c:url value='/booking/list'/>" title="BookingList" onclick = "aa(); return false;">예약하기</a> </li>
+									 <li><a href="<c:url value='/booking/list'/>" title="BookingList" >예약하기</a> </li>
                                              <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">카테고리 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

@@ -19,6 +19,7 @@ function handleFileSelect()
     reader.readAsDataURL(files);    
 }
 function asas(){
+	console.log("안녕")
 	var files = $("#mulfile")[0].files;
 	document.getElementById('item_savefilename').innerHTML="";
 	for (var i = 0; i < files.length; i++){

@@ -95,10 +95,68 @@ $(function(){
   });  
 });
 </script>
+
+<script>
+$(document).ready(function(){
+	//이미지 hover 효과
+	$('.sitterImg img').hover(function(){
+		$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+		$(this).css("opacity","0.5");
+		var left = $(this).offset().left;
+		var top = $(this).offset().top;
+		$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+		$('#delete').css("left",left+65)
+		$('#delete').css("top",top+70)
+	},function(){
+		$(this).css("opacity","1");
+		$(this).css("border","");
+		$("#delete").html("")
+	});
+	
+	
+ 	$('.sitterImg img').click(function(){
+		var img = $(this);
+		var input = img.next('input[name=sitterImgFile]');
+		//var submit = input.next('.ps_imgSubmit');
+		input.trigger("click");
+		input.change(function(){
+				var fd = new FormData(input.parent(".sitterImgForm")[0]);
+				$.ajax({
+					url:"<c:url value='/myImgUpload'/>",
+					data:fd,
+					processData:false,
+					contentType:false,
+					type:'post',
+					dataType:"json",
+					success:function(data){
+					$("#ps_image").html("");
+						console.log(data)
+						img.prop("src",data.ps_saveimage);
+					}
+				});
+			//});
+		});
+	});
+	
+	
+});
+
+
+</script>
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img>
+			<form class="sitterImgForm">
+			<c:choose>
+				<c:when test="${sessionScope.ps_saveimage eq null }">
+					<img src="<c:url value='/resources/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypage?page=top&dtld=reservation'/>">예약 관리</a></span>
@@ -124,6 +182,7 @@ $(function(){
 							<c:when test="${dtld eq 'accountUpdate' }">
 								<div class="accountContent">
 									<form method="post" action="<c:url value='my_account'/>">
+										<br>
 										<div>
 										<label>이메일</label><br>
 										<input type="email" name="m_email" id="m_email" value="${memberVo.m_email }" style="width:100%" readonly="readonly">
@@ -151,6 +210,7 @@ $(function(){
 							<c:when test="${dtld eq 'pwdUpdate' }">
 								<div class="accountContent">
 									<form name="f" method="post" onsubmit="return sendIt();" action="<c:url value="/my_pwdUpdate" />">
+									<br>
 									<div>
 										<label>새 비밀번호</label><br>
 									 	<input name='m_pwd' id="m_pwd" type='password' required="required" style="width:100%"><br>
@@ -168,13 +228,13 @@ $(function(){
 							<c:when test="${dtld eq 'leave' }">
 								<div>
 									<form action="<c:url value='/mypageLeave'/>" method="post" onsubmit="return checkIt();">
-										<div>
+										<div class="leaveBox" style="width:600px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
 											회원 탈퇴 시 해당 아이디로의 재가입이 불가합니다. 돌보미의 경우 보유하고 계신 수익금과 관련된 이력이 모두 삭제되며 진행중인 의뢰에 대해서는 취소 또는 완료가 된 후에 탈퇴해야 합니다. 
 	이를 지키지 않아 발생하는 문제에 대한 책임은 회원 본인에게 있으니 신중하게 결정해 주시기 바랍니다. 
 	
 	탈퇴 후에도 서비스에 등록한 후기는 자동으로 삭제되지 않으며 그대로 남아 있습니다. 삭제를 원하시는 게시글이 있다면 반드시 탈퇴 전에 삭제를 요청해 주시기 바랍니다. 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 후기글을 임의로 삭제해 드릴 수 없습니다.
 											<br><br>
-											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br>
+											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br><br>
 										 <div class="modifyBtnBox">
 										<button type="submit" class="modifyBtn2">
 											<label>탈퇴하기</label>
