@@ -28,13 +28,33 @@
 	<select id="itemlist" parameterType="hashmap" resultType="shopitemvo">
 	select * from item where fieldnum = #{fieldnum}
 	</select>
+	<select id="filtertypelist"  resultType="shopfiltertypevo">
+	select * from filtertype
+	</select>
 	<delete id="remove" parameterType="String" >
 	delete from item where p_num=#{p_num}
 	</delete>
 	<delete id="imgremove" parameterType="String">
 	delete from itemimage where p_num=#{p_num}
 	</delete>
-
+	<insert id = "classInsert" parameterType = "String">
+		insert into class values(SEQ_CLASS_CLASSNUM.nextval,#{name})
+	</insert>
+	<insert id = "fieldInsert" parameterType = "shopfieldvo">
+		insert into field values(SEQ_FIELD_FIELDNUM.nextval,#{classnum},#{name})
+	</insert>
+	<insert id="filtertypeinsert" parameterType="String">
+		insert into filtertype values(SEQ_FILTERTYPE_FT_NUM.nextval,#{ft_name})
+	</insert>
+	<insert id="filtercontentinsert" parameterType="shopfiltercontentvo">
+		insert into filtercontent values(SEQ_FILTERCONTENT_FC_NUM.nextval,#{ft_num},#{fc_name})
+	</insert>
+	<select id="filtercontent" parameterType="int" resultType="shopfiltercontentvo">
+		select * from filtercontent where ft_num = #{ft_num}
+	</select>
+	<select id="filtercontentlist" resultType="shopfiltercontentvo">
+		select * from filtercontent
+	</select>
 <select id="classlist"  resultType="shopclassvo">
 	select * from class
 </select>

@@ -16,6 +16,7 @@
 
 <div id="bunryu" style="margin-left: 200px;">
 
+
 <ul class="list-inline">
 	<li>분류</li>
 	<c:forEach var="fieldvo" items="${fieldvo}">

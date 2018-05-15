@@ -71,7 +71,7 @@ public class ShopController {
 		List<ShopClassVo> classvo=service.classlist();
 		List<ShopItemVo> itemvo=service.classitemlist(map);
 		System.out.println(itemvo.toString());
-		
+		System.out.println("필터값나와야함"+fieldvo);
 		mv.addObject("pgchk","class");
 		mv.addObject("classnum",classnum);
 		mv.addObject("pu",pu);

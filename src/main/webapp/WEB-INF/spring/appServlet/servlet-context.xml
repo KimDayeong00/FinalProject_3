@@ -35,9 +35,8 @@
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg
 			value="C:\Users\JHTA\git\FinalProject_3\src\main\webapp\resources\itemimage\">
-			
-			</beans:constructor-arg>
 
+		</beans:constructor-arg>
 	</beans:bean>
 	
 	<!-- <websocket:handlers>

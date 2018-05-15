@@ -45,8 +45,61 @@ public class ShopAdminController {
 	@RequestMapping("/shopadmin/itemadd")
 	public String itemadd(Model model) {
 		List<ShopClassVo> list = shopService.classlist();
+		List<ShopFilterTypeVo> filtertype = shopAdminService.filtertypelist();
+		List<ShopFilterContentVo> filtercontent = shopAdminService.filtercontentlist();
+		model.addAttribute("filtertype", filtertype);
+		model.addAttribute("filtercontent", filtercontent);
 		model.addAttribute("classvo", list);
 		return ".admin.shopadmin.itemadd";
+	}
+	@RequestMapping("/shopadmin/kategorie")
+	public String kategorie(Model model) {
+		List<ShopClassVo> list = shopService.classlist();
+		model.addAttribute("classvo", list);
+		return ".admin.shopadmin.kategorie";
+	}
+	@RequestMapping("/shopadmin/filterlist")
+	public String filter(Model model) {
+		List<ShopFilterTypeVo> list = shopAdminService.filtertypelist();
+		model.addAttribute("list", list);
+		return ".admin.shopadmin.filterlist";
+	}
+	@RequestMapping("/shopadmin/kategorieclassinsert")
+	public String kategorieclassinsert(Model model,String classname) {
+		shopAdminService.classinsert(classname);
+		return "redirect:/shopadmin/kategorie";
+	}
+	@RequestMapping("/shopadmin/filtertypeinsert")
+	public String filtertypeinsert(Model model,String filtertype) {
+		System.out.println("filtertype : "+filtertype);
+		shopAdminService.filtertypeinsert(filtertype);
+		return "redirect:/shopadmin/filterlist";
+	}
+	@RequestMapping("/shopadmin/filtercontentinsert")
+	public String filtercontent(Model model,String filtercontent,int ft_num) {
+		System.out.println("ft_num : "+ft_num);
+		System.out.println("filtertype : "+filtercontent);
+		ShopFilterContentVo vo = new ShopFilterContentVo(0,ft_num,filtercontent);
+		shopAdminService.filtercontentinsert(vo);
+		return "redirect:/shopadmin/filterlist";
+	}
+	@RequestMapping("/shopadmin/kategoriefieldinsert")
+	public String kategoriefieldinsert(Model model,int classselect,String field) {
+		ShopFieldVo vo = new ShopFieldVo(0,classselect,field);
+		shopAdminService.fieldinsert(vo);
+		return "redirect:/shopadmin/kategorie";
+	}
+	@RequestMapping(value="/shopadmin/filtercontent",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String filtercontent(int ft_num) {
+		List<ShopFilterContentVo>list = shopAdminService.filtercontent(ft_num);
+		JSONObject obj=new JSONObject();
+		obj.put("list",list);
+		for(ShopFilterContentVo vo : list) {
+			System.out.println(" ShopFilterContentVo : "+vo.getFc_name());
+		}
+		System.out.println(obj.toString());
+		return obj.toString();	
 	}
 	@RequestMapping("/shopadmin/list")
 	public String list(Model model,String fieldnum) {
@@ -65,15 +118,18 @@ public class ShopAdminController {
 	public String update(Model model,int p_num,int fieldnum) {
 		ShopItemVo list = shopAdminService.itemgetinfo(p_num);
 		List<ItemFilterVo> flist = shopAdminService.itemfiltergetinfo(p_num);
-			System.out.println("왜안나오냐!!!!!!!!!"+list.getImage_name());
 		List<ShopItemImageVo> ilist = shopAdminService.itemimggetinfo(p_num);
 		List<ShopFilterTypeVo> filtertypevo=shopService.filtertype(fieldnum);
+		List<ShopFilterTypeVo> filtertype = shopAdminService.filtertypelist();
+		List<ShopFilterContentVo> filtercontent = shopAdminService.filtercontentlist();
 		HashMap<Object, Object> map=new HashMap<>();
 		for(ShopFilterTypeVo filter:filtertypevo) {
 			int ft_num=filter.getFt_num();
 			List<ShopFilterContentVo> filtercontentvo=shopService.filtercontent(ft_num);
 			map.put(filter.getFt_num(), filtercontentvo);
 		}
+		model.addAttribute("filtertype", filtertype);
+		model.addAttribute("filtercontent", filtercontent);
 		model.addAttribute("list", list);
 		model.addAttribute("flist", flist);
 		model.addAttribute("ilist", ilist);
@@ -166,7 +222,7 @@ public class ShopAdminController {
 			String orgfilename=mf.getOriginalFilename();	
 			String filename=UUID.randomUUID()+"_"+orgfilename;
 			String savefilename=uploadPath+filename;
-
+			System.out.println("filename : "+filename);
 			try {
 				mf.transferTo(new File(savefilename));
 				map.put("savefilename",filename);
