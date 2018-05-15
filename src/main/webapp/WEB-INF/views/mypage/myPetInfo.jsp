@@ -86,7 +86,10 @@ $(document).ready(function(){
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img>
+			<form class="sitterImgForm">
+			<img src="<c:url value='/resources/petimage/${sessionScope.m_saveimage }'/>">
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypage?page=top&dtld=reservation'/>">예약 관리</a></span>

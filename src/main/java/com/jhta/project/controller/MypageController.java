@@ -70,6 +70,9 @@ public class MypageController {
 						vo.getM_email(),null, vo.getPs_email(), vo.getPs_name() ,count, pi_name,null);
 				list.add(bookList);
 			}
+			memberVO memVo = memServcie.selectMember(m_email);
+			session.setAttribute("m_saveimage", memVo.getM_saveimage());
+			
 			mv.setViewName(mypage);
 			mv.addObject("pu",pu);
 			mv.addObject("mbookList",list);
@@ -81,11 +84,12 @@ public class MypageController {
 			mypage = ".petsitter_mypage.mypetsitter.petsitter_info";
 			mv.addObject("page","list");
 			mv.addObject("dtld","reservation");
+
 			mv.setView(new RedirectView(path+"/mypetsitter?"));
 		}
 		List<ShopClassVo> classvo=shopservice.classlist();
 		mv.addObject("classvo",classvo);
-		mv.setViewName(mypage);
+		//mv.setViewName(mypage);
 		return mv;
 	}
 	
@@ -98,7 +102,7 @@ public class MypageController {
 		Calendar cc= Calendar.getInstance();
 		int year = cc.get(Calendar.YEAR);
 		
-		System.out.println(year+"�⵵");
+		System.out.println(year+"占썩도");
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -115,7 +119,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "������ ���� �����Ͽ����ϴ�.";
+		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -131,7 +135,7 @@ public class MypageController {
 		int n = mpetInfoService.insertMypet(vo);
 		
 		if(n>0) {
-			msg = "�ݷ����� �߰��Ǿ����ϴ�.";
+			msg = "占쌥뤄옙占쏙옙占쏙옙 占쌩곤옙占실억옙占쏙옙占싹댐옙.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -174,7 +178,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "������ ���� �����Ͽ����ϴ�.";
+		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -186,7 +190,7 @@ public class MypageController {
 		int n = mpetInfoService.updateMypet(vo);
 		
 		if(n>0) {
-			msg = "�ݷ��� ������ �����Ǿ����ϴ�.";
+			msg = "占쌥뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占실억옙占쏙옙占싹댐옙.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -236,13 +240,13 @@ public class MypageController {
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "������ ���� �����Ͽ����ϴ�.";
+		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
 		
-		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0);
+		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0,null,null);
 		int n = memServcie.updateMember(memVo);
 		
 		if(n>0) {
-			msg = "ȸ�� ������ �����Ǿ����ϴ�.";
+			msg = "회占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占실억옙占쏙옙占싹댐옙.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -259,13 +263,13 @@ public class MypageController {
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "������ ���� �����Ͽ����ϴ�.";
+		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
 		
-		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0);	
+		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0,null,null);	
 		int n = memServcie.updatePwd(memVo);
 		
 		if(n>0) {
-			msg = "��й�ȣ�� �����Ǿ����ϴ�.";
+			msg = "占쏙옙橘占싫ｏ옙占� 占쏙옙占쏙옙占실억옙占쏙옙占싹댐옙.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -282,7 +286,7 @@ public class MypageController {
 		String m_email=(String)session.getAttribute("login");
 		System.out.println(m_email);
 		List<OrderJoinVo> orderlist=orderservice.orderlist(m_email);
-		System.out.println("번호는"+orderlist);
+		System.out.println("踰��몃��"+orderlist);
 		for(OrderJoinVo vo:orderlist) {
 			
 		System.out.print(vo.getBuy_num()+ " " + vo.getM_email());

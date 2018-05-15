@@ -11,12 +11,14 @@ public class memberVO {
 	private String m_grade;
 	private Date m_regdate;
 	private int m_gubun;
+	private String m_saveimage;
+	private String m_originalimg;
 
 	public memberVO() {
 	}
 
 	public memberVO(String m_email, String m_pwd, String m_name, String m_phone, String m_addr, String m_grade,
-			Date m_regdate, int m_gubun) {
+			Date m_regdate, int m_gubun,String m_saveimage, String m_originalimg) {
 		super();
 		this.m_email = m_email;
 		this.m_pwd = m_pwd;
@@ -26,6 +28,8 @@ public class memberVO {
 		this.m_grade = m_grade;
 		this.m_regdate = m_regdate;
 		this.m_gubun = m_gubun;
+		this.m_saveimage = m_saveimage;
+		this.m_originalimg = m_originalimg;
 	}
 
 	public int getM_gubun() {
@@ -90,6 +94,25 @@ public class memberVO {
 
 	public void setM_regdate(Date m_regdate) {
 		this.m_regdate = m_regdate;
+	}
+	
+	
+	
+
+	public String getM_saveimage() {
+		return m_saveimage;
+	}
+
+	public void setM_saveimage(String m_saveimage) {
+		this.m_saveimage = m_saveimage;
+	}
+
+	public String getM_originalimg() {
+		return m_originalimg;
+	}
+
+	public void setM_originalimg(String m_originalimg) {
+		this.m_originalimg = m_originalimg;
 	}
 
 	@Override

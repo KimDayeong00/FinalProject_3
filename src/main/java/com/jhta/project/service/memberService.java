@@ -63,4 +63,8 @@ public class memberService {
 	public int deleteMember(String m_email) {
 		return dao.deleteMember(m_email);
 	}
+	
+	public int uploadMyImg(HashMap<String, Object> map) {
+		return dao.uploadMyImg(map);
+	}
 }

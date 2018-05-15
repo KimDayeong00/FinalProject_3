@@ -486,10 +486,66 @@ $(function(){
 	});
 
 </script>
+<script>
+	$(document).ready(function(){
+		//이미지 hover 효과
+		$('.sitterImg img').hover(function(){
+			$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+			$(this).css("opacity","0.5");
+			var left = $(this).offset().left;
+			var top = $(this).offset().top;
+			$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+			$('#delete').css("left",left+65)
+			$('#delete').css("top",top+70)
+		},function(){
+			$(this).css("opacity","1");
+			$(this).css("border","");
+			$("#delete").html("")
+		});
+		
+		
+	 	$('.sitterImg img').click(function(){
+			var img = $(this);
+			var input = img.next('input[name=sitterImgFile]');
+			//var submit = input.next('.ps_imgSubmit');
+			input.trigger("click");
+			input.change(function(){
+					var fd = new FormData(input.parent(".sitterImgForm")[0]);
+					$.ajax({
+						url:"<c:url value='/sitterImgUpload'/>",
+						data:fd,
+						processData:false,
+						contentType:false,
+						type:'post',
+						dataType:"json",
+						success:function(data){
+						$("#ps_image").html("");
+							console.log(data)
+							img.prop("src",data.ps_saveimage);
+						}
+					});
+				//});
+			});
+		});
+		
+		
+	});
+
+</script>
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img src="<c:url value='resources/images/noprofile.png'/>">
+			<form class="sitterImgForm">
+			<c:choose>
+				<c:when test="${sessionScope.ps_saveimage eq null }">
+					<img src="<c:url value='/resources/petimage/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
@@ -948,7 +1004,7 @@ $(function(){
 										</div>
 										<div>
 										<label>자기 소개</label><br>
-										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required">
+										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required" style="width:100%">
 										</div>
 										<input type="hidden" id="ps_lat" name="ps_lat" value="${sitterVo.ps_lat }"/>
 	    								<input type="hidden" id="ps_lng" name="ps_lng" value="${sitterVo.ps_lng }"/>

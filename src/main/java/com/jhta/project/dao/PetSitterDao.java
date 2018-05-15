@@ -47,4 +47,7 @@ public class PetSitterDao {
 	public int updateActiveOff(String ps_email) {
 		return session.update(NAMESPACE+".updateActiveOff",ps_email);
 	}
+	public int sitterImgUpload(HashMap<String, Object> map) {
+		return session.update(NAMESPACE+".imgUpdate",map);
+	}
 }

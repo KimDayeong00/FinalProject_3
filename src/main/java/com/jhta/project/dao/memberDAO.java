@@ -70,4 +70,8 @@ public class memberDAO {
 		return session.delete(NAMESPACE+".deleteMember",m_email);
 	}
 	
+	public int uploadMyImg(HashMap<String, Object> map) {
+		return session.update(NAMESPACE+".uploadImg",map);
+	}
+	
 }

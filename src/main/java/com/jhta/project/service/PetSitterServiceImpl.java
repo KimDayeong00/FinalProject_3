@@ -57,5 +57,10 @@ public class PetSitterServiceImpl implements PetSitterService{
 	@Override
 	public int updateActiveOff(String ps_email) {
 		return petsitterDao.updateActiveOff(ps_email);
+	
+	}
+	@Override
+	public int sitterImgUpload(HashMap<String, Object> map) {
+		return petsitterDao.sitterImgUpload(map);
 	}
 }

@@ -119,4 +119,8 @@
 	<delete id="leavePetsitter" parameterType="string">
 		delete from petsitter where ps_email=#{ps_email} 
 	</delete>
+	
+	<update id="imgUpdate" parameterType="hashmap">
+		update petsitter set ps_saveimage=#{ps_saveimage},ps_originalimg=#{ps_originalimg} where ps_email=#{ps_email}
+	</update>
 </mapper>
