@@ -66,5 +66,8 @@ public class memberDAO {
 		return session.update(NAMESPACE+".pwd_ok",map);
 	}
 	
+	public int deleteMember(String m_email) {
+		return session.delete(NAMESPACE+".deleteMember",m_email);
+	}
 	
 }

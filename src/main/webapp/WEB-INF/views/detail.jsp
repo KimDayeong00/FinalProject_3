@@ -12,6 +12,8 @@
 	var totalover = 0;
 	var disdayList = new Array();
 	var disdateList = new Array();
+	var disableBook = '${startdate}';
+	
 	<c:forEach items="${disableList}" var="list">
 		disdayList.push("${list.disday}");
 		disdateList.push("${list.disDate}")
@@ -37,10 +39,11 @@
 			$("#spinner2").prop('value',interval);
 			//span에 금액 표시
 			var over2 = parseInt(over);
-			if(interval==1){
+			
+			//if(interval==1){
 				console.log("?");
 				over2 = parseInt($(".basicprice").text())+over2; 	
-						}
+					//	}
 			totalover += over2;
 			$("#plusprice2").html(totalover);
 			
@@ -104,7 +107,7 @@
 			minTime : startcheckin,
 			maxTime : "23:00",
 			minuteIncrement : "30",
-			disable : ["2018-05-06"],
+			disable : ["2018-05-16"],
 			"disable": [
 		        function(date) {
 		        	var checkTrue = false;
@@ -131,6 +134,18 @@
 		            		}
 		            	}
 		            }
+		            
+		            	var ss = disableBook.split(",");
+		            	for(var f=0;f<ss.length-1;f++){
+		            		var diss = ss[f].split("-");
+		            		console.log(diss[0]+","+diss[1]+","+diss[2]);
+		            		var das = new Date(parseInt(diss[0]),parseInt(diss[1]),parseInt(diss[2]));
+		            		console.log(das.getDate());
+		            		if(date.getDate() === das.getDate() && date.getMonth() != das.getMonth()){
+		            			checkTrue = true;
+		            		}
+		            	}
+		            
 		            return checkTrue;
 		            //return checkDateTrue;
 		        }
@@ -154,12 +169,21 @@
 						$("#selector").prop("value", "");
 						this.selectedDates[0]=null;
 					}
-					var overtime = endDate-startDate;					
+					var overtime = endDate-startDate; // 시간 계산
+					var bookDay = 1;
+					var standardtime = 86400000;
+					var fPrice = price;
 					
 					if(overtime<86400000){
 						totalover = 0;
 						$("#day > span").html("1day");
 						$(".basicprice").html(careprice);
+						
+						//예약 페이지로 넘길 값
+						$("#ps_price").prop("value",careprice);
+						$("#ps_day").prop("value","1day");
+						
+						//0으로 초기화
 						$("#plusprice").html("0");
 						$("#plusprice2").html("0");
 						$(".tax").html("0");
@@ -173,10 +197,22 @@
 						}else if(overtime<43200000){
 							$("#overprice").remove();	
 						}
-					}else if(overtime>=86400000){
+					}else if(overtime>86400000){
 						totalover = 0;
-						$("#day > span").html("1박");
-						$(".basicprice").html(price);
+						
+						var calcTime = parseInt((overtime-standardtime)/standardtime);
+						bookDay = calcTime+bookDay;
+						
+						fPrice = fPrice*bookDay;
+						
+						$("#day > span").html(bookDay+"박");
+						$(".basicprice").html(fPrice);
+						
+						//예약 페이지로 넘길 값
+						$("#ps_price").prop("value",price);
+						$("#ps_day").prop("value",bookDay);
+						
+						//바뀔 때 초기화
 						$("#plusprice").html("0");
 						$("#plusprice2").html("0");
 						$(".tax").html("0");
@@ -226,6 +262,18 @@
 		            		}
 		            	}
 		            }
+		            
+		            var ss = disableBook.split(",");
+	            	for(var f=0;f<ss.length-1;f++){
+	            		var diss = ss[f].split("-");
+	            		console.log(diss[0]+","+diss[1]+","+diss[2]);
+	            		var das = new Date(parseInt(diss[0]),parseInt(diss[1]),parseInt(diss[2]));
+	            		console.log(das.getDate());
+	            		if(date.getDate() === das.getDate() && date.getMonth() != das.getMonth()){
+	            			checkTrue = true;
+	            		}
+	            	}
+	            	
 		            return checkTrue;
 		            //return checkDateTrue;
 		        }
@@ -251,13 +299,21 @@
 					}
 					
 					var overtime = endDate-startDate;
-					//if(overtime<)
+					var bookDay = 1;
+					var standardtime = 86400000;
+					var fPrice = price;
 					
 					
 					if(overtime<86400000){
 						totalover = 0;
 						$("#day > span").html("1day");
 						$(".basicprice").html(careprice);
+						
+						//예약 페이지로 넘기는 값
+						$("#ps_price").prop("value",careprice);
+						$("#ps_day").prop("value","1day");
+						
+						// 0으로 초기화
 						$("#plusprice").html("0");
 						$("#plusprice2").html("0");
 						$(".tax").html("0");
@@ -271,11 +327,21 @@
 						}else if(overtime<43200000){
 							$("#overprice").remove();	
 						}
-					}else if(overtime>=86400000){
+					}else if(overtime>86400000){
 						totalover = 0;
+						var calcTime = parseInt((overtime-standardtime)/standardtime);
+						bookDay = calcTime+bookDay;
+						fPrice = fPrice*bookDay;
+						
+						//예약 페이지로 넘기는 값
+						$("#ps_price").prop("value",price); 
+						$("#ps_day").prop("value",bookDay);
+						
+						$("#day > span").html(bookDay+"박");
+						
+						
 						$("#overprice").remove();
-						$("#day > span").html("1박");
-						$(".basicprice").html(price);
+						$(".basicprice").html(fPrice);
 						$("#plusprice").html("0");
 						$("#plusprice2").html("0");
 						$(".tax").html("0");
@@ -289,6 +355,23 @@
 		});
 	});
 </script>
+
+<script>
+	function checkIt(){
+		if($("#selector").val()==""||$("#selector2").val()==""){
+			alert("예약할 날짜를 선택해주세요");
+			
+			return false;
+		}
+		if($("#spinner1").val()==0 && $("#spinner2").val()==0){
+			alert("반려견을 추가해주세요");
+			
+			return false;
+		}
+		
+	}
+
+</script>
 <c:forEach var="j" items="${disday }" begin="0" end="${disday.length }">
 	${j }
 </c:forEach>
@@ -296,19 +379,18 @@
 	<div class="imgSlide">
 		<div class="slider">
 			<c:forEach var="img" items="${imgList }">
-				<div><img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>">
-				</div>
+				<div><img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>"></div>
 			</c:forEach>
 		</div>
 	</div>
-	<form method="post" action="#">
+	<form method="post" action="<c:url value='/reservation'/>" onsubmit="return checkIt();">
 	<div class="book">
 		<div class="book-font">
 		<p><strong>예약을 원하는 날짜와 시간을 선택해주세요.</strong></p>
 		</div>
 		<div class="calendar">
-			<input type="text" id="selector" style="width: 150px" placeholder="시작 날짜 선택하기"> 
-			<input type="text" id="selector2" style="width: 150px" placeholder="끝 날짜 선택하기">
+			<input type="text" id="selector" name="bk_startdate" style="width: 150px" placeholder="시작 날짜 선택하기"> 
+			<input type="text" id="selector2" name="bk_enddate" style="width: 150px" placeholder="끝 날짜 선택하기">
 		</div><br>
 		<!--<c:set var="ps_price" value="${vo4.ps_price }" />
 			<fmt:formatNumber value= "${ps_price}" type="number" maxIntegerDigits="15"/>
@@ -333,7 +415,7 @@
 			<div class="petspinner">
 				<span>일반견 추가</span>
 				<div class="nice-number">			  
-				  <input type="number" value="0" style="width: 4ch;" min="0" readonly="readonly" id="spinner1">	 
+				  <input type="number" value="0" style="width: 4ch;" min="0" readonly="readonly" id="spinner1" name="smallPet">	 
 				</div>
 			</div>
 			<div class="price"><span id="plusprice">0</span>원</div>
@@ -343,7 +425,7 @@
 				<span>대형견 추가</span>
 				<div class="nice-number2">
 				  <button id="minusBtn2" type="button">-</button>
-				  <input type="number" value="0" style="width: 4ch;" id="spinner2" min="0" readonly="readonly">
+				  <input type="number" value="0" style="width: 4ch;" id="spinner2" min="0" readonly="readonly" name="bigPet">
 				  <button id="plusBtn2" type="button">+</button>
 				</div>
 			</div>
@@ -358,6 +440,10 @@
 			<div><span>총 합계</span></div>
 			<div class="price"><span class="totalprice">0</span>원</div>
 		</div><br>
+		<!-- 예약 페이지로 넘길 값 -->
+		<input type="hidden" name="ps_price" id="ps_price">
+		<input type="hidden" name="ps_day" id="ps_day">
+		<input type="hidden" name="ps_email" value="${ps_email }">
 		<button id="bookBtn" type="submit">
 			<label>예약하기</label>
 		</button>

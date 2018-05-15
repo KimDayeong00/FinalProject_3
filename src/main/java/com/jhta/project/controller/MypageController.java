@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.jhta.project.service.MpetInfoService;
 import com.jhta.project.service.OrderListService;
@@ -23,7 +24,9 @@ import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.OrderItemVo;
 import com.jhta.project.vo.OrderJoinVo;
 import com.jhta.project.vo.PetsitterBookVo;
+import com.jhta.project.vo.PrevBookListVo;
 import com.jhta.project.vo.ShopClassVo;
+//github.com/KimDayeong00/FinalProject_3.git
 import com.jhta.project.vo.memberVO;
 
 @Controller
@@ -33,6 +36,7 @@ public class MypageController {
 	@Autowired PetsitterBookService bookService;
 	@Autowired ShopService shopservice;
 	@Autowired OrderListService orderservice;
+	
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypage")
@@ -52,16 +56,20 @@ public class MypageController {
 				String pi_name = mpetVo.getPi_name();
 				int count = bookService.getBpetCnt(vo.getBk_num());
 				BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
-						vo.getM_email(), vo.getPs_email(), vo.getPs_name() ,count, pi_name);
+						vo.getM_email(),null, vo.getPs_email(), vo.getPs_name() ,count, pi_name,null);
 				list.add(bookList);
 			}
-			
+			mv.setViewName(mypage);
 			mv.addObject("mbookList",list);
+			mv.addObject("dtld","reservation");
 			
 		}else if(login_type==2) {
+			ServletContext context = session.getServletContext();
+			String path = context.getContextPath();
 			mypage = ".petsitter_mypage.mypetsitter.petsitter_info";
 			mv.addObject("page","list");
 			mv.addObject("dtld","reservation");
+			mv.setView(new RedirectView(path+"/mypetsitter?"));
 		}
 		List<ShopClassVo> classvo=shopservice.classlist();
 		mv.addObject("classvo",classvo);
@@ -256,10 +264,6 @@ public class MypageController {
 		return mv;
 	}
 	
-	
-	
-	
-	
 	@RequestMapping("/mypageShop")
 	public ModelAndView myPageShop(HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.mypageShop");
@@ -279,6 +283,40 @@ public class MypageController {
 		mv.addObject("classvo",classvo);
 		mv.addObject("orderlist",orderlist);
 		return mv;
+	}
+	
+	@RequestMapping("/mypagePrevlist")
+	public ModelAndView myPrevBook(String page, String dtld, HttpSession session) {
+		ModelAndView mv=new ModelAndView(".mypage.mypage");
+		ArrayList<PrevBookListVo> list=new ArrayList<>();
+		String m_email = (String)session.getAttribute("login");
+		
+		List<PetsitterBookVo> prevList = bookService.selectPrevList(m_email);
+		for(int i=0;i<prevList.size();i++) {
+			PetsitterBookVo vo= prevList.get(i);
+			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
+			MpetInfoVo mpetVo = mpetList.get(0);
+			String pi_name = mpetVo.getPi_name();
+			int count = bookService.getBpetCnt(vo.getBk_num());
+			PrevBookListVo prevBookList = new PrevBookListVo(vo.getBk_num(),vo.getBk_startdate(),vo.getBk_enddate(),vo.getBk_situation(),vo.getM_email(),
+					vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_review());
+			list.add(prevBookList);
+		}
+		
+		mv.addObject("page",page);
+		mv.addObject("dtld",dtld);
+		mv.addObject("prevList",list);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/mypageLeave")
+	public String memberLeave(HttpSession session) {
+		String m_email = (String) session.getAttribute("login");
+		System.out.println("email"+m_email);
+		memServcie.deleteMember(m_email);
+		session.invalidate();
+		return ".mypage.leave";
 	}
 	
 }

@@ -131,6 +131,13 @@ $(function(){
 
 </script>
 <script>
+	function complete(bk_num){
+		console.log(bk_num);
+		location.href="<c:url value='/ps_complete?bk_num="+bk_num+"'/>";
+	}
+
+</script>
+<script>
 	//불가능한 날짜 설정 불러오기
 	var disdayList = new Array();
 	var disdateList = new Array();
@@ -496,7 +503,73 @@ $(function(){
 						<c:choose>
 							<c:when test="${dtld eq 'reservation' }">
 								<div>
-									
+									<table class="bookTable">
+										<tr style="border-bottom:1px solid gray;">
+											<th>돌봄 시작 날짜</th><th>돌봄 끝 날짜</th><th>예약 회원 이름</th><th>맡기는 반려견</th><th>요청사항</th><th>완료</th>
+										</tr>
+											<c:forEach var="plist" items="${pbookList }">
+												<tr>
+													<td>${plist.bk_startdate }</td>
+													<td>${plist.bk_enddate }</td>
+													<td>${plist.m_name }</td>
+													<c:choose>
+														<c:when test="${plist.count>1 }">
+															<td>${plist.pi_name } 외 ${plist.count-1 }마리</td>
+														</c:when>
+														<c:otherwise>
+															<td>${plist.pi_name }</td>
+														</c:otherwise>
+													</c:choose>
+													<td>
+														<textarea rows="5" cols="10" readonly="readonly">
+															${plist.bk_content }
+														</textarea>
+													</td>
+													<td>
+														<c:choose>
+															<c:when test="${plist.bk_situation == '예약중' }">
+																<input type="button" value="완료" onclick="complete('${plist.bk_num}');">		
+															</c:when>
+															<c:otherwise>
+																완료
+															</c:otherwise>
+														</c:choose>
+													</td>
+												</tr>
+											</c:forEach>
+									</table>
+									<!-- 페이징 -->
+									<ul class="pagination">
+									<c:choose>
+										<c:when test="${pu.startPageNum>9 }">
+											 <li><a aria-label="Previous" href="<c:url value='/mypetsitter?pageNum=${pu.startPageNum-1 }&page=list&dtld=reservation'/>"><span aria-hidden="true">&laquo;</span></a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="disabled"><a aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a> </li>
+										</c:otherwise>
+									</c:choose>
+
+									<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+										<c:choose>
+											<c:when test="${i==pu.pageNum }">
+												<!-- 현재페이지 색상 다르게 표시하기 -->
+												 <li class="active"><a href="<c:url value='/mypetsitter?pageNum=${i }&page=list&dtld=reservation'/>">${i }</a></li>
+											</c:when>
+											<c:otherwise>
+												 <li><a href="<c:url value='/mypetsitter?pageNum=${i }&page=list&dtld=reservation'/>">${i }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+
+								<c:choose>
+									<c:when test="${pu.endPageNum<pu.totalPageCount }">
+										  <li class="disabled"><a href="<c:url value='/mypetsitter?pageNum=${pu.endPageNum+1 }&page=list&dtld=reservation'/>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+									</c:when>
+									<c:otherwise>
+								 		 <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+									</c:otherwise>
+								</c:choose>
+								</ul>
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'reservationSet' }">
@@ -591,7 +664,23 @@ $(function(){
 										</select>
 										<input type="hidden" id="otherpetNum" style="width:100px" name="otherpetNum">
 										</div>
-	
+									</div>
+									<label>이용 가격 설정</label>
+									<div class="priceSet">
+										
+										<div class="houseSetBox">
+										<label style="margin-right:59px;">1박 요금</label>
+										<input type="text" name="ps_price" value="${priceVo.ps_price }">원
+										</div>
+										<div class="houseSetBox">
+										<label>1day 요금</label>
+										<input type="text" name="ps_careprice" value="${priceVo.ps_careprice }">원
+										</div>
+										<div class="houseSetBox">
+										<label>대형견 추가 가격</label>
+										<input type="text" name="ps_overprice" value="${priceVo.ps_overprice }">원
+										</div>
+										
 									</div>
 										<div class="subwaySet">
 											<label>인근 지하철역</label><br>
@@ -681,9 +770,7 @@ $(function(){
 						<c:if test="${null ne ppetList}">
 								<c:forEach var="vo3" items="${ppetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>">
-									
-									</div>
+									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/PpetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
@@ -754,34 +841,37 @@ $(function(){
 								</div>
 								<div class="queBox">
 									<div class="ppetImgBox"><img id="ppetImg"></div>
-									<div><input type="text" placeholder="이름" name="pi_name" value="${ppetInfo.pi_name }"></div>
-									<div><select name="pi_sex" id="pi_sex">
+									<div class="ppetInsertInput">
+									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name" value="${ppetInfo.pi_name }"></div>
+									<div class="ppetInputRight"><select name="pi_sex" id="pi_sex">
 										<option>성별</option>
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div><input type="text" placeholder="품종" name="pi_type" value="${ppetInfo.pi_type }"></div>
-									<div><input type="text" placeholder="무게" name="pi_weight" value="${ppetInfo.pi_weight }"></div>
-									<div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" value="${ppetInfo.pi_type }"></div>
+									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight" value="${ppetInfo.pi_weight }"></div>
+									<div class="ppetInputLeft">
+									<select name="pi_month" id="pi_month">
+										<c:forEach var="i" begin="1" end="12">
+											<option value="${i}">${i }</option>
+										</c:forEach>
+									</select>
 									<select name="pi_year" id="pi_year">
 										<c:forEach var="i" begin="1980" end="${year }">
 											<option value="${i}">${i }</option>
 										</c:forEach>
-									</select></div>
-									<div>
-										<select name="pi_month" id="pi_month">
-											<c:forEach var="i" begin="1" end="12">
-												<option value="${i}">${i }</option>
-											</c:forEach>
-										</select>
+									</select>
 									</div>
-									<div>
+									</div>
+									<div class="PtextArea">
 									<textarea rows="10" cols="50" name="pi_content">${ppetInfo.pi_content }</textarea>
 									</div>
 									<input type="hidden" name="pi_num" value="${ppetInfo.pi_num }">
-									<button type="submit" class="modifyBtn">
+									<div class="modifyBtnBox">
+									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
+									</div>
 								</div>
 								</form>
 							</div>
