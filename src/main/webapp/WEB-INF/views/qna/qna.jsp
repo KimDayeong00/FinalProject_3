@@ -117,10 +117,6 @@
 	}
 	function detail(qnum){
 		$("#detail").css("display","block");
-/* 		$("#detailregdate").val(regdate);
-		$("#detailtitle").val(title);
-		$("#detailcontent").val(content); */
-		var url = "/qna/detailPopup?qnum="+qnum;
 
 		pop = window.open("<c:url value='/qna/detailPopup?qnum="+qnum+"' />", "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	}

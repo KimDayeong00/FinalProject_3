@@ -69,13 +69,13 @@
                       </thead>
                       
                       <tbody id = "insertbody">
-				<c:forEach var = "vo" items = "${adminlist }">
+				<c:forEach var = "vo" items = "${adminlist }" varStatus="a">
 					<tr onclick="javascript:adminform('${vo.title}')">
 						<td>${vo.qnum }</td>
-						<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></td>
+						<td><span id='regdate${a.index }'><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></span></td>
 						<td>${vo.title }</td>
-						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','${vo.regdate }','${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
-						<td>${vo.comments }</td>
+						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','regdate' +${a.index },'${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
+						<td><a href="javascript:admindetail('${vo.qnum }','${vo.comments }')">${vo.comments }</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -113,8 +113,8 @@
                     <input type = "hidden" id = "step" name = "aqstep">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email" id="regdate">문의날짜
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="email" id="email" class="form-control col-md-7 col-xs-12" readonly="readonly">
+                        <div class="col-md-6 col-sm-6 col-xs-12" id = "email">
+                          <fmt:formatDate value = "${vo.regdate}" type="DATE" pattern="yyyy/MM/dd"/>
                         </div>
                       </div>
                       <div class="item form-group">
@@ -169,16 +169,21 @@
     	var pop;
     	function clickinfo(qnum, title, content, regdate, refer, lev, step, p_num){
     		$(".x_panel").css("display","block");
-    		alert(title);
-    		$("#email").val(regdate);
+    		$("#email").html($("#"+regdate).text());
     		$("#email2").val(title);
     		$("#textarea").val(content);
     		$("#qnum").val(qnum);
     		$("#refer").val(refer);
     		$("#lev").val(lev);
     		$("#step").val(step);
-    		/* pop = window.open("<c:url value='/admin/qna/adminqnaPopup' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); */ 
-    	
+ 
+    	}
+    	function admindetail(qnum, comments){
+    		if(comments=='답변완료'){
+    			pop = window.open("<c:url value='/qna/admindetail?qnum="+qnum+"' />", "pop","width=570,height=320, scrollbars=yes, resizable=yes"); 
+    		}else if(comments=='처리중'){
+    			alert("답변을 입력해주세요");
+    		}
     	}
     	/* var pop;
     	function getPopup(){

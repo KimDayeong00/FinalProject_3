@@ -34,7 +34,8 @@
 
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg
-			value="C:\Users\Lee\Desktop\파이널프로젝트\FinalProject_3\src\main\webapp\resources\itemimage\">
+			value="C:\Users\SONGHEE\git\FinalProject_3\src\main\webapp\resources\itemimage\">
+	
 		</beans:constructor-arg>
 	</beans:bean>
 	

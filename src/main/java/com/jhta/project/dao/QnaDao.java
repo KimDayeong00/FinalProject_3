@@ -82,4 +82,7 @@ public class QnaDao {
 	public QnaVo detailone(int qnum) {
 		return sqlsession.selectOne(NAMESPACE + ".detailone", qnum);
 	}
+	public AdminqnaVo admindetail(int qnum) {
+		return sqlsession.selectOne(NAMESPACE + ".admindetail", qnum);
+	}
 }

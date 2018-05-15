@@ -102,6 +102,10 @@
 		select * from qna where qnum = #{qnum}
 	</select> 
 	
+	<select id = "admindetail" parameterType="int" resultType="adminqnavo">
+		select * from adminqna where qnum = #{qnum}
+	</select>
+	
 	
 	
 	
