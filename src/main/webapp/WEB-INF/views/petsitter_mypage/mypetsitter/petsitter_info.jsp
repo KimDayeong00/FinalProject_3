@@ -529,7 +529,14 @@ $(function(){
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
 			<form class="sitterImgForm">
-			<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">
+			<c:choose>
+				<c:when test="${sessionScope.ps_saveimage eq null }">
+					<img src="<c:url value='/resources/petimage/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
 			<input type="file" name="sitterImgFile" style="display: none;">
 			</form>
 		</div>
