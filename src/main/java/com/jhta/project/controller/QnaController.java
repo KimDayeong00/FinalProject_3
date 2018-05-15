@@ -115,14 +115,28 @@ public class QnaController {
 			return ".admin.qna.adminqna";
 	}
 	
-	@RequestMapping(value="/qna/admininsert",method=RequestMethod.GET)
+	@RequestMapping("/qna/adminqnaPopup")
+	public String qnaPopup(int qnum, String title, String content, int p_num, Model mv, int refer, int lev, int step) {
+		mv.addAttribute("qnum", qnum);
+		mv.addAttribute("title", title);
+		mv.addAttribute("content", content);
+		mv.addAttribute("p_num", p_num);
+		mv.addAttribute("refer", refer);
+		mv.addAttribute("lev", lev);
+		mv.addAttribute("step", step);
+		
+		
+		return "admin/qna/adminqnaPopup";
+	}
+	
+	@RequestMapping("/qna/admininsert")
 	public String admininsert(AdminqnaVo vo,Model mv) {
 		service.adminqnainsert(vo);
 		service.adminupdate(vo.getQnum());
-		QnaVo vvo = service.qnagetinfo(vo.getQnum()); 
+		/*QnaVo vvo = service.qnagetinfo(vo.getQnum()); 
 		mv.addAttribute("admin", vvo);
-		System.out.println(vvo.getRegdate());
-		return "redirect:/qna/adminqna";
+		System.out.println(vvo.getRegdate());*/
+		return ".qna.windowclose";
 	}
 	
 	@RequestMapping("/qna/admindetail")
