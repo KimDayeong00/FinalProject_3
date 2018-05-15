@@ -3,8 +3,9 @@
   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
-.tit{margin-top:7px; padding:5px;}
+.tit{margin-top:7px; padding:5px; margin-left:10px;}
 .paypay{padding:3px;}
+.content{margin-left:10px;}
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
@@ -23,7 +24,10 @@ function pay(){
 			form.action="<c:url value='/shop/pay?accprice="+accprice+"'/>";
 			form.submit(); 
 	}else if(radio=="bank"){
-		alert("무통장입니다");
+		 var accprice=$("#finalpay").text();
+			form=document.getElementById("pay");
+			form.action="<c:url value='/shop/bank?accprice="+accprice+"'/>";
+			form.submit(); 
 	}
 	
 
@@ -77,7 +81,7 @@ function removeComma(n) {
       return txtNumber.replace(/(,)/g, "");
    }
 </script>
-
+<div id="wrap1" style="width:1000px; margin: auto;">
   <div>
 <img src="<c:url value='/resources/itemimage/order_t.png'/>">
 </div>
@@ -115,7 +119,7 @@ function removeComma(n) {
 								</td>
 								<td>
 								
-								<a href="<c:url value='/item/detail?p_num=${data.num }'/>">${data.title} </a>
+								<a href="<c:url value='/item/detail?p_num=${data.num }'/>">&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;">${data.title}</span> </a>
 								<input type="hidden" name="title" value="${data.title}">
 								</td>
 								<td>
@@ -162,10 +166,10 @@ function removeComma(n) {
 <!-- 주소 입력  -->
 <div>
 <div class="tit">배송주소</div>
-<input style="width:100px;" type="text" id="sample6_postcode" placeholder="우편번호">
-<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-<input style="width: 350px; margin-top:4px;"type="text"  name="juso1" id="sample6_address" placeholder="주소">
-<input style="width:200px; "type="text"  name="juso2" id="sample6_address2" placeholder="상세주소">
+<input style="width:100px;" type="text" id="sample6_postcode" placeholder="우편번호" class="content">
+<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" ><br>
+<input style="width: 350px; margin-top:4px;"type="text"  name="juso1" id="sample6_address" placeholder="주소" class="content">
+<input style="width:200px; "type="text"  name="juso2" id="sample6_address2" placeholder="상세주소" class="content">
 
 <script>
     function sample6_execDaumPostcode() {
@@ -218,7 +222,7 @@ function removeComma(n) {
 <hr style="width:100%; height:5px; background-color:gray">
 
 <!-- 결제정보 -->
-	<img src="<c:url value='/resources/itemimage/order_step_03.png'/>">
+	<div class="tit"> <img src="<c:url value='/resources/itemimage/order_step_03.png'/>"></div>
 	
 
 		<div class="left" >
@@ -226,8 +230,8 @@ function removeComma(n) {
 			<div class="content_wrap">
 				<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t2.png'/>"></div>
 	
-					<div class="paypay"><label><input type="radio" name="pay_method"  value="card" checked=""> 신용카드</label></div>
-					<div class="paypay"><label><input type="radio" name="pay_method" value="bank"> 무통장입금</label></div>
+					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method"  value="card" checked=""> 신용카드</label></div>
+					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method" value="bank"> 무통장d입금</label></div>
 
 			</div>
 		</div>
@@ -235,14 +239,11 @@ function removeComma(n) {
 		<!-- 최종결제금액 -->
 
 			<div>
-				<img src="<c:url value='/resources/itemimage/order_pay_t3.png'/>">
-				<div class="content" style="padding:5px;">
-						<table class="table table-bordered" style="width: 100px;">
-		<colgroup>
-			<col width="500">
-			<col width="500">
-			<col width="500">
-		</colgroup>
+			
+			<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t3.png'/>"></div>
+				<div class="content2" style="padding:5px;">
+						<table class="table table-bordered" style="width: 200px; margin-left:30px;">
+	
 						
 						<tr>
 						<td>총구매금액<span id="totalpay"></span>
@@ -264,8 +265,8 @@ function removeComma(n) {
 				</div>
 			</div>
 			
-			<div class="btn_wrap">
-				<div><a href="javascript:pay()"><img src="<c:url value='/resources/itemimage/paypay.JPG'/>"></a></div>
+			<div style="margin-left:400px;">
+				<a href="javascript:pay()"><img src="<c:url value='/resources/itemimage/paypay.JPG'/>"></a>
 			</div>
 	
 
@@ -280,3 +281,4 @@ function removeComma(n) {
 	<hr style="width: 100%; height:8px; background-color: pink;">
 	<input type="hidden" value="${sessionScope.login }"name="m_email">
 </form>
+</div>

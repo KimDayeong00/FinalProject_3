@@ -65,7 +65,7 @@
 <div id="content"  style="margin-left: 150px;">
 <c:set var="i" value="0" />
 <c:set var="j" value="3" />
-
+<hr>
 <table>
 
        <c:forEach var="itemvo" items="${itemvo}">

@@ -27,10 +27,7 @@
 	<div id="shopheader">
 		<tiles:insertAttribute name="header1"/>
 	</div>
-	<div id="shopheader2">
-		<tiles:insertAttribute name="header2"/>
-	</div>
-	<div id="shopmain">
+	<div id="shopmain" >
 		<tiles:insertAttribute name="main1"/>
 	</div>
 	<div id="shopfooter">
