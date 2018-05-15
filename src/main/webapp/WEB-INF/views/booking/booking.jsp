@@ -112,7 +112,7 @@
 		<div class="bookingDetail">
 			<form action="<c:url value='/reservation_p'/>" method="post" onsubmit="return checkIt();">
 				<div class="bookingWrap">
-					<div class="checkTimeWrap">
+					<div class="checkTimeWrap" style="width:400px; vertical-align: middle; margin: 0 auto;">
 						<div class="startdateBox">체크인 ${bk_startdate }</div>
 						<div class="enddateBox">체크아웃 ${bk_enddate }</div>
 						<div class="selectPetBox">일반견 ${smallPet }마리, 대형견${bigPet }마리 총 ${petCount }마리</div>
