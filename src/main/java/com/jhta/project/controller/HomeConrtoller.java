@@ -46,8 +46,10 @@ public class HomeConrtoller {
 
 
 	@RequestMapping("/tensor")
-	public String tensor() {
+	public String tensor(HttpSession session, String gubun) {
 		System.out.println("tensor in");
+		session.setAttribute("mygubun", gubun);
+		
 		/*
 		 * ImageRecognition ir = new ImageRecognition(); String result = ir.images();
 		 * System.out.println("컨트롤러 텐서 결과 12345asdf"+result);
@@ -95,26 +97,7 @@ public class HomeConrtoller {
 	
 	
 	
-	@RequestMapping(value = "/tensorgo", method = RequestMethod.POST)
-	public ModelAndView tensorgo(String dog) {
-		System.out.println("imagesearch controller come");
-		System.out.println("멍멍이이름 2 : "+dog);
-		String[] dog_name = dog.split("\\(");
-		
-		
-		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
-		MpetInfoVo vo = new MpetInfoVo();
-		vo.setPi_type(dog_name[0]);
-		System.out.println("텐서 보내는거 vo 중에 개일흠 : "+vo.getPi_type());
-		mv.addObject("page","petInfo");
-		mv.addObject("dtld","petInsert");
-		mv.addObject("mpetInfo",vo);
-		
-		
-		
-		return mv;
-
-	}
+	
 	
 	
 	/*@RequestMapping(value="/myPetInfo", method=RequestMethod.GET)

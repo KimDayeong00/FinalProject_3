@@ -458,9 +458,22 @@ table {
 		
 		
 		   function gogo() {
+			   var gubun = '<%=session.getAttribute("mygubun")%>'; 
+			   
+			   if(gubun == "1"){
 			   var nsrc = $("#img").prop("src");
 			   opener.CallBack(dog_name, nsrc);
 			   window.close();
+				   
+			   }else{
+				   
+				   var nsrc = $("#img").prop("src");
+				   opener.CallBack2(dog_name, nsrc);
+				   window.close();
+			   }
+				  
+			   
+			   
 		}  
 		 
 		
