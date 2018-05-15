@@ -805,7 +805,7 @@ $(function(){
 									<input type="radio" name="pi_gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox"><img id="ppetImg"></div>
+									<div class="ppetImgBox"><img id="ppetImg" onclick="tensor();"></div>
 									<div class="ppetInsertInput">
 									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name"></div>
 									<div class="ppetInputRight"><select name="pi_sex">
@@ -813,7 +813,7 @@ $(function(){
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type"></div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" id="ipi_type"></div>
 									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight"></div>
 									<div class="ppetInputLeft">
 									<select name="pi_month" style="width:70px">
@@ -851,7 +851,7 @@ $(function(){
 									<input type="radio" name="pi_gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox"><img id="ppetImg"></div>
+									<div class="ppetImgBox"><img id="ppetImg2" onclick="tensor2();"></div>
 									<div class="ppetInsertInput">
 									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name" value="${ppetInfo.pi_name }"></div>
 									<div class="ppetInputRight"><select name="pi_sex" id="pi_sex">
@@ -859,7 +859,7 @@ $(function(){
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" value="${ppetInfo.pi_type }"></div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" id="ipi_type2"  value="${ppetInfo.pi_type }"></div>
 									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight" value="${ppetInfo.pi_weight }"></div>
 									<div class="ppetInputLeft">
 									<select name="pi_month" id="pi_month">
@@ -989,3 +989,32 @@ $(function(){
 		</c:choose>
 	</div>
 </div>
+
+
+<script>
+var openWin;
+function tensor(){
+	
+	var pop = window.open("<c:url value='/tensor?gubun=1' />","pop","width=570,height=800, scrollbars=yes, resizable=yes"); 
+	
+}
+
+function CallBack(dog_name, nsrc){
+	$("#ipi_type").prop("value",dog_name);
+	$("#ppetImg").prop("src", nsrc);
+}
+
+
+function tensor2(){
+	
+	var pop = window.open("<c:url value='/tensor?gubun=2' />","pop","width=570,height=800, scrollbars=yes, resizable=yes"); 
+	
+}
+
+function CallBack2(dog_name, nsrc){
+	$("#ipi_type2").prop("value",dog_name);
+	$("#ppetImg2").prop("src", nsrc);
+}
+
+
+</script>
