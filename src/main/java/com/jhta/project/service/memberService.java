@@ -59,4 +59,8 @@ public class memberService {
 	public int pwd_ok(Map<String, String> map) {
 		return dao.pwd_ok(map);
 	}
+	
+	public int deleteMember(String m_email) {
+		return dao.deleteMember(m_email);
+	}
 }

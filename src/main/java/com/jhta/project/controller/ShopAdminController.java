@@ -163,7 +163,7 @@ public class ShopAdminController {
 		shopAdminService.update(vo);
 		map.put("p_num",p_num);
 		List<MultipartFile> filelist=filereq.getFiles("multifile");
-		
+		System.out.println("파일파일파일 : "+filereq.getFiles("multifile"));
 		for(MultipartFile mf : filelist) {
 			String orgfilename=mf.getOriginalFilename();	
 			String filename=UUID.randomUUID()+"_"+orgfilename;

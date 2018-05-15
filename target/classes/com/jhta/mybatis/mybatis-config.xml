@@ -38,12 +38,12 @@
 		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemReviewVo" alias="shopitemreviewvo" />
         <typeAlias type="com.jhta.project.vo.ShopClassFieldVo" alias="shopclassfieldvo" />
-        <!-- <typeAlias type="com.jhta.project.vo.PayboardVo" alias="payboardvo" /> -->
 		<typeAlias type="com.jhta.project.vo.ShopPayBoardVo" alias="payboardvo" />
 		<typeAlias type="com.jhta.project.vo.OrderItemListVo" alias="orderitemlistvo" />
    	
    	<!--  Qna -->  
    	    <typeAlias type="com.jhta.project.vo.QnaVo" alias="qnavo" />
+   	    <typeAlias type="com.jhta.project.vo.AdminqnaVo" alias="adminqnavo" />
 	</typeAliases>
 
 
@@ -63,9 +63,13 @@
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/petAdminMapper.xml" />
 	   	<mapper resource="com/jhta/mybatis/PpetInfoMapper.xml"/>
-	   	
+	   	<mapper resource="com/jhta/mybatis/PayMapper.xml" />
+	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml" />
+	   	<mapper resource="com/jhta/mybatis/BookpetInfoMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/FilterMapper.xml"/>
 	   	<mapper resource="com/jhta/mybatis/PetsitterBookMapper.xml"/>
+	   	<mapper resource="com/jhta/mybatis/ReviewMapper.xml"/>
+	   	
 	   <!-- Member -->
 		<mapper resource="com/jhta/mybatis/memberMApper.xml" />
 		
@@ -80,7 +84,7 @@
 		<mapper resource="com/jhta/mybatis/DisableDateMapper.xml"/>
         <mapper resource="com/jhta/mybatis/AdminMapper.xml" />
     <!--  Qna -->   
-       <mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
+       	<mapper resource="com/jhta/mybatis/QnaMapper.xml" /> 
    </mappers>
 
 </configuration>

@@ -67,7 +67,7 @@
 		select * from item where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
 	</select>
 	<insert id = "insert" parameterType = "qnavo">
-		insert into qna values(#{qnum}, #{title}, #{content}, sysdate, 0, #{refer}, #{lev}, #{step}, #{p_num})
+		insert into qna values(#{qnum}, #{title}, #{content}, sysdate, 0, #{refer}, #{lev}, #{step}, #{p_num}, '처리중')
 	</insert>
 	<select id = "qnagetinfo" parameterType = "int" resultType = "qnavo">
 		select * from qna where p_num = #{p_num}
@@ -83,9 +83,17 @@
 		select NVL(max(qnum),0) maxnum from qna
 	</select>
 	
-	<update id = "adminupdate" parameterType="qnavo">
-		update qna set step=step+1 where refer=#{refer} and step>#{step}
+	<update id = "adminupdate" parameterType="int">
+		update qna set comments = '답변완료' where qnum = #{qnum}
 	</update>
+	
+	<select id="adminqnalist" resultType="adminqnavo">
+		select * from adminqna
+	</select>
+	
+	<insert id="adminqnainsert" parameterType="adminqnavo">
+		insert into adminqna values(SEQ_ADMINQNA_AQNUM.nextval, #{aqtitle}, #{aqcontent}, sysdate, 0, #{aqrefer}, #{aqlev}, #{aqstep}, #{aqcomments}, #{qnum})
+	</insert>
 	
 	
 	

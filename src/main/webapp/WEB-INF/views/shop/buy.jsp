@@ -231,7 +231,7 @@ function removeComma(n) {
 				<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t2.png'/>"></div>
 	
 					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method"  value="card" checked=""> 신용카드</label></div>
-					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method" value="bank"> 무통장d입금</label></div>
+					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method" value="bank"> 무통장 입금</label></div>
 
 			</div>
 		</div>

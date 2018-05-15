@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.project.dao.QnaDao;
+import com.jhta.project.vo.AdminqnaVo;
 import com.jhta.project.vo.PayboardVo;
 import com.jhta.project.vo.QnaVo;
 import com.jhta.project.vo.ShopItemVo;
@@ -61,7 +62,11 @@ public class QnaService {
 		return dao.maxnum();
 	}
 	
-	public int adminupdate(QnaVo vo) {
-		return dao.adminupdate(vo);
+	public int adminupdate(int qnum) {
+		return dao.adminupdate(qnum);
+	}
+	
+	public int adminqnainsert(AdminqnaVo vo) {
+		return dao.adminqnainsert(vo);
 	}
 }

@@ -127,63 +127,58 @@ $(document).ready(function(){
 					<c:when test="${dtld eq 'petInsert' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								
+								<form method="post" action="<c:url value='myPetInfo'/>">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="gubun" value="1">현재 키우고 있음<br>
 									<input type="radio" name="gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox">
-										<form method="post" enctype="multipart/form-data" class="ps_imgForm" action="<c:url value='/myPetImgUpload'/>">
-											<img id="ppetImg">
-											<input type="file" name="my_imgUpload" style="display:none;">
-										</form>
-									</div>
-									
-								</div>
-									<div class="queBox">
-									<form method="post" action="<c:url value='myPetInfo'/>">
-									<div><input type="text" placeholder="이름" name="pi_name"></div>
-									<div><select name="pi_sex">
+									<div class="ppetImgBox"><img id="ppetImg"></div>
+									<div class="ppetInsertInput"></div>		
+									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name"></div>
+									<div class="ppetInputRight"><select name="pi_sex">
 										<option>성별</option>
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
-									</select></div>
-									<div><input type="text" placeholder="품종" name="pi_type"></div>
-									<div><input type="text" placeholder="무게" name="pi_weight"></div>
-									<div>
-									<select name="pi_year">
-										<c:forEach var="i" begin="1980" end="${year }">
-											<option value="${i}">${i }</option>
-										</c:forEach>
-									</select></div>
-									<div>
-										<select name="pi_month">
+									</select></div>	
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type"></div>
+									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight"></div>
+									<div class="ppetInputLeft">
+										<select name="pi_month" style="width:70px">
 											<c:forEach var="i" begin="1" end="12">
 												<option value="${i}">${i }</option>
 											</c:forEach>
 										</select>
+										<select name="pi_year" style="width:104px">
+										<c:forEach var="i" begin="1980" end="${year }">
+											<option value="${i}">${i }</option>
+										</c:forEach>
+									</select>
 									</div>
-									<div>
+									</div>
+									<div class="PtextArea">
 									<label>관리 지침 및 요청 사항</label><br>
 									<textarea rows="10" cols="50" name="pi_content"></textarea>
 									</div>
+									
+									<input type="file" name="my_imgUpload" style="display:none;">
 									<input type="hidden" name="pi_gubun" id="pi_gubun">
 									<input type="hidden" name="pi_savefilename" id="pi_savefilename">
 									<input type="hidden" name="pi_orgfilename" id="pi_orgfilename">
-									<button type="submit" class="modifyBtn">
+									<div class="modifyBtnBox">
+									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
+									</div>
 									</form>
 								</div>
 							</div>
-						</div>
 					</c:when>
 					<c:when test="${dtld eq 'petUpdate' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='myPetInfoUpdate'/>">
+								<form method="post" action="<c:url value='/myPetInfoUpdate'/>">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="pi_gubun" value="1">현재 키우고 있음<br>
@@ -191,35 +186,37 @@ $(document).ready(function(){
 								</div>
 								<div class="queBox">
 									<div class="ppetImgBox"><img id="ppetImg"></div>
-									<div><input type="text" placeholder="이름" name="pi_name" value="${mpetInfo.pi_name }"></div>
-									<div><select name="pi_sex" id="pi_sex">
+									<div class="ppetInsertInput">
+									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name" value="${mpetInfo.pi_name }"></div>
+									<div class="ppetInputRight"><select name="pi_sex" id="pi_sex">
 										<option>성별</option>
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div><input type="text" placeholder="품종" name="pi_type" value="${mpetInfo.pi_type }"></div>
-									<div><input type="text" placeholder="무게" name="pi_weight" value="${mpetInfo.pi_weight }"></div>
-									<div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" value="${mpetInfo.pi_type }"></div>
+									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight" value="${mpetInfo.pi_weight }"></div>
+									<div class="ppetInputLeft">
+									<select name="pi_month" id="pi_month">
+										<c:forEach var="i" begin="1" end="12">
+											<option value="${i}">${i }</option>
+										</c:forEach>
+									</select>
 									<select name="pi_year" id="pi_year">
 										<c:forEach var="i" begin="1980" end="${year }">
 											<option value="${i}">${i }</option>
 										</c:forEach>
-									</select></div>
-									<div>
-										<select name="pi_month" id="pi_month">
-											<c:forEach var="i" begin="1" end="12">
-												<option value="${i}">${i }</option>
-											</c:forEach>
-										</select>
+									</select>
 									</div>
-									<div>
-									<label>관리 지침 및 요청 사항</label><br>
+									</div>
+									<div class="PtextArea">
 									<textarea rows="10" cols="50" name="pi_content">${mpetInfo.pi_content }</textarea>
 									</div>
 									<input type="hidden" name="pi_num" value="${mpetInfo.pi_num }">
-									<button type="submit" class="modifyBtn">
+									<div class="modifyBtnBox">
+									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
+									</div>
 								</div>
 								</form>
 							</div>

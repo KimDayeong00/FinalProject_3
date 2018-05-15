@@ -28,4 +28,8 @@ public class MpetInfoDao {
 	public int updateMypet(MpetInfoVo vo) {
 		return sqlSession.update(NAMESPACE+".updatePet",vo);
 	}
+	
+	public List<MpetInfoVo> psbltPet(String m_email){
+		return sqlSession.selectList(NAMESPACE+".selectBpetInfo",m_email);
+	}
 }

@@ -82,8 +82,6 @@ public class BookingController {
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
 			obj.put("list",list);
-		}else {
-			System.out.println("���°�");
 		}
 		return obj.toString();
 	}
@@ -139,7 +137,7 @@ public class BookingController {
 	public String llist() {
 		return ".booking.test";
 	}
-	@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
+	/*@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
 	public String upload(MultipartFile file1,HttpSession session) {
 		String uploadPath=session.getServletContext().getRealPath("/resources/upload");
 		//���۵� ���ϸ� ������
@@ -168,5 +166,5 @@ public class BookingController {
 			System.out.println(ie.getMessage());
 			return "/booking/list";
 		}
-	}
+	}*/
 }

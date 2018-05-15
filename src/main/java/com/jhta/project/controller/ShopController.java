@@ -299,6 +299,7 @@ public class ShopController {
 		int buy_num=service.getbuynum();
 System.out.println("바이넘은몇일까"+buy_num);
 		for (int i=0; i<p_num.length; i++) {
+			System.out.println("가격은 얼마로들어가나"+price[i]);
 			OrderItemListVo vo4=new OrderItemListVo(0, cnt[i], price[i], p_num[i], buy_num);
 			service.orderinsert(vo4);
 		}
