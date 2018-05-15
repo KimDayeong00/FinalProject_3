@@ -50,6 +50,7 @@ public class HomeConrtoller {
 
 	@RequestMapping("/")
 	public String main(Model mv) {
+		System.out.println("시작은 메인이지");
 		List<MpageVo> list = dao.list();
 		List<ShopClassVo> classvo=service.classlist();
 		mv.addAttribute("list", list);

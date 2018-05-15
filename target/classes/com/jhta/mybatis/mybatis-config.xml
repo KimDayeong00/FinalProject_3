@@ -37,7 +37,6 @@
 		<typeAlias type="com.jhta.project.vo.ShopItemVo" alias="shopitemvo" />
 		<typeAlias type="com.jhta.project.vo.ShopItemReviewVo" alias="shopitemreviewvo" />
         <typeAlias type="com.jhta.project.vo.ShopClassFieldVo" alias="shopclassfieldvo" />
-        <!-- <typeAlias type="com.jhta.project.vo.PayboardVo" alias="payboardvo" /> -->
 		<typeAlias type="com.jhta.project.vo.ShopPayBoardVo" alias="payboardvo" />
 		<typeAlias type="com.jhta.project.vo.OrderItemListVo" alias="orderitemlistvo" />
    	
