@@ -101,6 +101,11 @@ public class PetsitterPageController {
 			list.add(bookList);
 			
 		}
+		
+		PetSitterVo sitterVo = petsitterService.select(ps_email);
+		System.out.println("ps_saveimageadfsdf:"+sitterVo.getPs_saveimage());
+		session.setAttribute("ps_saveimage", sitterVo.getPs_saveimage());
+		mv.addObject("sitterVo",sitterVo);
 		mv.addObject("pu",pu);
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -126,9 +131,9 @@ public class PetsitterPageController {
 		mv.addObject("page","list");
 		mv.addObject("dtld","reservationSet");
 		if(n<0) {
-			mv.addObject("msg","오류로 인해 실패하였습니다");
+			mv.addObject("msg","�ㅻ�濡� �명�� �ㅽ�⑦�����듬����");
 		}else{
-			mv.addObject("msg","설정이 완료되었습니다");
+			mv.addObject("msg","�ㅼ���� ��猷������듬����");
 		}
 		
 		ServletContext context = session.getServletContext();
@@ -142,7 +147,7 @@ public class PetsitterPageController {
 	public ModelAndView psinfoSetView(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(url);
 		String ps_email = (String) session.getAttribute("login");
-		System.out.println("이메일"+ps_email);
+		System.out.println("�대���"+ps_email);
 		
 		PetsitterOptionVo optionVo = service2.getOption(ps_email);
 		List<PetSitterImageVo> ps_imgVo = imageService.getImg(ps_email);
@@ -176,7 +181,7 @@ public class PetsitterPageController {
 		int po_child = Integer.parseInt(childSelect);
 		int po_family = Integer.parseInt(familySelect);
 		int po_otherpet = Integer.parseInt(otherpetSelect);
-		if(houseSelect.equals("기타")) {
+		if(houseSelect.equals("湲고��")) {
 			po_space = houseType; 
 		}
 		if(po_child==1) {
@@ -198,9 +203,9 @@ public class PetsitterPageController {
 		int n = service2.updatePsInfoSet(vo);
 		
 		if(n<0 || k<0) {
-			mv.addObject("msg","오류로 인해 실패하였습니다");
+			mv.addObject("msg","�ㅻ�濡� �명�� �ㅽ�⑦�����듬����");
 		}else{
-			mv.addObject("msg","설정이 완료되었습니다");
+			mv.addObject("msg","�ㅼ���� ��猷������듬����");
 		}
 		
 		ServletContext context = session.getServletContext();
@@ -280,7 +285,7 @@ public class PetsitterPageController {
 	public ModelAndView filterSet(String[] chFilter, HttpSession session) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String ps_email = (String) session.getAttribute("login");
-		String msg = "오류로 인해 실패하였습니다.";
+		String msg = "�ㅻ�濡� �명�� �ㅽ�⑦�����듬����.";
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
@@ -288,7 +293,7 @@ public class PetsitterPageController {
 		int n = filterService.insertFilter(chFilter, ps_email);
 		
 		if(n>0){
-			msg="설정이 완료되었습니다.";
+			msg="�ㅼ���� ��猷������듬����.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -309,7 +314,7 @@ public class PetsitterPageController {
 		Calendar cc= Calendar.getInstance();
 		int year = cc.get(Calendar.YEAR);
 		
-		System.out.println(year+"년도");
+		System.out.println(year+"����");
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -326,7 +331,7 @@ public class PetsitterPageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "오류로 인해 실패하였습니다.";
+		String msg = "�ㅻ�濡� �명�� �ㅽ�⑦�����듬����.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -336,7 +341,7 @@ public class PetsitterPageController {
 		int n = petInfoService.insertPpetInfo(vo);
 		
 		if(n>0) {
-			msg = "반려견이 추가되었습니다.";
+			msg = "諛��ㅺ껄�� 異�媛������듬����.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -379,7 +384,7 @@ public class PetsitterPageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "오류로 인해 실패하였습니다.";
+		String msg = "�ㅻ�濡� �명�� �ㅽ�⑦�����듬����.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -390,7 +395,7 @@ public class PetsitterPageController {
 		int n = petInfoService.petUpdate(vo);
 		
 		if(n>0) {
-			msg = "반려견 정보가 수정되었습니다.";
+			msg = "諛��ㅺ껄 ��蹂닿� ���������듬����.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -427,10 +432,10 @@ public class PetsitterPageController {
 		String ps_email = (String) session.getAttribute("login");
 		
 		PetSitterVo sitterVo = petsitterService.select(ps_email);
+		mv.addObject("sitterVo",sitterVo);
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
-		mv.addObject("sitterVo",sitterVo);
 		return mv;
 	}
 	
@@ -441,19 +446,19 @@ public class PetsitterPageController {
 		String ps_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "오류로 인해 실패하였습니다.";
+		String msg = "�ㅻ�濡� �명�� �ㅽ�⑦�����듬����.";
 		
 		double lat = Double.parseDouble(ps_lat);
 		double lng = Double.parseDouble(ps_lng);
 		
-		System.out.println("lat값:"+lat+" lng값:"+lng);
+		System.out.println("lat媛�:"+lat+" lng媛�:"+lng);
 		
 		PetSitterVo sitterVo = new PetSitterVo(ps_email,null,ps_phone,ps_name,ps_addr1,ps_addr2,ps_content,null,lat,lng,null,null,0,0,0);
 		
 		int n = petsitterService.updateAccount(sitterVo);
 		
 		if(n>0) {
-			msg = "펫시터 정보가 수정되었습니다.";
+			msg = "�レ���� ��蹂닿� ���������듬����.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -470,14 +475,14 @@ public class PetsitterPageController {
 		String ps_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "오류로 인해 실패하였습니다.";
+		String msg = "�ㅻ�濡� �명�� �ㅽ�⑦�����듬����.";
 		
 		PetSitterVo sitterVo = new PetSitterVo(ps_email,ps_pwd,null,null,null,null,null,null,0,0,null,null,0,0,0);
 		
 		int n = petsitterService.updatePwd(sitterVo);
 		
 		if(n>0) {
-			msg = "비밀번호가 수정되었습니다.";
+			msg = "鍮�諛�踰��멸� ���������듬����.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -493,7 +498,7 @@ public class PetsitterPageController {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "오류로 인해 실패하였습니다.";
+		String msg = "�ㅻ�濡� �명�� �ㅽ�⑦�����듬����.";
 		
 		System.out.println("complete"+bk_num);
 		
@@ -501,7 +506,7 @@ public class PetsitterPageController {
 		
 		int n = bookService.completeBook(bnum);
 		if(n>0) {
-			msg = "완료되었습니다";
+			msg = "��猷������듬����";
 		}
 		mv.addObject("msg",msg);
 		mv.addObject("page","list");
