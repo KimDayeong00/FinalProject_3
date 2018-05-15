@@ -72,8 +72,7 @@
 					<tr onclick="javascript:adminform('${vo.title}')">
 						<td>${vo.qnum }</td>
 						<td>${vo.title }</td>
-						<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" />
-						ㅇ뮻</td>
+						<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></td>
 						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','${vo.regdate }','${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
 					</tr>
 				</c:forEach>
