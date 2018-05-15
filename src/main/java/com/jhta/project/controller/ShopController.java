@@ -7,9 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.junit.runner.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +42,14 @@ public class ShopController {
 		ModelAndView mv=new ModelAndView(".shop");
 		List<ShopClassVo> classvo=service.classlist();
 		System.out.println(classvo.toString());
+		List<ShopItemVo> hotitem=service.hotitem();
+		List<ShopItemVo> newitem=service.newitem();
+		
+		mv.addObject("hotitem",hotitem);
+		mv.addObject("newitem",newitem);
 		mv.addObject("classvo",classvo);
+		
+		
 		return mv;
 	}
 
@@ -58,14 +63,13 @@ public class ShopController {
 		HashMap<String, Object> map=new HashMap<String,Object>();
 		int totalRowCount=service.classcnt(classnum);
 		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
-
+		System.out.println("끝페이지?"+pu.getEndPageNum());
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow",pu.getEndRow());
 		map.put("classnum",classnum);
 		List<ShopFieldVo> fieldvo=service.fieldlist(classnum);
 		List<ShopClassVo> classvo=service.classlist();
 		List<ShopItemVo> itemvo=service.classitemlist(map);
-		
 		System.out.println(itemvo.toString());
 		
 		mv.addObject("pgchk","class");
@@ -84,7 +88,11 @@ public class ShopController {
 		int fieldnum=vo2.getFieldnum();
 		HashMap<Object,Object> map2=new HashMap<>();
 		int totalRowCount=service.fieldcnt(fieldnum);
+		System.out.println("토탈로우카운트"+totalRowCount);
 		PageUtil pu=new PageUtil(pageNum,15,10,totalRowCount);
+		System.out.println("시작행은?"+pu.getStartRow());
+		System.out.println("끝행?"+pu.getEndRow());
+		System.out.println("끝페이지?"+pu.getEndPageNum());
 		map2.put("startRow",pu.getStartRow());
 		map2.put("endRow",pu.getEndRow());
 		map2.put("fieldnum",fieldnum);
@@ -136,6 +144,7 @@ public class ShopController {
 			map.put(filter.getFt_num(), filtercontentvo);
 		}
 		List<ShopClassVo> classvo=service.classlist();
+		
 		map.put("pgchk","item");
 		map.put("pu", pu);
 		map.put("classvo",classvo);
@@ -144,7 +153,8 @@ public class ShopController {
 		map.put("itemvo",itemvo);
 		map.put("fieldnum",fieldnum);
 		map.put("classnum",classnum);
-	
+		map.put("sql", sql);
+		System.out.println(",,,,,,,,,,:"+map);
 		return map;
 	
 	}
@@ -239,11 +249,13 @@ public class ShopController {
 		System.out.println("멤버여기까진오고");
 		System.out.println(id);
 		memberVO member = memberService.infoEmail(id);
-		System.out.println("여기서막히는거");
+		
 		List<ShopCartVo> list = new ArrayList<>();
-		if(chk.length>0) {
-			System.out.println("일로오냐");
+		System.out.println("리스트만들기");
+		if(chk!=null) {
+				System.out.println("여기오면체크가잇는거");
 		for(int i=0;i<chk.length;i++) {
+			System.out.println("여기오면안됨");
 			ShopItemVo iteminfo=service.iteminfo(num[chk[i]]);
 			ShopCartVo vo1 = new ShopCartVo(iteminfo.getP_num(),iteminfo.getItem_name(),iteminfo.getPrice(),cnt[chk[i]],iteminfo.getImage_name());
 			System.out.println(vo1.toString());
@@ -251,7 +263,12 @@ public class ShopController {
 			}
 		}else{
 			System.out.println("아님열로");
+			ShopCartVo vo2= new ShopCartVo(vo.getNum(), vo.getTitle(), vo.getPrice(), vo.getCnt(), vo.getUrl());
+			System.out.println("vo2내용출력"+vo2.toString());
+			list.add(vo2);
+			
 		}
+		System.out.println("여기까지못오나?");
 		List<ShopClassVo> classvo=service.classlist();
 		
 		mv.addAttribute("classvo",classvo);
@@ -286,6 +303,13 @@ System.out.println("바이넘은몇일까"+buy_num);
 			service.orderinsert(vo4);
 		}
 		return ".shop.item.pay";
+	}
+	
+	@RequestMapping("/shop/success")
+	public ModelAndView success() {
+		ModelAndView mv=new ModelAndView(".shop.item.success");
+		return mv;
+		
 	}
 	
 	

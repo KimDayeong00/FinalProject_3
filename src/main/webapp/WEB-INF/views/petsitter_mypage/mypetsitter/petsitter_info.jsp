@@ -18,7 +18,31 @@ function goPopup(){
 	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
     //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 }
-
+function imgdelete(num){
+	console.log("num : "+num );
+	location.href="<c:url value='/imgdelete?pimg_num="+num+"'/>";
+}
+    function bbasas(){
+				var fd = new FormData($("#ps_imgform")[0]);
+				$.ajax({
+					url:"<c:url value='/ps_imgTest'/>",
+					data:fd,
+					processData:false,
+					contentType:false,
+					type:'post',
+					dataType:"json",
+					success:function(data){
+						/* $("#ps_image").html("");
+						console.log(data)
+						for(var i=0; i<data.ps_imgVo.length;i++){
+							$("#ps_image").append(
+								"<a href='#' style='margin:3px;'><img  style=' position:relative; width:200px; height:200px; overflow: hidden; display: inline;' src='<c:url value='/resources/upload/"+data.ps_imgVo[i].pimg_savefilename+"'/>'></a>"
+							)
+						} */
+					}
+				});
+				location.reload();
+	}
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
@@ -221,10 +245,18 @@ $(function(){
 		
 		
 		//이미지 hover 효과
-		$('.ps_image img').hover(function(){
+		$('.ps_image .img').hover(function(){
 			$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+			$(this).css("opacity","0.5");
+			var left = $(this).offset().left;
+			var top = $(this).offset().top;
+			$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+			$('#delete').css("left",left+65)
+			$('#delete').css("top",top+70)
 		},function(){
+			$(this).css("opacity","1");
 			$(this).css("border","");
+			$("#delete").html("")
 		});
 		
 		$('#ppetImg').hover(function(){
@@ -234,16 +266,13 @@ $(function(){
 		});
 		
 		
-		//이미지 클릭하여 업로드
-		$('.ps_image img').click(function(){
+	/* 	$('.ps_image img').click(function(){
 			var img = $(this);
 			var input = img.next('input[name=ps_imgUpload]');
 			var submit = input.next('.ps_imgSubmit');
 			input.trigger("click");
 			input.change(function(){
-				//submit.trigger("click",function(){
 					var fd = new FormData(input.parent(".ps_imgForm")[0]);
-					//fd.append("file",input.prop("files")[0]);
 					$.ajax({
 						url:"<c:url value='/ps_imgTest'/>",
 						data:fd,
@@ -252,20 +281,24 @@ $(function(){
 						type:'post',
 						dataType:"json",
 						success:function(data){
-							alert(data.msg);
-							img.prop("src","<c:url value='/resources/upload/"+data.pimg_savefilename+"'/>");
-							input.next(".pimg_num").prop("value",data.pimg_num);
+						$("#ps_image").html("");
+							console.log(data)
+							for(var i=0; i<data.ps_imgVo.length;i++){
+								$("#ps_image").append(
+									"<a href='#' style='margin:3px;'><img  style=' position:relative; width:200px; height:200px; overflow: hidden; display: inline;' src='<c:url value='/resources/upload/"+data.ps_imgVo[i].pimg_savefilename+"'/>'></a>"
+								)
+							}
 						}
 					});
 				//});
 			});
-		});
-		
+		}); */
 		$('#ppetImg').click(function(){
 			var img = $(this);
 			var input = img.next('input[name=ps_imgUpload]');
 			var submit = input.next('.ps_imgSubmit');
 			input.trigger("click");
+			$("#ps_image").html("")
 			input.change(function(){
 				//submit.trigger("click",function(){
 					var fd = new FormData(input.parent(".ps_imgForm")[0]);
@@ -444,6 +477,7 @@ $(function(){
 				}
 			});
 	});
+
 </script>
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
@@ -669,16 +703,22 @@ $(function(){
 									</button>
 									</div>
 								</form>
-								<label>보여질 대표 이미지 설정</label>
-								<div style="overflow: hidden;width: 100%;">
+								<label style="float: left;">사진 관리</label>
+								<label style="float: left; margin-left: 160px; margin-right: 15px;">사진 업로드</label>
+								<form method="post" enctype="multipart/form-data" class="ps_imgForm" id="ps_imgform"action="<c:url value='/ps_imgTest'/>">
+								<input multiple="multiple" type="file" id="mulfile" class="mulfile" name="multifile" onchange="bbasas(this.value)" />
+								</form>
+								<div id="delete" style="position: absolute;"></div>
+								<div id="ps_image" style="overflow: hidden;width: 100%;">
 									<c:forEach var="img" items="${ps_imgVo }">
-									<div class="ps_image">
-										<form method="post" enctype="multipart/form-data" class="ps_imgForm" action="<c:url value='/ps_imgTest'/>">
-											<img src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>">
-											<input type="file" name="ps_imgUpload">
-											<input type="hidden" name="pimg_num" value="${img.pimg_num }" id="pimg_num">
+									<div class="ps_image" onclick='imgdelete("${img.pimg_num }")'>
+											<div class='img' style="text-align: center; vertical-align: 
+											middle; float:left; margin:3px; width:200px;height:200px;
+											background-size: 100%; background-position: center; 
+											background-size: cover;
+											background-image: url(<c:url value='/resources/petimage/${img.pimg_savefilename}' />);">
+									</div>
 											<!-- <input type="submit" class="ps_imgSubmit"> -->
-										</form>
 									</div>
 									</c:forEach>
 								</div>
