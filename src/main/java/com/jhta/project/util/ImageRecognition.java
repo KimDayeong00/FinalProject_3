@@ -22,7 +22,7 @@ public class ImageRecognition {
 
 	public String images(byte[] bytes) throws UnsupportedEncodingException  {
 		String result = "";
-		File file = new File("C:\\Users\\YoonSoo\\Desktop\\inception_dec_2015");
+		File file = new File("C:\\Users\\Lee\\Desktop\\파이널프로젝트\\FinalProject_3\\src\\main\\webapp\\resources\\inception_dec_2015");
 		String modelpath = file.getAbsolutePath();
 		System.out.println("Opening: " + file.getAbsolutePath());
 		boolean modelselected = true;
