@@ -897,7 +897,7 @@ $(function(){
 										</div>
 										<div>
 										<label>자기 소개</label><br>
-										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required">
+										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required" style="width:100%">
 										</div>
 										<input type="hidden" id="ps_lat" name="ps_lat" value="${sitterVo.ps_lat }"/>
 	    								<input type="hidden" id="ps_lng" name="ps_lng" value="${sitterVo.ps_lng }"/>
