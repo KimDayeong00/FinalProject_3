@@ -107,10 +107,14 @@ function handleFileSelect()
 						<h4>${filtertype.ft_name }</h4>
 						<c:forEach var="filtercontent" items="${filtercontent }">
 							<c:if test="${filtertype.ft_num==filtercontent.ft_num }">
-								<c:if test="${filtertype.ft_num==1}">
-									<input type='radio' name='filterrdo' id='' value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
-								</c:if>
-									<input type='checkbox' name='filterchk' id='' value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+								<c:choose>
+									<c:when test="${filtertype.ft_num==1}">
+										<input type='radio' name='filterrdo' id='' value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+									</c:when>
+									<c:otherwise>
+										<input type='checkbox' name='filterchk' id='' value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+									</c:otherwise>
+								</c:choose>
 							</c:if>
 						</c:forEach>
 						<br /><br />
