@@ -43,4 +43,9 @@ public class PetSitterServiceImpl implements PetSitterService{
 	public int updatePwd(PetSitterVo vo) {
 		return petsitterDao.updatePwd(vo);
 	}
+	
+	@Override
+	public int deletePetsitter(String ps_email) {
+		return petsitterDao.deletePetsitter(ps_email);
+	}
 }

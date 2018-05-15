@@ -17,4 +17,8 @@ public class ReviewService {
 	public int updateBk_rv(int bk_num) {
 		return dao.updateBk_rv(bk_num);
 	}
+	
+	public ReviewVo selectRv(int bk_num) {
+		return dao.selectRv(bk_num);
+	}
 }
