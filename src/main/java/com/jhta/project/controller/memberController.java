@@ -1,6 +1,7 @@
 package com.jhta.project.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.project.service.ShopService;
 import com.jhta.project.service.memberService;
+import com.jhta.project.util.ImageRecognition;
 import com.jhta.project.utils.Utils;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.ShopClassVo;
@@ -47,7 +50,7 @@ public class memberController {
 	private memberService service;
 	@Autowired
 	private ShopService service2;
-	
+
 	@RequestMapping("/login")
 	public String login(HttpSession session,Model mv) {
 		System.out.println("login");
@@ -137,6 +140,11 @@ public class memberController {
 			mv.addAttribute("classvo",classvo);
 		return ".members.join2";
 	}
+
+	/*
+	 * type�� ���� ����(�쇰�,�レ����) type1�� 媛��� ����(�쇰�媛���=1, 移댁뭅��=2, 援ш�=3,
+	 * �ㅼ�대�=4)
+	 */
 	@RequestMapping("/register")
 	public String register(int type, int type1, HttpSession session,Model mv) {
 		 List<ShopClassVo> classvo=service2.classlist();
@@ -455,7 +463,9 @@ public class memberController {
 			} else {
 				session.setAttribute("rlt", "fail");
 			}
+
 		}
+
 		return ".members.success";
 	}
 

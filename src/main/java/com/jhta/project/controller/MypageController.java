@@ -292,7 +292,7 @@ public class MypageController {
 		System.out.print(vo.getBuy_num()+ " " + vo.getM_email());
 		List<OrderItemVo>  list=vo.getList();
 			for(OrderItemVo vv:list ) {
-				System.out.println(vv);
+				System.out.println("리스트"+vv);
 			}
 		}
 		List<ShopClassVo> classvo=shopservice.classlist();

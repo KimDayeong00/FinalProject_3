@@ -9,18 +9,17 @@
 window.onload=getTotal;
 
 function chkchk(){
-	if($('input[name=chk]').prop("checked")){
+	
+	var $b = $('input[type=checkbox]');
+
+	if($b.filter(':checked').length>0){
 		buy();
 	}else{
-		if($('input[name=chk]').prop("checked")){
-			buy();
-		}
-		alert("구매하실 상품을 선택해주세요.");
+		alert("구매하실 상품34을 선택해주세요.");
+		
+		
 	}
-
-
-
-
+		
 
 }
 function buy(){
