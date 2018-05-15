@@ -338,7 +338,7 @@ table {
 <body>
 	<!-- <div id="div_ajax_load_image"></div> -->
 	
-	<form id="searchform" method="post" enctype="multipart/form-data"></form>
+	<form id="searchform" name="searchform" method="post" enctype="multipart/form-data" >
 
 		<h1>이미지로 검색하기</h1>
 		<div class="img_wrap" >
@@ -348,18 +348,14 @@ table {
 
 		
 		<input type="file" id="input_img" name="media" /><br> 
-		<input type="text" id="dog"  />
+		<input type="text" id="dog" name="dog"  />
 		<ul class="output" style="display: none;">
 		</ul>
-		<button type="button" id="submit" onclick="gogo()">Search</button>
 		
-	</form>
-	<form name="popup1" method="post">
+		<input type="button" value="적용하기" id="submit" onclick="gogo();">
 	<input type="hidden" id="dogName" name="dogName">
 	</form>
-	<link
-		href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Patua+One'
-		rel='stylesheet' type='text/css'>
+	
 	<script
 		src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
@@ -368,7 +364,7 @@ table {
 
 	<script type="text/javascript">
 		var sel_file;
-
+		var dog_name;
 		$(document).ready(function() {
 			 $("#input_img").on("change", handleImgFileSelect); 
 			$("#input_img").change(function(){
@@ -385,7 +381,7 @@ table {
 		                  //  var aa=decodeURI(result.dog);
 		                    $("#dog").val(result.dog);
     		                var dogs = result.dog.split("(");
-							dog = dogs[0];
+							dog_name = dogs[0];
 		                    document.getElementById("dogName").value = dog;
 		                }
 		                , beforeSend: function () {
@@ -426,13 +422,10 @@ table {
 		         });
 
 
-			/* 
+			 
 			
-			$("#submit").click(function(){
-				
-			});
 			
-		 */
+		 
 		
 		
 		
@@ -461,24 +454,15 @@ table {
 		
 		
 		
-		function gogo() {
-			
-			opener.name = "list"; // 부모창의 이름 설정
-			document.popup1.target = "list"; // 타켓을 부모창으로 설
-			document.popup1.action = "<c:url value='/booking/doglist' />";
-			document.popup1.submit();
-			self.close();
-		}
 		
 		
-		 /* function goOpener1() {
-			opener.name = "mManager"; // 부모창의 이름 설정
-			document.popup1.target = "mManager"; // 타켓을 부모창으로 설
-			document.popup1.action = "<c:url value='/admin/updateOK_p' />";
-			document.popup1.submit();
-			self.close();
-		}  */
 		
+		   function gogo() {
+			   var nsrc = $("#img").prop("src");
+			   opener.CallBack(dog_name, nsrc);
+			   window.close();
+		}  
+		 
 		
 	</script>
 

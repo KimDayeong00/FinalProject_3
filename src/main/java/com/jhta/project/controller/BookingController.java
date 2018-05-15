@@ -86,24 +86,18 @@ public class BookingController {
 		return obj.toString();
 	}
 	
-	@RequestMapping("/booking/doglist")
+	/*
+	@RequestMapping(value = "/booking/doglist", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
 	public String dogist(String dogName) {
 		System.out.println("컨트롤어에서 강아지멍멍이 : "+dogName);
-		/*HashMap<String, Object>map = new HashMap<>();
-		map.put("bk_startdate", bk_startdate);
-		map.put("bk_enddate", bk_enddate);
-		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
-		for(PetSitterJoinFilterVo vo : alllist) {
-			for(FilterVo vo1 : vo.getList()) {
-				System.out.println(vo1.getFl_name());
-			}
-		}
-		List<FilterTypeListVo>filterlist = filterTypeListService.list();
-		model.addAttribute("alllist", alllist);
-		model.addAttribute("filterlist", filterlist);*/
+		JSONObject ob = new JSONObject();
+		ob.put("dog", dogName);
+		
+		
 		return ".booking.list";
 	}
-	
+	*/
 	
 	
 	

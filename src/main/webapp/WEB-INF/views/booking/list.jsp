@@ -304,7 +304,7 @@
 					                    petsitterList+=
 					                    "</div>"+
 	                                    "<div class='tour-details-text' style='margin:0px; padding:0px;'><span style='display: inline-block; color: gray; font-size: 20px; width:100%; margin:0px; padding:0px; margin-top:-5px; '>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; day care/"+data.list[q].ps_careprice+"&nbsp;&nbsp;&nbsp;&nbsp; 1박/"+data.list[q].ps_price+"&nbsp;&nbsp;&nbsp;&nbsp; 대형견 추가금/"+data.list[q].ps_overprice+"</span></div>"+
-	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='<c:url value='/detail?ps_email="+data.list[q].ps_email+"'/>' class='btn btn-primary' style='background-color:ffd700;'>예약하기</a></span> </div>"+
+	                                    "<div class='tour-details-btn' style='padding:5px;'> <span><a href='<c:url value='/detail?ps_email="+data.list[q].ps_email+"'/>' onclick='return checked();' class='btn btn-primary' style='background-color:ffd700;'>예약하기</a></span> </div>"+
 	                                "</div>"+
 	                            "</div>"+
 	                    "</div>";
@@ -401,7 +401,19 @@ function tensor(){
 	
 }
 
-
+function checked(){
+	
+	var id = '<%= session.getAttribute("login") %>';
+	if(id == "null"){
+		alert("로그인 하셔야 이용가능합니다");
+		location.href="<c:url value='/login' />";
+		return false;
+	}else{
+		return true;	
+	}
+	
+	
+}
 
 </script>
 <script

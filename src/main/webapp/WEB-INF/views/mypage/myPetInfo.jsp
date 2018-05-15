@@ -134,7 +134,7 @@ $(document).ready(function(){
 									<input type="radio" name="gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox"><img id="ppetImg"></div>
+									<div class="ppetImgBox"><img id="ppetImg" onclick="tensor();"></div>
 									<div class="ppetInsertInput"></div>		
 									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name"></div>
 									<div class="ppetInputRight"><select name="pi_sex">
@@ -142,7 +142,7 @@ $(document).ready(function(){
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>	
-									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type"></div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" id="ipi_type" name="pi_type"></div>
 									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight"></div>
 									<div class="ppetInputLeft">
 										<select name="pi_month" style="width:70px">
@@ -193,7 +193,7 @@ $(document).ready(function(){
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" value="${mpetInfo.pi_type }"></div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" id="pi_type" value="${mpetInfo.pi_type }"></div>
 									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight" value="${mpetInfo.pi_weight }"></div>
 									<div class="ppetInputLeft">
 									<select name="pi_month" id="pi_month">
@@ -243,3 +243,25 @@ $(document).ready(function(){
 		</c:choose>
 	</div>
 </div>
+
+
+
+<script>
+ var openWin;
+function tensor(){
+	
+	var pop = window.open("<c:url value='/tensor' />","pop","width=570,height=800, scrollbars=yes, resizable=yes"); 
+	
+}
+
+function CallBack(dog_name, nsrc){
+	$("#ipi_type").prop("value",dog_name);
+	$("#ppetImg").prop("src", nsrc);
+}
+
+
+
+
+
+
+</script>
