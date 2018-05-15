@@ -28,7 +28,7 @@
 			
 				if(check.val()==0){
 					if(pCount==count){
-						alert("선택한 반려견의 수보다 많이 선택할 수 없습니다.")
+						alert("선택한 반려견의 수보다 많이 선택할 수 없습니다.");
 					}else{					
 						if(pi_weight<15){
 							sc++;
@@ -36,7 +36,8 @@
 								alert("선택한 일반견의 수보다 많이 선택할 수 없습니다.");
 								sc--;
 							}else{
-								check.prop("value","1");
+								check.prop("value",1);
+								console.log(check.val());
 								selectPetBox.find("#checkImg").prop("src","<c:url value='/resources/images/bookcheck.png'/>");
 								var pi_num = selectPetBox.find("#pi_num").val();
 								petArray.push(pi_num);
@@ -51,7 +52,8 @@
 								alert("선택한 대형견의 수보다 많이 선택할 수 없습니다.");
 								bc--;
 							}else{
-								check.prop("value","1");
+								check.prop("value",1);
+								console.log(check.val());
 								selectPetBox.find("#checkImg").prop("src","<c:url value='/resources/images/bookcheck.png'/>");
 								var pi_num = selectPetBox.find("#pi_num").val();
 								petArray.push(pi_num);
@@ -59,10 +61,10 @@
 								count++;
 							}
 						}
-						console.log("sc"+sc);
-						console.log("sCount"+sCount);
-						console.log("bc"+bc);
-						console.log("bCount"+bCount);
+						//console.log("sc"+sc);
+						//console.log("sCount"+sCount);
+						//console.log("bc"+bc);
+						//console.log("bCount"+bCount);
 					}
 				}else{
 					if(pi_weight<15){
@@ -70,7 +72,8 @@
 					}else{
 						bc--;
 					}
-					check.prop("value","0");
+					check.prop("value",0);
+					console.log(check.val());
 					selectPetBox.find("#checkImg").prop("src","<c:url value='/resources/images/bookuncheck.png'/>");
 					var index = petArray.indexOf(pi_num);
 					petArray.splice(index,1);
@@ -85,13 +88,21 @@
 </script>
 <script>
 	function checkIt(){
-		if($(".check").val()==0){
-			
+		var a=1;
+		$(".check").each(function(){
+			if($(this).val()==0){
+				
+			}else{
+				a=0;
+			}
+		})
+		if(a==1){
 			alert("반려견을 선택해주세요");
-			
 			return false;
+		}else{
+			//alert("아");
+			return true;
 		}
-
 	}
 
 </script>

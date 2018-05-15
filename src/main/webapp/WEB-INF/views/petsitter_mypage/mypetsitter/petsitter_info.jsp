@@ -531,7 +531,7 @@ $(function(){
 			<form class="sitterImgForm">
 			<c:choose>
 				<c:when test="${sessionScope.ps_saveimage eq null }">
-					<img src="<c:url value='/resources/petimage/images/noprofile.png'/>">
+					<img src="<c:url value='/resources/images/noprofile.png'/>">
 				</c:when>
 				<c:otherwise>
 					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
@@ -544,9 +544,9 @@ $(function(){
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
 		</div>	
 		
-		<div class="order">
+		<!-- <div class="order">
 			<span><a href="<c:url value='/mypage/order'/>">주문목록/배송조회</a></span>
-		</div>	
+		</div> -->	
 		
 		<div class="petsitterInfoManage">
 			<span><a href="<c:url value='/psinfoSet?page=sitterInfo&dtld=psInfoSet'/>">펫시터 정보 관리</a></span>
