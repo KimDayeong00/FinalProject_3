@@ -137,7 +137,7 @@ $(document).ready(function(){
 									<input type="radio" name="gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox"><img id="ppetImg" onclick="tensor();"></div>
+									<div class="ppetImgBox"><img id="ppetImg" name="pi_img" onclick="tensor();"></div>
 									<div class="ppetInsertInput"></div>		
 									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name" ></div>
 									<div class="ppetInputRight"><select name="pi_sex">
@@ -260,6 +260,7 @@ function tensor(){
 function CallBack(dog_name, nsrc){
 	$("#ipi_type").prop("value",dog_name);
 	$("#ppetImg").prop("src", nsrc);
+	alert(nsrc);
 }
 
 

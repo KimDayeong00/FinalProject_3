@@ -1,18 +1,24 @@
 package com.jhta.project.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -113,17 +119,31 @@ public class MypageController {
 	
 	@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
 	public ModelAndView ppetInfo(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
-									String pi_month, String pi_content, String pi_gubun, String pi_savefilename, String pi_orgfilename) {
+									String pi_month, String pi_content, String pi_gubun, MultipartFile pi_img) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
+		String msg = "";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
 		int pi_g = Integer.parseInt(pi_gubun);
+		String pi_orgfilename=pi_img.getOriginalFilename();
+		String pi_savefilename =UUID.randomUUID()+"_"+pi_orgfilename;
+		try {
+		
+			InputStream is=pi_img.getInputStream();
+			String uploadPath = "C:\\Users\\Lee\\Desktop\\파이널프로젝트\\FinalProject_3\\src\\main\\webapp\\resources\\petimage\\";
+			FileOutputStream fos=new FileOutputStream(uploadPath+pi_savefilename);
+		
+			FileCopyUtils.copy(is, fos);
+			fos.close();
+			is.close();
+		}catch(IOException ie) {
+			
+		}
 		
 		if(pi_savefilename==null || pi_orgfilename==null) {
 			pi_savefilename ="null";
@@ -133,10 +153,6 @@ public class MypageController {
 		MpetInfoVo vo = new MpetInfoVo(0,pi_name,pi_age,pi_type,pi_w,m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_g);
 		
 		int n = mpetInfoService.insertMypet(vo);
-		
-		if(n>0) {
-			msg = "占쌥뤄옙占쏙옙占쏙옙 占쌩곤옙占실억옙占쏙옙占싹댐옙.";
-		}
 		
 		mv.addObject("msg",msg);
 		mv.addObject("page","petInfo");

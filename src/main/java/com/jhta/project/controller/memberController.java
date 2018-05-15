@@ -79,7 +79,7 @@ public class memberController {
 		if (email.equals("admin") && pwd.equals("admin")) {
 			session.removeAttribute("login");
 			session.setAttribute("login", "admin");
-			returnV = ".admin";
+			returnV = ".admin.main.calc";
 		} else {
 
 			int mc = service.emailc_m(email);

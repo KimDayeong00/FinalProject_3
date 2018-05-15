@@ -34,7 +34,7 @@ public class adminController {
 			System.out.println("이곳이다 : "+vo.);
 		}*/
 		mv.addAttribute("adminlist", list);
-		return ".admin";
+		return ".admin.main.calc";
 	}
 
 	@RequestMapping("/admin/calc")

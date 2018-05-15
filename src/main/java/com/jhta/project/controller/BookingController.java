@@ -123,7 +123,6 @@ public class BookingController {
 		if(alllist!=null) {
 			obj.put("alllist",alllist);
 		}else {
-			System.out.println("���°�");
 		}
 		return obj.toString();
 	}

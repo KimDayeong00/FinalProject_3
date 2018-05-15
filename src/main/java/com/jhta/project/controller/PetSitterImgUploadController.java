@@ -65,7 +65,7 @@ public class PetSitterImgUploadController {
 	public String imgdelete(int pimg_num,HttpServletRequest req) {
 		petsitterImgService.delete(pimg_num);
 		String url = req.getHeader("referer");
-		return url;
+		return "redirect:/psinfoSet?page=sitterInfo&dtld=psInfoSet";
 	}
 	
 	@RequestMapping(value="/ppetImgUpload",method=RequestMethod.POST,produces="application/json;charset=utf-8")

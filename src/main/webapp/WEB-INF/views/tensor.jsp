@@ -462,6 +462,7 @@ table {
 			   
 			   if(gubun == "1"){
 			   var nsrc = $("#img").prop("src");
+			   alert(nsrc)
 			   opener.CallBack(dog_name, nsrc);
 			   window.close();
 				   

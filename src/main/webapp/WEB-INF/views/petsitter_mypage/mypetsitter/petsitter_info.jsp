@@ -39,6 +39,7 @@ function imgdelete(num){
 					type:'post',
 					dataType:"json",
 					success:function(data){
+						location.reload();
 						/* $("#ps_image").html("");
 						console.log(data)
 						for(var i=0; i<data.ps_imgVo.length;i++){
@@ -48,7 +49,8 @@ function imgdelete(num){
 						} */
 					}
 				});
-				location.reload();
+				
+				
 	}
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
@@ -865,7 +867,7 @@ $(function(){
 					<c:when test="${dtld eq 'petInsert' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='petInfo'/>">
+								<form method="post" action="<c:url value='petInfo'/>" enctype="multipart/form-data">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="pi_gubun" value="1" checked="checked">현재 키우고 있음<br>
