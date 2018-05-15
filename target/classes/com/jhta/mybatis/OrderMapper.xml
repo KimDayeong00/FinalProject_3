@@ -24,7 +24,7 @@ select aa.m_email,aa.buy_date,bb.*,cc.* from payboard aa,orderitemlist bb,item c
  <select id="orderlist" parameterType="String" resultMap="orderjoinvo">
 select p.buy_date,p.m_email,p.buy_num,item.* from
 payboard p,(select item.item_name,item.image_name,orderitemlist.* from item,orderitemlist where item.p_num=orderitemlist.p_num) item
-where p.buy_num=item.buy_num and p.m_email=#{m_email}order by p.buy_date
+where p.buy_num=item.buy_num and p.m_email=#{m_email}order by p.buy_date desc
 </select>
 </mapper>
 
