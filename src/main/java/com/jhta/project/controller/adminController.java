@@ -24,7 +24,7 @@ public class adminController {
 
 	@RequestMapping("/admin/home")
 	public String home() {
-		System.out.println("¸ÇÃ³À½ µé¾î¿È");
+		System.out.println("ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		return ".admin";
 	}
 
@@ -43,10 +43,20 @@ public class adminController {
 		 */
 		String createday = year + month;
 		List<payVO> pList = service.earn(createday);
-
+		for (payVO vo : pList) {
+			System.out.println("íŽ«ì‹œí„° : "+vo.toString());
+		}
+		
+		List<payVO> pList_2 = service.earn_2(createday);
+		for (payVO vo : pList_2) {
+			System.out.println("ì‡¼í•‘ëª° : "+vo.toString());
+		}
+		
 		JSONObject jo = new JSONObject();
 
 		jo.put("list", pList);
+		jo.put("list2", pList_2);
+		
 		jo.put("month", month);
 		jo.put("year", year);
 
@@ -55,7 +65,7 @@ public class adminController {
 
 	@RequestMapping("/admin/mManage")
 	public String manage(HttpSession session) {
-		System.out.println("È¸¿ø°ü¸®µé¾î¿È");
+		System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
 		session.setAttribute("petlist", service.petlist());
 		session.setAttribute("memlist", service.memlist());

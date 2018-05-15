@@ -21,6 +21,10 @@ public class adminService {
 		return dao.earn(createday);
 	}
 	
+	public List<payVO> earn_2(String createday){
+		return dao.earn_2(createday);
+	}
+	
 	public List<memberVO> memlist(){
 		return dao.memlist();
 	}

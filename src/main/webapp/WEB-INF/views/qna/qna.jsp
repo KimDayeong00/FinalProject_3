@@ -36,7 +36,10 @@
 		<tbody id = "insertbody">
 			<c:forEach var = "vo" items = "${qnalist }">
 				<tr>
-					<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></td>
+					<td><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" />
+					<fmt:formatDate pattern = "yyyy-MM-dd" 
+         value = "${vo.regdate}" />
+					</td>
 					<td style = "text-align: left;padding-left: 10px">${vo.title }</td>
 					<td><a href="javascript:detail('${vo.regdate }','${vo.title}','${vo.content }')">상세보기</a></td>
 					<c:choose>

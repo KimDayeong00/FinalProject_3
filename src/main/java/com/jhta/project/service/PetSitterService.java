@@ -15,4 +15,6 @@ public interface PetSitterService {
 	int updateAccount(PetSitterVo vo);
 	int updatePwd(PetSitterVo vo);
 	int deletePetsitter(String ps_email);
+	int updateActiveOn(String ps_email);
+	int updateActiveOff(String ps_email);
 }

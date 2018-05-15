@@ -149,7 +149,9 @@ public class PetsitterPageController {
 		List<ShopClassVo> classvo=service99.classlist();
 		mv.addObject("classvo",classvo);
 		PetSitterPriceVo priceVo= priceService.select(ps_email);
-		
+		PetSitterVo sitterVo = petsitterService.select(ps_email);
+		System.out.println("sitterVo () : "+sitterVo.getPs_active());
+		mv.addObject("sitterVo",sitterVo);
 		mv.addObject("priceVo",priceVo);
 		mv.addObject("optionVo",optionVo);
 		mv.addObject("ps_imgVo",ps_imgVo);
@@ -163,11 +165,15 @@ public class PetsitterPageController {
 	public ModelAndView psinfoSet(String checkinStart, String checkinEnd, String checkoutStart,
 			String checkoutEnd, String houseSelect, String houseType, String yardSelect, String familySelect, String familyNum, 
 			String childSelect, String childNum, String subway, String otherpetSelect, String otherpetNum, 
-			String ps_price, String ps_careprice, String ps_overprice, HttpSession session) {
+			String ps_price, String ps_careprice, String ps_overprice, String ps_active,HttpSession session) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String ps_email = (String) session.getAttribute("login");
 		String po_space = houseSelect;
-		
+		if(ps_active!=null) {
+			petsitterService.updateActiveOn(ps_email);
+		}else {
+			petsitterService.updateActiveOff(ps_email);
+		}
 		int price = Integer.parseInt(ps_price);
 		int careprice = Integer.parseInt(ps_careprice);
 		int overprice = Integer.parseInt(ps_overprice);

@@ -7,7 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-//github.com/KimDayeong00/FinalProject_3.git
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,24 +45,25 @@ public class memberController {
 
 	@Autowired
 	private memberService service;
-
 	@Autowired
 	private ShopService service2;
 	
 	@RequestMapping("/login")
-	public String login(HttpSession session) {
+	public String login(HttpSession session,Model mv) {
 		System.out.println("login");
 		session.removeAttribute("error");
+		 List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
 		return "/members/login";
 	}
 	@RequestMapping("/logout")
 	public String logout(HttpSession session,Model mv) {
 		System.out.println("logout");
+		List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
 		session.removeAttribute("login");
 		session.removeAttribute("login_type");
 		session.removeAttribute("error");
-		List<ShopClassVo> classvo=service2.classlist();
-		mv.addAttribute("classvo",classvo);
 		return ".main";
 	}
 
@@ -73,13 +73,12 @@ public class memberController {
 		System.out.println(pwd);
 		Map<String, String> map = new HashMap<>();
 		String returnV = "";
-		List<ShopClassVo> classvo=service2.classlist();
-		mv.addAttribute("classvo",classvo);
 		if (email.equals("admin") && pwd.equals("admin")) {
 			session.removeAttribute("login");
 			session.setAttribute("login", "admin");
 			returnV = ".admin";
 		} else {
+
 			int mc = service.emailc_m(email);
 			int pc = service.emailc_p(email);
 			if (mc == 0 && pc == 0) {
@@ -92,15 +91,20 @@ public class memberController {
 				String pwd_ok = service.pwd(map);
 				System.out.println("비밀번호는!!!!!!!!!:" + pwd_ok);
 				if (pwd.equals(pwd_ok)) {
+					 List<ShopClassVo> classvo=service2.classlist();
+						mv.addAttribute("classvo",classvo);
 					session.removeAttribute("login");
 					session.setAttribute("login", email);
 					session.setAttribute("login_type", 1);
+
 					returnV = ".main";
 				} else {
 					session.setAttribute("error", "error");
 					returnV = "/members/login";
 				}
 			} else if (pc != 0) {
+				 List<ShopClassVo> classvo=service2.classlist();
+					mv.addAttribute("classvo",classvo);
 				System.out.println("펫시터");
 				map.put("gubun", "petsitter");
 				map.put("email", email);
@@ -121,16 +125,22 @@ public class memberController {
 	}
 
 	@RequestMapping("/register1")
-	public String register1() {
+	public String register1(Model mv) {
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		return ".members.join";
 	}
 
 	@RequestMapping("/register2")
-	public String register2() {
+	public String register2(Model mv) {
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		return ".members.join2";
 	}
 	@RequestMapping("/register")
-	public String register(int type, int type1, HttpSession session) {
+	public String register(int type, int type1, HttpSession session,Model mv) {
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		session.setAttribute("email", "");
 		session.setAttribute("type", type);
 		session.setAttribute("type1", type1);
@@ -138,10 +148,12 @@ public class memberController {
 	}
 
 	@RequestMapping("/socialJ")
-	public String register(int type, int type1, String email, HttpSession session) {
+	public String register(int type, int type1, String email, HttpSession session,Model mv) {
 		System.out.println("������" + type);
 		System.out.println("����1��" + type1);
 		System.out.println("�대��� : " + email);
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		session.setAttribute("type", type);
 		session.setAttribute("type1", type1);
 		session.setAttribute("email", email);
@@ -149,10 +161,12 @@ public class memberController {
 	}
 
 	@RequestMapping("/joinForm")
-	public String joinForm(HttpSession session) {
+	public String joinForm(HttpSession session,Model mv) {
 		String result = "";
+		List<ShopClassVo> classvo=service2.classlist();
+		mv.addAttribute("classvo",classvo);
 		int a = (Integer) session.getAttribute("type");
-		if (a == 1) {
+		if (a == 1) { 
 
 			result = ".members.joinForm";
 		} else if (a == 2) {
@@ -162,8 +176,10 @@ public class memberController {
 	}
 
 	@RequestMapping("/joinM")
-	public String join(memberVO vo, HttpSession session) {
+	public String join(memberVO vo, HttpSession session,Model mv) {
 		System.out.println(vo.toString());
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		int a = (Integer) session.getAttribute("type");
 		int b = (Integer) session.getAttribute("type1");
 		String returnV = "";
@@ -178,10 +194,11 @@ public class memberController {
 	}
 
 	@RequestMapping("/joinP")
-	public String join(PetSitterVo vo, HttpSession session) {
+	public String join(PetSitterVo vo, HttpSession session,Model mv) {
 		int a = (Integer) session.getAttribute("type");
 		int b = (Integer) session.getAttribute("type1");
-
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		vo.setPs_gubun(b);
 		System.out.println(vo.toString());
 		int row = service.insertP(vo);
@@ -200,8 +217,9 @@ public class memberController {
 
 	@RequestMapping(value = "/callback")
 	public String callback(@RequestParam String state, @RequestParam String code, HttpServletRequest request,
-			HttpSession session) throws UnsupportedEncodingException {
-
+			HttpSession session,Model mv) throws UnsupportedEncodingException {
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		String storedState = (String) request.getSession().getAttribute("state"); // 세션에 저장된 토큰을 받아옵니다.
 
 		if (!state.equals(storedState)) { // 세션에 저장된 토큰과 인증을 요청해서 받은 토큰이 일치하는지 검증합니다.
@@ -301,10 +319,11 @@ public class memberController {
 
 	// 소셜로그인 처리부분
 	@RequestMapping(value = "/sociallogin")
-	public String naverLogin(int type1, String email, HttpSession session) {
+	public String naverLogin(int type1, String email, HttpSession session,Model mv) {
 		System.out.println("타입1은" + type1);
 		System.out.println("이메일은 : " + email);
-
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		String returnV = "";
 		// 네이버일때는 별개로 처리
 		if (type1 == 4) {
@@ -338,8 +357,10 @@ public class memberController {
 
 	// 회원가입시 로그인
 	@RequestMapping(value = "/naverlogin")
-	public String naverLogin(int type, int type1, HttpSession session) {
+	public String naverLogin(int type, int type1, HttpSession session,Model mv) {
 		String state = Utils.generateState(); // 토큰을 생성합니다.
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		System.out.println("타입은" + type);
 		System.out.println("타입1은" + type1);
 		session.setAttribute("type", type);
@@ -380,14 +401,18 @@ public class memberController {
 	}
 
 	@RequestMapping("/pwd_search")
-	public String pwd_search(HttpServletRequest requset, HttpServletResponse response) {
+	public String pwd_search(HttpServletRequest requset, HttpServletResponse response,Model mv) {
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		return ".members.pwd_search";
 	}
 
 	@RequestMapping(value = "/pwd", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String pwd(String gubun, String name, String email, String phone) {
+	public String pwd(String gubun, String name, String email, String phone,Model mv) {
 		Map<String, String> map = new HashMap<>();
+		 List<ShopClassVo> classvo=service2.classlist();
+			mv.addAttribute("classvo",classvo);
 		if (gubun.equals("1")) {
 			map.put("gubun", "member");
 		} else {

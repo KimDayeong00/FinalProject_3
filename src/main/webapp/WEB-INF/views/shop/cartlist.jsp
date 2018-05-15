@@ -102,7 +102,7 @@ function checkAll(){
 		}
 	}
 </script>
-
+<div style="width:1000px; margin: auto;">
 <div>
 <img src="<c:url value='/resources/itemimage/cart_t.png'/>">
 </div>
@@ -244,8 +244,8 @@ function checkAll(){
 </form>
 
 <div class="mid" style="margin-top:10px; margin:auto;">
-	<div style="display:inline-block; padding-left: 10px;  padding-bottom: 35px;margin-left: 800px; "><a href="javascript:chkchk();"><img src="<c:url value='/resources/itemimage/cart_btn_01_m.jpg'/>"></a></div>
+	<div style="display:inline-block; padding-left: 10px;  padding-bottom: 35px;margin-left: 380px; "><a href="javascript:chkchk();"><img src="<c:url value='/resources/itemimage/cart_btn_01_m.jpg'/>"></a></div>
 	</div>
-
+</div>
 
  

@@ -10,11 +10,12 @@
 .container{width:1000px;}
 #item{word-wrap:break-word; width:250px;}
 #bunryu{width:1000px;}
-.mystyle{background-color: #ffff66;}
+.mystyle{background-color: #00ab33;}
 </style>
 <div id="wrap" class="container">
 
 <div id="bunryu" style="margin-left: 200px;">
+
 
 <ul class="list-inline">
 	<li>분류</li>
@@ -65,7 +66,7 @@
 <div id="content"  style="margin-left: 150px;">
 <c:set var="i" value="0" />
 <c:set var="j" value="3" />
-
+<hr>
 <table>
 
        <c:forEach var="itemvo" items="${itemvo}">

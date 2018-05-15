@@ -110,6 +110,12 @@
 	<update id="updatePsPwd" parameterType="petsitter">
 		update petsitter set ps_pwd=#{ps_pwd} where ps_email=#{ps_email}		
 	</update>
+	<update id="updateActiveOn" parameterType="String">
+		update petsitter set ps_active=1 where ps_email=#{ps_email}		
+	</update>
+	<update id="updateActiveOff" parameterType="String">
+		update petsitter set ps_active=0 where ps_email=#{ps_email}		
+	</update>
 	<delete id="leavePetsitter" parameterType="string">
 		delete from petsitter where ps_email=#{ps_email} 
 	</delete>

@@ -41,4 +41,10 @@ public class PetSitterDao {
 	public int deletePetsitter(String ps_email) {
 		return session.delete(NAMESPACE+".leavePetsitter",ps_email);
 	}
+	public int updateActiveOn(String ps_email) {
+		return session.update(NAMESPACE+".updateActiveOn",ps_email);
+	}
+	public int updateActiveOff(String ps_email) {
+		return session.update(NAMESPACE+".updateActiveOff",ps_email);
+	}
 }

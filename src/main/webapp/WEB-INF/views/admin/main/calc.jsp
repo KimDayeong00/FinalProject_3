@@ -112,6 +112,13 @@
 					dataArray[i] = data.list[i].count;
 					total +=data.list[i].count;
 				}
+				for (var i = 0; i < data.list2.length; i++) {
+					labelArray_1[i] = data.list2[i].created_date;
+					dataArray_1[i] = data.list2[i].count;
+					total_1 +=data.list2[i].count;
+				}
+				
+				
 				/* 창 열었을 때 첫번째 차트에 월별 차트넣기 default 값은 현재 월의 차트 */
 			 	new Chart(document.getElementById("chart_1"), {
 					type : 'line',
@@ -125,10 +132,9 @@
 									fill : false
 								},
 								{
-									label : "쇼핑몰 임의로 만들어놈",
+									label : "쇼핑몰",
 									fill : false,
-									data : [ 282, 350, 411, 502, 635, 809, 947, 1402,
-											3700, 5267 ],
+									data : dataArray_1,
 									borderColor : "#8e5ea2"
 								} ]
 					},
@@ -146,7 +152,7 @@
 					type : 'pie',
 					data : {
 						datasets : [ {
-							data : [ total, 5267 ],
+							data : [ total, total_1 ],
 							backgroundColor : [ "#3e95cd", "#8e5ea2" ],
 							label : "수익 비중"
 						} ],
@@ -210,6 +216,14 @@
 							total +=data.list[i].count;
 							console.log(data.list[i].count+", "+data.list[i].created_date);
 						}
+						
+						for (var i = 0; i < data.list2.length; i++) {
+							labelArray_1[i] = data.list2[i].created_date;
+							dataArray_1[i] = data.list2[i].count;
+							total_1 +=data.list2[i].count;
+						}
+						
+						
 						/* 창 열었을 때 첫번째 차트에 월별 차트넣기 default 값은 현재 월의 차트 */
 						new Chart(document.getElementById("chart_1"), {
 							type : 'line',
@@ -223,8 +237,7 @@
 											fill : false
 										},
 										{
-											data : [ 282, 350, 411, 502, 635, 809, 947, 1402,
-													3700, 5267 ],
+											data : dataArray_1,
 											label : "쇼핑몰 임의로 만들어놈",
 											borderColor : "#8e5ea2",
 											fill : false
@@ -242,11 +255,11 @@
 						new Chart(document.getElementById("chart_2"), {
 							type : 'pie',
 							data : {
-								labels : [ "펫시터", "Asia" ],
+								labels : [ "펫시터", "쇼핑몰" ],
 								datasets : [ {
 									label : "수익 비중",
 									backgroundColor : [ "#3e95cd", "#8e5ea2" ],
-									data : [ total, 5267 ]
+									data : [ total, total_1 ]
 								} ]
 							},
 							options : {

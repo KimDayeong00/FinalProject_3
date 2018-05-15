@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		if('${sitterVo.ps_active}'=='1'){
+			$("#ps_active").attr("checked", true);
+		}
+	})
+</script>
 <script>
 	function detail(bk_num){
 		window.open("<c:url value='/contentDetail?bk_num="+bk_num+"'/>", "pop", "width=500,height=400, scrollbars=yes, resizable=yes");
@@ -693,11 +700,15 @@ $(function(){
 										</div>
 										
 									</div>
-										<div class="subwaySet">
+										<div class="subwaySet" style="float:left; width:300px; ">
 											<label>인근 지하철역</label><br>
 											<input type="text" name="subway" value="${optionVo.po_subway }">
 										</div>
-									<div class="modifyBtnBox">
+										<div class="subwaySet" style="">
+											<label>검색 리스트에 출력하기</label><br>
+											<input type="checkbox" name="ps_active" id="ps_active" value="1">검색리스트에 출력
+										</div>
+									<div class="modifyBtnBox" >
 									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
