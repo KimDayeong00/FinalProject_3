@@ -13,10 +13,12 @@ public class QnaVo {
 	private int step;
 	private int p_num;
 	private String comments;
+	private String m_email;
 
 	public QnaVo() {}
 
-	public QnaVo(int qnum, String title, String content, Date regdate, int hit, int refer, int lev, int step, int p_num, String comments) {
+	public QnaVo(int qnum, String title, String content, Date regdate, int hit, int refer, int lev, int step, int p_num,
+			String comments, String m_email) {
 		super();
 		this.qnum = qnum;
 		this.title = title;
@@ -28,6 +30,7 @@ public class QnaVo {
 		this.step = step;
 		this.p_num = p_num;
 		this.comments = comments;
+		this.m_email = m_email;
 	}
 
 	public int getQnum() {
@@ -101,12 +104,20 @@ public class QnaVo {
 	public void setP_num(int p_num) {
 		this.p_num = p_num;
 	}
-	
+
 	public String getComments() {
 		return comments;
 	}
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+
+	public String getM_email() {
+		return m_email;
+	}
+
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 }

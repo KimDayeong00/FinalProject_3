@@ -168,14 +168,15 @@
     <script type="text/javascript">
     	var pop;
     	function clickinfo(qnum, title, content, regdate, refer, lev, step, p_num){
-    		$(".x_panel").css("display","block");
+    		/* $(".x_panel").css("display","block");
     		$("#email").html($("#"+regdate).text());
     		$("#email2").val(title);
     		$("#textarea").val(content);
     		$("#qnum").val(qnum);
     		$("#refer").val(refer);
     		$("#lev").val(lev);
-    		$("#step").val(step);
+    		$("#step").val(step); */
+    		pop = window.open("<c:url value='/qna/adminqnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes");
  
     	}
     	function admindetail(qnum, comments){
@@ -187,14 +188,9 @@
     	}
     	/* var pop;
     	function getPopup(){
-    	 pop = window.open("<c:url value='/qna/qnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-    	} */
-    	/* function testCheck(){
-    		console.log("옴");
-    		setTimeout(() => {
-    			location.href="<c:url value='/qna/adminqna'/>";
-    		}, 100);	
-    	} */
+    	 pop = window.open("<c:url value='/qna/adminqnaPopup?' />","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+    	}  */
+    	
     
     </script>
     
