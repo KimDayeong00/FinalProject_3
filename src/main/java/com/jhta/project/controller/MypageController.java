@@ -70,6 +70,9 @@ public class MypageController {
 						vo.getM_email(),null, vo.getPs_email(), vo.getPs_name() ,count, pi_name,null);
 				list.add(bookList);
 			}
+			memberVO memVo = memServcie.selectMember(m_email);
+			session.setAttribute("m_saveimage", memVo.getM_saveimage());
+			
 			mv.setViewName(mypage);
 			mv.addObject("pu",pu);
 			mv.addObject("mbookList",list);
@@ -81,6 +84,7 @@ public class MypageController {
 			mypage = ".petsitter_mypage.mypetsitter.petsitter_info";
 			mv.addObject("page","list");
 			mv.addObject("dtld","reservation");
+
 			mv.setView(new RedirectView(path+"/mypetsitter?"));
 		}
 		List<ShopClassVo> classvo=shopservice.classlist();
@@ -238,7 +242,7 @@ public class MypageController {
 		String path = context.getContextPath();
 		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
 		
-		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0);
+		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0,null,null);
 		int n = memServcie.updateMember(memVo);
 		
 		if(n>0) {
@@ -261,7 +265,7 @@ public class MypageController {
 		String path = context.getContextPath();
 		String msg = "占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙占쏙옙占싹댐옙.";
 		
-		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0);	
+		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0,null,null);	
 		int n = memServcie.updatePwd(memVo);
 		
 		if(n>0) {

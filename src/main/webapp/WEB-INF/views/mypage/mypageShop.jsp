@@ -2,11 +2,61 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script>
+$(document).ready(function(){
+	//이미지 hover 효과
+	$('.sitterImg img').hover(function(){
+		$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+		$(this).css("opacity","0.5");
+		var left = $(this).offset().left;
+		var top = $(this).offset().top;
+		$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+		$('#delete').css("left",left+65)
+		$('#delete').css("top",top+70)
+	},function(){
+		$(this).css("opacity","1");
+		$(this).css("border","");
+		$("#delete").html("")
+	});
+	
+	
+ 	$('.sitterImg img').click(function(){
+		var img = $(this);
+		var input = img.next('input[name=sitterImgFile]');
+		//var submit = input.next('.ps_imgSubmit');
+		input.trigger("click");
+		input.change(function(){
+				var fd = new FormData(input.parent(".sitterImgForm")[0]);
+				$.ajax({
+					url:"<c:url value='/myImgUpload'/>",
+					data:fd,
+					processData:false,
+					contentType:false,
+					type:'post',
+					dataType:"json",
+					success:function(data){
+					$("#ps_image").html("");
+						console.log(data)
+						img.prop("src",data.ps_saveimage);
+					}
+				});
+			//});
+		});
+	});
+	
+	
+});
+
+
+</script>
 
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img>
+			<form class="sitterImgForm">
+			<img src="<c:url value='/resources/petimage/${sessionScope.m_saveimage }'/>">
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypage?page=top&dtld=reservation'/>">예약 관리</a></span>
