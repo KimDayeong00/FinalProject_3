@@ -12,6 +12,7 @@
 		<typeAlias type="com.jhta.project.vo.IntroduceVo" alias="introduce" />
 		<!-- admin -->
 		<typeAlias type="com.jhta.project.vo.payVO" alias="pay" />
+		<typeAlias type="com.jhta.project.vo.PayboardVo" alias="payBoard" />
 		<typeAlias type="com.jhta.project.vo.ShopClassJoinShopFieldVo" alias="shopclassjoinshopfield" />
 
 		<!-- Petsitter -->

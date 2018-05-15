@@ -24,6 +24,11 @@ public class adminDAO {
 		return pList;
 	}
 	
+	public List<payVO> earn_2(String createday){
+		List<payVO> pList = session.selectList(NAMESPACE+".earn_2", createday);
+		return pList;
+	}
+	
 	public List<memberVO> memlist(){
 		List<memberVO> mList = session.selectList(NAMESPACE+".memlist");
 		return mList;

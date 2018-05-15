@@ -27,6 +27,33 @@ order by d_ymd
 </select>
 
 
+<select id="earn_2"  resultType="pay" parameterType="string">
+select to_char(d_ymd,'YYYY-MM-DD') created_date, nvl(count,0) count from  
+(SELECT TO_DATE(#{value},'yyyymm') + LEVEL - 1 d_ymd  
+FROM dual 
+<![CDATA[
+CONNECT BY LEVEL <= TO_CHAR(LAST_DAY(TO_DATE(#{value},'yyyymm')),'dd')) a FULL OUTER JOIN 
+ ]]>
+(
+SELECT  sum(accprice) as count, 
+  to_char(buy_date, 'YYYY-MM-DD') as created_date 
+FROM 
+  (select REGEXP_REPLACE(accprice, '[^0-9]') accprice, buy_date from payboard)
+WHERE 
+ to_char(buy_date, 'YYYYMM')=#{value}
+GROUP BY 
+  to_char(buy_date, 'YYYY-MM-DD')
+  order by created_date  asc
+) b
+ON a.d_ymd = b.created_date
+order by d_ymd
+</select>
+
+
+
+
+
+
 <select id="memlist" resultType="member">
 
 select m_email,m_name,m_phone,m_addr from memberlist where m_grade not in -1
