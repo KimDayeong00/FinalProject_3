@@ -6,4 +6,8 @@
 	<select id="select" parameterType="string" resultType="petsitterprice">
 		select * from petsitterprice where ps_email=#{value}
 	</select>
+	<update id="updatePrice" parameterType="petsitterprice">
+		update petsitterprice set ps_price=#{ps_price},ps_careprice=#{ps_careprice},ps_overprice=#{ps_overprice}
+		where ps_email=#{ps_email}
+	</update>
 </mapper>

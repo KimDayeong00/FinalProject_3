@@ -84,4 +84,13 @@ public class ShopDao {
 	public int orderinsert(OrderItemListVo vo) {
 		return sqlSession.insert(NAMESPACE+".orderinsert",vo);
 	}
+	
+	public List<ShopItemVo> newitem(){
+		return sqlSession.selectList(NAMESPACE+".newitem");
+		
+	}
+	public List<ShopItemVo> hotitem(){
+		return sqlSession.selectList(NAMESPACE+".hotitem");
+		
+	}
 }

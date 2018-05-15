@@ -7,7 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONObject;
+
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +22,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.util.ImageRecognition;
 
 import com.jhta.project.service.MpageServiceImpl;
+import com.jhta.project.service.MpetInfoService;
 import com.jhta.project.service.ShopService;
 
 import com.jhta.project.service.memberService;
 import com.jhta.project.vo.MpageVo;
+import com.jhta.project.vo.MpetInfoVo;
 import com.jhta.project.vo.ShopClassVo;
 
 
@@ -50,6 +57,7 @@ public class HomeConrtoller {
 
 	@RequestMapping("/")
 	public String main(Model mv) {
+		System.out.println("시작은 메인이지");
 		List<MpageVo> list = dao.list();
 		List<ShopClassVo> classvo=service.classlist();
 		mv.addAttribute("list", list);
@@ -74,24 +82,7 @@ public class HomeConrtoller {
 			e.printStackTrace();
 		}
 		
-		/*if(media.isEmpty()){
-
-			File file = new File(media.getOriginalFilename());
-
-			try {
-				media.transferTo(file);
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			ImageRecognition ir = new ImageRecognition(); 
-			dog = ir.images(file);
-			
-			
-		}*/
+	
 		System.out.println("dog:" + dog);
 		System.out.println("헬로");
 		ob.put("dog",dog);
@@ -101,6 +92,55 @@ public class HomeConrtoller {
 		return ob.toString();
 
 	}
+	
+	
+	
+	@RequestMapping(value = "/tensorgo", method = RequestMethod.POST)
+	public ModelAndView tensorgo(String dog) {
+		System.out.println("imagesearch controller come");
+		System.out.println("멍멍이이름 2 : "+dog);
+		String[] dog_name = dog.split("\\(");
+		
+		
+		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
+		MpetInfoVo vo = new MpetInfoVo();
+		vo.setPi_type(dog_name[0]);
+		System.out.println("텐서 보내는거 vo 중에 개일흠 : "+vo.getPi_type());
+		mv.addObject("page","petInfo");
+		mv.addObject("dtld","petInsert");
+		mv.addObject("mpetInfo",vo);
+		
+		
+		
+		return mv;
+
+	}
+	
+	
+	/*@RequestMapping(value="/myPetInfo", method=RequestMethod.GET)
+	public ModelAndView myPetInfoView(String page, String dtld, HttpSession session) {
+		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
+		String m_email = (String) session.getAttribute("login");
+		List<MpetInfoVo> mpetList = MpetInfoService.mypetList(m_email);
+		
+		Calendar cc= Calendar.getInstance();
+		int year = cc.get(Calendar.YEAR);
+		
+		System.out.println(year+"�⵵");
+		
+		mv.addObject("dtld","petInsert");
+		mv.addObject("mpetList",mpetList);
+		mv.addObject("year",year);
+		return mv;
+	}*/
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 	@RequestMapping("/admin/class")

@@ -8,13 +8,85 @@
 		to_char(bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,bk_situation, m_email, ps_email
 		from petsitterbook where m_email=#{m_email} -->
 		select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
-		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email,
-		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name,m.m_name from petsitterbook pb, petsitter p, memberlist m where pb.m_email=#{value} and pb.ps_email=p.ps_email
+		 and pb.m_email=m.m_email and pb.bk_situation='예약중' order by pb.bk_num
 	</select>
+	<select id="getMbookCnt" parameterType="string" resultType="int">
+		select count(bk_num) from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name,m.m_name from petsitterbook pb, petsitter p, memberlist m where pb.m_email=#{value} and pb.ps_email=p.ps_email
+		 and pb.m_email=m.m_email and pb.bk_situation='예약중' order by pb.bk_num)
+	</select>
+	
+	<select id="getMbookCnt2" parameterType="hashmap" resultType="com.jhta.project.vo.PetsitterBookVo">
+		select * from(select aa.*,rownum rnum from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name,m.m_name from petsitterbook pb, petsitter p, memberlist m where pb.m_email=#{m_email} and pb.ps_email=p.ps_email
+		 and pb.m_email=m.m_email and pb.bk_situation='예약중' order by pb.bk_num)aa )
+		 <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	
 	<select id="getBpet" parameterType="int" resultType="com.jhta.project.vo.MpetInfoVo">
 		select aa.* from mpetinfo aa,bookpetinfo bb where aa.pi_num in(bb.pi_num) and bb.bk_num=#{value}
 	</select>
 	<select id="getBpetCnt" parameterType="int" resultType="int">
 		select count(*) from(select aa.* from mpetinfo aa,bookpetinfo bb where aa.pi_num in(bb.pi_num) and bb.bk_num=#{value})
+	</select>
+	<insert id="insertBook" parameterType="com.jhta.project.vo.PetsitterBookVo">
+		insert into petsitterbook values(seq_petsitterbook_bk_num.nextval,to_date(#{bk_startdate},'yyyy-mm-dd hh24:mi'),
+		to_date(#{bk_enddate},'yyyy-mm-dd hh24:mi'),'예약중',#{m_email},#{ps_email},#{bk_content},0)
+		
+		<selectKey keyProperty="bk_num" resultType="Integer" order="AFTER">
+			select seq_petsitterbook_bk_num.currval from dual
+		</selectKey>
+	</insert>
+	<select id="selectPrevList" parameterType="string" resultType="com.jhta.project.vo.PetsitterBookVo">
+		select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email and pb.bk_situation='완료' 
+		order by pb.bk_num
+	</select>
+	<select id="selectPbookList" parameterType="string" resultType="com.jhta.project.vo.PetsitterBookVo">
+		select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name,m.m_name,pb.bk_content from petsitterbook pb, petsitter p, memberlist m where pb.ps_email=#{value}
+		 and pb.ps_email=p.ps_email and pb.m_email=m.m_email
+	</select>
+	<select id="getPbookCnt" parameterType="string" resultType="int">
+			select count(bk_num) from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name,m.m_name,pb.bk_content from petsitterbook pb, petsitter p, memberlist m where pb.ps_email=#{value}
+		 and pb.ps_email=p.ps_email and pb.m_email=m.m_email)
+	</select>
+	
+	<select id="getPbookCnt2" parameterType="hashmap" resultType="com.jhta.project.vo.PetsitterBookVo">
+		select * from(select aa.*,rownum rnum from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name,m.m_name,pb.bk_content from petsitterbook pb, petsitter p, memberlist m where pb.ps_email=#{ps_email}
+		 and pb.ps_email=p.ps_email and pb.m_email=m.m_email)aa )
+		 <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	
+	<select id="getPrevListCnt" parameterType="string" resultType="int">
+		select count(bk_num) from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{value} and pb.ps_email=p.ps_email and pb.bk_situation='완료')
+	</select>
+	
+	<select id="getPrevListCnt2" parameterType="hashmap" resultType="com.jhta.project.vo.PetsitterBookVo">
+		select * from(select aa.*,rownum rnum from(select pb.bk_num,to_char(pb.bk_startdate,'yyyy-mm-dd hh24:mi') bk_startdate,
+		to_char(pb.bk_enddate,'yyyy-mm-dd hh24:mi') bk_enddate,pb.bk_situation, pb.m_email, pb.ps_email, pb.bk_review,
+		p.ps_name from petsitterbook pb, petsitter p where pb.m_email=#{m_email} and pb.ps_email=p.ps_email and pb.bk_situation='완료'
+		order by pb.bk_num)aa ) <![CDATA[where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	
+	<update id="completeBook" parameterType="int">
+		update petsitterbook set bk_situation='완료' where bk_num=#{value}
+	
+	</update>
+	
+	<select id="selectBk_content" parameterType="int" resultType="string">
+		select bk_content from petsitterbook where bk_num=#{bk_num}
 	</select>
 </mapper>

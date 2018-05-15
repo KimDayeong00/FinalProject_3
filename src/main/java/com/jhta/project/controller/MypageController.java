@@ -2,6 +2,7 @@ package com.jhta.project.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,14 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.jhta.project.service.MpetInfoService;
+import com.jhta.project.service.OrderListService;
 import com.jhta.project.service.PetsitterBookService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.service.memberService;
+import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.MpetInfoVo;
+import com.jhta.project.vo.OrderItemVo;
+import com.jhta.project.vo.OrderJoinVo;
 import com.jhta.project.vo.PetsitterBookVo;
+import com.jhta.project.vo.PrevBookListVo;
+import com.jhta.project.vo.ShopClassVo;
+//github.com/KimDayeong00/FinalProject_3.git
 import com.jhta.project.vo.memberVO;
 
 @Controller
@@ -26,10 +37,13 @@ public class MypageController {
 	@Autowired MpetInfoService mpetInfoService;
 	@Autowired memberService memServcie;
 	@Autowired PetsitterBookService bookService;
+	@Autowired ShopService shopservice;
+	@Autowired OrderListService orderservice;
+	
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypage")
-	public ModelAndView pageMove(HttpSession session) {
+	public ModelAndView pageMove(@RequestParam(value="pageNum",defaultValue="1")int pageNum,HttpSession session) {
 		ModelAndView mv=new ModelAndView();
 		ArrayList<BookListVo> list=new ArrayList<>();
 		int login_type = (int)session.getAttribute("login_type");
@@ -37,7 +51,15 @@ public class MypageController {
 		if(login_type==1) {
 			mypage = ".mypage.mypage";
 			String m_email = (String)session.getAttribute("login");
-			List<PetsitterBookVo> mbookList = bookService.selectMbook(m_email);
+			
+			HashMap<String, Object> map=new HashMap<>();
+			int totalRowCount = bookService.getBbookCnt(m_email);
+			PageUtil pu=new PageUtil(pageNum,10,5,totalRowCount);
+			map.put("m_email",m_email);
+			map.put("startRow", pu.getStartRow());
+			map.put("endRow", pu.getEndRow());
+			
+			List<PetsitterBookVo> mbookList = bookService.getBbookCnt2(map);
 			for(int i=0;i<mbookList.size();i++) {
 				PetsitterBookVo vo= mbookList.get(i);
 				List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
@@ -45,22 +67,29 @@ public class MypageController {
 				String pi_name = mpetVo.getPi_name();
 				int count = bookService.getBpetCnt(vo.getBk_num());
 				BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
-						vo.getM_email(), vo.getPs_email(), vo.getPs_name() ,count, pi_name);
+						vo.getM_email(),null, vo.getPs_email(), vo.getPs_name() ,count, pi_name,null);
 				list.add(bookList);
 			}
-			
+			mv.setViewName(mypage);
+			mv.addObject("pu",pu);
 			mv.addObject("mbookList",list);
+			mv.addObject("dtld","reservation");
 			
 		}else if(login_type==2) {
+			ServletContext context = session.getServletContext();
+			String path = context.getContextPath();
 			mypage = ".petsitter_mypage.mypetsitter.petsitter_info";
 			mv.addObject("page","list");
 			mv.addObject("dtld","reservation");
+			mv.setView(new RedirectView(path+"/mypetsitter?"));
 		}
+		List<ShopClassVo> classvo=shopservice.classlist();
+		mv.addObject("classvo",classvo);
 		mv.setViewName(mypage);
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetInfo", method=RequestMethod.GET)
+	@RequestMapping(value="/myPetInfo", method=RequestMethod.GET)
 	public ModelAndView myPetInfoView(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
 		String m_email = (String) session.getAttribute("login");
@@ -69,7 +98,7 @@ public class MypageController {
 		Calendar cc= Calendar.getInstance();
 		int year = cc.get(Calendar.YEAR);
 		
-		System.out.println(year+"³âµµ");
+		System.out.println(year+"ï¿½âµµ");
 		
 		mv.addObject("page",page);
 		mv.addObject("dtld",dtld);
@@ -78,7 +107,7 @@ public class MypageController {
 		return mv;
 	}
 	
-	//@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
+	@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
 	public ModelAndView ppetInfo(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
 									String pi_month, String pi_content, String pi_gubun, String pi_savefilename, String pi_orgfilename) {
 		ModelAndView mv=new ModelAndView(alertUrl);
@@ -86,7 +115,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -102,7 +131,7 @@ public class MypageController {
 		int n = mpetInfoService.insertMypet(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ßÀÌ Ãß°¡µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -113,7 +142,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.GET)
+	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.GET)
 	public ModelAndView ppetInfoUpdateView(String page, String dtld, HttpSession session, String pi_num) {
 		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
 		String ps_email = (String) session.getAttribute("login");
@@ -137,7 +166,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="/myPetInfoUpdate", method=RequestMethod.POST)
 	public ModelAndView ppetInfoUpdate(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
 									String pi_month, String pi_content, String pi_num, String pi_gubun) {
 		ModelAndView mv=new ModelAndView(alertUrl);
@@ -145,7 +174,7 @@ public class MypageController {
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
 		
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
@@ -157,7 +186,7 @@ public class MypageController {
 		int n = mpetInfoService.updateMypet(vo);
 		
 		if(n>0) {
-			msg = "¹Ý·Á°ß Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½Ý·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -168,7 +197,7 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/myPetDetail", method=RequestMethod.GET)
+	@RequestMapping(value="/myPetDetail", method=RequestMethod.GET)
 	public ModelAndView myPetDetailView(String page, String dtld, HttpSession session,String pi_num) {
 		ModelAndView mv=new ModelAndView(".mypage.myPetInfo");
 		String m_email = (String) session.getAttribute("login");
@@ -188,7 +217,7 @@ public class MypageController {
 		return mv;
 	}
 
-//	@RequestMapping(value="/my_account", method=RequestMethod.GET)
+	@RequestMapping(value="/my_account", method=RequestMethod.GET)
 	public ModelAndView psInfoUpdateView(String page, String dtld, HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.myInfo");
 		String m_email = (String) session.getAttribute("login");
@@ -201,19 +230,19 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/my_account", method=RequestMethod.POST)
+	@RequestMapping(value="/my_account", method=RequestMethod.POST)
 	public ModelAndView psInfoUpdate(HttpSession session, String m_name, String m_addr, String m_phone, String m_content) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		memberVO memVo = new memberVO(m_email,null,m_name,m_phone,m_addr,null,null,0);
 		int n = memServcie.updateMember(memVo);
 		
 		if(n>0) {
-			msg = "È¸¿ø Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -224,19 +253,19 @@ public class MypageController {
 		return mv;
 	}
 	
-//	@RequestMapping(value="/my_pwdUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="/my_pwdUpdate", method=RequestMethod.POST)
 	public ModelAndView ps_pwdUpdate(HttpSession session, String m_pwd) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		String msg = "¿À·ù·Î ÀÎÇØ ½ÇÆÐÇÏ¿´½À´Ï´Ù.";
+		String msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		
 		memberVO memVo = new memberVO(m_email,m_pwd,null,null,null,null,null,0);	
 		int n = memServcie.updatePwd(memVo);
 		
 		if(n>0) {
-			msg = "ºñ¹Ð¹øÈ£°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+			msg = "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 		
 		mv.addObject("msg",msg);
@@ -247,15 +276,66 @@ public class MypageController {
 		return mv;
 	}
 	
-	
-	
-	
-	
 	@RequestMapping("/mypageShop")
-	public ModelAndView myPageShop() {
+	public ModelAndView myPageShop(HttpSession session) {
 		ModelAndView mv=new ModelAndView(".mypage.mypageShop");
+		String m_email=(String)session.getAttribute("login");
+		System.out.println(m_email);
+		List<OrderJoinVo> orderlist=orderservice.orderlist(m_email);
+		System.out.println("ë²ˆí˜¸ëŠ”"+orderlist);
+		for(OrderJoinVo vo:orderlist) {
+			
+		System.out.print(vo.getBuy_num()+ " " + vo.getM_email());
+		List<OrderItemVo>  list=vo.getList();
+			for(OrderItemVo vv:list ) {
+				System.out.println(vv);
+			}
+		}
+		List<ShopClassVo> classvo=shopservice.classlist();
+		mv.addObject("classvo",classvo);
+		mv.addObject("orderlist",orderlist);
+		return mv;
+	}
+	
+	@RequestMapping("/mypagePrevlist")
+	public ModelAndView myPrevBook(@RequestParam(value="pageNum",defaultValue="1")int pageNum,String page, String dtld, HttpSession session) {
+		ModelAndView mv=new ModelAndView(".mypage.mypage");
+		ArrayList<PrevBookListVo> list=new ArrayList<>();
+		String m_email = (String)session.getAttribute("login");
+		
+		HashMap<String, Object> map=new HashMap<>();
+		int totalRowCount = bookService.getPrevListCnt(m_email);
+		PageUtil pu=new PageUtil(pageNum,10,5,totalRowCount);
+		map.put("m_email",m_email);
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		
+		List<PetsitterBookVo> prevList = bookService.getPrevListCnt2(map);
+		for(int i=0;i<prevList.size();i++) {
+			PetsitterBookVo vo= prevList.get(i);
+			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
+			MpetInfoVo mpetVo = mpetList.get(0);
+			String pi_name = mpetVo.getPi_name();
+			int count = bookService.getBpetCnt(vo.getBk_num());
+			PrevBookListVo prevBookList = new PrevBookListVo(vo.getBk_num(),vo.getBk_startdate(),vo.getBk_enddate(),vo.getBk_situation(),vo.getM_email(),
+					vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_review());
+			list.add(prevBookList);
+		}
+		mv.addObject("pu",pu);
+		mv.addObject("page",page);
+		mv.addObject("dtld",dtld);
+		mv.addObject("prevList",list);
 		
 		return mv;
+	}
+	
+	@RequestMapping("/mypageLeave")
+	public String memberLeave(HttpSession session) {
+		String m_email = (String) session.getAttribute("login");
+		System.out.println("email"+m_email);
+		memServcie.deleteMember(m_email);
+		session.invalidate();
+		return ".mypage.leave";
 	}
 	
 }

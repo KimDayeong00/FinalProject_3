@@ -37,4 +37,8 @@ public class PetSitterDao {
 	public int updatePwd(PetSitterVo vo) {
 		return session.update(NAMESPACE+".updatePsPwd",vo);
 	}
+	
+	public int deletePetsitter(String ps_email) {
+		return session.delete(NAMESPACE+".leavePetsitter",ps_email);
+	}
 }

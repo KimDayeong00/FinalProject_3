@@ -20,4 +20,9 @@
 		select pi_num,pi_name,to_char(pi_age,'yyyy-fmmm') pi_age,pi_type,pi_weight,
 		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun from mpetinfo where pi_num=#{value}
 	</select>
+	<select id="selectBpetInfo" parameterType="string" resultType="com.jhta.project.vo.MpetInfoVo">
+		select distinct mp.* from mpetinfo mp, petsitterbook pb, bookpetinfo b where mp.pi_num not in(
+		select bb.pi_num from bookpetinfo bb, petsitterbook pb2 where pb2.m_email=#{value} and
+		 pb2.bk_num=bb.bk_num and bk_situation='예약중') and mp.m_email=#{value}
+	</select>
 </mapper>

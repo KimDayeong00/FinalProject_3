@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.ls.LSInput;
 
 import com.jhta.project.dao.adminDAO;
-import com.jhta.project.dao.memberDAO;
 import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.memberVO;
 import com.jhta.project.vo.payVO;

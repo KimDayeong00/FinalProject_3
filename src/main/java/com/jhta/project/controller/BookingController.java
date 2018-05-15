@@ -23,10 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.jhta.project.service.FilterTypeListService;
 import com.jhta.project.service.PetSitterImageService;
 import com.jhta.project.service.PetSitterService;
+import com.jhta.project.service.ShopService;
 import com.jhta.project.vo.FilterTypeListVo;
 import com.jhta.project.vo.FilterVo;
 import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
+import com.jhta.project.vo.ShopClassVo;
 
 @Controller
 public class BookingController {
@@ -34,7 +36,7 @@ public class BookingController {
 	@Autowired private PetSitterService psetsitterservice;
 	@Autowired private PetSitterImageService imageService;
 	@Autowired private FilterTypeListService filterTypeListService;
-	
+	@Autowired private ShopService service2;
 	@RequestMapping(value="/booking/list",method=RequestMethod.GET)
 	public String list(Model model,Date bk_startdate,Date bk_enddate) {
 		System.out.println("1:"+bk_startdate);
@@ -48,6 +50,8 @@ public class BookingController {
 				System.out.println(vo1.getFl_name());
 			}
 		}
+		List<ShopClassVo> classvo=service2.classlist();
+		model.addAttribute("classvo",classvo);
 		List<FilterTypeListVo>filterlist = filterTypeListService.list();
 		model.addAttribute("alllist", alllist);
 		model.addAttribute("filterlist", filterlist);
@@ -78,30 +82,22 @@ public class BookingController {
 		JSONObject obj=new JSONObject();
 		if(list!=null) {
 			obj.put("list",list);
-		}else {
-			System.out.println("���°�");
 		}
 		return obj.toString();
 	}
 	
-	@RequestMapping("/booking/doglist")
+	/*
+	@RequestMapping(value = "/booking/doglist", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
 	public String dogist(String dogName) {
 		System.out.println("컨트롤어에서 강아지멍멍이 : "+dogName);
-		/*HashMap<String, Object>map = new HashMap<>();
-		map.put("bk_startdate", bk_startdate);
-		map.put("bk_enddate", bk_enddate);
-		List<PetSitterJoinFilterVo> alllist=psetsitterservice.alllist(map);
-		for(PetSitterJoinFilterVo vo : alllist) {
-			for(FilterVo vo1 : vo.getList()) {
-				System.out.println(vo1.getFl_name());
-			}
-		}
-		List<FilterTypeListVo>filterlist = filterTypeListService.list();
-		model.addAttribute("alllist", alllist);
-		model.addAttribute("filterlist", filterlist);*/
+		JSONObject ob = new JSONObject();
+		ob.put("dog", dogName);
+		
+		
 		return ".booking.list";
 	}
-	
+	*/
 	
 	
 	
@@ -135,7 +131,7 @@ public class BookingController {
 	public String llist() {
 		return ".booking.test";
 	}
-	@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
+	/*@RequestMapping(value="/file/testOk",method=RequestMethod.POST)
 	public String upload(MultipartFile file1,HttpSession session) {
 		String uploadPath=session.getServletContext().getRealPath("/resources/upload");
 		//���۵� ���ϸ� ������
@@ -164,5 +160,5 @@ public class BookingController {
 			System.out.println(ie.getMessage());
 			return "/booking/list";
 		}
-	}
+	}*/
 }

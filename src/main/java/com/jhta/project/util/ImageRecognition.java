@@ -1,23 +1,18 @@
 package com.jhta.project.util;
 
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.List;
-import javax.imageio.ImageIO;
-
-import org.tensorflow.DataType;
-import org.tensorflow.Graph;
-import org.tensorflow.Output;
-import org.tensorflow.Session;
-import org.tensorflow.Tensor;
-import java.nio.file.Path;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+
+import org.tensorflow.Graph;
+import org.tensorflow.Session;
+import org.tensorflow.Tensor;
 
 public class ImageRecognition {
 
