@@ -80,7 +80,7 @@ public class QnaController {
 		int qnum = service.maxnum()+1;
 		int refer = qnum;
 	
-		QnaVo vo1 = new QnaVo(qnum, vo.getTitle(), vo.getContent(), null, 0, refer, 0, 0, vo.getP_num(), "처리중");
+		QnaVo vo1 = new QnaVo(qnum, vo.getTitle(), vo.getContent(), null, 0, refer, 0, 0, vo.getP_num(), "처리중", m_email);
 		service.insert(vo1);
 		System.out.println(vo1.getComments());
 		
