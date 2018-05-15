@@ -64,6 +64,9 @@ public class QnaDao {
 	public int qnadelete(int qnum) {
 		return sqlsession.delete(NAMESPACE + ".qnadelete", qnum);
 	}
+	public int admindelete(int qnum) {
+		return sqlsession.delete(NAMESPACE + ".admindelete", qnum);
+	}
 	
 	public int maxnum() {
 		return sqlsession.selectOne(NAMESPACE + ".maxnum");
@@ -75,5 +78,11 @@ public class QnaDao {
 	
 	public int adminqnainsert(AdminqnaVo vo) {
 		return sqlsession.insert(NAMESPACE + ".adminqnainsert", vo);
+	}
+	public QnaVo detailone(int qnum) {
+		return sqlsession.selectOne(NAMESPACE + ".detailone", qnum);
+	}
+	public AdminqnaVo admindetail(int qnum) {
+		return sqlsession.selectOne(NAMESPACE + ".admindetail", qnum);
 	}
 }

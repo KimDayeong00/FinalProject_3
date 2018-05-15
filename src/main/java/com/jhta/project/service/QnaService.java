@@ -57,6 +57,9 @@ public class QnaService {
 	public int qnadelete(int qnum) {
 		return dao.qnadelete(qnum);
 	}
+	public int admindelete(int qnum) {
+		return dao.admindelete(qnum);
+	}
 	
 	public int maxnum() {
 		return dao.maxnum();
@@ -68,5 +71,12 @@ public class QnaService {
 	
 	public int adminqnainsert(AdminqnaVo vo) {
 		return dao.adminqnainsert(vo);
+	}
+	
+	public QnaVo detailone(int qnum) {
+		return dao.detailone(qnum);
+	}
+	public AdminqnaVo admindetail(int qnum) {
+		return dao.admindetail(qnum);
 	}
 }

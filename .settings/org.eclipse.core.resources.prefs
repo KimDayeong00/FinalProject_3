@@ -4,7 +4,13 @@ encoding//src/main/java/com/jhta/project/controller/ItemController.java=UTF-8
 encoding//src/main/java/com/jhta/project/controller/MypageController.java=UTF-8
 encoding//src/main/java/com/jhta/project/controller/PetsitterPageController.java=UTF-8
 encoding//src/main/java/com/jhta/project/controller/ShopAdminController.java=UTF-8
+<<<<<<< HEAD
+=======
+encoding//src/main/java/com/jhta/project/controller/memberController.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/admin/qna/admindetail.jsp=UTF-8
+>>>>>>> branch 'sh' of https://github.com/KimDayeong00/FinalProject_3.git
 encoding//src/main/webapp/WEB-INF/views/admin/qna/adminqna.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/members/join.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/qna/detailPopup.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/qna/faq.jsp=UTF-8
 encoding/<project>=UTF-8
