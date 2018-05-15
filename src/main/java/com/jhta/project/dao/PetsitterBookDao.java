@@ -51,11 +51,23 @@ public class PetsitterBookDao {
 		return sqlSession.selectOne(NAMESPACE+".getMbookCnt",m_email);
 	}
 	
+	public int getPrevListCnt(String m_email) {
+		return sqlSession.selectOne(NAMESPACE+".getPrevListCnt",m_email);
+	}
+	
 	public List<PetsitterBookVo> getBbookCnt2(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE+".getMbookCnt2",map);
 	}
 	
 	public List<PetsitterBookVo> getPbookCnt2(HashMap<String, Object> map){
 		return sqlSession.selectList(NAMESPACE+".getPbookCnt2",map);
+	}
+	
+	public List<PetsitterBookVo> getPrevListCnt2(HashMap<String, Object> map){
+		return sqlSession.selectList(NAMESPACE+".getPrevListCnt2",map);
+	}
+	
+	public String selectBk_content(int bk_num) {
+		return sqlSession.selectOne(NAMESPACE+".selectBk_content",bk_num);
 	}
 }

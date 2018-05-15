@@ -50,11 +50,23 @@ public class PetsitterBookService {
 		return dao.getPbookCnt(ps_email);
 	}
 	
+	public int getPrevListCnt(String m_email) {
+		return dao.getPrevListCnt(m_email);
+	}
+	
 	public List<PetsitterBookVo> getBbookCnt2(HashMap<String, Object> map){
 		return dao.getBbookCnt2(map);
 	}
 	
 	public List<PetsitterBookVo> getPbookCnt2(HashMap<String, Object> map){
 		return dao.getPbookCnt2(map);
+	}
+	
+	public List<PetsitterBookVo> getPrevListCnt2(HashMap<String, Object> map){
+		return dao.getPrevListCnt2(map);
+	}
+	
+	public String selectBk_content(int bk_num) {
+		return dao.selectBk_content(bk_num);
 	}
 }

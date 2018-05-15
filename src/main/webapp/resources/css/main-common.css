@@ -196,7 +196,8 @@
 /*
 	마이페이지 예약 부분
 */
-.bookTable {width:100%;text-align: center;}
+.paging {width:110px;vertical-align: middle;margin: 0 auto;}
+.bookTable {width:100%;text-align: center;margin-bottom: 50px;}
 .bookTable th{text-align: center;}
 
 

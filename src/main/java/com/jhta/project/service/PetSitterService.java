@@ -14,4 +14,5 @@ public interface PetSitterService {
 	List<PetSitterFilterVo> getFilter(String ps_email);
 	int updateAccount(PetSitterVo vo);
 	int updatePwd(PetSitterVo vo);
+	int deletePetsitter(String ps_email);
 }

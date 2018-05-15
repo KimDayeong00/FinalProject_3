@@ -18,4 +18,8 @@ public class ReviewDao {
 	public int updateBk_rv(int bk_num) {
 		return sqlSession.update(NAMESPACE+".updateBk_rv",bk_num);
 	}
+	
+	public ReviewVo selectRv(int bk_num) {
+		return sqlSession.selectOne(NAMESPACE+".selectRv",bk_num);
+	}
 }

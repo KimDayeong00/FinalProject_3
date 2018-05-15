@@ -40,6 +40,7 @@ import com.jhta.project.service.PetsitterBookService;
 import com.jhta.project.service.PetsitterOptionService;
 import com.jhta.project.service.PetsitterPriceService;
 import com.jhta.project.service.PpetInfoService;
+import com.jhta.project.service.ReviewService;
 import com.jhta.project.util.PageUtil;
 import com.jhta.project.vo.BookListVo;
 import com.jhta.project.vo.DisableDateVo;
@@ -51,6 +52,7 @@ import com.jhta.project.vo.PetSitterVo;
 import com.jhta.project.vo.PetsitterBookVo;
 import com.jhta.project.vo.PetsitterOptionVo;
 import com.jhta.project.vo.PetsitterPetVo;
+import com.jhta.project.vo.ReviewVo;
 
 @Controller
 public class PetsitterPageController {
@@ -63,6 +65,7 @@ public class PetsitterPageController {
 	@Autowired PetSitterServiceImpl petsitterService;
 	@Autowired PetsitterBookService bookService;
 	@Autowired PetsitterPriceService priceService;
+	@Autowired ReviewService rvService;
 	
 	private String url = ".petsitter_mypage.mypetsitter.petsitter_info";
 	private String alertUrl = ".petsitter_mypage.alert";
@@ -513,6 +516,28 @@ public class PetsitterPageController {
 		mv.addObject("dtld","reservation");
 		mv.addObject("url",path+"/mypetsitter");
 		
+		return mv;
+	}
+	
+	@RequestMapping("/petsitterLeave")
+	public String ps_leave (HttpSession session) {
+		String ps_email = (String) session.getAttribute("login");
+		int n = petsitterService.deletePetsitter(ps_email);
+		if(n>0) {
+			session.invalidate();
+			return ".mypage.leave";
+		}else {
+			session.setAttribute("rlt", "fail");
+			 return ".members.success";
+		}
+	}
+	
+	@RequestMapping("/contentDetail")
+	public ModelAndView reviewDetail(String bk_num) {
+		ModelAndView mv=new ModelAndView("/petsitter_mypage/mypetsitter/bk_contentPop");
+		String bk_content = bookService.selectBk_content(Integer.parseInt(bk_num));
+		
+		mv.addObject("bk_content",bk_content);
 		return mv;
 	}
 }
