@@ -131,7 +131,7 @@
 							예약 설정한 반려견 : 일반견 ${smallPet }마리, 대형견 ${bigPet }마리<br><br>
 							<c:forEach var="pet" items="${petList }">
 								<div class="selectPetList">
-									<div class="petImg"><img src="<c:url value='/resources/upload/${pet.pi_savefilename }'/>"></div>
+									<div class="petImg"><img src="<c:url value='/resources/upload/${pet.pi_img }'/>"></div>
 									<span>${pet.pi_name }</span><br>
 									<img src="<c:url value='/resources/images/bookuncheck.png'/>" class="checkBtn" id="checkImg">			
 									<input type="hidden" class="check" value="0">

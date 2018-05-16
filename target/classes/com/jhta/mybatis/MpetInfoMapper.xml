@@ -6,11 +6,11 @@
 <mapper namespace="com.jhta.mybatis.MpetInfoMapper">
 	<select id="select" parameterType="string" resultType="com.jhta.project.vo.MpetInfoVo">
 		select pi_num,pi_name,to_char(trunc((sysdate-pi_age)/365.254)) pi_age,pi_type,pi_weight,
-		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun,pi_img from mpetinfo where m_email=#{value}
+		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun from mpetinfo where m_email=#{value}
 	</select>
 	<insert id="insertPet" parameterType="com.jhta.project.vo.MpetInfoVo">
-		insert into mpetinfo(pi_num,pi_name,pi_age,pi_type,pi_weight,m_email,pi_sex,pi_content,pi_gubun,pi_orgfilename,pi_savefilename,pi_img) values(seq_mpetinfo_pi_num.nextval,#{pi_name},to_date(#{pi_age},'yyyymm'),#{pi_type},
-		#{pi_weight},#{m_email},#{pi_sex},#{pi_content},#{pi_gubun},#{pi_orgfilename},#{pi_savefilename},#{pi_img})
+		insert into mpetinfo values(seq_mpetinfo_pi_num.nextval,#{pi_name},to_date(#{pi_age},'yyyymm'),#{pi_type},
+		#{pi_weight},#{m_email},#{pi_orgfilename},#{pi_savefilename},#{pi_sex},#{pi_content},#{pi_gubun})
 	</insert>
 	<update id="updatePet" parameterType="com.jhta.project.vo.MpetInfoVo">
 		update mpetinfo set pi_name=#{pi_name},pi_age=to_date(#{pi_age},'yyyymm'),pi_type=#{pi_type},pi_weight=#{pi_weight},
@@ -18,10 +18,10 @@
 	</update>
 	<select id="selectPetUpdate" parameterType="int" resultType="com.jhta.project.vo.MpetInfoVo">
 		select pi_num,pi_name,to_char(pi_age,'yyyy-fmmm') pi_age,pi_type,pi_weight,
-		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun,pi_img from mpetinfo where pi_num=#{value}
+		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun from mpetinfo where pi_num=#{value}
 	</select>
 	<select id="selectBpetInfo" parameterType="string" resultType="com.jhta.project.vo.MpetInfoVo">
-		select mp.pi_img,distinct mp.* from mpetinfo mp, petsitterbook pb, bookpetinfo b where mp.pi_num not in(
+		select distinct mp.* from mpetinfo mp, petsitterbook pb, bookpetinfo b where mp.pi_num not in(
 		select bb.pi_num from bookpetinfo bb, petsitterbook pb2 where pb2.m_email=#{value} and
 		 pb2.bk_num=bb.bk_num and bk_situation='예약중') and mp.m_email=#{value}
 	</select>
