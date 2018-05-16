@@ -87,11 +87,11 @@ $(document).ready(function(){
 		<div class="sitterImg">
 			<form class="sitterImgForm">
 			<c:choose>
-				<c:when test="${sessionScope.ps_saveimage eq null }">
+				<c:when test="${sessionScope.m_saveimage eq null }">
 					<img src="<c:url value='/resources/images/noprofile.png'/>">
 				</c:when>
 				<c:otherwise>
-					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+					<img src="<c:url value='/resources/upload/${sessionScope.m_saveimage }'/>">	
 				</c:otherwise>
 			</c:choose>
 			<input type="file" name="sitterImgFile" style="display: none;">
@@ -119,7 +119,7 @@ $(document).ready(function(){
 						<c:if test="${null ne mpetList}">
 								<c:forEach var="vo3" items="${mpetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/petimage/${vo3.pi_savefilename }'/>"></div>
+									<div class="ppetImg"><img src="<c:url value='/resources/upload/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/myPetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>

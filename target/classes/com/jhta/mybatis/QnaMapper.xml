@@ -5,7 +5,7 @@
 <mapper namespace="com.jhta.mybatis.QnaMapper">
 
 	<select id = "qnalist" resultType = "qnavo">
-		select * from qna order by refer desc, step asc
+		select * from qna order by comments desc,regdate desc
 	</select>
 
 
@@ -33,7 +33,7 @@
 	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
 	</select>
 	<select id="list" parameterType="hashmap" resultType="qnavo">
-	  select * from qna where m_email = #{m_email}
+	  select * from qna where m_email = #{m_email} order by regdate 
 <!-- 	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]>  -->
 	</select>
 	<!-- 이전글 -->

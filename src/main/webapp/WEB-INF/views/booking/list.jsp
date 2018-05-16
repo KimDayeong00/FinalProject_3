@@ -259,7 +259,7 @@
 		 			var contentString =
 		 				"<a href='<c:url value='/detail?ps_email="+this.email+"'/>'><div onmouseover='ccc(this)' onmouseout='ddd(this)' class='tour-block' style=' padding:0; margin:0; border:2px solid #dcdcdc; margin-top:5px;'>"+
         				"<div class='tour-img' style='width:200px;'>"+
-        				"<img style='width:200px; height:200px;' src='<c:url value='/resources/petimage/"+this.img+"'/>'>"+
+        				"<img style='width:200px; height:200px;' src='<c:url value='/resources/upload/"+this.img+"'/>'>"+
                     	"</div>"+
                             "<div class='tour-content' style='width:200px;'>"+
                                 "<h2>"+this.content+"</h2>"+
@@ -291,7 +291,7 @@
 	        		var petsitterList=
 	                        "<div class='tour-block' name='ssd' style='background-color: white; padding:0; margin:0; border:2px solid #dcdcdc; margin-top:5px;' onmouseover='aaa(this)' onmouseout='bbb(this)'>"+
 	        				"<div class='tour-img' style='width:20%; margin-top:5px;'>"+																
-	        				"<a href='#'><img style='margin-top:5px; width:200px; height:200px; float:left;' src='<c:url value='/resources/petimage/"+data.list[q].pimg_savefilename+"'/>'></a>"+
+	        				"<a href='#'><img style='margin-top:5px; width:200px; height:200px; float:left;' src='<c:url value='/resources/upload/"+data.list[q].pimg_savefilename+"'/>'></a>"+
                         	"</div>"+
 	                            "<div class='tour-content'>"+
 	                                "<h2>"+data.list[q].ps_content+"</h2>"+

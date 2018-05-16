@@ -83,7 +83,7 @@ function removeComma(n) {
 </script>
 <div id="wrap1" style="width:1000px; margin: auto;">
   <div>
-<img src="<c:url value='/resources/itemimage/order_t.png'/>">
+<img src="<c:url value='/resources/upload/order_t.png'/>">
 </div>
 <div style="width:100%; background-color: green; height: 8px;">
 </div>
@@ -114,7 +114,7 @@ function removeComma(n) {
 <c:forEach var="data"  items="${list}" varStatus="i">
   			<tr>
 								<td>
-					<a href="<c:url value='/item/detail?p_num=${data.num }'/>"><img src="<c:url value='/resources/itemimage/${data.url }'/>"   style="width:90px;height:90px;"></a>
+					<a href="<c:url value='/item/detail?p_num=${data.num }'/>"><img src="<c:url value='/resources/upload/${data.url }'/>"   style="width:90px;height:90px;"></a>
 					<input type="hidden" name="p_num" value="${data.num }">
 								</td>
 								<td>
@@ -151,7 +151,7 @@ function removeComma(n) {
 	<div class="tit">
 
 	
-		<img src="<c:url value='/resources/itemimage/order_step_02.png'/>">
+		<img src="<c:url value='/resources/upload/order_step_02.png'/>">
 	</div>
 
 		<div class="tit">받으시는 분</div>
@@ -222,13 +222,13 @@ function removeComma(n) {
 <hr style="width:100%; height:5px; background-color:gray">
 
 <!-- 결제정보 -->
-	<div class="tit"> <img src="<c:url value='/resources/itemimage/order_step_03.png'/>"></div>
+	<div class="tit"> <img src="<c:url value='/resources/upload/order_step_03.png'/>"></div>
 	
 
 		<div class="left" >
 			<!-- 결제수단 선택 -->
 			<div class="content_wrap">
-				<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t2.png'/>"></div>
+				<div class="tit"><img src="<c:url value='/resources/upload/order_pay_t2.png'/>"></div>
 	
 					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method"  value="card" checked=""> 신용카드</label></div>
 					<div class="paypay"><label style="margin-left:30px;"><input type="radio" name="pay_method" value="bank"> 무통장 입금</label></div>
@@ -240,7 +240,7 @@ function removeComma(n) {
 
 			<div>
 			
-			<div class="tit"><img src="<c:url value='/resources/itemimage/order_pay_t3.png'/>"></div>
+			<div class="tit"><img src="<c:url value='/resources/upload/order_pay_t3.png'/>"></div>
 				<div class="content2" style="padding:5px;">
 						<table class="table table-bordered" style="width: 200px; margin-left:30px;">
 	
@@ -266,7 +266,7 @@ function removeComma(n) {
 			</div>
 			
 			<div style="margin-left:400px;">
-				<a href="javascript:pay()"><img src="<c:url value='/resources/itemimage/paypay.JPG'/>"></a>
+				<a href="javascript:pay()"><img src="<c:url value='/resources/upload/paypay.JPG'/>"></a>
 			</div>
 	
 

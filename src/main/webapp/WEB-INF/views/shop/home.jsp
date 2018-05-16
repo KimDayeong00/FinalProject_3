@@ -72,7 +72,7 @@
                <tr>
             </c:if>
                     <td style="size: 250px;" id="item">
-                <a id="${hotitem.p_num }" href="<c:url value='/item/detail?p_num=${hotitem.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${hotitem.image_name }'/>"> <br><font color="#004B91" >${hotitem.item_name }</font></a><br>
+                <a id="${hotitem.p_num }" href="<c:url value='/item/detail?p_num=${hotitem.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/upload/${hotitem.image_name }'/>"> <br><font color="#004B91" >${hotitem.item_name }</font></a><br>
                <span style="font-weight: bold;color: #b12603;"> <fmt:formatNumber value="${hotitem.price}" pattern="#,###.##"/>원</span>
 			</td>
             <c:if test="${i%j == j-1 }">
@@ -102,7 +102,7 @@
                <tr>
             </c:if>
                     <td style="size: 250px;" id="item">
-                <a id="${newitem.p_num }" href="<c:url value='/item/detail?p_num=${newitem.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${newitem.image_name }'/>"> <br><font color="#004B91" >${newitem.item_name }</font></a><br>
+                <a id="${newitem.p_num }" href="<c:url value='/item/detail?p_num=${newitem.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/upload/${newitem.image_name }'/>"> <br><font color="#004B91" >${newitem.item_name }</font></a><br>
                <span style="font-weight: bold;color: #b12603;"> <fmt:formatNumber value="${newitem.price}" pattern="#,###.##"/>원</span>
 			</td>
             <c:if test="${i%j == j-1 }">

@@ -156,7 +156,7 @@
 							backgroundColor : [ "#3e95cd", "#8e5ea2" ],
 							label : "수익 비중"
 						} ],
-						labels : [ "펫시터", "쇼핑몰 임의로 만들어놈" ]
+						labels : [ "펫시터", "쇼핑몰" ]
 							
 					},
 					options : {
@@ -238,7 +238,7 @@
 										},
 										{
 											data : dataArray_1,
-											label : "쇼핑몰 임의로 만들어놈",
+											label : "쇼핑몰",
 											borderColor : "#8e5ea2",
 											fill : false
 										} ]

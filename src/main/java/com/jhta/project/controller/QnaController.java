@@ -110,6 +110,9 @@ public class QnaController {
 	@RequestMapping("/qna/adminqna")
 	public String adminlist(Model mv) {
 			List<QnaVo> list = service.qnaList();
+			for(QnaVo vo : list) {
+				System.out.println("구분은 될꺼에요 : "+vo.getContent());
+			}
 			mv.addAttribute("adminlist", list);
 			
 			return ".admin.qna.adminqna";

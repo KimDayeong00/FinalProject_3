@@ -1,24 +1,16 @@
 package com.jhta.project.controller;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.project.service.FilterTypeListService;
 import com.jhta.project.service.PetSitterImageService;
@@ -26,7 +18,6 @@ import com.jhta.project.service.PetSitterService;
 import com.jhta.project.service.ShopService;
 import com.jhta.project.vo.FilterTypeListVo;
 import com.jhta.project.vo.FilterVo;
-import com.jhta.project.vo.PetSitterImageVo;
 import com.jhta.project.vo.PetSitterJoinFilterVo;
 import com.jhta.project.vo.ShopClassVo;
 

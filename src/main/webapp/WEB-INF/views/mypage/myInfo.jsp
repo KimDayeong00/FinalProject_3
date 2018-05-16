@@ -148,11 +148,11 @@ $(document).ready(function(){
 		<div class="sitterImg">
 			<form class="sitterImgForm">
 			<c:choose>
-				<c:when test="${sessionScope.ps_saveimage eq null }">
+				<c:when test="${sessionScope.m_saveimage eq null }">
 					<img src="<c:url value='/resources/images/noprofile.png'/>">
 				</c:when>
 				<c:otherwise>
-					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+					<img src="<c:url value='/resources/upload/${sessionScope.m_saveimage }'/>">	
 				</c:otherwise>
 			</c:choose>
 			<input type="file" name="sitterImgFile" style="display: none;">

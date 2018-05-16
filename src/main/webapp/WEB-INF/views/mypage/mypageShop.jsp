@@ -55,11 +55,11 @@ $(document).ready(function(){
 		<div class="sitterImg">
 			<form class="sitterImgForm">
 			<c:choose>
-				<c:when test="${sessionScope.ps_saveimage eq null }">
+				<c:when test="${sessionScope.m_saveimage eq null }">
 					<img src="<c:url value='/resources/images/noprofile.png'/>">
 				</c:when>
 				<c:otherwise>
-					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+					<img src="<c:url value='/resources/upload/${sessionScope.m_saveimage }'/>">	
 				</c:otherwise>
 			</c:choose>
 			<input type="file" name="sitterImgFile" style="display: none;">
@@ -108,7 +108,7 @@ $(document).ready(function(){
       <tr style='height:13px; cursor:hand;'>
         <td> 
                    <a href="<c:url value='/item/detail?p_num=${list.p_num }'/>">
-                     <img src="<c:url value='/resources/itemimage/${list.image_name }'/>" style="width:100px; height: 100px;">
+                     <img src="<c:url value='/resources/upload/${list.image_name }'/>" style="width:100px; height: 100px;">
                     </a>
         </td>
 
@@ -120,20 +120,20 @@ $(document).ready(function(){
                       
         <td>
                 <div style="margin:2px;">
-                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/itemimage/deli.JPG'/>"></a>
+                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/upload/deli.JPG'/>"></a>
                 </div>
       
                    <div style="margin:2px;">
-                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/itemimage/exchange.JPG'/>"></a>
+                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/upload/exchange.JPG'/>"></a>
                 </div>
                         
      
                     <div style="margin:2px;">
-                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/itemimage/banpum.JPG'/>"></a>
+                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/upload/banpum.JPG'/>"></a>
                 </div>
   
                 <div style="margin:2px;">
-                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/itemimage/write.JPG'/>"></a>
+                  <a href="#" ><img style="width:100px; height:22px; "src="<c:url value='/resources/upload/write.JPG'/>"></a>
                 </div>
     
         </td>

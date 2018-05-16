@@ -15,7 +15,7 @@ function chkchk(){
 	if($b.filter(':checked').length>0){
 		buy();
 	}else{
-		alert("구매하실 상품34을 선택해주세요.");
+		alert("구매하실 상품을 선택해주세요.");
 		
 		
 	}
@@ -103,7 +103,7 @@ function checkAll(){
 </script>
 <div style="width:1000px; margin: auto;">
 <div>
-<img src="<c:url value='/resources/itemimage/cart_t.png'/>">
+<img src="<c:url value='/resources/upload/cart_t.png'/>">
 </div>
 <div style="width:100%; background-color: green; height: 8px;">
 </div>
@@ -144,7 +144,7 @@ function checkAll(){
 								</td>
 
 								<td>
-					<a href="<c:url value='/item/detail?p_num=${data.num }'/>"><img src="<c:url value='/resources/itemimage/${data.img }'/>" width="90" height="90"></a>
+					<a href="<c:url value='/item/detail?p_num=${data.num }'/>"><img src="<c:url value='/resources/upload/${data.img }'/>" width="90" height="90"></a>
 					<input type="hidden" name="img" value="${data.img }">
 									</td>
 								<td>
@@ -208,32 +208,32 @@ function checkAll(){
 	</table>
 	<input type="hidden" value="${sessionScope.login }"name="id">
 	<hr style="width:100%; height:5px; background-color:gray">
-	<img src="<c:url value='/resources/itemimage/cart_total_tit.png'/>">
+	<img src="<c:url value='/resources/upload/cart_total_tit.png'/>">
 	<br>
 	<!-- 주문합계 -->
 	<div >
 	
 	<div class="price" style="float: left;"><!-- 상품금액 -->
-	<img src="<c:url value='/resources/itemimage/cart_total_01.png'/>">
+	<img src="<c:url value='/resources/upload/cart_total_01.png'/>">
 			<br><div id="gettot"></div>
 		</div>
 		
 		<div class="sign" style="float: left;">
-		<img src="<c:url value='/resources/itemimage/cart_total_plus.png'/>">
+		<img src="<c:url value='/resources/upload/cart_total_plus.png'/>">
 		
 		</div>
 		
 		<div class="price" style="float: left;"><!-- 배송비 -->
-			<img src="<c:url value='/resources/itemimage/cart_total_02.png'/>">
+			<img src="<c:url value='/resources/upload/cart_total_02.png'/>">
 			<br><div id="delivery"></div>
 		</div>
 		
 		<div class="sign" style="float: left;">
-		<img src="<c:url value='/resources/itemimage/cart_total_equal.png'/>">
+		<img src="<c:url value='/resources/upload/cart_total_equal.png'/>">
 		</div>
 		
 		<div class="price total" style="float: left;"><!-- 결제예상금액 -->
-		<img src="<c:url value='/resources/itemimage/cart_total_06.png'/>">
+		<img src="<c:url value='/resources/upload/cart_total_06.png'/>">
 			<br><div id="pay"></div>
 		</div>
 		

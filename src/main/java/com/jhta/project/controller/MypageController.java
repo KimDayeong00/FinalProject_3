@@ -47,9 +47,6 @@ public class MypageController {
 	@Autowired ShopService shopservice;
 	@Autowired OrderListService orderservice;
 	
-	@Resource(name="uploadPath1")
-    private String uploadPath;
-	
 	private String alertUrl = ".petsitter_mypage.alert";
 	
 	@RequestMapping("/mypage")
@@ -128,7 +125,7 @@ public class MypageController {
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
 		String path = context.getContextPath();
-		
+		String uploadPath=session.getServletContext().getRealPath("/resources/upload/");
 		String msg = "";
 		
 		String pi_age = pi_year+pi_month;
@@ -140,7 +137,7 @@ public class MypageController {
 		
 			InputStream is=media.getInputStream();
 			FileOutputStream fos=new FileOutputStream(uploadPath+pi_savefilename);
-			System.out.println("uploadPath+pi_savefilename : "+uploadPath+pi_savefilename);
+			System.out.println("uploadPath : "+uploadPath);
 			FileCopyUtils.copy(is, fos);
 			fos.close();
 			is.close();

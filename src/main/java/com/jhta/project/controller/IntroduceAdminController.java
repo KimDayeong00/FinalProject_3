@@ -24,9 +24,11 @@ public class IntroduceAdminController {
 		return ".admin.introduce.introduce";
 	}
 	@RequestMapping(value="/introduce/update",method=RequestMethod.POST)
-	public String introduceInsert(String hcontent) {
+	public String introduceInsert(Model mv,String hcontent) {
 		IntroduceVo vo = new IntroduceVo("1",hcontent);
 		dao.update(vo);
+		List<IntroduceVo> list = dao.list();
+		mv.addAttribute("list", list);
 		return ".admin.introduce.introduce";
 	}
 	

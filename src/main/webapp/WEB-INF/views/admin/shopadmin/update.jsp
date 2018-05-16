@@ -70,7 +70,7 @@ function asas(){
 			<tr>
 				<td>대표이미지</td>
 				<td><input type="file" name="file1" id="file1" onchange="handleFileSelect()">
-				<div id="image_name"><img style="width: 200px;height: 200px;" src="<c:url value="/resources/itemimage/${list.image_name }" />" alt="" /></div>
+				<div id="image_name"><img style="width: 200px;height: 200px;" src="<c:url value="/resources/upload/${list.image_name }" />" alt="" /></div>
 				</td>
 			</tr>
 			<tr>
@@ -78,7 +78,7 @@ function asas(){
 				<td><input multiple="multiple" type="file" id="mulfile" class="mulfile" name="multifile" onchange="asas(this.value)" />
 				<div id="item_savefilename">
 				<c:forEach var="il" items="${ilist}">
-					<img style="width: 200px;height: 200px;" src="<c:url value="/resources/itemimage/${il.item_savefilename }" />" alt="" />
+					<img style="width: 200px;height: 200px;" src="<c:url value="/resources/upload/${il.item_savefilename }" />" alt="" />
 				</c:forEach>
 				</div>
 				</td>

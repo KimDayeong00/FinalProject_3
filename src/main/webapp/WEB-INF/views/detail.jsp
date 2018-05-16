@@ -379,7 +379,7 @@
 	<div class="imgSlide">
 		<div class="slider">
 			<c:forEach var="img" items="${imgList }">
-				<div><img style="width: 100%; height: 100%;" src="<c:url value='/resources/petimage/${img.pimg_savefilename}'/>"></div>
+				<div><img style="width: 100%; height: 100%;" src="<c:url value='/resources/upload/${img.pimg_savefilename}'/>"></div>
 			</c:forEach>
 		</div>
 	</div>

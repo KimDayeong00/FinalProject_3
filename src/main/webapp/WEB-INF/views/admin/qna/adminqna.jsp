@@ -69,29 +69,21 @@
                       </thead>
                       
                       <tbody id = "insertbody">
-				<c:forEach var = "vo" items = "${adminlist }" varStatus="a">
-					<tr onclick="javascript:adminform('${vo.title}')">
-						<td>${vo.qnum }</td>
-						<td><span id='regdate${a.index }'><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></span></td>
-						<td>${vo.title }</td>
-						<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','${vo.regdate }','${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
-						<td><a href="javascript:admindetail('${vo.qnum }','${vo.comments }')">${vo.comments }</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
+						<c:forEach var = "vo" items = "${adminlist }" varStatus="a">
+							<tr onclick="javascript:adminform('${vo.title}')">
+								<td>${vo.qnum }</td>
+								<td><span id='regdate${a.index }'><fmt:formatDate value="${vo.regdate}" type="DATE" pattern="yyyy/MM/dd" /></span></td>
+								<td>${vo.title }</td>
+								<td><a href="javascript:clickinfo('${vo.qnum }','${vo.title }','${vo.content }','${vo.regdate }','${vo.refer }','${vo.lev }','${vo.step }','${vo.p_num }')">상세보기</a></td>
+								<td><a href="javascript:admindetail('${vo.qnum }','${vo.comments }')">${vo.comments }</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
                     </table>
-					
-
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
       </div>
+    </div>
+    </div>
+    </div>
     </div>
     
     <script type="text/javascript">

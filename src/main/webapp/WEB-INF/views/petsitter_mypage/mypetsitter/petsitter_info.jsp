@@ -543,7 +543,7 @@ $(function(){
 					<img src="<c:url value='/resources/images/noprofile.png'/>">
 				</c:when>
 				<c:otherwise>
-					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+					<img src="<c:url value='/resources/upload/${sessionScope.ps_saveimage }'/>">	
 				</c:otherwise>
 			</c:choose>
 			<input type="file" name="sitterImgFile" style="display: none;">
