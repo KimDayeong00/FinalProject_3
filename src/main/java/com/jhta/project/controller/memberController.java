@@ -163,6 +163,7 @@ public class memberController {
 
 	@RequestMapping("/joinM")
 	public String join(memberVO vo, HttpSession session) {
+		System.out.println("회원가입들어옴!!!");
 		System.out.println(vo.toString());
 		int a = (Integer) session.getAttribute("type");
 		int b = (Integer) session.getAttribute("type1");

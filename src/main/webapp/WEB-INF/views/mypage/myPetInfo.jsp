@@ -127,7 +127,7 @@ $(document).ready(function(){
 					<c:when test="${dtld eq 'petInsert' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='myPetInfo'/>">
+								<form id="frm1" method="post" action="<c:url value='myPetInfo'/>" enctype="multipart/form-data">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="gubun" value="1">현재 키우고 있음<br>
@@ -142,7 +142,7 @@ $(document).ready(function(){
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>	
-									<div class="ppetInputLeft"><input type="text" placeholder="품종" id="ipi_type" name="pi_type"></div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" id="ipi_type" name="ipi_type"></div>
 									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight"></div>
 									<div class="ppetInputLeft">
 										<select name="pi_month" style="width:70px">
@@ -162,14 +162,13 @@ $(document).ready(function(){
 									<textarea rows="10" cols="50" name="pi_content"></textarea>
 									</div>
 									
-									<input type="file" name="my_imgUpload" style="display:none;">
+									
 									<input type="hidden" name="pi_gubun" id="pi_gubun">
 									<input type="hidden" name="pi_savefilename" id="pi_savefilename">
 									<input type="hidden" name="pi_orgfilename" id="pi_orgfilename">
 									<div class="modifyBtnBox">
-									<button type="submit" class="modifyBtn2">
-										<label>설정하기</label>
-									</button>
+									<input type="submit" class="modifyBtn2" value="설정하기">
+								
 									</div>
 									</form>
 								</div>
@@ -193,7 +192,7 @@ $(document).ready(function(){
 										<option value="남">수컷</option>
 										<option value="여">암컷</option>
 									</select></div>
-									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="pi_type" id="ipi_type2" value="${mpetInfo.pi_type }"></div>
+									<div class="ppetInputLeft"><input type="text" placeholder="품종" name="ipi_type2" id="ipi_type2" value="${mpetInfo.pi_type }"></div>
 									<div class="ppetInputRight"><input type="text" placeholder="무게" name="pi_weight" value="${mpetInfo.pi_weight }"></div>
 									<div class="ppetInputLeft">
 									<select name="pi_month" id="pi_month">

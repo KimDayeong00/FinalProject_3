@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -109,7 +110,8 @@ public class MypageController {
 	
 	@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
 	public ModelAndView ppetInfo(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
-									String pi_month, String pi_content, String pi_gubun, String pi_savefilename, String pi_orgfilename) {
+									String pi_month, String pi_content, String pi_gubun, MultipartFile media) {
+		System.out.println("dddddddddddddddddddddd:"+media);
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
@@ -121,7 +123,7 @@ public class MypageController {
 		int pi_w = Integer.parseInt(pi_weight);
 		int pi_g = Integer.parseInt(pi_gubun);
 		
-		if(pi_savefilename==null || pi_orgfilename==null) {
+		/*if(pi_savefilename==null || pi_orgfilename==null) {
 			pi_savefilename ="null";
 			pi_orgfilename = "null";
 		}
@@ -132,7 +134,7 @@ public class MypageController {
 		
 		if(n>0) {
 			msg = "�ݷ����� �߰��Ǿ����ϴ�.";
-		}
+		}*/
 		
 		mv.addObject("msg",msg);
 		mv.addObject("page","petInfo");

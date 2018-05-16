@@ -347,7 +347,7 @@ table {
 
 
 		
-		<input type="file" id="input_img" name="media" /><br> 
+		<input type="file" id="input_img" name="media"  /><br> 
 		<input type="text" id="dog" name="dog"  />
 		<ul class="output" style="display: none;">
 		</ul>
@@ -370,6 +370,11 @@ table {
 			$("#input_img").change(function(){
 				var formData = new FormData();
 				formData.append("media", $("input[name=media]")[0].files[0]);
+				var file1=$("#input_img").clone();
+				//alert(file1)
+			    var frm1=opener.document.getElementById("frm1");
+			   //var copyfile=$(file1).clone();
+			   $(frm1).append(file1); 
 		             $.ajax({
 		                url: '<c:url value="/tensorSearch" />',
 		                processData: false, 
@@ -443,10 +448,10 @@ table {
 				}
 
 				sel_file = f;
-
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					$("#img").attr("src", e.target.result);
+				//	opener.document.getElementsByName("my_img1")[0].
 				}
 				reader.readAsDataURL(f);
 			});
@@ -460,6 +465,7 @@ table {
 		   function gogo() {
 			   var gubun = '<%=session.getAttribute("mygubun")%>'; 
 			   
+			   //
 			   if(gubun == "1"){
 			   var nsrc = $("#img").prop("src");
 			   opener.CallBack(dog_name, nsrc);
