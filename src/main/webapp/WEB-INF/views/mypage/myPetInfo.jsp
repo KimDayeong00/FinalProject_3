@@ -113,7 +113,7 @@ $(document).ready(function(){
 						<c:if test="${null ne mpetList}">
 								<c:forEach var="vo3" items="${mpetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
+									<div class="ppetImg"><img src="${vo3.pi_img }"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/myPetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
@@ -174,6 +174,7 @@ $(document).ready(function(){
 										<label>설정하기</label>
 									</button>
 									</div>
+									<input type="hidden" id="hpi_savefilename" name="hpi_savefilename" value="" />
 									</form>
 								</div>
 							</div>
@@ -261,6 +262,8 @@ function CallBack(dog_name, nsrc){
 	$("#ipi_type").prop("value",dog_name);
 	$("#ppetImg").prop("src", nsrc);
 	alert(nsrc);
+	$("#hpi_savefilename").prop("value",nsrc)
+	console.log($("#hpi_savefilename").val());
 }
 
 

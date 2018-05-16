@@ -119,7 +119,8 @@ public class MypageController {
 	
 	@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
 	public ModelAndView ppetInfo(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
-									String pi_month, String pi_content, String pi_gubun, MultipartFile pi_img) {
+									String pi_month, String pi_content, String pi_gubun,String hpi_savefilename) {
+		System.out.println("hpi_savefilename : "+hpi_savefilename);
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
@@ -130,27 +131,8 @@ public class MypageController {
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
 		int pi_g = Integer.parseInt(pi_gubun);
-		String pi_orgfilename=pi_img.getOriginalFilename();
-		String pi_savefilename =UUID.randomUUID()+"_"+pi_orgfilename;
-		try {
 		
-			InputStream is=pi_img.getInputStream();
-			String uploadPath = "C:\\Users\\Lee\\Desktop\\파이널프로젝트\\FinalProject_3\\src\\main\\webapp\\resources\\petimage\\";
-			FileOutputStream fos=new FileOutputStream(uploadPath+pi_savefilename);
-		
-			FileCopyUtils.copy(is, fos);
-			fos.close();
-			is.close();
-		}catch(IOException ie) {
-			
-		}
-		
-		if(pi_savefilename==null || pi_orgfilename==null) {
-			pi_savefilename ="null";
-			pi_orgfilename = "null";
-		}
-		
-		MpetInfoVo vo = new MpetInfoVo(0,pi_name,pi_age,pi_type,pi_w,m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_g);
+		MpetInfoVo vo = new MpetInfoVo(0,pi_name,pi_age,pi_type,pi_w,m_email,"널아님","널아님",pi_sex,pi_content,pi_g,hpi_savefilename);
 		
 		int n = mpetInfoService.insertMypet(vo);
 		
@@ -201,7 +183,7 @@ public class MypageController {
 		int pi_n = Integer.parseInt(pi_num);
 		int pi_g = Integer.parseInt(pi_gubun);
 		
-		MpetInfoVo vo = new MpetInfoVo(pi_n,pi_name,pi_age,pi_type,pi_w,m_email,"savefile","orgfile",pi_sex,pi_content,pi_g);
+		MpetInfoVo vo = new MpetInfoVo(pi_n,pi_name,pi_age,pi_type,pi_w,m_email,"savefile","orgfile",pi_sex,pi_content,pi_g,"안녕하세요.");
 		
 		int n = mpetInfoService.updateMypet(vo);
 		
