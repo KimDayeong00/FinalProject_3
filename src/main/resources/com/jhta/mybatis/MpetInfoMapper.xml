@@ -9,7 +9,8 @@
 		m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_gubun from mpetinfo where m_email=#{value}
 	</select>
 	<insert id="insertPet" parameterType="com.jhta.project.vo.MpetInfoVo">
-		insert into mpetinfo values(seq_mpetinfo_pi_num.nextval,#{pi_name},to_date(#{pi_age},'yyyymm'),#{pi_type},
+		insert into mpetinfo(pi_num,pi_name,pi_age,pi_type,pi_weight,m_email,pi_orgfilename,pi_savefilename,pi_sex,pi_content,pi_gubun)
+		 values(seq_mpetinfo_pi_num.nextval,#{pi_name},to_date(#{pi_age},'yyyymm'),#{pi_type},
 		#{pi_weight},#{m_email},#{pi_orgfilename},#{pi_savefilename},#{pi_sex},#{pi_content},#{pi_gubun})
 	</insert>
 	<update id="updatePet" parameterType="com.jhta.project.vo.MpetInfoVo">

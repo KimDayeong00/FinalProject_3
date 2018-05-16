@@ -70,7 +70,6 @@ $(document).ready(function(){
 				type:'post',
 				dataType:"json",
 				success:function(data){
-					alert(data.msg);
 					img.prop("src","<c:url value='/resources/upload/"+data.pi_savefilename+"'/>");
 					$("#pi_savefilename").prop("value",data.pi_savefilename);
 					$("#pi_orgfilename").prop("value",data.pi_orgfilename);
@@ -87,7 +86,14 @@ $(document).ready(function(){
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
 			<form class="sitterImgForm">
-			<img src="<c:url value='/resources/petimage/${sessionScope.m_saveimage }'/>">
+			<c:choose>
+				<c:when test="${sessionScope.ps_saveimage eq null }">
+					<img src="<c:url value='/resources/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/petimage/${sessionScope.ps_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
 			<input type="file" name="sitterImgFile" style="display: none;">
 			</form>
 		</div>
@@ -113,7 +119,7 @@ $(document).ready(function(){
 						<c:if test="${null ne mpetList}">
 								<c:forEach var="vo3" items="${mpetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
+									<div class="ppetImg"><img src="<c:url value='/resources/petimage/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/myPetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
@@ -130,14 +136,14 @@ $(document).ready(function(){
 					<c:when test="${dtld eq 'petInsert' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='myPetInfo'/>">
+								<form id="frm1" method="post" action="<c:url value='myPetInfo'/>" enctype="multipart/form-data">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="gubun" value="1">현재 키우고 있음<br>
 									<input type="radio" name="gubun" value="0">현재 키우고 있지 않지만 키운 적이 있음<br>
 								</div>
 								<div class="queBox">
-									<div class="ppetImgBox"><img id="ppetImg" name="pi_img" onclick="tensor();"></div>
+									<div class="ppetImgBox"><img id="ppetImg" onclick="tensor();"></div>
 									<div class="ppetInsertInput"></div>		
 									<div class="ppetInputLeft"><input type="text" placeholder="이름" name="pi_name" ></div>
 									<div class="ppetInputRight"><select name="pi_sex">
@@ -165,14 +171,13 @@ $(document).ready(function(){
 									<textarea rows="10" cols="50" name="pi_content"></textarea>
 									</div>
 									
-									<input type="file" name="my_imgUpload" style="display:none;">
+									
 									<input type="hidden" name="pi_gubun" id="pi_gubun">
 									<input type="hidden" name="pi_savefilename" id="pi_savefilename">
 									<input type="hidden" name="pi_orgfilename" id="pi_orgfilename">
 									<div class="modifyBtnBox">
-									<button type="submit" class="modifyBtn2">
-										<label>설정하기</label>
-									</button>
+									<input type="submit" class="modifyBtn2" value="설정하기">
+								
 									</div>
 									</form>
 								</div>
@@ -260,7 +265,6 @@ function tensor(){
 function CallBack(dog_name, nsrc){
 	$("#ipi_type").prop("value",dog_name);
 	$("#ppetImg").prop("src", nsrc);
-	alert(nsrc);
 }
 
 

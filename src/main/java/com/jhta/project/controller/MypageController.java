@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
@@ -45,6 +46,9 @@ public class MypageController {
 	@Autowired PetsitterBookService bookService;
 	@Autowired ShopService shopservice;
 	@Autowired OrderListService orderservice;
+	
+	@Resource(name="uploadPath1")
+    private String uploadPath;
 	
 	private String alertUrl = ".petsitter_mypage.alert";
 	
@@ -119,7 +123,7 @@ public class MypageController {
 	
 	@RequestMapping(value="/myPetInfo", method=RequestMethod.POST)
 	public ModelAndView ppetInfo(HttpSession session, String pi_name, String pi_sex, String pi_type, String pi_weight, String pi_year,
-									String pi_month, String pi_content, String pi_gubun, MultipartFile pi_img) {
+									String pi_month, String pi_content, String pi_gubun, MultipartFile media) {
 		ModelAndView mv=new ModelAndView(alertUrl);
 		String m_email = (String) session.getAttribute("login");
 		ServletContext context = session.getServletContext();
@@ -130,14 +134,13 @@ public class MypageController {
 		String pi_age = pi_year+pi_month;
 		int pi_w = Integer.parseInt(pi_weight);
 		int pi_g = Integer.parseInt(pi_gubun);
-		String pi_orgfilename=pi_img.getOriginalFilename();
+		String pi_orgfilename=media.getOriginalFilename();
 		String pi_savefilename =UUID.randomUUID()+"_"+pi_orgfilename;
 		try {
 		
-			InputStream is=pi_img.getInputStream();
-			String uploadPath = "C:\\Users\\Lee\\Desktop\\파이널프로젝트\\FinalProject_3\\src\\main\\webapp\\resources\\petimage\\";
+			InputStream is=media.getInputStream();
 			FileOutputStream fos=new FileOutputStream(uploadPath+pi_savefilename);
-		
+			System.out.println("uploadPath+pi_savefilename : "+uploadPath+pi_savefilename);
 			FileCopyUtils.copy(is, fos);
 			fos.close();
 			is.close();
@@ -150,7 +153,7 @@ public class MypageController {
 			pi_orgfilename = "null";
 		}
 		
-		MpetInfoVo vo = new MpetInfoVo(0,pi_name,pi_age,pi_type,pi_w,m_email,pi_savefilename,pi_orgfilename,pi_sex,pi_content,pi_g);
+		MpetInfoVo vo = new MpetInfoVo(0,pi_name,pi_age,pi_type,pi_w,m_email,pi_orgfilename,pi_savefilename,pi_sex,pi_content,pi_g);
 		
 		int n = mpetInfoService.insertMypet(vo);
 		
