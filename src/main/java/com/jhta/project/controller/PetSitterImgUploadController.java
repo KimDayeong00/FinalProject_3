@@ -20,11 +20,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jhta.project.service.PetSitterImageServiceImpl;
+import com.jhta.project.service.PetSitterServiceImpl;
+import com.jhta.project.service.memberService;
 import com.jhta.project.vo.PetSitterImageVo;
 
 @Controller
 public class PetSitterImgUploadController {
 	@Autowired PetSitterImageServiceImpl petsitterImgService;
+	@Autowired PetSitterServiceImpl psService;
+	@Autowired memberService memService;
+	
 	@Resource(name="uploadPath1")
     private String uploadPath;
 	@RequestMapping(value="/ps_imgTest",method=RequestMethod.POST,produces="application/json;charset=utf-8")
@@ -60,7 +65,7 @@ public class PetSitterImgUploadController {
 	public String imgdelete(int pimg_num,HttpServletRequest req) {
 		petsitterImgService.delete(pimg_num);
 		String url = req.getHeader("referer");
-		return url;
+		return "redirect:/psinfoSet?page=sitterInfo&dtld=psInfoSet";
 	}
 	
 	@RequestMapping(value="/ppetImgUpload",method=RequestMethod.POST,produces="application/json;charset=utf-8")
@@ -144,6 +149,98 @@ public class PetSitterImgUploadController {
 		//ob.put("pimg_num",vo.getPimg_num());
 		ob.put("pi_orgfilename", orgfilename);
 		ob.put("pi_savefilename", savefilename);
+		return ob.toString();
+	}
+	
+	@RequestMapping(value="/sitterImgUpload",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String sitterImgUpload(MultipartHttpServletRequest multi) {
+		String root = multi.getSession().getServletContext().getRealPath("/");
+		String path = "C:\\framework\\workspace\\FinalProject_3\\src\\main\\webapp\\resources\\petimage\\";
+		String ps_email = (String) multi.getSession().getAttribute("login");
+		String msg = "success";
+		HashMap<String, Object> map=new HashMap<>();
+		
+		String savefilename = "";
+		String orgfilename = "";
+		File dir = new File(path);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		Iterator<String> files = multi.getFileNames();
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			
+			MultipartFile mf = multi.getFile(uploadFile);
+			orgfilename = mf.getOriginalFilename();
+			savefilename=UUID.randomUUID() +"_" + orgfilename;
+			System.out.println(path+savefilename);
+			try {
+				mf.transferTo(new File(path+savefilename));
+				map.put("ps_email",ps_email);
+				map.put("ps_saveimage", savefilename);
+				map.put("ps_originalimg",orgfilename);
+				psService.sitterImgUpload(map);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg="fail";
+			}
+		}
+		//int pimg_num = Integer.parseInt(multi.getParameter("pimg_num"));
+		
+		JSONObject ob=new JSONObject();
+		ob.put("msg", msg);
+		//ob.put("pimg_num",vo.getPimg_num());
+		ob.put("ps_originalimg", orgfilename);
+		ob.put("ps_saveimage", savefilename);
+		return ob.toString();
+	}
+	
+	@RequestMapping(value="/myImgUpload",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String myImgUpload(MultipartHttpServletRequest multi) {
+		String root = multi.getSession().getServletContext().getRealPath("/");
+		String path = "C:\\framework\\workspace\\FinalProject_3\\src\\main\\webapp\\resources\\petimage\\";
+		String m_email = (String) multi.getSession().getAttribute("login");
+		String msg = "success";
+		HashMap<String, Object> map=new HashMap<>();
+		
+		String savefilename = "";
+		String orgfilename = "";
+		File dir = new File(path);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		Iterator<String> files = multi.getFileNames();
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			
+			MultipartFile mf = multi.getFile(uploadFile);
+			orgfilename = mf.getOriginalFilename();
+			savefilename=UUID.randomUUID() +"_" + orgfilename;
+			System.out.println(path+savefilename);
+			try {
+				mf.transferTo(new File(path+savefilename));
+				map.put("m_email",m_email);
+				map.put("m_saveimage", savefilename);
+				map.put("m_originalimg",orgfilename);
+				memService.uploadMyImg(map);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				msg="fail";
+			}
+		}
+		//int pimg_num = Integer.parseInt(multi.getParameter("pimg_num"));
+		
+		JSONObject ob=new JSONObject();
+		ob.put("msg", msg);
+		//ob.put("pimg_num",vo.getPimg_num());
+		ob.put("ps_originalimg", orgfilename);
+		ob.put("ps_saveimage", savefilename);
 		return ob.toString();
 	}
 	

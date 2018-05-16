@@ -26,9 +26,11 @@ public class MpageAdminController {
 		return ".admin.mpage.mpage";
 	}
 	@RequestMapping(value="/mpage/update",method=RequestMethod.POST)
-	public String mpageInsert(String hcontent) {
+	public String mpageInsert(Model mv,String hcontent) {
 		MpageVo vo = new MpageVo("1",hcontent);
 		dao.update(vo);
+		List<MpageVo> list = dao.list();
+		mv.addAttribute("list", list);
 		return ".admin.mpage.mpage";
 	}
 	

@@ -5,5 +5,8 @@
 <!-- page content -->
 <div class="right_col" role="main">
 	<h1>메인입니다</h1>
+	<c:forEach var="qna" items="${adminlist }">
+		${qna.m_email }
+	</c:forEach>
 </div>
 <!-- page content -->

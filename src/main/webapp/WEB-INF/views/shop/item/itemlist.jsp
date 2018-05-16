@@ -10,11 +10,12 @@
 .container{width:1000px;}
 #item{word-wrap:break-word; width:250px;}
 #bunryu{width:1000px;}
-.mystyle{background-color: #ffff66;}
+.mystyle{background-color: #00ab33;}
 </style>
 <div id="wrap" class="container">
 
 <div id="bunryu" style="margin-left: 200px;">
+
 
 <ul class="list-inline">
 	<li>분류</li>
@@ -65,7 +66,7 @@
 <div id="content"  style="margin-left: 150px;">
 <c:set var="i" value="0" />
 <c:set var="j" value="3" />
-
+<hr>
 <table>
 
        <c:forEach var="itemvo" items="${itemvo}">
@@ -73,7 +74,7 @@
                <tr>
             </c:if>
                     <td style="size: 250px;" id="item">
-                <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/itemimage/${itemvo.image_name }'/>"> <br><font color="#004B91" >${itemvo.item_name }</font></a><br>
+                <a id="${itemvo.p_num }" href="<c:url value='/item/detail?p_num=${itemvo.p_num }'/>">   <img style="width: 170px; height:170px;" src="<c:url value='/resources/upload/${itemvo.image_name }'/>"> <br><font color="#004B91" >${itemvo.item_name }</font></a><br>
                <span style="font-weight: bold;color: #b12603;"> <fmt:formatNumber value="${itemvo.price}" pattern="#,###.##"/>원</span>
 			</td>
             <c:if test="${i%j == j-1 }">
@@ -208,7 +209,7 @@ console.log("sql=>" + sql);
 				            }
 				           html+="<td style='size: 260px' id='item'>";
 				        html+="<a id='" + itemvo.p_num +"' href='<c:url value='/item/detail?p_num="+ itemvo.p_num +"'/>'>" ;
-				        html+="<img style='width: 170px; height:170px;' src='<c:url value='/resources/itemimage/"+ itemvo.image_name + "'/>'> <br>";
+				        html+="<img style='width: 170px; height:170px;' src='<c:url value='/resources/upload/"+ itemvo.image_name + "'/>'> <br>";
 				           html+="<font color='#004B91'>"+ itemvo.item_name +"</font></a><br>";
 				          html+= "<span style='font-weight: bold;color: #b12603;'>" + Comma(itemvo.price) +"원</span></td>";
 				            if(k%j == j-1 ){

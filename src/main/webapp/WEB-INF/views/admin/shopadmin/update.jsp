@@ -53,10 +53,14 @@ function asas(){
 						<h4>${filtertype.ft_name }</h4>
 						<c:forEach var="filtercontent" items="${filtercontent }">
 							<c:if test="${filtertype.ft_num==filtercontent.ft_num }">
-								<c:if test="${filtertype.ft_num==1}">
-									<input type='radio' name='filterchk' id='filterchk' class="filterchk" value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
-								</c:if>
-									<input type='checkbox' name='filterchk' id='filterchk' class="filterchk" value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+								<c:choose>
+									<c:when test="${filtertype.ft_num==1}">
+										<input type='radio' name='filterchk' id='filterchk' class="filterchk" value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+									</c:when>
+									<c:otherwise>
+										<input type='checkbox' name='filterchk' id='filterchk' class="filterchk" value="${filtercontent.fc_num }">${filtercontent.fc_name }&nbsp;&nbsp;
+									</c:otherwise>
+								</c:choose>
 							</c:if>
 						</c:forEach>
 						<br /><br />
@@ -66,7 +70,7 @@ function asas(){
 			<tr>
 				<td>대표이미지</td>
 				<td><input type="file" name="file1" id="file1" onchange="handleFileSelect()">
-				<div id="image_name"><img style="width: 200px;height: 200px;" src="<c:url value="/resources/itemimage/${list.image_name }" />" alt="" /></div>
+				<div id="image_name"><img style="width: 200px;height: 200px;" src="<c:url value="/resources/upload/${list.image_name }" />" alt="" /></div>
 				</td>
 			</tr>
 			<tr>
@@ -74,7 +78,7 @@ function asas(){
 				<td><input multiple="multiple" type="file" id="mulfile" class="mulfile" name="multifile" onchange="asas(this.value)" />
 				<div id="item_savefilename">
 				<c:forEach var="il" items="${ilist}">
-					<img style="width: 200px;height: 200px;" src="<c:url value="/resources/itemimage/${il.item_savefilename }" />" alt="" />
+					<img style="width: 200px;height: 200px;" src="<c:url value="/resources/upload/${il.item_savefilename }" />" alt="" />
 				</c:forEach>
 				</div>
 				</td>

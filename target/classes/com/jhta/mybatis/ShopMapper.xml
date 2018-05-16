@@ -9,7 +9,7 @@
 </select>
 
 <select id="fieldlist"  parameterType="int" resultType="shopfieldvo">
-select * from item where fieldnum=#{fieldnum}
+select * from field where classnum=#{classnum}
 </select>
 
 <select id="fieldcnt" parameterType="int" resultType="int">

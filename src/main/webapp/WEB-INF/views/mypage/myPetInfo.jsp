@@ -70,7 +70,6 @@ $(document).ready(function(){
 				type:'post',
 				dataType:"json",
 				success:function(data){
-					alert(data.msg);
 					img.prop("src","<c:url value='/resources/upload/"+data.pi_savefilename+"'/>");
 					$("#pi_savefilename").prop("value",data.pi_savefilename);
 					$("#pi_orgfilename").prop("value",data.pi_orgfilename);
@@ -86,7 +85,17 @@ $(document).ready(function(){
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img>
+			<form class="sitterImgForm">
+			<c:choose>
+				<c:when test="${sessionScope.m_saveimage eq null }">
+					<img src="<c:url value='/resources/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/upload/${sessionScope.m_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypage?page=top&dtld=reservation'/>">예약 관리</a></span>
@@ -110,7 +119,7 @@ $(document).ready(function(){
 						<c:if test="${null ne mpetList}">
 								<c:forEach var="vo3" items="${mpetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
+									<div class="ppetImg"><img src="<c:url value='/resources/upload/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/myPetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>

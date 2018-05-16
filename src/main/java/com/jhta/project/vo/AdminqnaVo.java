@@ -110,4 +110,15 @@ public class AdminqnaVo {
 	public void setQnum(int qnum) {
 		this.qnum = qnum;
 	}
+
+	@Override
+	public String toString() {
+		return "AdminqnaVo [aqnum=" + aqnum + ", aqtitle=" + aqtitle + ", aqcontent=" + aqcontent + ", aqregdate="
+				+ aqregdate + ", aqhit=" + aqhit + ", aqrefer=" + aqrefer + ", aqlev=" + aqlev + ", aqstep=" + aqstep
+				+ ", aqcomments=" + aqcomments + ", qnum=" + qnum + "]";
+	}
+	
+	
+	
+	
 }

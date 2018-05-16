@@ -7,7 +7,7 @@
 .book p{font-size: 13px;}
 .calendar input {text-align: center;}
 .calendar {display: inline-block;}
-.book_box2 {width:300px;display: inline-block;border-top:1px solid #BABABA;font-size: 14px;}
+.book_box2 {width:300px;display: inline-block;bordebookingDetailr-top:1px solid #BABABA;font-size: 14px;}
 .book_box3 {width:300px;display: inline-block;border-top:1px solid #BABABA;font-size: 14px;}
 .book_box2 div{width:200px;float:left;text-align: left;}
 .book_box3 .petspinner{width:200px;float:left;text-align: left;}
@@ -28,13 +28,13 @@
 .petsitterName {font-size: 18px;}
 .addr{font-size: 14px;}
 .profile {margin-top:20px;margin-left:10px;float:left;}
-.petsitterOption {width:100%;display:inline-block;margin-top:20px;text-align: center;}
+.petsitterOption {width:100%;display:inline-block;margin-top:50px;text-align: center;}
 .petsitterOption .petSize {width:145px;float:left;display: inline-block;}
 .petSize img {width:80px;height:80px;float:right;}
 .petsitterOption .time {width:50px;float:left;display: inline-block;text-align: center;}
 .time div {width:200px;display: inline-block;}
 .petsitterOption span {text-align: left;}
-.homeStateWrap{width:100%;overflow: hidden;}
+.homeStateWrap{width:100%;overflow: hidden;margin-top:50px;}
 .homeState{overflow: hidden;margin-left:20px;}
 .homeState p{margin-bottom:2px; font-size: 18px;}
 .homeState span{text-align: left;}
@@ -47,7 +47,7 @@
 .introBox {margin-left:20px;}
 .introBox p {margin-bottom:2px;font-size: 18px;}
 .petIntro {border-bottom:1px solid #BABABA;margin-bottom:10px;}
-.introContent {border-bottom: 1px solid #BABABA; margin-bottom: 10px; overflow: hidden;width:100%;}
+.introContent {border-bottom: 1px solid #BABABA; margin-bottom: 10px; overflow: hidden;width:100%; padding-bottom: 10px;}
 .ps-review{overflow: hidden;width: 100%;margin-left: 20px;}
 .ps-review P{margin-bottom:2px; font-size: 18px;}
 .ps-rvContent {margin-top:5px;font-size: 14px;border-bottom: 1px solid #BABABA;padding-bottom:10px;margin-bottom: 20px;}
@@ -204,10 +204,29 @@
 /*
 	예약 페이지
 */
-.bookingDetail {width:100%;overflow: hidden;border: 1px solid #BABABA;}
-
-
-
+.bookingDetail {width:100%;overflow: hidden;}
+.bookingWrap {width:100%;overflow: hidden;border: 1px solid #BABABA;margin-bottom: 10px;}
+.checkTimeWrap {width:750px;overflow: hidden;padding-top:20px;}
+.checkTimeWrap div{border: 1px solid #BABABA;float: left;margin-right: 20px;border-radius: 10px;}
+.checkTimeWrap .left{float: left;margin-left: 10px;}
+.checkTimeWrap .right{float: right;margin-right: 10px;}
+.startdateBox {width: 280px;line-height: 40px; background-color: #f0efe8;}
+.enddateBox {width: 280px;line-height: 40px; background-color: #f0efe8;}
+.selectPetBox {width: 130px;line-height: 40px; background-color: #f0efe8;}
+.selectPetWrap {width:750px;overflow: hidden;padding-top:20px;vertical-align: middle;margin: 0 auto;}
+.petListWrap {overflow: hidden;}
+.selectPetList {overflow: hidden;margin: 0;float: left;margin-right:10px;text-align: center;}
+.selectPetList .petImg{width:70px;height: 70px;overflow: hidden;}
+.selectPetList .checkBtn {width:30px;height:30px;vertical-align: middle;margin: 0 auto;}
+.priceWrap {width:750px;overflow: hidden;padding-top:20px;vertical-align: middle;margin: 0 auto;margin-bottom: 10px;}
+.priceBox {width: 100%;overflow: hidden;border-bottom: 1px solid #BABABA;margin-bottom: 10px;}
+.priceLeft {float: left;margin-left: 10px;}
+.priceRight {float: right;margin-right: 10px;}
+.bookNotice {border-top: 1px solid #BABABA;overflow: hidden;width: 100%;}
+.bookNotice div {width:95%;vertical-align: middle;margin: 0 auto;}
+.bookTextArea {width:100%;overflow: hidden;margin-top:20px;}
+.bookTextArea div {padding:10px;overflow: hidden;}
+.bookTextArea textarea {width:100%;resize: none;}
 
 /*
 	폰트 부분

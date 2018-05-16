@@ -14,7 +14,7 @@
 	var page = '${page}';
 	var dtld =  '${dtld}';
 	var returnUrl = url+"?page="+page+"&dtld="+dtld;
-	alert(msg);
+	//alert(msg);
 	document.location.href= returnUrl;
 </script>
 </body>

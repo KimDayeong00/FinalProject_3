@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,7 +72,7 @@ public class ShopController {
 		List<ShopClassVo> classvo=service.classlist();
 		List<ShopItemVo> itemvo=service.classitemlist(map);
 		System.out.println(itemvo.toString());
-		
+		System.out.println("필터값나와야함"+fieldvo);
 		mv.addObject("pgchk","class");
 		mv.addObject("classnum",classnum);
 		mv.addObject("pu",pu);
@@ -299,15 +300,46 @@ public class ShopController {
 		int buy_num=service.getbuynum();
 System.out.println("바이넘은몇일까"+buy_num);
 		for (int i=0; i<p_num.length; i++) {
+			System.out.println("가격은 얼마로들어가나"+price[i]);
 			OrderItemListVo vo4=new OrderItemListVo(0, cnt[i], price[i], p_num[i], buy_num);
 			service.orderinsert(vo4);
 		}
 		return ".shop.item.pay";
 	}
 	
+	@RequestMapping("/shop/bank")
+	public String bank(Model mv,ShopPayBoardVo vo,OrderItemListVo vo2,HttpServletRequest req,int []p_num,int [] cnt,String [] price) {
+		String juso1=req.getParameter("juso1");
+		String juso2=req.getParameter("juso2");
+		String addr=juso1+juso2;
+		String accprice=req.getParameter("accprice");
+		String m_email=req.getParameter("m_email");
+		String caddr1=req.getParameter("caddr1");
+		String caddr2=req.getParameter("caddr2");
+		String caddr3=req.getParameter("caddr3");
+		String caddr=caddr1+"-"+caddr2+"-"+caddr3;
+		
+		List<ShopClassVo> classvo=service.classlist();
+		
+		mv.addAttribute("classvo",classvo);
+		ShopPayBoardVo vo3=new ShopPayBoardVo(0, null, vo.getName(), addr, caddr, accprice, m_email);
+		System.out.println("값들을 출력하자"+vo3.toString());
+		service.payinsert(vo3);
+		
+		int buy_num=service.getbuynum();
+System.out.println("바이넘은몇일까"+buy_num);
+		for (int i=0; i<p_num.length; i++) {
+			OrderItemListVo vo4=new OrderItemListVo(0, cnt[i], price[i], p_num[i], buy_num);
+			service.orderinsert(vo4);
+		}
+		return ".shop.item.test";
+	}
+	
 	@RequestMapping("/shop/success")
-	public ModelAndView success() {
+	public ModelAndView success(HttpSession session) {
+		
 		ModelAndView mv=new ModelAndView(".shop.item.success");
+		session.setAttribute("rlt","success");
 		return mv;
 		
 	}

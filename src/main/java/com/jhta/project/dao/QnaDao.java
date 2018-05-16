@@ -4,6 +4,7 @@ package com.jhta.project.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,9 @@ public class QnaDao {
 	public int qnadelete(int qnum) {
 		return sqlsession.delete(NAMESPACE + ".qnadelete", qnum);
 	}
+	public int admindelete(int qnum) {
+		return sqlsession.delete(NAMESPACE + ".admindelete", qnum);
+	}
 	
 	public int maxnum() {
 		return sqlsession.selectOne(NAMESPACE + ".maxnum");
@@ -76,4 +80,15 @@ public class QnaDao {
 	public int adminqnainsert(AdminqnaVo vo) {
 		return sqlsession.insert(NAMESPACE + ".adminqnainsert", vo);
 	}
+	public QnaVo detailone(int qnum) {
+		return sqlsession.selectOne(NAMESPACE + ".detailone", qnum);
+	}
+	public AdminqnaVo admindetail(int qnum) {
+		return sqlsession.selectOne(NAMESPACE + ".admindetail", qnum);
+	}
+	
+	public AdminqnaVo qnaStatus(AdminqnaVo vo) {
+		return sqlsession.selectOne(NAMESPACE + ".qnaStatus", vo);
+	}
+	
 }

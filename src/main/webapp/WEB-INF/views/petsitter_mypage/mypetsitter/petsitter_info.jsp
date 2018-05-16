@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		if('${sitterVo.ps_active}'=='1'){
+			$("#ps_active").attr("checked", true);
+		}
+	})
+</script>
 <script>
 	function detail(bk_num){
 		window.open("<c:url value='/contentDetail?bk_num="+bk_num+"'/>", "pop", "width=500,height=400, scrollbars=yes, resizable=yes");
@@ -32,6 +39,7 @@ function imgdelete(num){
 					type:'post',
 					dataType:"json",
 					success:function(data){
+						location.reload();
 						/* $("#ps_image").html("");
 						console.log(data)
 						for(var i=0; i<data.ps_imgVo.length;i++){
@@ -41,7 +49,8 @@ function imgdelete(num){
 						} */
 					}
 				});
-				location.reload();
+				
+				
 	}
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
@@ -479,18 +488,74 @@ $(function(){
 	});
 
 </script>
+<script>
+	$(document).ready(function(){
+		//이미지 hover 효과
+		$('.sitterImg img').hover(function(){
+			$(this).css({"border":"5px solid #4d8638","cursor":"pointer"});
+			$(this).css("opacity","0.5");
+			var left = $(this).offset().left;
+			var top = $(this).offset().top;
+			$('#delete').html("<div style='position:absolute; width:100px; height:50px;'><h1>삭제</h1></div>")
+			$('#delete').css("left",left+65)
+			$('#delete').css("top",top+70)
+		},function(){
+			$(this).css("opacity","1");
+			$(this).css("border","");
+			$("#delete").html("")
+		});
+		
+		
+	 	$('.sitterImg img').click(function(){
+			var img = $(this);
+			var input = img.next('input[name=sitterImgFile]');
+			//var submit = input.next('.ps_imgSubmit');
+			input.trigger("click");
+			input.change(function(){
+					var fd = new FormData(input.parent(".sitterImgForm")[0]);
+					$.ajax({
+						url:"<c:url value='/sitterImgUpload'/>",
+						data:fd,
+						processData:false,
+						contentType:false,
+						type:'post',
+						dataType:"json",
+						success:function(data){
+						$("#ps_image").html("");
+							console.log(data)
+							img.prop("src",data.ps_saveimage);
+						}
+					});
+				//});
+			});
+		});
+		
+		
+	});
+
+</script>
 <div class="sitterPageContent">
 	<div class="petsitterPageMenu">
 		<div class="sitterImg">
-			<img src="<c:url value='resources/images/noprofile.png'/>">
+			<form class="sitterImgForm">
+			<c:choose>
+				<c:when test="${sessionScope.ps_saveimage eq null }">
+					<img src="<c:url value='/resources/images/noprofile.png'/>">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/upload/${sessionScope.ps_saveimage }'/>">	
+				</c:otherwise>
+			</c:choose>
+			<input type="file" name="sitterImgFile" style="display: none;">
+			</form>
 		</div>
 		<div class="reservationList">
 			<span><a href="<c:url value='/mypetsitter?page=list&dtld=reservation'/>">예약 관리</a></span>
 		</div>	
 		
-		<div class="order">
+		<!-- <div class="order">
 			<span><a href="<c:url value='/mypage/order'/>">주문목록/배송조회</a></span>
-		</div>	
+		</div> -->	
 		
 		<div class="petsitterInfoManage">
 			<span><a href="<c:url value='/psinfoSet?page=sitterInfo&dtld=psInfoSet'/>">펫시터 정보 관리</a></span>
@@ -584,21 +649,23 @@ $(function(){
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'reservationSet' }">
-								<form action="<c:url value='/disableSet'/>" method="post">
-								<p>날짜 설정</p>
-								<input type="hidden" id="calendar" name="disdate"><br>
-								<p>요일 설정</p>
-								<input type="checkbox" name="dayCheck" value="0">일
-								<input type="checkbox" name="dayCheck" value="1">월
-								<input type="checkbox" name="dayCheck" value="2">화
-								<input type="checkbox" name="dayCheck" value="3">수
-								<input type="checkbox" name="dayCheck" value="4">목
-								<input type="checkbox" name="dayCheck" value="5">금
-								<input type="checkbox" name="dayCheck" value="6">토<br>
-								<button type="submit" class="modifyBtn">
-									<label>설정하기</label>
-								</button>
-								</form>
+								<div class="calendarSet" style="width:290px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
+									<form action="<c:url value='/disableSet'/>" method="post">
+									<label style="font-size: 18px;">날짜 설정</label><br>
+									<input type="hidden" id="calendar" name="disdate" style="width:307px;"><br>
+									<label style="font-size: 18px;">요일 설정</label><br>
+									<input type="checkbox" name="dayCheck" value="0">일
+									<input type="checkbox" name="dayCheck" value="1">월
+									<input type="checkbox" name="dayCheck" value="2">화
+									<input type="checkbox" name="dayCheck" value="3">수
+									<input type="checkbox" name="dayCheck" value="4">목
+									<input type="checkbox" name="dayCheck" value="5">금
+									<input type="checkbox" name="dayCheck" value="6">토<br>
+									<button type="submit" class="modifyBtn">
+										<label>설정하기</label>
+									</button>
+									</form>
+								</div>
 							</c:when>
 						</c:choose>
 					</div>
@@ -693,11 +760,15 @@ $(function(){
 										</div>
 										
 									</div>
-										<div class="subwaySet">
+										<div class="subwaySet" style="float:left; width:300px; ">
 											<label>인근 지하철역</label><br>
 											<input type="text" name="subway" value="${optionVo.po_subway }">
 										</div>
-									<div class="modifyBtnBox">
+										<div class="subwaySet" style="">
+											<label>검색 리스트에 출력하기</label><br>
+											<input type="checkbox" name="ps_active" id="ps_active" value="1">검색리스트에 출력
+										</div>
+									<div class="modifyBtnBox" >
 									<button type="submit" class="modifyBtn2">
 										<label>설정하기</label>
 									</button>
@@ -798,7 +869,7 @@ $(function(){
 					<c:when test="${dtld eq 'petInsert' }">
 						<div class="petInsert">
 							<div class="petInsertContent">
-								<form method="post" action="<c:url value='petInfo'/>">
+								<form method="post" action="<c:url value='petInfo'/>" enctype="multipart/form-data">
 								<div class="queBox">
 									<span class="que">Q.현재 반려동물을 키우고 있습니까?</span><br>
 									<input type="radio" name="pi_gubun" value="1" checked="checked">현재 키우고 있음<br>
@@ -937,7 +1008,7 @@ $(function(){
 										</div>
 										<div>
 										<label>자기 소개</label><br>
-										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required">
+										 <input name='ps_content' id="ps_content" type='text' value="${sitterVo.ps_content }" required="required" style="width:100%">
 										</div>
 										<input type="hidden" id="ps_lat" name="ps_lat" value="${sitterVo.ps_lat }"/>
 	    								<input type="hidden" id="ps_lng" name="ps_lng" value="${sitterVo.ps_lng }"/>
@@ -967,13 +1038,13 @@ $(function(){
 							<c:when test="${dtld eq 'leave' }">
 								<div>
 									<form action="<c:url value='/petsitterLeave'/>" method="post" onsubmit="return checkIt();">
-										<div>
+										<div class="leaveBox" style="width:600px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
 											회원 탈퇴 시 해당 아이디로의 재가입이 불가합니다. 돌보미의 경우 보유하고 계신 수익금과 관련된 이력이 모두 삭제되며 진행중인 의뢰에 대해서는 취소 또는 완료가 된 후에 탈퇴해야 합니다. 
 	이를 지키지 않아 발생하는 문제에 대한 책임은 회원 본인에게 있으니 신중하게 결정해 주시기 바랍니다. 
 	
 	탈퇴 후에도 서비스에 등록한 후기는 자동으로 삭제되지 않으며 그대로 남아 있습니다. 삭제를 원하시는 게시글이 있다면 반드시 탈퇴 전에 삭제를 요청해 주시기 바랍니다. 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 후기글을 임의로 삭제해 드릴 수 없습니다.
 											<br><br>
-											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br>
+											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br><br>
 										 <div class="modifyBtnBox">
 										<button type="submit" class="modifyBtn2">
 											<label>탈퇴하기</label>

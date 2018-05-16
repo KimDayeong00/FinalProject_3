@@ -48,4 +48,19 @@ public class PetSitterServiceImpl implements PetSitterService{
 	public int deletePetsitter(String ps_email) {
 		return petsitterDao.deletePetsitter(ps_email);
 	}
+
+	@Override
+	public int updateActiveOn(String ps_email) {
+		return petsitterDao.updateActiveOn(ps_email);
+	}
+
+	@Override
+	public int updateActiveOff(String ps_email) {
+		return petsitterDao.updateActiveOff(ps_email);
+	
+	}
+	@Override
+	public int sitterImgUpload(HashMap<String, Object> map) {
+		return petsitterDao.sitterImgUpload(map);
+	}
 }

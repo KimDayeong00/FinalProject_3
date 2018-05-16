@@ -2,6 +2,7 @@ package com.jhta.project.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,9 @@ public class QnaService {
 	public int qnadelete(int qnum) {
 		return dao.qnadelete(qnum);
 	}
+	public int admindelete(int qnum) {
+		return dao.admindelete(qnum);
+	}
 	
 	public int maxnum() {
 		return dao.maxnum();
@@ -69,4 +73,17 @@ public class QnaService {
 	public int adminqnainsert(AdminqnaVo vo) {
 		return dao.adminqnainsert(vo);
 	}
+	
+	public QnaVo detailone(int qnum) {
+		return dao.detailone(qnum);
+	}
+	public AdminqnaVo admindetail(int qnum) {
+		return dao.admindetail(qnum);
+	}
+	
+	public AdminqnaVo qnaStatus(AdminqnaVo vo) {
+		return dao.qnaStatus(vo);
+	}
+	
+	
 }

@@ -1,6 +1,5 @@
 @charset "UTF-8";
 .wrap1 {
-  background: #000 url("https://i.pinimg.com/originals/05/80/f5/0580f543078e34af8c47b12288b79ace.jpg") no-repeat center center;
   display: flex;
   justify-content: center;
   padding: 50px;

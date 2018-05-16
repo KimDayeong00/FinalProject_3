@@ -26,7 +26,7 @@ $(function(){
 		
 	},function(){
 	
-		$("#imgbox img").attr("src","<c:url value='/resources/itemimage/${iteminfo.image_name}'/>");
+		$("#imgbox img").attr("src","<c:url value='/resources/upload/${iteminfo.image_name}'/>");
 		$(this).css('border','1px solid #d3d3d3')
 	
 	});
@@ -38,28 +38,27 @@ function Comma(x) {
 }
 
 function cart(){
-	var id = '<%= session.getAttribute("login") %>';
-	if(id == "null"){
-		alert("로그인 하셔야 이용가능합니다");
-		location.href="<c:url value='/login' />";
-	}else{
-	 form=document.getElementById("info");
-	form.action="<c:url value='/shop/cart'/>";
-	form.submit(); 
+	   var id = '<%= session.getAttribute("login") %>';
+	   if(id == "null"){
+	      alert("로그인 하셔야 이용가능합니다");
+	      location.href="<c:url value='/login' />";
+	   }else{
+	    form=document.getElementById("info");
+	   form.action="<c:url value='/shop/cart'/>";
+	   form.submit(); 
+	   }
 	}
-}
-
 function buy(){
-	var id = '<%= session.getAttribute("login") %>';
-	if(id == "null"){
-		alert("로그인 하셔야 이용가능합니다");
-		location.href="<c:url value='/login' />";
-	}else{
-	form=document.getElementById("info");
-	form.action="<c:url value='/shop/buy'/>";
-	form.submit();
+	   var id = '<%= session.getAttribute("login") %>';
+	   if(id == "null"){
+	      alert("로그인 하셔야 이용가능합니다");
+	      location.href="<c:url value='/login' />";
+	   }else{
+	   form=document.getElementById("info");
+	   form.action="<c:url value='/shop/buy'/>";
+	   form.submit();
+	   }
 	}
-}
 
 
 </script>
@@ -68,7 +67,7 @@ function buy(){
 		<div id="imglist" style="float:left; margin-right: 25px;">
 		<ul>
 				<c:forEach var="imglist" items="${imglist }">
-				 <li style="margin-bottom:10px; border: 1px solid #d3d3d3;width:40px; height:40px;"><a href="#" ><img src="<c:url value='/resources/itemimage/${imglist.item_savefilename }'/>" width="40" height="40" ></a></li>
+				 <li style="margin-bottom:10px; border: 1px solid #d3d3d3;width:40px; height:40px;"><a href="#" ><img src="<c:url value='/resources/upload/${imglist.item_savefilename }'/>" width="40" height="40" ></a></li>
                
 				</c:forEach>
     </ul>
@@ -77,7 +76,7 @@ function buy(){
             			        
 		<div id="imgbox"  style="float: left; margin-right: 25px;">
 			<img style="width: 470px; height: 470px;" id="img"
-				src="<c:url value='/resources/itemimage/${iteminfo.image_name }'/>">
+				src="<c:url value='/resources/upload/${iteminfo.image_name }'/>">
 		</div>
 
 		<div id="infobox"  style="padding-left: 100px;" >

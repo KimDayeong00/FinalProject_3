@@ -8,6 +8,7 @@ public class OrderJoinVo {
 	private String m_email;
 	private Date buy_date;
 	private int buy_num;
+	private String accprice;
 	private List<OrderItemVo> list;
 
 
@@ -16,8 +17,8 @@ public OrderJoinVo() {}
 
 @Override
 public String toString() {
-	return "OrderJoinVo [m_email=" + m_email + ", buy_date=" + buy_date + ", buy_num=" + buy_num + ", list=" + list
-			+ "]";
+	return "OrderJoinVo [m_email=" + m_email + ", buy_date=" + buy_date + ", buy_num=" + buy_num + ", accprice="
+			+ accprice + ", list=" + list + "]";
 }
 
 
@@ -51,6 +52,16 @@ public void setBuy_num(int buy_num) {
 }
 
 
+public String getAccprice() {
+	return accprice;
+}
+
+
+public void setAccprice(String accprice) {
+	this.accprice = accprice;
+}
+
+
 public List<OrderItemVo> getList() {
 	return list;
 }
@@ -61,14 +72,14 @@ public void setList(List<OrderItemVo> list) {
 }
 
 
-public OrderJoinVo(String m_email, Date buy_date, int buy_num, List<OrderItemVo> list) {
+public OrderJoinVo(String m_email, Date buy_date, int buy_num, String accprice, List<OrderItemVo> list) {
 	super();
 	this.m_email = m_email;
 	this.buy_date = buy_date;
 	this.buy_num = buy_num;
+	this.accprice = accprice;
 	this.list = list;
 }
-
 
 
 

@@ -5,7 +5,7 @@
 <mapper namespace="com.jhta.mybatis.QnaMapper">
 
 	<select id = "qnalist" resultType = "qnavo">
-		select * from qna order by refer desc, step asc
+		select * from qna order by comments desc,regdate desc
 	</select>
 
 
@@ -27,22 +27,14 @@
 		  (
 		    select * from qna 
 		    <include refid="search"/>
-		    order by refer desc, step asc
+		    order by qnum desc, refer desc, step asc
 		  )aa
 	  )
 	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
 	</select>
 	<select id="list" parameterType="hashmap" resultType="qnavo">
-	  select * from
-	  (
-		  select aa.*,rownum rnum from
-		  (
-		    select * from qna 
-		    where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email}))
-		    order by refer desc, step asc
-		  )aa
-	  )
-	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]> 
+	  select * from qna where m_email = #{m_email} order by regdate 
+<!-- 	 <![CDATA[ where  rnum>=#{startRow} and rnum<=#{endRow}  ]]>  -->
 	</select>
 	<!-- 이전글 -->
 	<select id="prev" parameterType="int" resultType="qnavo">
@@ -67,7 +59,7 @@
 		select * from item where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
 	</select>
 	<insert id = "insert" parameterType = "qnavo">
-		insert into qna values(#{qnum}, #{title}, #{content}, sysdate, 0, #{refer}, #{lev}, #{step}, #{p_num}, '처리중')
+		insert into qna values(#{qnum}, #{title}, #{content}, sysdate, 0, #{refer}, #{lev}, #{step}, #{p_num}, '처리중', #{m_email})
 	</insert>
 	<select id = "qnagetinfo" parameterType = "int" resultType = "qnavo">
 		select * from qna where p_num = #{p_num}
@@ -76,7 +68,10 @@
 		select * from qna where p_num in(select p_num from orderitemlist where buy_num in(select buy_num from payboard where m_email = #{m_email})) order by REGDATE desc
 	</select>
 	<delete id="qnadelete" parameterType="int">
-"src/main/webapp/WEB-INF/views/petsitter_mypage"		delete from qna where qnum = #{qnum}
+		delete from qna where qnum = #{qnum}
+	</delete>
+	<delete id="admindelete" parameterType="int">
+		delete from adminqna where qnum = #{qnum}
 	</delete>
 	
 	<select id = "maxnum" resultType="int">
@@ -91,9 +86,25 @@
 		select * from adminqna
 	</select>
 	
+	
+	<select id="qnaStatus" parameterType="adminqna" resultType="adminqna">
+	select a. AQCOMMENTS aqtitle, b.content aqcontent from adminqna a join qna b on a.qnum = b.qnum where b.qnum=#{aqnum} and m_email = #{aqtitle}
+	</select>
+	
+	
 	<insert id="adminqnainsert" parameterType="adminqnavo">
 		insert into adminqna values(SEQ_ADMINQNA_AQNUM.nextval, #{aqtitle}, #{aqcontent}, sysdate, 0, #{aqrefer}, #{aqlev}, #{aqstep}, #{aqcomments}, #{qnum})
 	</insert>
+	
+	<select id = "detailone" parameterType="int" resultType="qnavo">
+		select * from qna where qnum = #{qnum}
+	</select> 
+	
+	<select id = "admindetail" parameterType="int" resultType="adminqnavo">
+		select * from adminqna where qnum = #{qnum}
+	</select>
+	
+	
 	
 	
 	

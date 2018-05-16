@@ -8,11 +8,14 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jhta.project.service.QnaService;
 import com.jhta.project.service.adminService;
 import com.jhta.project.vo.PetSitterVo;
+import com.jhta.project.vo.QnaVo;
 import com.jhta.project.vo.memberVO;
 import com.jhta.project.vo.payVO;
 
@@ -21,11 +24,17 @@ public class adminController {
 
 	@Autowired
 	private adminService service;
+	@Autowired 
+	private QnaService qservice;
 
 	@RequestMapping("/admin/home")
-	public String home() {
-		System.out.println("��ó�� ����");
-		return ".admin";
+	public String home(Model mv) {
+		List<QnaVo> list = qservice.qnaList();
+		/*for(QnaVo vo = list) {
+			System.out.println("이곳이다 : "+vo.);
+		}*/
+		mv.addAttribute("adminlist", list);
+		return ".admin.main.calc";
 	}
 
 	@RequestMapping("/admin/calc")
