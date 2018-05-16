@@ -182,6 +182,7 @@ $(document).ready(function(){
 							<c:when test="${dtld eq 'accountUpdate' }">
 								<div class="accountContent">
 									<form method="post" action="<c:url value='my_account'/>">
+										<br>
 										<div>
 										<label>이메일</label><br>
 										<input type="email" name="m_email" id="m_email" value="${memberVo.m_email }" style="width:100%" readonly="readonly">
@@ -209,6 +210,7 @@ $(document).ready(function(){
 							<c:when test="${dtld eq 'pwdUpdate' }">
 								<div class="accountContent">
 									<form name="f" method="post" onsubmit="return sendIt();" action="<c:url value="/my_pwdUpdate" />">
+									<br>
 									<div>
 										<label>새 비밀번호</label><br>
 									 	<input name='m_pwd' id="m_pwd" type='password' required="required" style="width:100%"><br>

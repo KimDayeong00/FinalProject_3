@@ -92,13 +92,14 @@ public class PetsitterPageController {
 		
 		for(int i=0;i<pbookList.size();i++) {
 			PetsitterBookVo vo= pbookList.get(i);
+			System.out.println("numberdkfajlsd:"+vo.getBk_num());
 			List<MpetInfoVo> mpetList = bookService.getBpet(vo.getBk_num());
-			MpetInfoVo mpetVo = mpetList.get(0);
-			String pi_name = mpetVo.getPi_name();
-			int count = bookService.getBpetCnt(vo.getBk_num());
-			BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
-					vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
-			list.add(bookList);
+				MpetInfoVo mpetVo = mpetList.get(0);
+				String pi_name = mpetVo.getPi_name();
+				int count = bookService.getBpetCnt(vo.getBk_num());
+				BookListVo bookList = new BookListVo(vo.getBk_num(), vo.getBk_startdate(), vo.getBk_enddate(), vo.getBk_situation(),
+						vo.getM_email(),vo.getM_name(),vo.getPs_email(),vo.getPs_name(),count,pi_name,vo.getBk_content());
+				list.add(bookList);
 			
 		}
 		

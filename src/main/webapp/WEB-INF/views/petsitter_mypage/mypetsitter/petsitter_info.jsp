@@ -649,21 +649,23 @@ $(function(){
 								</div>
 							</c:when>
 							<c:when test="${dtld eq 'reservationSet' }">
-								<form action="<c:url value='/disableSet'/>" method="post">
-								<p>날짜 설정</p>
-								<input type="hidden" id="calendar" name="disdate"><br>
-								<p>요일 설정</p>
-								<input type="checkbox" name="dayCheck" value="0">일
-								<input type="checkbox" name="dayCheck" value="1">월
-								<input type="checkbox" name="dayCheck" value="2">화
-								<input type="checkbox" name="dayCheck" value="3">수
-								<input type="checkbox" name="dayCheck" value="4">목
-								<input type="checkbox" name="dayCheck" value="5">금
-								<input type="checkbox" name="dayCheck" value="6">토<br>
-								<button type="submit" class="modifyBtn">
-									<label>설정하기</label>
-								</button>
-								</form>
+								<div class="calendarSet" style="width:290px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
+									<form action="<c:url value='/disableSet'/>" method="post">
+									<label style="font-size: 18px;">날짜 설정</label><br>
+									<input type="hidden" id="calendar" name="disdate" style="width:307px;"><br>
+									<label style="font-size: 18px;">요일 설정</label><br>
+									<input type="checkbox" name="dayCheck" value="0">일
+									<input type="checkbox" name="dayCheck" value="1">월
+									<input type="checkbox" name="dayCheck" value="2">화
+									<input type="checkbox" name="dayCheck" value="3">수
+									<input type="checkbox" name="dayCheck" value="4">목
+									<input type="checkbox" name="dayCheck" value="5">금
+									<input type="checkbox" name="dayCheck" value="6">토<br>
+									<button type="submit" class="modifyBtn">
+										<label>설정하기</label>
+									</button>
+									</form>
+								</div>
 							</c:when>
 						</c:choose>
 					</div>
@@ -1036,13 +1038,13 @@ $(function(){
 							<c:when test="${dtld eq 'leave' }">
 								<div>
 									<form action="<c:url value='/petsitterLeave'/>" method="post" onsubmit="return checkIt();">
-										<div>
+										<div class="leaveBox" style="width:600px;vertical-align: middle;margin: 0 auto;padding-top: 20px;">
 											회원 탈퇴 시 해당 아이디로의 재가입이 불가합니다. 돌보미의 경우 보유하고 계신 수익금과 관련된 이력이 모두 삭제되며 진행중인 의뢰에 대해서는 취소 또는 완료가 된 후에 탈퇴해야 합니다. 
 	이를 지키지 않아 발생하는 문제에 대한 책임은 회원 본인에게 있으니 신중하게 결정해 주시기 바랍니다. 
 	
 	탈퇴 후에도 서비스에 등록한 후기는 자동으로 삭제되지 않으며 그대로 남아 있습니다. 삭제를 원하시는 게시글이 있다면 반드시 탈퇴 전에 삭제를 요청해 주시기 바랍니다. 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 후기글을 임의로 삭제해 드릴 수 없습니다.
 											<br><br>
-											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br>
+											<input type="checkbox" id="agree">안내 사항을 모두 확인하였으며, 이에 동의합니다.<br><br>
 										 <div class="modifyBtnBox">
 										<button type="submit" class="modifyBtn2">
 											<label>탈퇴하기</label>
