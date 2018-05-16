@@ -548,7 +548,7 @@
 					</c:forEach>
 					<br><br>
 					<c:forEach var="vo3" items="${petList }">
-						<div class="petImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>">
+						<div class="petImg"><img src="<c:url value='/resources/upload/${vo3.pi_savefilename }'/>">
 						<span class="petName">${vo3.pi_name }</span>
 						<span class="petInfo">(${vo3.pi_type }, ${vo3.pi_sex }, ${vo3.pi_age }살)</span>
 						</div>

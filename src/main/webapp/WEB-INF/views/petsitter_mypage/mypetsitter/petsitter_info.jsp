@@ -787,7 +787,7 @@ $(function(){
 											middle; float:left; margin:3px; width:200px;height:200px;
 											background-size: 100%; background-position: center; 
 											background-size: cover;
-											background-image: url(<c:url value='/resources/petimage/${img.pimg_savefilename}' />);">
+											background-image: url(<c:url value='/resources/upload/${img.pimg_savefilename}' />);">
 									</div>
 											<!-- <input type="submit" class="ps_imgSubmit"> -->
 									</div>
@@ -852,7 +852,7 @@ $(function(){
 						<c:if test="${null ne ppetList}">
 								<c:forEach var="vo3" items="${ppetList }">
 								<div class="ppetInfo">
-									<div class="ppetImg"><img src="<c:url value='/resources/images/${vo3.pi_savefilename }'/>"></div>
+									<div class="ppetImg"><img src="<c:url value='/resources/upload/${vo3.pi_savefilename }'/>"></div>
 									<div class="ppetInfoName">
 										<span><a href="<c:url value='/PpetDetail?page=petInfo&dtld=petDetail&pi_num=${vo3.pi_num }'/>">${vo3.pi_name }</a></span><br>
 										<span>(${vo3.pi_type },${vo3.pi_sex },${vo3.pi_age }살)</span><br>
